@@ -1,2 +1,29 @@
+{% load static %} 
+<link rel="stylesheet" href="{% static 'js/app.js' %}">
+
+<script>
+  const options = {
+  usageStatistics: false
+}
+
+const Editor = require('tui-editor'); 
+
+import * as Editor from 'tui-editor';
+
+const instance = new Editor({
+  el: document.querySelector('#editorSection'),
+  initialEditType: 'markdown',
+  previewStyle: 'vertical',
+  height: '300px',
+  options: options
+});
+
+instance.getHtml();
+
+</script>
+
+
 
 This is the builder page with some dynamic content {{ some_sample_text }}
+
+<div id="editorSection"></div>
