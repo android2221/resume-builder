@@ -17,9 +17,17 @@ def builder(request):
         resume.save()
     else:
         resume = resumes[0]
-    context = {'form': ResumeEditorForm, 'resumeid': resume.id}
+        form_data = {'content': resume.content, 'name': resume.name}
+    context = {'form': ResumeEditorForm(form_data), 'resumeid': resume.id}
     return render(request, 'builder/sampleform.html', context)
 
 def save(request, resumeid):
     if request.POST:
-        return HttpResponse("I HAVE BEEN POSTED: " + str(resumeid))
+        posted_form = ResumeEditorForm(request.POST)
+        if posted_form.is_valid():
+            form_data = posted_form.cleaned_data
+            resume = ResumeTextModel.objects.get(pk=resumeid)
+            resume.content = form_data["content"]
+            resume.name = form_data["name"]
+            resume.save()
+        return HttpResponse("I HAVE BEEN POSTED: " + str(form_data["name"]))
