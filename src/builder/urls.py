@@ -6,6 +6,5 @@ from .forms import ResumeEditorForm
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('builder', views.builder, name='builder'),
-    path('resume/<int:resumeid>/save/', views.save, name='save'),
+    path('builder', views.builder, name='builder')
 ]

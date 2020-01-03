@@ -9,7 +9,7 @@ migrations/
 uploads/
 
 # Byte-compiled / optimized / DLL files
-*_pycache__/
+*_pycache__/**
 *.py[cod]
 *$py.class
 

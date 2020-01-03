@@ -10,24 +10,25 @@ def index(request):
     return render(request, 'builder/index.html', context)
 
 def builder(request):
-    # We should only ever have one resume at a time per user
-    resumes = ResumeTextModel.objects.all()
-    if resumes.count() == 0:
-        resume = ResumeTextModel()
-        resume.save()
-    else:
-        resume = resumes[0]
-        form_data = {'content': resume.content, 'name': resume.name}
-    context = {'form': ResumeEditorForm(form_data), 'resumeid': resume.id}
-    return render(request, 'builder/sampleform.html', context)
-
-def save(request, resumeid):
+    # Save logic
     if request.POST:
         posted_form = ResumeEditorForm(request.POST)
         if posted_form.is_valid():
             form_data = posted_form.cleaned_data
-            resume = ResumeTextModel.objects.get(pk=resumeid)
+            resume = ResumeTextModel.objects.get(pk=form_data["resume_id"])
             resume.content = form_data["content"]
             resume.name = form_data["name"]
             resume.save()
-        return HttpResponse("I HAVE BEEN POSTED: " + str(form_data["name"]))
+    else:
+        # We should only ever have one resume at a time per user
+        resumes = ResumeTextModel.objects.all()
+        if resumes.count() == 0:
+            # Create a new form, this user doesn't have a resume
+            resume = ResumeTextModel()
+            resume.save()
+        else:
+            # This user has a form, bind the data
+            resume = resumes[0]
+    form_data = {'content': resume.content, 'name': resume.name, 'resume_id': resume.id}
+    context = {'form': ResumeEditorForm(form_data)}
+    return render(request, 'builder/builder.html', context)
