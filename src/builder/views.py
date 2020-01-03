@@ -1,9 +1,10 @@
 # from django.shortcuts import render
 # from django.http import HttpResponse
 
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from builder.forms import ResumeEditorForm
 from .models import ResumeTextModel
+from django.urls import reverse
 
 def index(request):
     context = {'some_sample_text': 'some sample i typed'}
@@ -19,6 +20,7 @@ def builder(request):
             resume.content = form_data["content"]
             resume.name = form_data["name"]
             resume.save()
+            return HttpResponseRedirect(reverse('builder'))
     else:
         # We should only ever have one resume at a time per user
         resumes = ResumeTextModel.objects.all()
