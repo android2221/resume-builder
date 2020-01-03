@@ -1,5 +1,7 @@
 const gulp = require('gulp');
 const babel = require('gulp-babel');
+// Use gulp-browserify to bundle if needed
+
  
 function buildFunc(done){
   console.log("Building");

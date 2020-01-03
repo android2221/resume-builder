@@ -5,11 +5,5 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {},
-  "dependencies": {
-    "@babel/core": "^7.7.7",
-    "@babel/preset-env": "^7.7.7",
-    "gulp": "^4.0.2",
-    "gulp-babel": "^8.0.0",
-    "tui-editor": "^1.4.10"
-  }
+  "dependencies": {}
 }
