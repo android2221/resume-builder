@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users.apps.UsersConfig'
 ]
 
 MDEDITOR_CONFIGS = {
@@ -66,7 +67,7 @@ MDEDITOR_CONFIGS = {
         'flow_chart': False,  # whether to open the flow chart function
         'sequence': False, # Whether to open the sequence diagram function
         'watch': True,  # Live preview
-        'lineWrapping': False,  # lineWrapping
+        'lineWrapping': True,  # lineWrapping
         'lineNumbers': False  # lineNumbers
     }
     
@@ -159,3 +160,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+AUTH_USER_MODEL = 'users.CustomUser'
