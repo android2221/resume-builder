@@ -2,13 +2,17 @@
 # from django.http import HttpResponse
 
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
-from builder.forms import ResumeEditorForm
+from builder.forms import ResumeEditorForm, UserRegistrationForm
 from .models import ResumeTextModel
 from django.urls import reverse
 
 def index(request):
     context = {'some_sample_text': 'some sample i typed'}
     return render(request, 'builder/index.html', context)
+
+def register_user(request):
+    context = {'form': UserRegistrationForm()}
+    return render(request, 'registration/register.html', context)
 
 def builder(request):
     # Save logic
