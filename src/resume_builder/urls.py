@@ -17,17 +17,12 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls.static import static
 from django.conf import settings
-from django.contrib.auth import views as auth_views
-from builder.views import register_user
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('app/', include('builder.urls')),
     path('mdeditor/', include('mdeditor.urls')),
-    path('account/login/', auth_views.LoginView.as_view()),
-    path('account/logout/', auth_views.LogoutView.as_view()),
-    path('account/password-reset/', auth_views.PasswordResetView.as_view()),
-    path('account/register/', register_user)
+    path('account/', include('accounts.urls'))
 ]
 
 if settings.DEBUG:

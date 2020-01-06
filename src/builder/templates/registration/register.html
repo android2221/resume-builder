@@ -1,1 +1,6 @@
-{{ form }}
+<form action="./" method="post">
+    {% csrf_token%}
+    {{ form }}
+    <p> <input type = "submit" value = "Save"> </p>
+</form>
+

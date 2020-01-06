@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'builder.apps.BuilderConfig',
+    'accounts.apps.AccountsConfig',
     'mdeditor',
     'django.contrib.admin',
     'django.contrib.auth',
