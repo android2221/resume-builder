@@ -17,7 +17,7 @@ def register_user(request):
             user.save()
             newaccount = Account(user=user, account_url=form_data["account_url"])
             newaccount.save()
-            return HttpResponse(user.account.account_url)
+            return HttpResponseRedirect(reverse('builder'))
         else:
             context = {'form': posted_form}
             return render(request, 'registration/register.html', context)
