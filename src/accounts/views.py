@@ -18,5 +18,8 @@ def register_user(request):
             newaccount = Account(user=user, account_url=form_data["account_url"])
             newaccount.save()
             return HttpResponse(user.account.account_url)
+        else:
+            context = {'form': posted_form}
+            return render(request, 'registration/register.html', context)
     context = {'form': UserRegistrationForm()}
     return render(request, 'registration/register.html', context)
