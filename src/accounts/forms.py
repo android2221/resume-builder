@@ -6,6 +6,13 @@ from django.core.exceptions import ObjectDoesNotExist
 class UserRegistrationForm(UserCreationForm):
     account_url = forms.CharField()
 
+    def __init__(self, *args, **kwargs):
+        super(UserRegistrationForm, self).__init__(*args, **kwargs)
+        # Making fields required
+        self.fields['email'].required = True
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+
     class Meta:
         model = User
         fields = {"email", "first_name", "last_name"}
