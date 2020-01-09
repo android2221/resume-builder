@@ -13,14 +13,9 @@ def register_user(request):
         posted_form = UserRegistrationForm(request.POST)
         if posted_form.is_valid():
             form_data = posted_form.cleaned_data
-            user = User.objects.create_user(form_data["email"], form_data["email"], form_data["password1"])
-            user.first_name = form_data["first_name"]
-            user.last_name = form_data["last_name"]
-            user.save()
-            newaccount = Account(user=user, account_url=form_data["account_url"])
-            newaccount.save()
-            newResume = ResumeTextModel(user=user, content="# Welcome!")
-            newResume.save()
+            user = create_user(form_data["email"], form_data["password1"], form_data["first_name"], form_data["last_name"])
+            create_account(user, form_data["account_url"])
+            create_resume(user)
             login(request, user)
             return HttpResponseRedirect(reverse('builder'))
         else:
@@ -28,3 +23,18 @@ def register_user(request):
             return render(request, 'registration/register.html', context)
     context = {'form': UserRegistrationForm()}
     return render(request, 'registration/register.html', context)
+
+def create_user(email, password, first_name, last_name):
+    user = User.objects.create_user(email, email, password)
+    user.first_name = first_name
+    user.last_name = last_name
+    user.save()
+    return user
+
+def create_account(user, url):
+    newaccount = Account(user=user, account_url=url)
+    newaccount.save()
+
+def create_resume(user):
+    newResume = ResumeTextModel(user=user, content="# Welcome!")
+    newResume.save()
