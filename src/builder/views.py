@@ -5,11 +5,13 @@ from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from builder.forms import ResumeEditorForm
 from .models import ResumeTextModel
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     context = {'some_sample_text': 'some sample i typed'}
     return render(request, 'builder/index.html', context)
 
+@login_required
 def builder(request):
     # Save logic
     if request.POST:
@@ -22,15 +24,7 @@ def builder(request):
             resume.save()
             return HttpResponseRedirect(reverse('builder'))
     else:
-        # We should only ever have one resume at a time per user
-        resumes = ResumeTextModel.objects.all()
-        if resumes.count() == 0:
-            # Create a new form, this user doesn't have a resume
-            resume = ResumeTextModel()
-            resume.save()
-        else:
-            # This user has a form, bind the data
-            resume = resumes[0]
-    form_data = {'content': resume.content, 'name': resume.name, 'resume_id': resume.id}
-    context = {'form': ResumeEditorForm(form_data)}
+        resume = request.user.resumetextmodel
+        form_data = {'content': resume.content}
+        context = {'form': ResumeEditorForm(form_data)}
     return render(request, 'builder/builder.html', context)

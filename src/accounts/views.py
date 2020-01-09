@@ -1,6 +1,8 @@
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from .models import Account
+from builder.models import ResumeTextModel
 from .forms import UserRegistrationForm
 from django.urls import reverse
 
@@ -17,6 +19,9 @@ def register_user(request):
             user.save()
             newaccount = Account(user=user, account_url=form_data["account_url"])
             newaccount.save()
+            newResume = ResumeTextModel(user=user, content="# Welcome!")
+            newResume.save()
+            login(request, user)
             return HttpResponseRedirect(reverse('builder'))
         else:
             context = {'form': posted_form}

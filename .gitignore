@@ -8,6 +8,9 @@ node_modules/
 migrations/
 uploads/
 
+#postgres
+pgdata/
+
 # Byte-compiled / optimized / DLL files
 *_pycache__/**
 *.py[cod]

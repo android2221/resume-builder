@@ -6,8 +6,10 @@
 
     </head>
     <body>
+        <a href="{% url 'logout' %}">logout</a></li>
         <form method = "post" action="{% url 'builder'%}">
             {% csrf_token%}
+            {{request.user}}
             {{form.media}}
             {{form.as_p}}
             <p> <input type = "submit" value = "Save"> </p>
