@@ -20,7 +20,6 @@ def builder(request):
             form_data = posted_form.cleaned_data
             resume = ResumeTextModel.objects.get(pk=form_data["resume_id"])
             resume.content = form_data["content"]
-            resume.name = form_data["name"]
             resume.save()
             return HttpResponseRedirect(reverse('builder'))
     else:
