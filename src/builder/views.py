@@ -3,7 +3,7 @@
 
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from builder.forms import ResumeEditorForm
-from .models import ResumeTextModel
+from .models import Resume
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
@@ -18,12 +18,12 @@ def builder(request):
         posted_form = ResumeEditorForm(request.POST)
         if posted_form.is_valid():
             form_data = posted_form.cleaned_data
-            resume = ResumeTextModel.objects.get(pk=form_data["resume_id"])
+            resume = Resume.objects.get(pk=form_data["resume_id"])
             resume.content = form_data["content"]
             resume.save()
             return HttpResponseRedirect(reverse('builder'))
     else:
-        resume = request.user.resumetextmodel
+        resume = request.user.resume
         form_data = {'content': resume.content}
         context = {'form': ResumeEditorForm(form_data)}
     return render(request, 'builder/builder.html', context)
