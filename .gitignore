@@ -12,7 +12,7 @@ uploads/
 pgdata/
 
 # Byte-compiled / optimized / DLL files
-*_pycache__/**
+__pycache__/
 *.py[cod]
 *$py.class
 

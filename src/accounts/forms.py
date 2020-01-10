@@ -32,18 +32,15 @@ def check_duplicate_username(email):
     try:
         user = User.objects.get(username=email)
         if (user is not None):
-            print("found user")
             return True
     except ObjectDoesNotExist:
         return False
 
 def check_duplicate_profile_url(url):
     try:
-        print("getting account")
         account = Account.objects.get(profile_url=url)
         if (account is not None):
             return True
     except ObjectDoesNotExist:
-        print("no account found")
         return False
 

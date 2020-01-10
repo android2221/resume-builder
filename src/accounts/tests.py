@@ -35,6 +35,7 @@ class RegistrationViewTests(TestCase):
         response = self.client.post(reverse("register"), form_data)
         self.assertFormError(response, "form", "profile_url", constants.ERROR_DUPLICATE_PROFILE_URL)
 
+
 # Not POSTING should just load registration page
  # register user should create account
  # "" should create resume
