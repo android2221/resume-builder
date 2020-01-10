@@ -14,7 +14,7 @@ def register_user(request):
         posted_form = UserRegistrationForm(request.POST)
         if posted_form.is_valid():
             form_data = posted_form.cleaned_data
-            user = create_user(form_data["email"], form_data["password1"], form_data["first_name"], form_data["last_name"])
+            user = User.objects.create_user(form_data["email"], form_data["email"], form_data["password1"])
             create_account(user, form_data["profile_url"])
             create_resume(user)
             login(request, user)

@@ -3,41 +3,44 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from . import constants
 from .models import Account
+from builder.models import ResumeTextModel
+from .forms import UserRegistrationForm
 
 class RegistrationViewTests(TestCase):
-    def test_get_shouldreturn(self):
-        response = self.client.get(reverse("register"), {})
-        self.assertEqual(response.status_code, 200)
-
-    def test_duplicate_username_should_return_error(self):
-        User.objects.create_user("foo@bar.com", "foo@bar.com", "fakepassword")
-        form_data = {
+    form_data = {
             "email": "foo@bar.com", 
-            "password1": "fakepassword",
+            "password1": "MRq%z393$SSUvSc",
+            "password2": "MRq%z393$SSUvSc",
             "first_name": "test", 
             "last_name": "tester",
             "profile_url": "foo"
         }
-        response = self.client.post(reverse("register"), form_data)
+
+    def test_load_registration_page_on_get(self):
+        response = self.client.get(reverse("register"))
+        self.assertEqual(response.status_code, 200)
+
+    def test_registration_post_should_create(self):
+        self.client.post(reverse("register"), self.form_data)
+        user = User.objects.get(username=self.form_data["email"])
+        self.assertIsInstance(user.account, Account)
+        self.assertIsInstance(user.resumetextmodel, ResumeTextModel)
+
+    def test_duplicate_username_should_return_error(self):
+        User.objects.create_user("foo@bar.com", "foo@bar.com", "fakepassword")
+        response = self.client.post(reverse("register"), self.form_data)
         self.assertFormError(response, "form", "email", constants.ERROR_DUPLICATE_EMAIL)
 
     def test_duplicate_profileurl_should_return_error(self):
         user = User.objects.create_user("foo@bar.com", "foo@bar.com", "fakepassword")
         account = Account(user=user, profile_url="foo")
         account.save()
-        form_data = {
-            "email": "foo@bar.com", 
-            "password1": "fakepassword",
-            "first_name": "test", 
-            "last_name": "tester",
-            "profile_url": "foo"
-        }
-        response = self.client.post(reverse("register"), form_data)
+        response = self.client.post(reverse("register"), self.form_data)
         self.assertFormError(response, "form", "profile_url", constants.ERROR_DUPLICATE_PROFILE_URL)
 
 
-# Not POSTING should just load registration page
  # register user should create account
+ # all fields are set
  # "" should create resume
 # success should take me to builder
 
