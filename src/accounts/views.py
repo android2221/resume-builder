@@ -5,6 +5,7 @@ from .models import Account
 from builder.models import ResumeTextModel
 from .forms import UserRegistrationForm
 from django.urls import reverse
+from . import constants
 
 # Create your views here.
 def register_user(request):
@@ -36,5 +37,5 @@ def create_account(user, url):
     newaccount.save()
 
 def create_resume(user):
-    newResume = ResumeTextModel(user=user, content="# Welcome!")
+    newResume = ResumeTextModel(user=user, content=constants.MARKDOWN_WELCOME)
     newResume.save()

@@ -35,8 +35,16 @@ class RegistrationViewTests(TestCase):
         response = self.client.post(reverse("register"), form_data)
         self.assertFormError(response, "form", "profile_url", constants.ERROR_DUPLICATE_PROFILE_URL)
 
-
-
-# profile url can only be url compliant
+# Not POSTING should just load registration page
  # register user should create account
  # "" should create resume
+# success should take me to builder
+
+# invalid form should return to form partially filled out w/ errors (this is already sorta covered)
+ # profile url can only be url compliant, block on backend and frontend REGEX: ^[a-zA-Z\d-_]+$  
+
+
+ ## BUILDER TESTS
+ # should load my resume only
+ # not logged in should return to login
+ # saving works

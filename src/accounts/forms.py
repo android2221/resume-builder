@@ -1,12 +1,12 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Account
 from django.core.exceptions import ObjectDoesNotExist
+from .models import Account
 from . import constants
 
 class UserRegistrationForm(UserCreationForm):
-    profile_url = forms.CharField()
+    profile_url = forms.CharField(help_text=constants.FORM_PROFILE_URL_REQUIREMENTS)
 
     def __init__(self, *args, **kwargs):
         super(UserRegistrationForm, self).__init__(*args, **kwargs)
@@ -17,7 +17,7 @@ class UserRegistrationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = {"email", "first_name", "last_name"}
+        fields = ("email", "first_name", "last_name")
 
     def clean(self):
         cleaned_data = self.cleaned_data
