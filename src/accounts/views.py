@@ -14,7 +14,7 @@ def register_user(request):
         if posted_form.is_valid():
             form_data = posted_form.cleaned_data
             user = create_user(form_data["email"], form_data["password1"], form_data["first_name"], form_data["last_name"])
-            create_account(user, form_data["account_url"])
+            create_account(user, form_data["profile_url"])
             create_resume(user)
             login(request, user)
             return HttpResponseRedirect(reverse('builder'))
@@ -32,7 +32,7 @@ def create_user(email, password, first_name, last_name):
     return user
 
 def create_account(user, url):
-    newaccount = Account(user=user, account_url=url)
+    newaccount = Account(user=user, profile_url=url)
     newaccount.save()
 
 def create_resume(user):
