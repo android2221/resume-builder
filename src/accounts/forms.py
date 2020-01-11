@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Account
 from . import constants
+from . import patterns
+import re
 
 class UserRegistrationForm(UserCreationForm):
     profile_url = forms.CharField(help_text=constants.FORM_PROFILE_URL_REQUIREMENTS)
@@ -22,9 +24,12 @@ class UserRegistrationForm(UserCreationForm):
     def clean(self):
         cleaned_data = self.cleaned_data
         is_username_duplicate = check_duplicate_username(cleaned_data["email"])
+        profile_url_result = check_profile_url(cleaned_data["profile_url"])
         is_profile_url_duplicate = check_duplicate_profile_url(cleaned_data["profile_url"])
         if is_username_duplicate:
             self.add_error("email", constants.ERROR_DUPLICATE_EMAIL)
+        if profile_url_result == False:
+            self.add_error("profile_url", constants.FORM_PROFILE_URL_REQUIREMENTS)
         if is_profile_url_duplicate:
             self.add_error("profile_url", constants.ERROR_DUPLICATE_PROFILE_URL)
 
@@ -43,4 +48,11 @@ def check_duplicate_profile_url(url):
             return True
     except ObjectDoesNotExist:
         return False
+
+def check_profile_url(profile_url):
+    pattern = re.compile(patterns.PROFILE_URL_PATTERN)
+    match = pattern.match(profile_url)
+    if match is None:
+        return False
+    return True
 
