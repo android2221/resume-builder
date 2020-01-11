@@ -1,9 +1,11 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.urls import reverse
+from django.contrib.auth import login
 from django.contrib.auth.models import User
 from . import constants
 from .models import Account
 from builder.models import Resume
+from builder.views import builder as builderView
 from .forms import UserRegistrationForm
 
 class RegistrationViewTests(TestCase):
@@ -105,13 +107,41 @@ class RegistrationFormTests(TestCase):
             form = UserRegistrationForm(data=form_data)
             self.assertFalse(form.is_valid())
 
+class ResumeBuilderViewTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user("foo@bar.com", "foo@bar.com", "paas09df2@")
+        self.resume_content = "initial content"
+        resume = Resume(user=self.user)
+        resume.content = self.resume_content
+        resume.save()
+        account = Account(user=self.user)
+        account.save()
+        self.authedClient = Client()
+        self.authedClient.force_login(self.user)
+
+    def test_login_required_redirect_works(self):
+        response = self.client.get(reverse("builder"))
+        self.assertRedirects(response, "/account/login/?next=/builder/")
+    
+    def test_can_load_builder_after_login(self):
+        response = self.authedClient.get(reverse("builder"))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(self.resume_content, str(response.content))
+
+    def test_save_resume_works(self):
+        form_data = {
+            "content": "# My test thing"
+        }
+        response = self.authedClient.post(reverse("builder"), form_data)
+        self.assertRedirects(response, reverse("builder"))
+
 
 ## Password flow tests
 # login/ logout redirects etc
 
  ## BUILDER TESTS
- # should load my resume only
- # not logged in should return to login
- # can't access someone elses resume
- # publishing -> don't display if 'publish' isn't turned on and the converse
- # saving works
+  # publishing -> don't display if 'publish' isn't turned on and the converse
+
+ # can't access someone elses resume edit page should load my resume only
+
+ # resume pages that aren't public don't load

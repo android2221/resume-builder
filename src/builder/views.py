@@ -18,12 +18,15 @@ def builder(request):
         posted_form = ResumeEditorForm(request.POST)
         if posted_form.is_valid():
             form_data = posted_form.cleaned_data
-            resume = Resume.objects.get(pk=form_data["resume_id"])
+            resume = request.user.resume
             resume.content = form_data["content"]
             resume.save()
-            return HttpResponseRedirect(reverse('builder'))
+            return HttpResponseRedirect("")
     else:
         resume = request.user.resume
         form_data = {'content': resume.content}
         context = {'form': ResumeEditorForm(form_data)}
     return render(request, 'builder/builder.html', context)
+
+def resume(request, profile_url):
+    return render(request, 'builder/resume.html', {"profile_url": profile_url})

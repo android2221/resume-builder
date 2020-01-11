@@ -5,6 +5,5 @@ from . import views
 from .forms import ResumeEditorForm
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('builder', views.builder, name='builder')
+    path('', views.builder, name='builder')
 ]
