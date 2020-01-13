@@ -6,6 +6,7 @@ from builder.forms import ResumeEditorForm
 from .models import Resume
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
 def index(request):
     context = {'some_sample_text': 'some sample i typed'}
@@ -21,12 +22,16 @@ def builder(request):
             resume = request.user.resume
             resume.content = form_data["content"]
             resume.save()
-            return HttpResponseRedirect("")
+            return HttpResponseRedirect(reverse("builder"))
     else:
         resume = request.user.resume
         form_data = {'content': resume.content}
-        context = {'form': ResumeEditorForm(form_data)}
+        context = {'form': ResumeEditorForm(form_data), 'site_url': settings.SITE_URL}
     return render(request, 'builder/builder.html', context)
+
+@login_required
+def toggle_resume_active(request):
+    print(request.POST)
 
 def resume(request, profile_url):
     return render(request, 'builder/resume.html', {"profile_url": profile_url})

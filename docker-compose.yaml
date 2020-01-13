@@ -8,7 +8,8 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./src:/app/"
-    command: python manage.py runserver 0.0.0.0:8001
+      - "./docker-entrypoint.sh:/docker-entrypoint/docker-entrypoint.sh"
+    command: sh /docker-entrypoint/docker-entrypoint.sh  
     ports:
       - "8001:8001"
     depends_on:

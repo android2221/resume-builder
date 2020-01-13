@@ -15,6 +15,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+SITE_URL = "localhost:8001"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -34,6 +35,7 @@ LOGIN_URL = "login"
 INSTALLED_APPS = [
     'builder.apps.BuilderConfig',
     'accounts.apps.AccountsConfig',
+    'django_ajax',
     'mdeditor',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -161,3 +163,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/django-static-root/'
