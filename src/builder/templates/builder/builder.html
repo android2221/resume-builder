@@ -69,26 +69,30 @@
         </style>
     </head>
     <body>
+        Welcome {{ request.user }}
         <div id ="profile-url">
             Your public profile URL is <a href="http://{{site_url}}/{{ request.user.account.profile_url}}/">http://{{site_url}}/{{ request.user.account.profile_url}}/</a>
         </div>
-        <form>
-            <label for="activate-profile">Activate Profile</label>
-        <label class="switch">
-            <input type="checkbox" name="activate-profile">
-            <span class="slider round"></span>
-        </label>
-        </form>
+        
+        <div id="activate-profile-container">
+            <form id="activate-profile">
+                {% csrf_token%}
+                <label class="switch">
+                    {{activate_profile_form}}
+                    <span class="slider round"></span>
+                </label>
+            </form>
+        </div>
 
         <a href="{% url 'logout' %}">logout</a></li>
 
         <form method = "post" action="{% url 'builder'%}">
             {% csrf_token%}
-            {{request.user}}
-            {{form.media}}
-            {{form.as_p}}
+            {{editor_form.media}}
+            {{editor_form.as_p}}
             <p> <input type = "submit" value = "Save"> </p>
         </form>
+        
     </body>
     <script>
      // JS stuff here

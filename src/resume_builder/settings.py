@@ -35,7 +35,6 @@ LOGIN_URL = "login"
 INSTALLED_APPS = [
     'builder.apps.BuilderConfig',
     'accounts.apps.AccountsConfig',
-    'django_ajax',
     'mdeditor',
     'django.contrib.admin',
     'django.contrib.auth',
