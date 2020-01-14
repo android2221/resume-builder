@@ -38,10 +38,17 @@ def builder(request):
 
 @login_required
 def toggle_resume_active(request):
-    print(request.POST)
-    # form_data = {'profile_active': request.user.resume.is_live }
-    # context = {"form": ActivateResumeForm(form_data) }
-    # return HttpResponse(status=200)
+    form = ActivateResumeForm(request.POST)
+    if form.is_valid():
+        request.user.resume.is_live = form.cleaned_data["profile_active"]
+        request.user.resume.save()
+        return HttpResponse(status=200)
+    # return a failure if it doesn't work
+
+    # TODO: Fix resume URL getting ran everytime
+    # TODO: flesh out JS erroring
+    # TODO: write tests for resume active toggle
+    # TODO: return failure from resume activate if it doesn't work
 
 def resume(request, request_profile_url):
     if request_profile_url is None:

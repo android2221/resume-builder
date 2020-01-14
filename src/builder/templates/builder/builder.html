@@ -75,7 +75,7 @@
         </div>
         
         <div id="activate-profile-container">
-            <form id="activate-profile" action="{% url }">
+            <form id="activate-profile" action="{% url 'activate-resume' %}">
                 {% csrf_token%}
                 <label class="profile-toggle-switch">
                     {{activate_profile_form}}
@@ -86,7 +86,7 @@
 
         <a href="{% url 'logout' %}">logout</a></li>
 
-        <form method = "post" action="{% url 'builder'%}">
+        <form method = "post" action="{% url 'builder'% }">
             {% csrf_token%}
             {{editor_form.media}}
             {{editor_form.as_p}}
@@ -97,8 +97,30 @@
     <script>
         var slider = $(".profile-toggle-switch .slider");
         slider.click(function(){
-                console.log("click");
-                // submit django form
+            var form = $('#activate-profile');
+            var checkbox = $('#activate-profile-checkbox');
+            var checkedStatus = checkbox.is(":checked");
+            var formData = form.serializeArray();
+            if (checkedStatus == true){
+                formData[1] = {name: "profile_active", value: "False"}
+            } else{
+                formData[1] = {name: "profile_active", value: "True"}
+            }
+            console.log(formData);
+            $.ajax({
+                type: "POST", 
+                url: form.attr('action'),
+                data: formData,
+                success: function(){
+                    // do nothing
+                    console.log("POST WORKED");
+                },
+                error: function() {
+                    // roll slider on error
+                    // build or grab some simple error banner
+                    console.log("JS Error");
+                }
+            });
         });
     </script>
 </html>
