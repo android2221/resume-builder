@@ -17,16 +17,16 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls.static import static
 from django.conf import settings
-from builder.views import index as indexView
-from builder.views import resume as resumeView
+from builder.views import index as index_view
+from builder.views import resume as resume_view
 
 urlpatterns = [
+    path('<str:request_profile_url>/', resume_view, name='resume'),
     path('admin/', admin.site.urls),
     path('builder/', include('builder.urls')),
     path('mdeditor/', include('mdeditor.urls')),
     path('account/', include('accounts.urls')),
-    path('<str:profile_url>/', resumeView, name='resume'),
-    path('', indexView, name='index'),
+    path('', index_view, name='index'),
 ]
 
 if settings.DEBUG:

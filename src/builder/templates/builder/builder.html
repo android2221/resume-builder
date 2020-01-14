@@ -75,7 +75,7 @@
         </div>
         
         <div id="activate-profile-container">
-            <form id="activate-profile">
+            <form id="activate-profile" action="{% url }">
                 {% csrf_token%}
                 <label class="profile-toggle-switch">
                     {{activate_profile_form}}

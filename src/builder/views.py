@@ -4,9 +4,12 @@
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from builder.forms import ResumeEditorForm, ActivateResumeForm
 from .models import Resume
+from accounts.models import Account
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.http import Http404
+from accounts import constants
 
 def index(request):
     context = {'some_sample_text': 'some sample i typed'}
@@ -40,5 +43,12 @@ def toggle_resume_active(request):
     # context = {"form": ActivateResumeForm(form_data) }
     # return HttpResponse(status=200)
 
-def resume(request, profile_url):
-    return render(request, 'builder/resume.html', {"profile_url": profile_url})
+def resume(request, request_profile_url):
+    if request_profile_url is None:
+        return Http404(constants.PAGE_NOT_FOUND)
+    account = Account.objects.get(profile_url=request_profile_url)
+    if account is None or account.user.resume.is_live == False:
+        return HttpResponse(constants.PAGE_NOT_FOUND)
+    return HttpResponse(account.user.resume.content)
+
+

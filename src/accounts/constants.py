@@ -9,3 +9,4 @@ FORM_PROFILE_URL_REQUIREMENTS = "Your profile URL may only contain letters, numb
 
 # MESSAGING
 MARKDOWN_WELCOME = "# Welcome!"
+PAGE_NOT_FOUND = "Page not found"
