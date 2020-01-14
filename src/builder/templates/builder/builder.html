@@ -86,7 +86,7 @@
 
         <a href="{% url 'logout' %}">logout</a></li>
 
-        <form method = "post" action="{% url 'builder'% }">
+        <form method = "post" action="{% url 'builder' %}">
             {% csrf_token%}
             {{editor_form.media}}
             {{editor_form.as_p}}
