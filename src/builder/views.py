@@ -1,8 +1,6 @@
-# from django.shortcuts import render
-# from django.http import HttpResponse
-
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from builder.forms import ResumeEditorForm, ActivateResumeForm
+from django.core.exceptions import ObjectDoesNotExist
 from .models import Resume
 from accounts.models import Account
 from django.urls import reverse
@@ -40,22 +38,25 @@ def builder(request):
 def toggle_resume_active(request):
     form = ActivateResumeForm(request.POST)
     if form.is_valid():
-        request.user.resume.is_live = form.cleaned_data["profile_active"]
-        request.user.resume.save()
-        return HttpResponse(status=200)
-    # return a failure if it doesn't work
+        try:
+            request.user.resume.is_live = form.cleaned_data["profile_active"]
+            request.user.resume.save()
+        except:
+            return HttpResponse(status=500)
+    else:
+        return HttpResponse(status=500)
+    return HttpResponse(status=200)
 
-    # TODO: Fix resume URL getting ran everytime
-    # TODO: flesh out JS erroring
+    # TODO: flesh out JS erroring (create a banner)
     # TODO: write tests for resume active toggle
-    # TODO: return failure from resume activate if it doesn't work
 
 def resume(request, request_profile_url):
     if request_profile_url is None:
-        return Http404(constants.PAGE_NOT_FOUND)
-    account = Account.objects.get(profile_url=request_profile_url)
+        raise Http404(constants.PAGE_NOT_FOUND)
+    try:
+        account = Account.objects.get(profile_url=request_profile_url)
+    except ObjectDoesNotExist:
+        account = None
     if account is None or account.user.resume.is_live == False:
-        return HttpResponse(constants.PAGE_NOT_FOUND)
+        raise Http404(constants.PAGE_NOT_FOUND)
     return HttpResponse(account.user.resume.content)
-
-

@@ -1,4 +1,4 @@
-from django.test import TestCase, Client
+from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth import login
 from django.contrib.auth.models import User
@@ -55,93 +55,57 @@ class RegistrationViewTests(TestCase):
         self.assertFormError(response, "form", "profile_url", constants.ERROR_DUPLICATE_PROFILE_URL)
 
 class RegistrationFormTests(TestCase):
-        form_data = {
-            "email": "foo@bar.com", 
-            "password1": "MRq%z393$SSUvSc",
-            "password2": "MRq%z393$SSUvSc",
-            "first_name": "test", 
-            "last_name": "tester",
-            "profile_url": "foo"
-        }
-        
-        def test_no_duplicate_profile_is_valid(self):
-            form = UserRegistrationForm(data=self.form_data)
-            self.assertTrue(form.is_valid())
-
-        # Test our custom cleaning stuff
-        def test_duplicate_username_invalidates_form(self):
-            User.objects.create_user("foo@bar.com", "foo@bar.com", "fakepassword")
-            form = UserRegistrationForm(data=self.form_data)
-            self.assertIn(constants.ERROR_DUPLICATE_EMAIL, str(form.errors))
-
-        def test_duplicate_profile_url_invalidates_form(self):
-            user = User.objects.create_user("foo@bar.com", "foo@bar.com", "fakepassword")
-            account = Account(user=user)
-            user.account.profile_url = "foo"
-            account.save()
-            form = UserRegistrationForm(data=self.form_data)
-            self.assertFalse(form.is_valid())
-            self.assertIn(constants.ERROR_DUPLICATE_PROFILE_URL, str(form.errors))
-        
-        def test_good_profile_url_form_valid(self):
-            form_data = self.form_data.copy()
-            form = UserRegistrationForm(data=form_data)
-            self.assertTrue(form.is_valid())
-            form_data["profile_url"] = "this-has-hyphens-and-should-work"
-            form = UserRegistrationForm(data=form_data)
-            self.assertTrue(form.is_valid())
-            form_data["profile_url"] = "this_has_underscores_and_should_work"
-            form = UserRegistrationForm(data=form_data)
-            self.assertTrue(form.is_valid())
-
-        def test_malformed_profile_url_invalidate_form(self):
-            form_data = self.form_data.copy()
-            form_data["profile_url"] = "*@@"
-            form = UserRegistrationForm(data=form_data)
-            self.assertFalse(form.is_valid())
-            self.assertIn(constants.FORM_PROFILE_URL_REQUIREMENTS, str(form.errors))
-            form_data["profile_url"] = "thishasa space"
-            form = UserRegistrationForm(data=form_data)
-            self.assertFalse(form.is_valid())
-            form_data["profile_url"] = "thishasa space"
-            form = UserRegistrationForm(data=form_data)
-            self.assertFalse(form.is_valid())
-
-class ResumeBuilderViewTests(TestCase):
-    def setUp(self):
-        self.user = User.objects.create_user("foo@bar.com", "foo@bar.com", "paas09df2@")
-        self.resume_content = "initial content"
-        resume = Resume(user=self.user)
-        resume.content = self.resume_content
-        resume.save()
-        account = Account(user=self.user)
-        account.save()
-        self.authedClient = Client()
-        self.authedClient.force_login(self.user)
-
-    def test_login_required_redirect_works(self):
-        response = self.client.get(reverse("builder"))
-        self.assertRedirects(response, "/account/login/?next=/builder/")
+    form_data = {
+        "email": "foo@bar.com", 
+        "password1": "MRq%z393$SSUvSc",
+        "password2": "MRq%z393$SSUvSc",
+        "first_name": "test", 
+        "last_name": "tester",
+        "profile_url": "foo"
+    }
     
-    def test_can_load_builder_after_login(self):
-        response = self.authedClient.get(reverse("builder"))
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(self.resume_content, str(response.content))
+    def test_no_duplicate_profile_is_valid(self):
+        form = UserRegistrationForm(data=self.form_data)
+        self.assertTrue(form.is_valid())
 
-    def test_save_resume_works(self):
-        form_data = {
-            "content": "# My test thing"
-        }
-        response = self.authedClient.post(reverse("builder"), form_data)
-        self.assertRedirects(response, reverse("builder"))
+    # Test our custom cleaning stuff
+    def test_duplicate_username_invalidates_form(self):
+        User.objects.create_user("foo@bar.com", "foo@bar.com", "fakepassword")
+        form = UserRegistrationForm(data=self.form_data)
+        self.assertIn(constants.ERROR_DUPLICATE_EMAIL, str(form.errors))
 
+    def test_duplicate_profile_url_invalidates_form(self):
+        user = User.objects.create_user("foo@bar.com", "foo@bar.com", "fakepassword")
+        account = Account(user=user)
+        user.account.profile_url = "foo"
+        account.save()
+        form = UserRegistrationForm(data=self.form_data)
+        self.assertFalse(form.is_valid())
+        self.assertIn(constants.ERROR_DUPLICATE_PROFILE_URL, str(form.errors))
+    
+    def test_good_profile_url_form_valid(self):
+        form_data = self.form_data.copy()
+        form = UserRegistrationForm(data=form_data)
+        self.assertTrue(form.is_valid())
+        form_data["profile_url"] = "this-has-hyphens-and-should-work"
+        form = UserRegistrationForm(data=form_data)
+        self.assertTrue(form.is_valid())
+        form_data["profile_url"] = "this_has_underscores_and_should_work"
+        form = UserRegistrationForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+    def test_malformed_profile_url_invalidate_form(self):
+        form_data = self.form_data.copy()
+        form_data["profile_url"] = "*@@"
+        form = UserRegistrationForm(data=form_data)
+        self.assertFalse(form.is_valid())
+        self.assertIn(constants.FORM_PROFILE_URL_REQUIREMENTS, str(form.errors))
+        form_data["profile_url"] = "thishasa space"
+        form = UserRegistrationForm(data=form_data)
+        self.assertFalse(form.is_valid())
+        form_data["profile_url"] = "thishasa space"
+        form = UserRegistrationForm(data=form_data)
+        self.assertFalse(form.is_valid())
 
 ## Password flow tests
 # login/ logout redirects etc
-
- ## BUILDER TESTS
-  # publishing -> don't display if 'publish' isn't turned on and the converse
-
- # can't access someone elses resume edit page should load my resume only
-
- # resume pages that aren't public don't load
