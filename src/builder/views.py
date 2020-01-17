@@ -36,6 +36,8 @@ def builder(request):
 
 @login_required
 def toggle_resume_active(request):
+    if request.user.is_anonymous:
+        return HttpResponse(status=401)
     form = ActivateResumeForm(request.POST)
     if form.is_valid():
         try:
@@ -48,7 +50,6 @@ def toggle_resume_active(request):
     return HttpResponse(status=200)
 
     # TODO: flesh out JS erroring (create a banner)
-    # TODO: write tests for resume active toggle
 
 def resume(request, request_profile_url):
     if request_profile_url is None:
