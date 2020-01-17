@@ -49,8 +49,6 @@ def toggle_resume_active(request):
         return HttpResponse(status=500)
     return HttpResponse(status=200)
 
-    # TODO: flesh out JS erroring (create a banner)
-
 def resume(request, request_profile_url):
     if request_profile_url is None:
         raise Http404(constants.PAGE_NOT_FOUND)

@@ -106,6 +106,13 @@ class RegistrationFormTests(TestCase):
         form_data["profile_url"] = "thishasa space"
         form = UserRegistrationForm(data=form_data)
         self.assertFalse(form.is_valid())
-
+    
+    def test_profile_url_should_convert_to_lowercase(self):
+        form_data = self.form_data.copy()
+        form_data["profile_url"] = "This-Is-Fine-99"
+        form = UserRegistrationForm(data=form_data)
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.cleaned_data["profile_url"].lower(), form_data["profile_url"].lower())
+    
 ## Password flow tests
 # login/ logout redirects etc

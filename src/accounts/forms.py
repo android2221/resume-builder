@@ -25,12 +25,17 @@ class UserRegistrationForm(UserCreationForm):
         is_username_duplicate = check_duplicate_username(cleaned_data["email"])
         profile_url_result = check_profile_url(cleaned_data["profile_url"])
         is_profile_url_duplicate = check_duplicate_profile_url(cleaned_data["profile_url"])
+        try:
+            self.cleaned_data["profile_url"] = self.cleaned_data["profile_url"].lower()
+        except:
+            self.add_error("profile_active", constants.ERROR_PARSING_PROFILE_URL)
         if is_username_duplicate:
             self.add_error("email", constants.ERROR_DUPLICATE_EMAIL)
         if profile_url_result == False:
             self.add_error("profile_url", constants.FORM_PROFILE_URL_REQUIREMENTS)
         if is_profile_url_duplicate:
             self.add_error("profile_url", constants.ERROR_DUPLICATE_PROFILE_URL)
+
 
 def check_duplicate_username(email):
     try:
