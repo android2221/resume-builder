@@ -1,5 +1,11 @@
 #!/bin/bash
 
+echo "Install pip modules"
+pip install -r /requirements/requirements.txt
+
+echo "Change to app dir"
+cd /app/
+
 # Collect static files
 echo "Collect static files"
 python manage.py collectstatic --noinput

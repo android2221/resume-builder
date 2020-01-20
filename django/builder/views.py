@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.http import Http404
 from accounts import constants
+import requests
 
 def index(request):
     context = {'some_sample_text': 'some sample i typed'}
@@ -23,7 +24,9 @@ def builder(request):
             resume = request.user.resume
             resume.content = form_data["content"]
             resume.save()
-            return HttpResponseRedirect(reverse("builder"))
+            response = requests.post('http://markdown-renderer/', data = {'markdownContent':resume.content})
+            return HttpResponse(response)
+            #return HttpResponseRedirect(reverse("builder"))
     else:
         resume = request.user.resume
         editor_form_data = {'content': resume.content}
