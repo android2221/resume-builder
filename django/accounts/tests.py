@@ -1,12 +1,14 @@
-from django.test import TestCase
-from django.urls import reverse
-from django.contrib.auth import login
-from django.contrib.auth.models import User
-from . import constants
-from .models import Account
 from builder.models import Resume
 from builder.views import builder as builderView
+from django.contrib.auth import login
+from django.contrib.auth.models import User
+from django.test import TestCase
+from django.urls import reverse
+
+from . import constants
 from .forms import UserRegistrationForm
+from .models import Account
+
 
 class RegistrationViewTests(TestCase):
     form_data = {

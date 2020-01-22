@@ -1,14 +1,16 @@
-from django.shortcuts import render, HttpResponse, HttpResponseRedirect
-from builder.forms import ResumeEditorForm, ActivateResumeForm
-from django.core.exceptions import ObjectDoesNotExist
-from .models import Resume
-from accounts.models import Account
-from django.urls import reverse
-from django.contrib.auth.decorators import login_required
-from django.conf import settings
-from django.http import Http404
-from accounts import constants
 import requests
+from accounts import constants
+from accounts.models import Account
+from builder.forms import ActivateResumeForm, ResumeEditorForm
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import Http404
+from django.shortcuts import HttpResponse, HttpResponseRedirect, render
+from django.urls import reverse
+
+from .models import Resume
+
 
 def index(request):
     context = {'some_sample_text': 'some sample i typed'}
@@ -24,7 +26,7 @@ def builder(request):
             resume = request.user.resume
             resume.content = form_data["content"]
             resume.save()
-            response = requests.post('http://markdown-renderer/', data = {'markdownContent':resume.content})
+            response = requests.post(settings.MARKDOWN_RENDER_URL, data = {'markdownContent':resume.content})
             return HttpResponse(response)
             #return HttpResponseRedirect(reverse("builder"))
     else:

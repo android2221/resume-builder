@@ -1,6 +1,9 @@
 # Mac Stuff
 .DS_Store
 
+# VS Code
+.vscode
+
 # Node
 node_modules/
 

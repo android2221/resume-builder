@@ -1,11 +1,13 @@
-from django.shortcuts import render, HttpResponse, HttpResponseRedirect
+from builder.models import Resume
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from .models import Account
-from builder.models import Resume
-from .forms import UserRegistrationForm
+from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.urls import reverse
+
 from . import constants
+from .forms import UserRegistrationForm
+from .models import Account
+
 
 # Create your views here.
 def register_user(request):

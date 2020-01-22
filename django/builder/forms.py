@@ -1,7 +1,8 @@
+from accounts import constants
 from django import forms
 from django.contrib.auth.models import User
 from mdeditor.fields import MDTextFormField
-from accounts import constants
+
 
 class ResumeEditorForm (forms.Form):
     content = MDTextFormField (label="")
@@ -12,4 +13,3 @@ class ActivateResumeForm (forms.Form):
     def __init__(self, *args, **kwargs):
         super(ActivateResumeForm, self).__init__(*args, **kwargs)
         self.fields["profile_active"].widget.attrs={'id': "activate-profile-checkbox"}
-

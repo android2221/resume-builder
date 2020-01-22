@@ -1,11 +1,13 @@
+import re
+
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+
+from . import constants, patterns
 from .models import Account
-from . import constants
-from . import patterns
-import re
+
 
 class UserRegistrationForm(UserCreationForm):
     profile_url = forms.CharField(help_text=constants.FORM_PROFILE_URL_REQUIREMENTS)
@@ -59,4 +61,3 @@ def check_profile_url(profile_url):
     if match is None:
         return False
     return True
-
