@@ -5,7 +5,6 @@ from django.urls import reverse
 
 from .models import Resume
 
-
 class ResumeBuilderViewTests(TestCase):
     def setUp(self):
         self.user = User.objects.create_user("foo@bar.com", "foo@bar.com", "paas09df2@")

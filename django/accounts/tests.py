@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
+from .accountmanager import AccountManager
+
 from . import constants
 from .forms import UserRegistrationForm
 from .models import Account
@@ -116,5 +118,11 @@ class RegistrationFormTests(TestCase):
         self.assertTrue(form.is_valid())
         self.assertEqual(form.cleaned_data["profile_url"].lower(), form_data["profile_url"].lower())
     
+class AccountManagerTests(TestCase):
+    def test_run_account_manager(self):
+        manager = AccountManager()
+        print(manager.create_account())
+
+
 ## Password flow tests
 # login/ logout redirects etc

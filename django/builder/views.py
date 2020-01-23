@@ -27,8 +27,7 @@ def builder(request):
             resume.content = form_data["content"]
             resume.save()
             response = requests.post(settings.MARKDOWN_RENDER_URL, data = {'markdownContent':resume.content})
-            return HttpResponse(response)
-            #return HttpResponseRedirect(reverse("builder"))
+            return HttpResponseRedirect(reverse("builder"))
     else:
         resume = request.user.resume
         editor_form_data = {'content': resume.content}
