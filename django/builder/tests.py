@@ -54,12 +54,12 @@ class ResumeViewTests(TestCase):
         self.authedClient.force_login(self.user)
 
     def test_active_resume_displays(self):
-        response = self.client.get(reverse("resume", args=[self.user.account.profile_url]))
+        response = self.client.get(reverse("view_resume", args=[self.user.account.profile_url]))
         self.assertEqual(response.status_code, 200)
         self.assertIn(self.resume_content, str(response.content))
     
     def test_nonexistant_resume_returns_404(self):
-        response = self.client.get(reverse("resume", args=["fakeurlthatdoesntexist"]))
+        response = self.client.get(reverse("view_resume", args=["fakeurlthatdoesntexist"]))
         self.assertEqual(response.status_code, 404)
     
     def test_inactive_resume_returns_404(self):
@@ -72,7 +72,7 @@ class ResumeViewTests(TestCase):
         account = Account(user=user)
         account.profile_url = "fake-profile-url1"
         account.save()
-        response = self.client.get(reverse("resume", args=[account.profile_url]))
+        response = self.client.get(reverse("view_resume", args=[account.profile_url]))
         self.assertEqual(response.status_code, 404)
         
     def test_toggle_active_resume_success_returns_200(self):

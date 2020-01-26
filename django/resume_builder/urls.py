@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from builder.views import resume as resume_view
+from builder.views import view_resume
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('mdeditor/', include('mdeditor.urls')),
     path('account/', include('accounts.urls')),
-    path('<str:request_profile_url>/', resume_view, name='resume'),
+    path('<str:request_profile_url>/', view_resume, name='view_resume'),
 ]
 
 if settings.DEBUG:

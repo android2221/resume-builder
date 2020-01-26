@@ -13,7 +13,7 @@ class ResumeService():
             'activate_profile_form': ActivateResumeForm(profile_form_data) 
         }
     
-    def save_resume_form(self, resume, payload):
+    def save_resume(self, resume, payload):
         posted_form = ResumeEditorForm(payload)
         if posted_form.is_valid():
             form_data = posted_form.cleaned_data
@@ -23,3 +23,13 @@ class ResumeService():
             return True
         else:
             return False
+    
+    def toggle_resume_active(self, user, payload):
+        form = ActivateResumeForm(payload)
+        if form.is_valid():
+            try:
+                user.resume.is_live = form.cleaned_data["profile_active"]
+                user.resume.save()
+                return True
+            except:
+                return False

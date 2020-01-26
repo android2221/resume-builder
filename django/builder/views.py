@@ -18,31 +18,23 @@ def index(request):
 
 @login_required
 def builder(request):
-    manager = ResumeService()
-    # Save logic
+    service = ResumeService()
     if request.POST:
-        save_success = manager.save_resume_form(request.user.resume, request.POST)
+        save_success = service.save_resume(request.user.resume, request.POST)
         return HttpResponseRedirect(reverse("builder"))
     else:
-        context = manager.get_resume_form(request.user.resume)
+        context = service.get_resume_form(request.user.resume)
     return render(request, 'builder/builder.html', context)
 
 @login_required
 def toggle_resume_active(request):
-    if request.user.is_anonymous:
-        return HttpResponse(status=401)
-    form = ActivateResumeForm(request.POST)
-    if form.is_valid():
-        try:
-            request.user.resume.is_live = form.cleaned_data["profile_active"]
-            request.user.resume.save()
-        except:
-            return HttpResponse(status=500)
-    else:
+    service = ResumeService()
+    toggle_success = service.toggle_resume_active(request.user, request.POST)
+    if toggle_success is not True:
         return HttpResponse(status=500)
     return HttpResponse(status=200)
 
-def resume(request, request_profile_url):
+def view_resume(request, request_profile_url):
     if request_profile_url is None:
         raise Http404(constants.PAGE_NOT_FOUND)
     try:
