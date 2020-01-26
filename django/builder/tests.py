@@ -1,7 +1,9 @@
+import requests
 from accounts.models import Account
 from django.contrib.auth.models import User
 from django.test import Client, TestCase
 from django.urls import reverse
+from unittest.mock import MagicMock
 
 from .models import Resume
 
@@ -29,9 +31,13 @@ class ResumeBuilderViewTests(TestCase):
         self.assertIn(self.resume_content, str(response.content))
 
     def test_save_resume_works(self):
+        requests.post = MagicMock(return_value="200")
         form_data = {"content": "# My test thing"}
         response = self.authedClient.post(reverse("builder"), form_data)
         self.assertRedirects(response, reverse("builder"))
+    
+    # TODO: resume save fails
+        ## Should generate error?
 
 class ResumeViewTests(TestCase):
     def setUp(self):

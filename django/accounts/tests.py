@@ -124,5 +124,4 @@ class AccountManagerTests(TestCase):
         print(manager.create_account())
 
 
-## Password flow tests
-# login/ logout redirects etc
+## TODO: Password flow tests: login/ logout redirects etc

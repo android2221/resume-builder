@@ -1,16 +1,16 @@
 import requests
 from accounts import constants
 from accounts.models import Account
-from builder.forms import ActivateResumeForm, ResumeEditorForm
+from builder.forms import ActivateResumeForm
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.urls import reverse
+from .services.resume import ResumeService
 
 from .models import Resume
-
 
 def index(request):
     context = {'some_sample_text': 'some sample i typed'}
@@ -18,24 +18,13 @@ def index(request):
 
 @login_required
 def builder(request):
+    manager = ResumeService()
     # Save logic
     if request.POST:
-        posted_form = ResumeEditorForm(request.POST)
-        if posted_form.is_valid():
-            form_data = posted_form.cleaned_data
-            resume = request.user.resume
-            resume.content = form_data["content"]
-            resume.save()
-            response = requests.post(settings.MARKDOWN_RENDER_URL, data = {'markdownContent':resume.content})
-            return HttpResponseRedirect(reverse("builder"))
+        save_success = manager.save_resume_form(request.user.resume, request.POST)
+        return HttpResponseRedirect(reverse("builder"))
     else:
-        resume = request.user.resume
-        editor_form_data = {'content': resume.content}
-        profile_form_data = {'profile_active': request.user.resume.is_live }
-        context = {'editor_form': ResumeEditorForm(editor_form_data),
-            'site_url': settings.SITE_URL,
-            'activate_profile_form': ActivateResumeForm(profile_form_data) 
-        }
+        context = manager.get_resume_form(request.user.resume)
     return render(request, 'builder/builder.html', context)
 
 @login_required

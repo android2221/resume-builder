@@ -26,7 +26,7 @@ services:
     command: sh /docker-entrypoint/docker-test-entrypoint.sh
     depends_on:
       - db
-      - markdown-renderer
+      #- markdown-renderer
   markdown-renderer:
     image: node:10.15.3
     working_dir: /code/
