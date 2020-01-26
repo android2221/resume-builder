@@ -1,10 +1,21 @@
 from builder.forms import ResumeEditorForm, ActivateResumeForm
+from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
+from accounts.models import Account
 import requests
 
 
 class ResumeService():
 
+    def get_rendered_resume_content(self, request_profile_url):
+        try:
+            account = Account.objects.get(profile_url=request_profile_url)
+        except ObjectDoesNotExist:
+            return None
+        if account.user.resume.is_live is True:
+            return account.user.resume.content
+        return None
+    
     def get_resume_form(self, resume):
         editor_form_data = {'content': resume.content}
         profile_form_data = {'profile_active': resume.is_live }
@@ -20,6 +31,7 @@ class ResumeService():
             resume.content = form_data["content"]
             resume.save()
             requests.post(settings.MARKDOWN_RENDER_URL, data = {'markdownContent':resume.content})
+            # TODO: Do something with this data
             return True
         else:
             return False
