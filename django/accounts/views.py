@@ -14,6 +14,7 @@ def register_user(request):
             context = {'form': service.build_registration_form(request.POST)}
             return render(request, 'registration/register.html', context)
     else:
-        context = {'form': service.build_registration_form()}
+        form = service.build_registration_form()
+        context = {'form': form}
         return render(request, 'registration/register.html', context)
 

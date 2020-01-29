@@ -30,7 +30,7 @@ class AccountService():
 
     def build_registration_form(self, payload=None):
         if payload is None:
-            return payload
+            return UserRegistrationForm()
         return UserRegistrationForm(payload)
 
     def create_user(email, password, first_name, last_name):
