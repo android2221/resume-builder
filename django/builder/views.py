@@ -5,7 +5,6 @@ from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.urls import reverse
 from .services.resume import ResumeService
 
-from .models import Resume
 
 def index(request):
     context = {'some_sample_text': 'some sample i typed'}
@@ -16,7 +15,8 @@ def builder(request):
     service = ResumeService()
     if request.POST:
         save_success = service.save_resume(request.user.resume, request.POST)
-        return HttpResponseRedirect(reverse("builder"))
+        context = {"success": save_success}
+        return HttpResponseRedirect(reverse("builder"), context)
     else:
         context = service.build_resume_form(request.user.resume)
     return render(request, 'builder/builder.html', context)

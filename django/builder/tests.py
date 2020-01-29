@@ -35,9 +35,6 @@ class ResumeBuilderViewTests(TestCase):
         form_data = {"content": "# My test thing"}
         response = self.authedClient.post(reverse("builder"), form_data)
         self.assertRedirects(response, reverse("builder"))
-    
-    # TODO: resume save fails
-        ## Should generate error?
 
 class ResumeViewTests(TestCase):
     def setUp(self):
@@ -120,6 +117,3 @@ class ResumeViewTests(TestCase):
         }
         response = self.client.post(reverse("activate-resume"), form_data)
         self.assertEqual(response.status_code, 302)
-
-
-# TODO: flesh out JS erroring (create a banner)

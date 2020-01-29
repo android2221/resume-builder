@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="edb32f89-8a39-4c5c-a5c5-f979cdbda85d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/django/accounts/services/account.py" beforeDir="false" afterPath="$PROJECT_DIR$/django/accounts/services/account.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/django/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/django/accounts/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/django/builder/services/resume.py" beforeDir="false" afterPath="$PROJECT_DIR$/django/builder/services/resume.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/django/builder/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/django/builder/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/django/builder/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/django/builder/views.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1X3RgBUXcXHVLIk0dZ2ALCiKmoa" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="edb32f89-8a39-4c5c-a5c5-f979cdbda85d" name="Default Changelist" comment="" />
+      <created>1580272901600</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1580272901600</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="229" y="100" key="SettingsEditor" timestamp="1580273069526">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="229" y="100" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1580273069526" />
+    <state x="399" y="294" key="com.intellij.ide.util.TipDialog" timestamp="1580272907046">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="399" y="294" key="com.intellij.ide.util.TipDialog/0.23.1440.877@0.23.1440.877" timestamp="1580272907046" />
+    <state x="385" y="213" key="search.everywhere.popup" timestamp="1580272937283">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="385" y="213" key="search.everywhere.popup/0.23.1440.877@0.23.1440.877" timestamp="1580272937283" />
+  </component>
+</project>

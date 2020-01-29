@@ -31,7 +31,6 @@ class ResumeService():
             resume.content = form_data["content"]
             resume.save()
             requests.post(settings.MARKDOWN_RENDER_URL, data = {'markdownContent':resume.content})
-            # TODO: Do something with this data
             return True
         else:
             return False

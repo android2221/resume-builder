@@ -1,9 +1,10 @@
+from accounts import constants
 from accounts.forms import UserRegistrationForm
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
 from accounts.models import Account
 from builder.models import Resume
-from accounts import constants
+from django.contrib.auth import login
+from django.contrib.auth.models import User
+
 
 class AccountService():
     

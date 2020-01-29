@@ -1,4 +1,4 @@
-from django.shortcuts import HttpResponse, HttpResponseRedirect, render
+from django.shortcuts import HttpResponseRedirect, render
 from django.urls import reverse
 from .services.account import AccountService
 
