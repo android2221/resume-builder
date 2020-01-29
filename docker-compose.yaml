@@ -23,7 +23,7 @@ services:
       - "./django:/tests/"
       - "./docker-test-entrypoint.sh:/docker-entrypoint/docker-test-entrypoint.sh"
       - "./requirements.txt:/requirements/requirements.txt"
-    command: sh /docker-entrypoint/docker-test-entrypoint.sh
+    entrypoint: sh /docker-entrypoint/docker-test-entrypoint.sh
     depends_on:
       - db
       #- markdown-renderer

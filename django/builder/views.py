@@ -18,7 +18,7 @@ def builder(request):
         save_success = service.save_resume(request.user.resume, request.POST)
         return HttpResponseRedirect(reverse("builder"))
     else:
-        context = service.get_resume_form(request.user.resume)
+        context = service.build_resume_form(request.user.resume)
     return render(request, 'builder/builder.html', context)
 
 @login_required

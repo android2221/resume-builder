@@ -16,7 +16,7 @@ class ResumeService():
             return account.user.resume.content
         return None
     
-    def get_resume_form(self, resume):
+    def build_resume_form(self, resume):
         editor_form_data = {'content': resume.content}
         profile_form_data = {'profile_active': resume.is_live }
         return {'editor_form': ResumeEditorForm(editor_form_data),
