@@ -57,7 +57,6 @@ MDEDITOR_CONFIGS = {
                     "list-ul", "list-ol", "hr", "|",
                     "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime"
                     "emoji", "html-entities", "pagebreak", "goto-line", "|",
-                    "help", "info",
                     "||", "preview", "watch", "fullscreen"],  # custom edit box toolbar 
         'upload_image_formats': ["jpg", "jpeg", "gif", "png", "bmp", "webp"],  # image upload format type
         'image_folder': 'editor',  # image save the folder name

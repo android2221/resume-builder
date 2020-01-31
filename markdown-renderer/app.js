@@ -14,8 +14,9 @@ app.get('/', (req, res) => {
 });
 
 app.post('/', (req, res) => {
-  console.log(req.body)
-  return res.send(md.render(req.body.markdownContent));
+  var result = md.render(req.body.markdownContent);
+  console.log(result);
+  return res.send(result);
 });
 
 app.put('/', (req, res) => {
