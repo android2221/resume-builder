@@ -33,5 +33,5 @@ def view_resume(request, request_profile_url):
     service = ResumeService()
     rendered_resume = service.get_rendered_resume_content(request_profile_url)
     if rendered_resume is not None:
-        return HttpResponse(rendered_resume)
+        return render(request, 'builder/resume.html', {"resume_content": rendered_resume})
     raise Http404(constants.PAGE_NOT_FOUND)
