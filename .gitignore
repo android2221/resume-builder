@@ -4,6 +4,9 @@
 # VS Code
 .vscode
 
+# pycharm
+.idea/
+
 # Node
 node_modules/
 
