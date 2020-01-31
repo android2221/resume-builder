@@ -41,8 +41,5 @@ class AccountService():
         return user
 
     def create_resume(self, user):
-        newResume = Resume(user=user, 
-            content=constants.MARKDOWN_WELCOME, 
-            rendered_html_resume=constants.HTML_WELCOME
-        )
+        newResume = Resume(user=user)
         newResume.save()

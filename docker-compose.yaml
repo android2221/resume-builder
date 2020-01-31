@@ -7,7 +7,7 @@ services:
       context: ./
       dockerfile: Dockerfile
     volumes:
-      - "./django:/app/"
+      - "./webapp:/app/"
       - "./docker-entrypoint.sh:/docker-entrypoint/docker-entrypoint.sh"
     entrypoint: sh /docker-entrypoint/docker-entrypoint.sh  
     ports:
@@ -20,7 +20,7 @@ services:
       context: ./
       dockerfile: Dockerfile
     volumes:
-      - "./django:/app/"
+      - "./webapp:/app/"
       - "./docker-test-entrypoint.sh:/docker-entrypoint/docker-test-entrypoint.sh"
       - "./requirements.txt:/requirements/requirements.txt"
     entrypoint: sh /docker-entrypoint/docker-test-entrypoint.sh
