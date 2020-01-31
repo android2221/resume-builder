@@ -1,12 +1,14 @@
-from django.test import TestCase
-from django.urls import reverse
-from django.contrib.auth import login
-from django.contrib.auth.models import User
-from . import constants
-from .models import Account
 from builder.models import Resume
 from builder.views import builder as builderView
+from django.contrib.auth import login
+from django.contrib.auth.models import User
+from django.test import TestCase
+from django.urls import reverse
+
+from . import constants
 from .forms import UserRegistrationForm
+from .models import Account
+
 
 class RegistrationViewTests(TestCase):
     form_data = {
@@ -114,5 +116,7 @@ class RegistrationFormTests(TestCase):
         self.assertTrue(form.is_valid())
         self.assertEqual(form.cleaned_data["profile_url"].lower(), form_data["profile_url"].lower())
     
-## Password flow tests
-# login/ logout redirects etc
+
+## TODO: Password flow tests: login/ logout redirects etc
+# TODO: make sure normal password requirement failures are working (mismatched passwords, length off etc)
+

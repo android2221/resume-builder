@@ -1,10 +1,8 @@
-#!/bin/bash
-
 echo "Install pip modules"
 pip install -r /requirements/requirements.txt
 
-echo "Change to app dir"
-cd /app/
+echo "Change to tests dir"
+cd /tests/
 
 # Collect static files
 echo "Collect static files"
@@ -15,6 +13,6 @@ echo "Apply database migrations"
 python manage.py makemigrations accounts builder
 python manage.py migrate
 
-# Start server
-echo "Starting server"
-python manage.py runserver 0.0.0.0:8001
+# Run tests
+echo "running tests"
+python manage.py test

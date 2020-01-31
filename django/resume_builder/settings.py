@@ -15,7 +15,9 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# RESUME BUILDER APP CONFIGS
 SITE_URL = "localhost:8001"
+MARKDOWN_RENDER_URL = "http://markdown-renderer/"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -55,7 +57,6 @@ MDEDITOR_CONFIGS = {
                     "list-ul", "list-ol", "hr", "|",
                     "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime"
                     "emoji", "html-entities", "pagebreak", "goto-line", "|",
-                    "help", "info",
                     "||", "preview", "watch", "fullscreen"],  # custom edit box toolbar 
         'upload_image_formats': ["jpg", "jpeg", "gif", "png", "bmp", "webp"],  # image upload format type
         'image_folder': 'editor',  # image save the folder name
