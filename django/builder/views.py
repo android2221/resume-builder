@@ -7,7 +7,7 @@ from .services.resume import ResumeService
 
 
 def index(request):
-    context = {'some_sample_text': 'some sample i typed'}
+    context = {'some_sample_text': 'some sample thing i typed'}
     return render(request, 'builder/index.html', context)
 
 @login_required
