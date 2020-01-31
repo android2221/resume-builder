@@ -1,5 +1,6 @@
-{% extends 'builder/builder-base.html' %}
+{% extends 'builder/base.html' %}
 {% load static %}
+
 {% block content %}
 <style>
     /* The profile-toggle-switch - the box around the slider */
@@ -65,6 +66,7 @@
         border-radius: 50%;
     }           
 </style>
+
 <div id ="profile-url">
     Your public profile URL is <a target="_blank" href="http://{{site_url}}/{{ request.user.account.profile_url}}/">http://{{site_url}}/{{ request.user.account.profile_url}}/</a>
 </div>
