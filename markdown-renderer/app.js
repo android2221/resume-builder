@@ -2,7 +2,7 @@ require ('dotenv').config()
 const express = require('express');
 const app = express();
 
-var MarkdownIt = require('markdown-it'),
+const MarkdownIt = require('markdown-it'),
     md = new MarkdownIt();
 
 const bodyParser = require('body-parser');
