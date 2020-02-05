@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # RESUME BUILDER APP CONFIGS
 SITE_URL = "localhost:8001"
-MARKDOWN_RENDER_URL = "http://markdown-renderer/"
+MARKDOWN_RENDER_URL = "http://markdown-renderer:5001/"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/

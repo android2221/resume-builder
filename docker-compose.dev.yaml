@@ -4,19 +4,15 @@ services:
   db:
     image: postgres
   webapp:
-    build:
-      context: ./
-      dockerfile: build/dev/webapp.Dockerfile
+    image: docker.pkg.github.com/android2221/resume-builder/resume-builder:develop
     ports:
       - "8001:8001"
     depends_on:
       - db
       - markdown-renderer
   markdown-renderer:
-    build:
-      context: ./
-      dockerfile: build/dev/markdown-renderer.Dockerfile
+    image: docker.pkg.github.com/android2221/resume-builder/markdown-renderer:develop
     environment: 
       - RENDER_FILE_LOCATION=/code/src/Resume.md
-      - PORT=80
+      - PORT=5001
       
