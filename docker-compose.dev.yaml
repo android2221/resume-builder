@@ -1,4 +1,4 @@
-# Docker-compose file for local development
+# Docker-compose file for serving on a development server
 version: "3.7"
 services:
   db:

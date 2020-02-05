@@ -4,7 +4,10 @@ on:
   push:
     # Publish `master` as Docker `latest` image.
     branches:
+      - develop
       - master
+      - feat/*
+      - bug/*
 
     # Publish `v1.2.3` tags as releases.
     tags:
@@ -16,7 +19,8 @@ on:
 
 env:
   # TODO: Change variable to your image's name.
-  IMAGE_NAME: resume-builder
+  WEBAPP_IMAGE_NAME: resume-builder
+  MARKDOWN_IMAGE_NAME: markdown-renderer
 
 jobs:
   # Run tests.
@@ -29,11 +33,11 @@ jobs:
 
       - name: Run tests
         run: |
-          docker-compose up webapp-tests
+          docker-compose -f docker-compose.tests.yaml up
 
   # Push image to GitHub Package Registry.
   # See also https://docs.docker.com/docker-hub/builds/
-  push:
+  push-webapp:
     # Ensure test job passes before pushing image.
     needs: test
 
@@ -43,15 +47,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build image
-        run: docker build . --file Dockerfile --tag image
+      - name: Build webapp image
+        run: docker build . --file ./build/dev/webapp.Dockerfile --tag webapp-image
 
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
-      - name: Push image
+      - name: Push webapp image
         run: |
-          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
+          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$WEBAPP_IMAGE_NAME
 
           # Strip git ref prefix from version
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
@@ -65,5 +69,39 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
 
-          docker tag image $IMAGE_ID:$VERSION
+          docker tag webapp-image $IMAGE_ID:$VERSION
+          docker push $IMAGE_ID:$VERSION
+  push-markdown-renderer:
+    # Ensure test job passes before pushing image.
+    needs: test
+
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build markdown renderer image
+        run: docker build . --file ./build/dev/markdown-renderer.Dockerfile --tag markdown-image
+
+      - name: Log into registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
+      - name: Push markdown renderer image
+        run: |
+          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$MARKDOWN_IMAGE_NAME
+
+          # Strip git ref prefix from version
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+
+          # Strip "v" prefix from tag name
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+
+          # Use Docker `latest` tag convention
+          [ "$VERSION" == "master" ] && VERSION=latest
+
+          echo IMAGE_ID=$IMAGE_ID
+          echo VERSION=$VERSION
+
+          docker tag markdown-image $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION

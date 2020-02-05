@@ -1,0 +1,11 @@
+# Docker-compose file for running unit tests
+version: "3.7"
+services:
+  db:
+    image: postgres
+  webapp-tests:
+    build:
+      context: ./
+      dockerfile: ./build/tests/Dockerfile
+    depends_on:
+      - db
