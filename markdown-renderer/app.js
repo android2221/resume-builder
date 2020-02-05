@@ -14,8 +14,8 @@ app.get('/', (req, res) => {
 });
 
 app.post('/', (req, res) => {
+  console.log('Received a request to render markdown');
   var result = md.render(req.body.markdownContent);
-  console.log(result);
   return res.send(result);
 });
 

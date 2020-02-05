@@ -125,5 +125,5 @@ class ResumeViewTests(TestCase):
         response = self.client.post(reverse("activate-resume"), form_data)
         self.assertEqual(response.status_code, 302)
 
-# TODO: Markdown renderer returns error, do something
+# TODO: Markdown renderer returns error, do something (Currently fails explosively)
 # TODO: Markdown renderer not available, do something
