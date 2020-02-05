@@ -36,7 +36,6 @@ class ResumeService():
             resume.save()
             return True
         else:
-            print("poste form is not valid")
             return False
     
     def toggle_resume_active(self, user, payload):

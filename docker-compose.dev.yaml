@@ -1,0 +1,22 @@
+# Docker-compose file for serving on a development server
+version: "3.7"
+services:
+  db:
+    image: postgres
+  webapp:
+    build:
+      context: ./
+      dockerfile: build/dev/webapp.Dockerfile
+    ports:
+      - "8001:8001"
+    depends_on:
+      - db
+      - markdown-renderer
+  markdown-renderer:
+    build:
+      context: ./
+      dockerfile: build/dev/markdown-renderer.Dockerfile
+    environment: 
+      - RENDER_FILE_LOCATION=/code/src/Resume.md
+      - PORT=80
+      
