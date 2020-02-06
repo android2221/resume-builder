@@ -10,7 +10,7 @@ services:
     ports:
       - 80:8001
     environment: 
-      - DJANGO_SITE_URL=localhost
+      - DJANGO_SITE_URL=138.68.44.111
       - MARKDOWN_SITE_URL=http://markdown-renderer:5001/
     depends_on:
       - db
