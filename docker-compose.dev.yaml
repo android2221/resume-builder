@@ -20,6 +20,5 @@ services:
       context: ./
       dockerfile: build/dev/markdown-renderer.Dockerfile
     environment: 
-      - RENDER_FILE_LOCATION=/code/src/Resume.md
       - PORT=5001
       
