@@ -16,8 +16,8 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # RESUME BUILDER APP CONFIGS
-SITE_URL = "localhost:8001"
-MARKDOWN_RENDER_URL = "http://markdown-renderer:5001/"
+SITE_URL = os.environ["DJANGO_SITE_URL"]
+MARKDOWN_RENDER_URL = os.environ["MARKDOWN_SITE_URL"]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -28,7 +28,7 @@ SECRET_KEY = 'o-9=#fc$is3jt$sv#1$28dd!d@#!nh5dshcqc7ql1ko07a-b=y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [SITE_URL]
 
 LOGIN_URL = "login"
 

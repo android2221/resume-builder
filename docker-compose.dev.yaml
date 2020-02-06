@@ -4,14 +4,21 @@ services:
   db:
     image: postgres
   webapp:
-    image: docker.pkg.github.com/android2221/resume-builder/resume-builder:develop
+    build:
+      context: ./
+      dockerfile: build/dev/webapp.Dockerfile
     ports:
-      - "8001:8001"
+      - 80:8001
+    environment: 
+      - DJANGO_SITE_URL=localhost
+      - MARKDOWN_SITE_URL=http://markdown-renderer:5001/
     depends_on:
       - db
       - markdown-renderer
   markdown-renderer:
-    image: docker.pkg.github.com/android2221/resume-builder/markdown-renderer:develop
+    build:
+      context: ./
+      dockerfile: build/dev/markdown-renderer.Dockerfile
     environment: 
       - RENDER_FILE_LOCATION=/code/src/Resume.md
       - PORT=5001
