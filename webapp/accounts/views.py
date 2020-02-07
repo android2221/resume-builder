@@ -8,7 +8,7 @@ def register_user(request):
     if request.POST:
         result = service.register_user(request)
         if result is True:
-            # save worked, go to the builder
+            # save worked go to the builder
             return HttpResponseRedirect(reverse('builder'))
         else:
             context = {'form': service.build_registration_form(request.POST)}

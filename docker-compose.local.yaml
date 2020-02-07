@@ -41,7 +41,7 @@ services:
     volumes:
       - ./markdown-renderer:/code/
     environment: 
-      - PORT=80
+      - PORT=5001
     command: >
       bash -c 'npm install && npm start && rm -rf ./node_modules && echo "Cleared node_modules"'
 

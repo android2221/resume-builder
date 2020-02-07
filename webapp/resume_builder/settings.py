@@ -22,8 +22,8 @@ MARKDOWN_RENDER_URL = os.environ["MARKDOWN_SITE_URL"]
 
 if LOCAL_PORT is not None:
     SITE_URL = f'{ROOT_URL}:{LOCAL_PORT}'
-
-SITE_URL = ROOT_URL
+else:
+    SITE_URL = ROOT_URL
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -37,6 +37,7 @@ DEBUG = True
 ALLOWED_HOSTS = [ROOT_URL]
 
 LOGIN_URL = "login"
+LOGOUT_REDIRECT_URL = "/"
 
 # Application definition
 
