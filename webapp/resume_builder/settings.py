@@ -37,6 +37,7 @@ DEBUG = True
 ALLOWED_HOSTS = [ROOT_URL]
 
 LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "/builder"
 LOGOUT_REDIRECT_URL = "/"
 
 # Application definition
@@ -171,3 +172,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = '/django-static-root/'
+
+# Email Settings
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = os.environ.get("DJANGO_EMAIL_FILE_PATH")
+if EMAIL_FILE_PATH is None:
+    EMAIL_FILE_PATH = "/sent_emails/"

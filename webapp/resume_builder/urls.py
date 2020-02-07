@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('mdeditor/', include('mdeditor.urls')),
     path('account/', include('accounts.urls')),
+    path('account/', include('django.contrib.auth.urls')),
     path('<str:request_profile_url>/', view_resume, name='view_resume'),
 ]
 

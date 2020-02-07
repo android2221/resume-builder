@@ -32,6 +32,7 @@ services:
     entrypoint: sh /docker-entrypoint/docker-test-entrypoint.sh
     environment: 
       - DJANGO_SITE_URL=localhost:8001
+      - DJANGO_EMAIL_FILE_PATH="/sent_emails/"
       - MARKDOWN_SITE_URL=http://markdown-renderer:5001/
     depends_on:
       - db
