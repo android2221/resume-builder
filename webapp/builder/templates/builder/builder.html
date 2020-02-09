@@ -64,8 +64,17 @@
 
     .slider.round:before {
         border-radius: 50%;
-    }           
+    } 
+
+    /* Alert Box */
+    #save-error{
+        text-align: center;
+    }
+
 </style>
+<div id="save-error" class="alert alert-danger">
+    <strong>Resume Save Failed!</strong> Please try again and contact support if issue persists.
+</div>
 
 <div id ="profile-url">
     Your public profile URL is <a target="_blank" href="http://{{site_url}}/{{ request.user.account.profile_url}}/">http://{{site_url}}/{{ request.user.account.profile_url}}/</a>

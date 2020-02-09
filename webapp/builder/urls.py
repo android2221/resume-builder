@@ -1,12 +1,12 @@
-from builder.views import index as index_view
+from builder.views import BuilderViews
 from django.urls import path
 from django.views.generic import FormView
 
-from . import views
+from .views import BuilderViews
 from .forms import ResumeEditorForm
 
 urlpatterns = [
-    path('', index_view, name='index'),
-    path('builder/', views.builder, name='builder'),
-    path('activate-resume/', views.toggle_resume_active, name='activate-resume'),
+    path('', BuilderViews.index, name='index'),
+    path('builder/', BuilderViews.builder , name='builder'),
+    path('activate-resume/', BuilderViews.toggle_resume_active, name='activate-resume'),
 ]
