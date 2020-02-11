@@ -1,7 +1,9 @@
 {% extends 'builder/base.html' %}
 {% load static %}
 
-{% block content %}
+{% block head_inserts %}
+<script src="{% static 'builder/vendor/tinymce/js/tinymce/tinymce.min.js' %}"></script>
+
 <style>
     /* The profile-toggle-switch - the box around the slider */
     .profile-toggle-switch {
@@ -72,33 +74,13 @@
     }
 
 </style>
-<div id="save-error" class="alert alert-danger">
-    <strong>Resume Save Failed!</strong> Please try again and contact support if issue persists.
-</div>
 
-<div id ="profile-url">
-    Your public profile URL is <a target="_blank" href="http://{{site_url}}/{{ request.user.account.profile_url}}/">http://{{site_url}}/{{ request.user.account.profile_url}}/</a>
-</div>
-
-<div id="activate-profile-container">
-    <form id="activate-profile" action="{% url 'activate-resume' %}">
-        {% csrf_token%}
-        <label class="profile-toggle-switch">
-            {{activate_profile_form}}
-            <span class="slider round"></span>
-        </label>
-    </form>
-</div>
-
-<a href="{% url 'logout' %}">logout</a></li>
-
-<form method = "post" action="{% url 'builder' %}">
-    {% csrf_token%}
-    {{editor_form.media}}
-    {{editor_form.as_p}}
-    <p> <input type = "submit" value = "Save"> </p>
-</form>
 <script>
+
+    tinymce.init({
+        selector: '.resume-editor'
+    });
+
     var slider = $(".profile-toggle-switch .slider");
     slider.click(function(){
         var form = $('#activate-profile');
@@ -127,4 +109,35 @@
         });
     });
 </script>
+
+{% endblock %}
+
+
+{% block content %}
+<div id="save-error" class="alert alert-danger">
+    <strong>Resume Save Failed!</strong> Please try again and contact support if issue persists.
+</div>
+
+<div id ="profile-url">
+    Your public profile URL is <a target="_blank" href="http://{{site_url}}/{{ request.user.account.profile_url}}/">http://{{site_url}}/{{ request.user.account.profile_url}}/</a>
+</div>
+
+<div id="activate-profile-container">
+    <form id="activate-profile" action="{% url 'activate-resume' %}">
+        {% csrf_token%}
+        <label class="profile-toggle-switch">
+            {{activate_profile_form}}
+            <span class="slider round"></span>
+        </label>
+    </form>
+</div>
+
+<a href="{% url 'logout' %}">logout</a></li>
+
+<form method = "post" action="{% url 'builder' %}">
+    {% csrf_token%}
+    {{editor_form.media}}
+    {{editor_form.as_p}}
+    <p> <input type = "submit" value = "Save"> </p>
+</form>
 {% endblock %}

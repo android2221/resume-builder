@@ -1,9 +1,0 @@
-{
-  "name": "resume-builder-deps",
-  "version": "1.0.0",
-  "description": "JS dependencies project for the resume builder",
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {},
-  "dependencies": {}
-}
