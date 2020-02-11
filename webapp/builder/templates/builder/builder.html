@@ -78,36 +78,11 @@
 <script>
 
     tinymce.init({
-        selector: '.resume-editor'
+        selector: '.resume-editor',
+        plugins: "lists",
+        //toolbar: "numlist bullist"
     });
 
-    var slider = $(".profile-toggle-switch .slider");
-    slider.click(function(){
-        var form = $('#activate-profile');
-        var checkbox = $('#activate-profile-checkbox');
-        var checkedStatus = checkbox.is(":checked");
-        var formData = form.serializeArray();
-        if (checkedStatus == true){
-            formData[1] = {name: "profile_active", value: "False"}
-        } else{
-            formData[1] = {name: "profile_active", value: "True"}
-        }
-        console.log(formData);
-        $.ajax({
-            type: "POST", 
-            url: form.attr('action'),
-            data: formData,
-            success: function(){
-                // do nothing
-                console.log("POST WORKED");
-            },
-            error: function() {
-                // roll slider on error
-                // build or grab some simple error banner
-                console.log("JS Error");
-            }
-        });
-    });
 </script>
 
 {% endblock %}
@@ -140,4 +115,34 @@
     {{editor_form.as_p}}
     <p> <input type = "submit" value = "Save"> </p>
 </form>
+
+<script>
+    var slider = $(".profile-toggle-switch .slider");
+    slider.click(function(){
+        console.log('slider-clicked');
+        var form = $('#activate-profile');
+        var checkbox = $('#activate-profile-checkbox');
+        var checkedStatus = checkbox.is(":checked");
+        var formData = form.serializeArray();
+        if (checkedStatus == true){
+            formData[1] = {name: "profile_active", value: "False"}
+        } else{
+            formData[1] = {name: "profile_active", value: "True"}
+        }
+        $.ajax({
+            type: "POST", 
+            url: form.attr('action'),
+            data: formData,
+            success: function(){
+                // do nothing
+                console.log("POST WORKED");
+            },
+            error: function() {
+                // roll slider on error
+                // build or grab some simple error banner
+                console.log("JS Error");
+            }
+        });
+    });
+</script>
 {% endblock %}

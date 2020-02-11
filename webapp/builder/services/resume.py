@@ -13,7 +13,7 @@ class ResumeService():
         except ObjectDoesNotExist:
             return None
         if account.user.resume.is_live is True:
-            return account.user.resume.rendered_html_resume
+            return account.user.resume.content
         return None
     
     def build_resume_form(self, resume):
@@ -29,7 +29,6 @@ class ResumeService():
         if posted_form.is_valid():
             form_data = posted_form.cleaned_data
             resume.content = form_data["content"]
-            resume.rendered_html_resume = rendered_resume.text
             resume.save()
             return True
         else:
