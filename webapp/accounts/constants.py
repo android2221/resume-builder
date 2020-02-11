@@ -9,6 +9,5 @@ ERROR_PARSING_PROFILE_URL = "Could not use that profile URL, try another one"
 FORM_PROFILE_URL_REQUIREMENTS = "Your profile URL may only contain letters, numbers, dashes, and hyphens"
 
 # MESSAGING
-MARKDOWN_WELCOME = "# Welcome!"
 HTML_WELCOME = "<h1>Welcome!</h1>"
 PAGE_NOT_FOUND = "Page not found"

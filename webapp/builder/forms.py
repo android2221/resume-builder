@@ -1,11 +1,9 @@
 from accounts import constants
 from django import forms
 from django.contrib.auth.models import User
-from mdeditor.fields import MDTextFormField
-
 
 class ResumeEditorForm (forms.Form):
-    content = MDTextFormField (label="")
+     content = forms.CharField(widget=forms.Textarea)
 
 class ActivateResumeForm (forms.Form):
     profile_active = forms.BooleanField(required=False, label="")

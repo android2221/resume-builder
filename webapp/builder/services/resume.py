@@ -29,9 +29,6 @@ class ResumeService():
         if posted_form.is_valid():
             form_data = posted_form.cleaned_data
             resume.content = form_data["content"]
-            rendered_resume = requests.post(settings.MARKDOWN_RENDER_URL, 
-                data = {'markdownContent': resume.content}
-            )
             resume.rendered_html_resume = rendered_resume.text
             resume.save()
             return True

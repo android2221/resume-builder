@@ -18,7 +18,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # RESUME BUILDER APP CONFIGS
 LOCAL_PORT = os.environ.get("DJANGO_LOCAL_PORT")
 ROOT_URL = os.environ["DJANGO_SITE_URL"]
-MARKDOWN_RENDER_URL = os.environ["MARKDOWN_SITE_URL"]
 
 if LOCAL_PORT is not None:
     SITE_URL = f'{ROOT_URL}:{LOCAL_PORT}'
@@ -45,7 +44,6 @@ LOGOUT_REDIRECT_URL = "/"
 INSTALLED_APPS = [
     'builder.apps.BuilderConfig',
     'accounts.apps.AccountsConfig',
-    'mdeditor',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,36 +51,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles'
 ]
-
-MDEDITOR_CONFIGS = {
-    'default':{
-        'language': 'en',
-        'width': '90% ',  # Custom edit box width
-        'heigth': 500,  # Custom edit box height
-        'toolbar': ["undo", "redo", "|",
-                    "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
-                    "h1", "h2", "h3", "h5", "h6", "|",
-                    "list-ul", "list-ol", "hr", "|",
-                    "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime"
-                    "emoji", "html-entities", "pagebreak", "goto-line", "|",
-                    "||", "preview", "watch", "fullscreen"],  # custom edit box toolbar 
-        'upload_image_formats': ["jpg", "jpeg", "gif", "png", "bmp", "webp"],  # image upload format type
-        'image_folder': 'editor',  # image save the folder name
-        'theme': 'default',  # edit box theme, dark / default
-        'preview_theme': 'default',  # Preview area theme, dark / default
-        'editor_theme': 'default',  # edit area theme, pastel-on-dark / default
-        'toolbar_autofixed': True,  # Whether the toolbar capitals
-        'search_replace': True,  # Whether to open the search for replacement
-        'emoji': True,  # whether to open the expression function
-        'tex': False,  # whether to open the tex chart function
-        'flow_chart': False,  # whether to open the flow chart function
-        'sequence': False, # Whether to open the sequence diagram function
-        'watch': True,  # Live preview
-        'lineWrapping': True,  # lineWrapping
-        'lineNumbers': False  # lineNumbers
-    }
-    
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
