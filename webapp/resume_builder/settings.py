@@ -39,6 +39,8 @@ LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "/builder"
 LOGOUT_REDIRECT_URL = "/"
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
 # Application definition
 
 INSTALLED_APPS = [

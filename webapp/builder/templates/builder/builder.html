@@ -79,7 +79,8 @@
 
     tinymce.init({
         selector: '.resume-editor',
-        plugins: "lists",
+        //plugins: "lists",
+        branding: false,
         //toolbar: "numlist bullist"
     });
 
@@ -87,11 +88,15 @@
 
 {% endblock %}
 
-
 {% block content %}
-<div id="save-error" class="alert alert-danger">
-    <strong>Resume Save Failed!</strong> Please try again and contact support if issue persists.
-</div>
+
+{% for message in messages %}
+    {% ifequal message.tags "error" %}
+    <div id="save-error" class="alert alert-danger {% if message.tags %}{{ message.tags }}{% endif %}">
+        {{ message }}
+    </div>
+    {% endifequal %}
+{% endfor %}
 
 <div id ="profile-url">
     Your public profile URL is <a target="_blank" href="http://{{site_url}}/{{ request.user.account.profile_url}}/">http://{{site_url}}/{{ request.user.account.profile_url}}/</a>
@@ -101,7 +106,7 @@
     <form id="activate-profile" action="{% url 'activate-resume' %}">
         {% csrf_token%}
         <label class="profile-toggle-switch">
-            {{activate_profile_form}}
+            {{ forms.activate_profile_form }}
             <span class="slider round"></span>
         </label>
     </form>
@@ -109,17 +114,16 @@
 
 <a href="{% url 'logout' %}">logout</a></li>
 
-<form method = "post" action="{% url 'builder' %}">
+<form method = "post" action="{% url 'save_builder' %}">
     {% csrf_token%}
-    {{editor_form.media}}
-    {{editor_form.as_p}}
+    {{ forms.editor_form.media }}
+    {{ forms.editor_form.as_p }}
     <p> <input type = "submit" value = "Save"> </p>
 </form>
 
 <script>
     var slider = $(".profile-toggle-switch .slider");
     slider.click(function(){
-        console.log('slider-clicked');
         var form = $('#activate-profile');
         var checkbox = $('#activate-profile-checkbox');
         var checkedStatus = checkbox.is(":checked");
@@ -135,12 +139,10 @@
             data: formData,
             success: function(){
                 // do nothing
-                console.log("POST WORKED");
             },
             error: function() {
                 // roll slider on error
                 // build or grab some simple error banner
-                console.log("JS Error");
             }
         });
     });
