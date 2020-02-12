@@ -114,11 +114,12 @@
 
 <a href="{% url 'logout' %}">logout</a></li>
 
-<form method = "post" action="{% url 'save_builder' %}">
+<form method = "post">
     {% csrf_token%}
     {{ forms.editor_form.media }}
     {{ forms.editor_form.as_p }}
-    <p> <input type = "submit" value = "Save"> </p>
+    <input type="submit" value="Preview" formaction="{% url 'preview_resume' %}">
+    <input type="submit" value="Save" formaction="{% url 'save_builder' %}">
 </form>
 
 <script>

@@ -32,9 +32,16 @@ class ResumeService():
                 return True
             except:
                 return False           
-        else:
             return False
     
+    def preview_resume(self, payload):
+        posted_form = ResumeEditorForm(payload)
+        if posted_form.is_valid():
+            form_data = posted_form.cleaned_data
+            resume_content = form_data["content"]
+            return resume_content
+        return None
+
     def toggle_resume_active(self, user, payload):
         form = ActivateResumeForm(payload)
         if form.is_valid():

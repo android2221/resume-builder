@@ -38,6 +38,13 @@ def toggle_resume_active(request):
         return HttpResponse(status=500)
     return HttpResponse(status=200)
 
+@login_required
+def preview_resume(request):
+    service = ResumeService()
+    content = service.preview_resume(request.POST)
+    context = {'resume_content': content}
+    return render(request, 'builder/preview-resume.html', context)
+
 def view_resume(request, request_profile_url):
     service = ResumeService()
     rendered_resume = service.get_rendered_resume_content(request_profile_url)
