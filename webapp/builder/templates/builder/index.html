@@ -2,7 +2,7 @@
 
 {% block content %}
 This is the index page with some dynamic content {{ some_sample_text }}
-    <a href="{% url 'builder' %}">go to builders</a></li>
+    <a href="{% url 'load_builder' %}">go to builders</a></li>
     <a href="{% url 'register' %}">register</a></li>
     <a href="{% url 'password_reset' %}">reset password</a></li>
 {% endblock %}

@@ -39,7 +39,7 @@ class RegistrationViewTests(TestCase):
 
     def test_registration_redirects_to_builder(self):
         response = self.client.post(reverse("register"), self.form_data)
-        self.assertRedirects(response, reverse("builder"))
+        self.assertRedirects(response, reverse("load_builder"))
 
     # Test rendering of our form errors
     def test_duplicate_username_should_return_error(self):

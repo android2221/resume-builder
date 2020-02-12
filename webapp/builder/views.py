@@ -4,7 +4,7 @@ from django.http import Http404
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.urls import reverse
 from django.conf import settings
-from .services.resume import ResumeService
+from .services.resume_service import ResumeService
 from django.contrib import messages
 
 

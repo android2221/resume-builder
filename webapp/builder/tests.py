@@ -25,11 +25,11 @@ class ResumeBuilderViewTests(TestCase):
         self.authedClient.force_login(self.user)
 
     def test_login_required_redirect_works(self):
-        response = self.client.get(reverse("builder"))
+        response = self.client.get(reverse("load_builder"))
         self.assertRedirects(response, "/account/login/?next=/builder/")
     
     def test_can_load_builder_after_login(self):
-        response = self.authedClient.get(reverse("builder"))
+        response = self.authedClient.get(reverse("load_builder"))
         self.assertEqual(response.status_code, 200)
         self.assertIn(self.resume_content, str(response.content))
 
@@ -38,17 +38,15 @@ class ResumeBuilderViewTests(TestCase):
         response_object.text = "<h1>rendered thing</h1>"
         requests.post = MagicMock(return_value=response_object)
         form_data = {"content": "# My test thing"}
-        response = self.authedClient.post(reverse("builder"), form_data)
-        self.assertRedirects(response, reverse("builder"))
+        response = self.authedClient.post(reverse("save_builder"), form_data)
+        self.assertRedirects(response, reverse("load_builder"))
 
 class ResumeViewTests(TestCase):
     def setUp(self):
         self.user = User.objects.create_user("foo@bar.com", "foo@bar.com", "paas09df2@")
         self.resume_content = "initial content"
-        self.rendered_content = "<h1>rendered content</h1>"
         resume = Resume(user=self.user)
         resume.content = self.resume_content
-        resume.rendered_html_resume = self.rendered_content
         resume.is_live = True
         resume.save()
         account = Account(user=self.user)
@@ -60,7 +58,7 @@ class ResumeViewTests(TestCase):
     def test_active_resume_displays(self):
         response = self.client.get(reverse("view_resume", args=[self.user.account.profile_url]))
         self.assertEqual(response.status_code, 200)
-        self.assertIn(self.rendered_content, str(response.content))
+        self.assertIn(self.resume_content, str(response.content))
     
     def test_nonexistant_resume_returns_404(self):
         response = self.client.get(reverse("view_resume", args=["fakeurlthatdoesntexist"]))
