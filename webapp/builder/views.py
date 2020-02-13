@@ -10,7 +10,7 @@ from django.contrib import messages
 
 def index(request):
     context = {'some_sample_text': 'some sample thing i typed'}
-    return render(request, 'builder/index.html', context)
+    return render(request, 'builder/app-base.html', context)
 
 @login_required
 def save_builder(request):
