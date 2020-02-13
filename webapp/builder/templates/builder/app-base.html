@@ -7,7 +7,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Star Admin Premium Bootstrap Admin Dashboard Template</title>
+    <title>SeeMyResume.io</title>
     <!-- plugins:css -->
     
     <link rel="stylesheet" href="{% static 'builder/vendor/ui/vendors/iconfonts/mdi/css/materialdesignicons.min.css' %}">
@@ -45,8 +45,12 @@
             width: 100%;
         }
 
-        .navbar i.fa{
+        .navbar.default-layout .navbar-menu-wrapper .navbar-nav .nav-item .nav-link i{
           color: #2196f3;
+          font-size: 1.75rem;
+        }
+
+        .navbar-nav .nav-item.dropdown i.profile-dropdown-icon{
           font-size: 1.75rem;
         }
 
@@ -72,9 +76,9 @@
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                 <div class="dropdown-header text-center">
-                  <i class="fa fa-user-circle-o"></i>
-                  <p class="mb-1 mt-3 font-weight-semibold">Allen Moreno</p>
-                  <p class="font-weight-light text-muted mb-0">allenmoreno@gmail.com</p>
+                  <i class="fa fa-user-circle-o profile-dropdown-icon"></i>
+                  <p class="mb-1 mt-3 font-weight-semibold">{{ request.user.first_name }} {{ request.user.last_name }}</p>
+                  <p class="font-weight-light text-muted mb-0">{{ request.user.email }}</p>
                 </div>
                 <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                 <a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a>
