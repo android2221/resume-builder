@@ -78,19 +78,37 @@
         display: none;
     }
 
-    .editor-container .card-title{
+    .editor-container .editor-title{
       margin-bottom: 15px;
     }
 
+    .activate-profile-container{
+      text-align: center;
+    }
+
+    #activate-profile-form-container{
+      margin-top: 20px;
+    }
+
+    #live-indicator{
+      margin-top: 20px;
+    }
+
+    #live-indicator .dot-indicator{
+      display: inline-block;
+    }
+
+    #live-status-text{
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
 
 </style>
 
 <script>
     tinymce.init({
         selector: '.resume-editor',
-        plugins: 'autoresize',
-        autoresize_bottom_margin: 50,
-        min_height: 500,
+        height: 500,
         //plugins: "lists",
         branding: false,
         //toolbar: "numlist bullist"
@@ -109,16 +127,15 @@
     {% endifequal %}
 {% endfor %}
 
-<div class="col-md-3 grid-margin">
-    <div class="card">
+<div class="col-md-3 grid-margin float-right">
+    <div class="card activate-profile-container">
       <div class="card-body">
         <div class="row">
           <div class="col-md-12">
             <div class="d-flex align-items-center pb-2">
-              <div class="dot-indicator bg-success mr-2"></div>
             </div>
             <h4 class="font-weight-semibold">Activate resume</h4>
-            <div id="activate-profile-container">
+            <div id="activate-profile-form-container">
               <form id="activate-profile" action="{% url 'activate-resume' %}">
                   {% csrf_token%}
                   <label class="profile-toggle-switch">
@@ -126,6 +143,13 @@
                       <span class="slider round"></span>
                   </label>
               </form>
+              <div class="col-lg-8 offset-lg-2" id="live-indicator">
+                <div class="dot-indicator bg-danger mr-2"></div>
+                <span>Not Live</span>
+              </div>
+              <div id="live-status-text" class="col-lg-12">
+                My resume is not published on the internet
+              </div>
             </div>
           </div>
         </div>
@@ -133,15 +157,15 @@
     </div>
   </div>
 
-<div class="col-md-12">
+<div class="col-md-9">
     <div class="row">
         <div class="col-lg-12 grid-margin">
             <div class="card editor-container">
                 <div class="card-body">
-                    <div class="card-title">
+                    <div class="editor-title">
                       <h3>Edit My Resume</h3>
-                      <div id ="profile-url">
-                        My public resume URL is: <a target="_blank" href="http://{{site_url}}/{{ request.user.account.profile_url}}/">http://{{site_url}}/{{ request.user.account.profile_url}}/</a>
+                      <div class=font-weight-bold id="profile-url">
+                        My resume url  is: <a target="_blank" href="http://{{site_url}}/{{ request.user.account.profile_url}}/">http://{{site_url}}/{{ request.user.account.profile_url}}/</a>
                       </div>
                     </div>
                     <form method = "post">
@@ -173,12 +197,13 @@
             type: "POST", 
             url: form.attr('action'),
             data: formData,
-            success: function(){
-                // do nothing
+            success: function(res){
+                // check if server success and rollback if save_success = false
             },
             error: function() {
-                // roll slider on error
-                // build or grab some simple error banner
+              checkbox.prop("checked", false);
+              // roll slider on error
+              // build or grab some simple error banner
             }
         });
     });
