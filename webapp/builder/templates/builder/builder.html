@@ -45,18 +45,46 @@
         transition: .4s;
     }
 
-    input:checked + .slider {
+    #activate-profile input:checked + .slider {
         background-color: #2196F3;
     }
 
-    input:focus + .slider {
+    #activate-profile input:focus + .slider {
         box-shadow: 0 0 1px #2196F3;
     }
 
-    input:checked + .slider:before {
+    #activate-profile input:checked + .slider:before {
         -webkit-transform: translateX(26px);
         -ms-transform: translateX(26px);
         transform: translateX(26px);
+    }
+
+    .live-indicator{
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s, opacity 0.5s linear;
+    }
+
+    #not-live{
+      visibility: visible;
+      opacity: 1;
+    }
+
+    #live{
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    #activate-profile-checkbox:checked ~ #live
+    {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    #activate-profile-checkbox:checked ~ #not-live
+    {
+      visibility: hidden;
+      opacity: 0;
     }
 
     /* Rounded sliders */
@@ -90,11 +118,11 @@
       margin-top: 20px;
     }
 
-    #live-indicator{
+    .live-indicator{
       margin-top: 20px;
     }
 
-    #live-indicator .dot-indicator{
+    .live-indicator .dot-indicator{
       display: inline-block;
     }
 
@@ -141,15 +169,19 @@
                   <label class="profile-toggle-switch">
                       {{ forms.activate_profile_form }}
                       <span class="slider round"></span>
+                      <div class="live-indicator" id="not-live">
+                        <div class="dot-indicator bg-danger mr-2"></div>
+                        <span>Not Live</span>
+                      </div>
+                      <div class="live-indicator" id="live">
+                        <div class="dot-indicator bg-success mr-2"></div>
+                        <span>Live</span>
+                      </div>
+                      <div id="live-status-text" class="col-lg-12">
+                        My resume is not published on the internet
+                      </div>
                   </label>
               </form>
-              <div class="col-lg-8 offset-lg-2" id="live-indicator">
-                <div class="dot-indicator bg-danger mr-2"></div>
-                <span>Not Live</span>
-              </div>
-              <div id="live-status-text" class="col-lg-12">
-                My resume is not published on the internet
-              </div>
             </div>
           </div>
         </div>
