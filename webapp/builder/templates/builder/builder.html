@@ -101,11 +101,14 @@
 
     .live-indicator .dot-indicator{
       display: inline-block;
+      width: 20px;
+      height: 20px;
+      position: relative;
+      top: 3px;
     }
 
-    #live-status-text{
+    .live-status-text{
       margin-top: 20px;
-      margin-bottom: 10px;
     }
 
 </style>
@@ -139,7 +142,7 @@
           <div class="col-md-12">
             <div class="d-flex align-items-center pb-2">
             </div>
-            <h4 class="font-weight-semibold">Activate resume</h4>
+            <h3>{{ activate_resume_header }}</h3>
             <div id="activate-profile-form-container">
               <form id="activate-profile" action="{% url 'activate-resume' %}">
                   {% csrf_token%}
@@ -147,21 +150,21 @@
                   <label class="profile-toggle-switch">
                       <span id="activate-profile-slider" class="slider round"></span>
                   </label>
-                  <div class="live-indicator" id="not-live">
-                    <div class="dot-indicator bg-danger mr-2"></div>
-                    <span>Not Live</span>
-                    <div class="col-lg-12 live-status-text">
-                      My resume is not published on the internet
-                    </div>
-                  </div>
-                  <div class="live-indicator" id="live">
-                    <div class="dot-indicator bg-success mr-2"></div>
-                    <span>Live</span>
-                    <div class="col-lg-12 live-status-text">
-                      My resume is published on the internet
-                    </div>
-                  </div>
               </form>
+            </div>
+            <div class="live-indicator" id="not-live">
+              <div class="dot-indicator bg-danger mr-2"></div>
+              <span class='h4'>{{ not_live_text }}</span>
+              <div class="col-lg-12 live-status-text">
+                {{ resume_not_active_message }}
+              </div>
+            </div>
+            <div class="live-indicator" id="live">
+              <div class="dot-indicator bg-success mr-2"></div>
+              <span class='h4'>{{ live_text }}</span>
+              <div class="col-lg-12 live-status-text">
+                {{ resume_active_message }}
+              </div>
             </div>
           </div>
         </div>
@@ -184,8 +187,8 @@
                         {% csrf_token%}
                         {{ forms.editor_form.media }}
                         {{ forms.editor_form.as_p }}
-                        <input class="btn btn-outline-primary" type="submit" value="Preview" formaction="{% url 'preview_resume' %}">
-                        <input class="btn btn-success btn-fw" type="submit" value="Save & Publish" formaction="{% url 'save_builder' %}">
+                        <input class="btn btn-outline-primary" type="submit" value="{{ preview_button }}" formaction="{% url 'preview_resume' %}">
+                        <input class="btn btn-success btn-fw" type="submit" value="{{ save_button }}" formaction="{% url 'save_builder' %}">
                     </form>
                 </div>
             </div>

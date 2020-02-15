@@ -28,6 +28,13 @@ def load_builder(request):
     context = { 'forms': forms, 
         'resume_is_active': request.user.resume.is_live,
         'site_url': settings.SITE_URL,
+        'resume_active_message': constants.RESUME_IS_PUBLISHED,
+        'resume_not_active_message': constants.RESUME_NOT_PUBLISHED,
+        'activate_resume_header': constants.ACTIVATE_RESUME_HEADER,
+        'not_live_text': constants.NOT_LIVE_TEXT,
+        'live_text': constants.LIVE_TEXT,
+        'save_button': constants.RESUME_SAVE_BUTTON,
+        'preview_button': constants.RESUME_PREVIEW_BUTTON
     }
     return render(request, 'builder/builder.html', context)
 
