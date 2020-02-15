@@ -87,7 +87,7 @@
     }
 
     #activate-profile-form-container{
-      margin-top: 20px;
+      margin-top: 30px;
     }
 
     .live-indicator{
@@ -197,13 +197,13 @@
 </div>
 
 <script>
-    var slider = $(".profile-toggle-switch .slider");
+    var slider = $('#activate-profile-slider');
+    var checkbox = $('#activate-profile-checkbox');
+    var liveIndicator = $('.live-indicator#live');
+    var notLiveIndicator = $('.live-indicator#not-live');
 
     $(document).ready(function(){
-      var slider = $('#activate-profile-slider');
-      var checkbox = $('#activate-profile-checkbox');
-      var liveIndicator = $('.live-indicator#live');
-      var notLiveIndicator = $('.live-indicator#not-live');
+
       if(checkbox.val() == 'True'){
         slider.addClass('active');
         liveIndicator.addClass('show');
@@ -212,43 +212,38 @@
       }
     });
 
-
     slider.click(function(){
         var form = $('#activate-profile');
-        var checkbox = $('#activate-profile-checkbox');
-        var slider = $('#activate-profile-slider');
         var checkedStatus = checkbox.val()
-        var formData = form.serializeArray();
-
-        var liveIndicator = $('.live-indicator#live');
-        var notLiveIndicator = $('.live-indicator#not-live');
 
         if (checkedStatus == 'True'){
-            formData[1] = {name: "profile_active", value: "False"}
+            checkbox.val('False');
         } else{
-            formData[1] = {name: "profile_active", value: "True"}
+            checkbox.val('True')
         }
+
         $.ajax({
             type: "POST", 
             url: form.attr('action'),
-            data: formData,
+            data: form.serializeArray(),
             success: function(res){
               if (checkedStatus == 'True'){
-                checkbox.val('False');
                 slider.removeClass('active');
                 notLiveIndicator.addClass('show');
                 liveIndicator.removeClass('show');
               } else{
-                checkbox.val('True');
                 slider.addClass('active');
                 notLiveIndicator.removeClass('show');
                 liveIndicator.addClass('show');
               }
             },
             error: function() {
-              
-              // activate error banner
+              if (checkedStatus == 'True'){
+            checkbox.val('False');
+            } else{
+                checkbox.val('True')
             }
+          }
         });
     });
 </script>
