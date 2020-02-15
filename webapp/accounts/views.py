@@ -5,6 +5,8 @@ from .services.account_service import AccountService
 
 def register_user(request):
     service = AccountService()
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('load_builder'))
     if request.POST:
         result = service.register_user(request)
         if result is True:
