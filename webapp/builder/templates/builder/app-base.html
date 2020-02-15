@@ -1,96 +1,56 @@
+{% extends './base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
+{% block head_inserts %}
 
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>SeeMyResume.io</title>
-    <!-- plugins:css -->
-    
-    <link rel="stylesheet" href="{% static 'builder/vendor/ui/vendors/iconfonts/mdi/css/materialdesignicons.min.css' %}">
-    <link rel="stylesheet" href="{% static 'builder/vendor/ui/vendors/iconfonts/ionicons/css/ionicons.css' %}">
-    <link rel="stylesheet" href="{% static 'builder/vendor/ui/vendors/iconfonts/typicons/src/font/typicons.css' %}">
-    <link rel="stylesheet" href="{% static 'builder/vendor/ui/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css' %}">
-    <link rel="stylesheet" href="{% static 'builder/vendor/ui/vendors/css/vendor.bundle.base.css' %}">
-    <link rel="stylesheet" href="{% static 'builder/vendor/ui/vendors/css/vendor.bundle.addons.css' %}">
-    <link rel="stylesheet" href="{% static 'builder/vendor/ui/vendors/iconfonts/font-awesome/css/font-awesome.min.css' %}">
-    <link rel="stylesheet" href="{% static 'builder/vendor/ui/css/shared/style.css' %}">
-    <link rel="stylesheet" href="{% static 'builder/vendor/ui/css/main/style.css' %}">
-    <link rel="shortcut icon" href="{% static 'builder/vendor/ui/images/favicon.png' %}" />
-    <script src="{% static 'builder/vendor/ui/vendors/js/vendor.bundle.base.js' %}"></script>	
-    <script src="{% static 'builder/vendor/ui/vendors/js/vendor.bundle.addons.js' %}"></script>
-    <style>
-        .main-panel{
-            width: 100%;
-        }
+<style>
+    .navbar.default-layout .navbar-menu-wrapper .navbar-nav .nav-item .nav-link i{
+      color: #2196f3;
+      font-size: 1.75rem;
+    }
 
-        .navbar.default-layout .navbar-menu-wrapper .navbar-nav .nav-item .nav-link i{
-          color: #2196f3;
-          font-size: 1.75rem;
-        }
+    .navbar-nav .nav-item.dropdown i.profile-dropdown-icon{
+      font-size: 1.75rem;
+    }
 
-        .navbar-nav .nav-item.dropdown i.profile-dropdown-icon{
-          font-size: 1.75rem;
-        }
-
-    </style>
-    {% block head_inserts %}
+</style>
+    {% block template_head_inserts %}
     {% endblock %}
-  </head>
-  <body>
-    <div class="container-scroller">
-      <!-- partial:../../partials/_navbar.html -->
-      <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-        <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-          <a class="navbar-brand brand-logo" href="{% url 'load_builder' %}">
-            <img src="{% static 'builder/vendor/ui/images/logo.svg' %}" alt="logo" /> </a>
-          <a class="navbar-brand brand-logo-mini" href="{% url 'load_builder' %}">
-            <img src="{% static 'builder/vendor/ui/images/logo-mini.svg' %}" alt="logo" /> </a>
-        </div>
-        <div class="navbar-menu-wrapper d-flex align-items-center">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
-              <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-user-circle-o"></i>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
-                <div class="dropdown-header text-center">
-                  <i class="fa fa-user-circle-o profile-dropdown-icon"></i>
-                  <p class="mb-1 mt-3 font-weight-semibold">{{ request.user.first_name }} {{ request.user.last_name }}</p>
-                  <p class="font-weight-light text-muted mb-0">{{ request.user.email }}</p>
-                </div>
-                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-                <a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a>
-              </div>
-            </li>
-          </ul>
-          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-            <span class="mdi mdi-menu"></span>
-          </button>
-        </div>
-      </nav>
-      <!-- partial -->
-      <div class="container-fluid page-body-wrapper">
-        <div class="main-panel">
-          <div class="content-wrapper"> 
-            <div class="content">
-                {% block content %}
-                {% endblock %}
-            </div>
-          </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:../../partials/_footer.html -->
-          <footer class="footer">
-            <div class="container-fluid clearfix"></div>
-          </footer>
-          <!-- partial -->
-        </div>
-        <!-- main-panel ends -->
-      </div>
-      <!-- page-body-wrapper ends -->
+{% endblock %}
+
+{% block content %}
+    {% block app_content %}
+    {% endblock %}
+{% endblock %}
+
+{% block navbar %}
+<nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+    <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+        <a class="navbar-brand brand-logo" href="{% url 'load_builder' %}">
+        <img src="{% static 'builder/vendor/ui/images/logo.svg' %}" alt="logo" /> </a>
+        <a class="navbar-brand brand-logo-mini" href="{% url 'load_builder' %}">
+        <img src="{% static 'builder/vendor/ui/images/logo-mini.svg' %}" alt="logo" /> </a>
     </div>
-  </body>
-</html>
+    <div class="navbar-menu-wrapper d-flex align-items-center">
+        <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
+            <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-user-circle-o"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+            <div class="dropdown-header text-center">
+                <i class="fa fa-user-circle-o profile-dropdown-icon"></i>
+                <p class="mb-1 mt-3 font-weight-semibold">{{ request.user.first_name }} {{ request.user.last_name }}</p>
+                <p class="font-weight-light text-muted mb-0">{{ request.user.email }}</p>
+            </div>
+            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+            <a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a>
+            </div>
+        </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+        <span class="mdi mdi-menu"></span>
+        </button>
+    </div>
+</nav>
+{% endblock %}

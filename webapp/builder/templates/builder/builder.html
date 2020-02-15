@@ -1,7 +1,7 @@
 {% extends 'builder/app-base.html' %}
 {% load static %}
 
-{% block head_inserts %}
+{% block template_head_inserts %}
 <script src="{% static 'builder/vendor/tinymce/js/tinymce/tinymce.min.js' %}"></script>
 
 <style>
@@ -125,7 +125,7 @@
 
 {% endblock %}
 
-{% block content %}
+{% block app_content %}
 
 {% for message in messages %}
     {% ifequal message.tags "error" %}
