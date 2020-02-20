@@ -3,6 +3,13 @@
 {% load static %}
 
 {% block head_inserts %}
+<style>
+.tooltip-inner{
+    min-width: 250px;
+    text-align: left;
+}
+</style>
+
 <script>
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
@@ -15,7 +22,7 @@
     <div class="row w-100">
     <div class="col-lg-4 mx-auto">
         <h2 class="text-center mb-4">Register</h2>
-        <div class="auto-form-wrapper">
+        <div class="auto-form-wrapper registration-form-container">
         <form action="./" method="post">
             {% csrf_token%}
             {% for field in form %}
@@ -24,11 +31,17 @@
                     {{ field.errors }}
                     {{ field }}
                     <div class="input-group-append">
-                    {% if field.help_text %}
                     <span class="input-group-text">
-                        <i data-toggle="tooltip" data-placement="top" data-html="true" title="{{ field.help_text }}" class="fa fa-info-circle"></i>
+                        {% if field.help_text %}
+                        <i data-toggle="tooltip" 
+                            data-placement="top" 
+                            data-html="true" 
+                            data-container="body"
+                            title="{{ field.help_text }}"
+                            class="fa fa-info-circle">
+                        </i>
+                        {% endif %}
                     </span>
-                    {% endif %}
                     </div>
                 </div>
                 
