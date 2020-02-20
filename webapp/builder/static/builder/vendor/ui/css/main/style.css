@@ -263,15 +263,16 @@
   transition: background 0.25s ease;
   -webkit-transition: background 0.25s ease;
   -moz-transition: background 0.25s ease;
-  -ms-transition: background 0.25s ease; }
+  -ms-transition: background 0.25s ease; 
+  box-shadow: 0 4px 16px 0 rgba(167, 175, 183, 0.33)}
   .navbar.default-layout .navbar-brand-wrapper {
     transition: width 0.25s ease, background 0.25s ease;
     -webkit-transition: width 0.25s ease, background 0.25s ease;
     -moz-transition: width 0.25s ease, background 0.25s ease;
     -ms-transition: width 0.25s ease, background 0.25s ease;
-    background: #1c45ef;
+    background: #027BFF;
     width: 270px;
-    height: 63px; }
+    height: 63px;}
     .navbar.default-layout .navbar-brand-wrapper .navbar-brand {
       color: #ffffff;
       font-size: 1.5rem;
@@ -303,9 +304,7 @@
     padding-left: 15px;
     padding-right: 15px;
     width: calc(100% - 270px);
-    height: 63px;
-    -webkit-box-shadow: 0 4px 16px 0 rgba(167, 175, 183, 0.33);
-    box-shadow: 0 4px 16px 0 rgba(167, 175, 183, 0.33); }
+    height: 63px; }
     @media (max-width: 991px) {
       .navbar.default-layout .navbar-menu-wrapper {
         width: calc(100% - 70px); } }
