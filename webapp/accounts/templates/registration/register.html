@@ -2,8 +2,15 @@
 
 {% load static %}
 
-{% block content %}
+{% block head_inserts %}
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+{% endblock %}
 
+{% block content %}
 <div class="content-wrapper d-flex align-items-center auth theme-one">
     <div class="row w-100">
     <div class="col-lg-4 mx-auto">
@@ -17,21 +24,21 @@
                     {{ field.errors }}
                     {{ field }}
                     <div class="input-group-append">
+                    {% if field.help_text %}
                     <span class="input-group-text">
-                        <i class="mdi mdi-check-circle-outline"></i>
+                        <i data-toggle="tooltip" data-placement="top" data-html="true" title="{{ field.help_text }}" class="fa fa-info-circle"></i>
                     </span>
+                    {% endif %}
                     </div>
                 </div>
-                {% if field.help_text %}
-                <div id="help">{{ field.help_text|safe }}</div>
-                {% endif %}
+                
             </div>
             {% endfor %}
             <div class="form-group">
                 <input type="submit" value="Register" class="btn btn-primary submit-btn btn-block">
             </div>
             <div class="text-block text-center my-3">
-                <span class="text-small font-weight-semibold">Already have and account ?</span>
+                <span class="text-small font-weight-semibold">Already have an account?</span>
                 <a href="{% url 'login' %}" class="text-black text-small">Login</a>
             </div>
         </form>
@@ -39,5 +46,4 @@
     </div>
     </div>
 </div>
-
 {% endblock %}

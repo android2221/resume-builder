@@ -24,12 +24,12 @@ class UserRegistrationForm(UserCreationForm):
         self.fields['password1'].widget.attrs['class'] = 'form-control'
         self.fields['password2'].widget.attrs['class'] = 'form-control'
         self.fields['profile_url'].widget.attrs['class'] = 'form-control'
-        self.fields['email'].widget.attrs['placeholder'] = 'Email Address'
-        self.fields['first_name'].widget.attrs['placeholder'] = 'First Name'
-        self.fields['last_name'].widget.attrs['placeholder'] = 'Last Name'
-        self.fields['password1'].widget.attrs['placeholder'] = 'Enter Password'
-        self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
-        self.fields['profile_url'].widget.attrs['placeholder'] = 'Resume Url'
+        self.fields['email'].widget.attrs['placeholder'] = constants.FORM_EMAIL_PLACEHOLDER
+        self.fields['first_name'].widget.attrs['placeholder'] = constants.FORM_FIRST_NAME_PLACEHOLDER
+        self.fields['last_name'].widget.attrs['placeholder'] = constants.FORM_LAST_NAME_PLACEHOLDER
+        self.fields['password1'].widget.attrs['placeholder'] = constants.FORM_PASSWORD_PLACEHOLDER
+        self.fields['password2'].widget.attrs['placeholder'] = constants.FORM_PASSOWRD_CONFIRM_PLACEHOLDER
+        self.fields['profile_url'].widget.attrs['placeholder'] = constants.FORM_PROFILE_URL_PLACEHOLDER
 
     class Meta:
         model = User

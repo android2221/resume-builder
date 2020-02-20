@@ -6,6 +6,12 @@ ERROR_SAVING_RESUME = "Resume Save Failed! Please try again and contact support 
 
 # FORM HELP TEXTS
 FORM_PROFILE_URL_REQUIREMENTS = "Your resume URL may only contain letters, numbers, dashes, and hyphens"
+FORM_EMAIL_PLACEHOLDER = "Email Address"
+FORM_FIRST_NAME_PLACEHOLDER = "First Name"
+FORM_LAST_NAME_PLACEHOLDER = "Last Name"
+FORM_PASSWORD_PLACEHOLDER = "Enter Password"
+FORM_PASSOWRD_CONFIRM_PLACEHOLDER = "Confirm Password"
+FORM_PROFILE_URL_PLACEHOLDER = "Resume Url"
 
 # MESSAGING
 HTML_WELCOME = "<h1>Welcome!</h1>"
