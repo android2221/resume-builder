@@ -8,6 +8,11 @@
     min-width: 250px;
     text-align: left;
 }
+
+.registration-form-container input{
+    font-size: 1rem !important;
+}
+
 </style>
 
 <script>
@@ -38,7 +43,7 @@
                             data-html="true" 
                             data-container="body"
                             title="{{ field.help_text }}"
-                            class="fa fa-info-circle">
+                            class="fa fa-info-circle icon-sm text-info">
                         </i>
                         {% endif %}
                     </span>
@@ -51,8 +56,8 @@
                 <input type="submit" value="Register" class="btn btn-primary submit-btn btn-block">
             </div>
             <div class="text-block text-center my-3">
-                <span class="text-small font-weight-semibold">Already have an account?</span>
-                <a href="{% url 'login' %}" class="text-black text-small">Login</a>
+                <span class="font-weight-semibold">Already have an account?</span>
+                <a href="{% url 'login' %}" class="text-black">Login</a>
             </div>
         </form>
         </div>
