@@ -16,15 +16,15 @@
                 <div class="input-group">
                     {{ field.errors }}
                     {{ field }}
-                    {% if field.help_text %}
-                    <div id="helptext">{{ field.help_text|safe }}</div>
-                    {% endif %}
                     <div class="input-group-append">
                     <span class="input-group-text">
                         <i class="mdi mdi-check-circle-outline"></i>
                     </span>
                     </div>
                 </div>
+                {% if field.help_text %}
+                <div id="help">{{ field.help_text|safe }}</div>
+                {% endif %}
             </div>
             {% endfor %}
             <div class="form-group">

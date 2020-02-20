@@ -29,7 +29,7 @@ class UserRegistrationForm(UserCreationForm):
         self.fields['last_name'].widget.attrs['placeholder'] = 'Last Name'
         self.fields['password1'].widget.attrs['placeholder'] = 'Enter Password'
         self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
-        self.fields['profile_url'].widget.attrs['placeholder'] = 'Profile Url'
+        self.fields['profile_url'].widget.attrs['placeholder'] = 'Resume Url'
 
     class Meta:
         model = User

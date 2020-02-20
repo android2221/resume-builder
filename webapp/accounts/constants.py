@@ -5,7 +5,7 @@ ERROR_PARSING_PROFILE_URL = "Could not use that profile URL, try another one"
 ERROR_SAVING_RESUME = "Resume Save Failed! Please try again and contact support if issue persists."
 
 # FORM HELP TEXTS
-FORM_PROFILE_URL_REQUIREMENTS = "Your profile URL may only contain letters, numbers, dashes, and hyphens"
+FORM_PROFILE_URL_REQUIREMENTS = "Your resume URL may only contain letters, numbers, dashes, and hyphens"
 
 # MESSAGING
 HTML_WELCOME = "<h1>Welcome!</h1>"
