@@ -18,6 +18,19 @@ class UserRegistrationForm(UserCreationForm):
         self.fields['email'].required = True
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
+        self.fields['email'].widget.attrs['class'] = 'form-control'
+        self.fields['first_name'].widget.attrs['class'] = 'form-control'
+        self.fields['last_name'].widget.attrs['class'] = 'form-control'
+        self.fields['password1'].widget.attrs['class'] = 'form-control'
+        self.fields['password2'].widget.attrs['class'] = 'form-control'
+        self.fields['profile_url'].widget.attrs['class'] = 'form-control'
+        self.fields['email'].widget.attrs['placeholder'] = 'Email Address'
+        self.fields['first_name'].widget.attrs['placeholder'] = 'First Name'
+        self.fields['last_name'].widget.attrs['placeholder'] = 'Last Name'
+        self.fields['password1'].widget.attrs['placeholder'] = 'Enter Password'
+        self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
+        self.fields['profile_url'].widget.attrs['placeholder'] = 'Profile Url'
+
     class Meta:
         model = User
         fields = ("email", "first_name", "last_name")
@@ -37,6 +50,8 @@ class UserRegistrationForm(UserCreationForm):
             self.add_error("profile_url", constants.FORM_PROFILE_URL_REQUIREMENTS)
         if is_profile_url_duplicate:
             self.add_error("profile_url", constants.ERROR_DUPLICATE_PROFILE_URL)
+
+    field_order = ['email', 'first_name', 'last_name', 'profile_url', 'password1', 'password2']
 
 
 def check_duplicate_username(email):
