@@ -1,6 +1,81 @@
-<h2>Login</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Login</button>
-</form>
+{% extends 'builder/base.html' %}
+
+{% load static %}
+
+{% block head_inserts %}
+<style>
+.login-form-container input{
+    font-size: 1rem !important;
+}
+
+.login-form-container .has-errors input.form-control,
+.login-form-container .has-errors span.input-group-text
+{
+    border-color: red !important;
+}
+
+.errors{
+    font-size: 1rem;
+    color: red;
+    margin-bottom: 1rem;
+}
+
+.input-group-text.has-info{
+    padding: 0.56rem 1.375rem;
+}
+
+.input-group-text{
+    padding: 5px 5px;
+}
+
+</style>
+
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="content-wrapper d-flex align-items-center auth theme-one">
+    <div class="row w-100">
+    <div class="col-xl-4 col-lg-6 col-md-8 mx-auto">
+        <h2 class="text-center mb-4">Login</h2>
+        <div class="auto-form-wrapper login-form-container">
+        <form action="./" method="post">
+            {% csrf_token%}
+            {% for field in form %}
+            <div class="form-group{% if field.errors %} has-errors{% endif %}">
+                <div class="input-group">
+                    {{ field }}
+                    <div class="input-group-append">
+                    <span class="input-group-text{% if field.help_text %} has-info{% endif %}">
+                        {% if field.help_text %}
+                        <i data-toggle="tooltip" 
+                            data-placement="top" 
+                            data-html="true" 
+                            data-container="body"
+                            title="{{ field.help_text }}"
+                            class="fa fa-info-circle icon-sm text-info">
+                        </i>
+                        {% endif %}
+                    </span>
+                    </div>
+                </div>
+            </div>
+            <div class="errors">{{ field.errors.as_text }}</div>
+            {% endfor %}
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-primary submit-btn btn-block">
+            </div>
+            <div class="text-block text-center my-3">
+                <span class="font-weight-semibold">Don't have an account?</span>
+                <a href="{% url 'register' %}" class="text-black">Register</a>
+            </div>
+        </form>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

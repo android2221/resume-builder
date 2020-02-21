@@ -1,7 +1,7 @@
 import re
 
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -14,7 +14,6 @@ class UserRegistrationForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super(UserRegistrationForm, self).__init__(*args, **kwargs)
-        # Making fields required
         self.fields['email'].required = True
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
@@ -53,7 +52,6 @@ class UserRegistrationForm(UserCreationForm):
 
     field_order = ['email', 'first_name', 'last_name', 'profile_url', 'password1', 'password2']
 
-
 def check_duplicate_username(email):
     try:
         user = User.objects.get(username=email)
@@ -76,3 +74,11 @@ def check_profile_url(profile_url):
     if match is None:
         return False
     return True
+
+class UserLoginForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super(UserLoginForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['password'].widget.attrs['class'] = 'form-control'
+        self.fields['username'].widget.attrs['placeholder'] = 'Username'
+        self.fields['password'].widget.attrs['placeholder'] = 'Password'
