@@ -52,6 +52,14 @@ class UserRegistrationForm(UserCreationForm):
 
     field_order = ['email', 'first_name', 'last_name', 'profile_url', 'password1', 'password2']
 
+class UserLoginForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super(UserLoginForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['password'].widget.attrs['class'] = 'form-control'
+        self.fields['username'].widget.attrs['placeholder'] = 'Username'
+        self.fields['password'].widget.attrs['placeholder'] = 'Password'
+
 def check_duplicate_username(email):
     try:
         user = User.objects.get(username=email)
@@ -75,10 +83,3 @@ def check_profile_url(profile_url):
         return False
     return True
 
-class UserLoginForm(AuthenticationForm):
-    def __init__(self, *args, **kwargs):
-        super(UserLoginForm, self).__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs['class'] = 'form-control'
-        self.fields['password'].widget.attrs['class'] = 'form-control'
-        self.fields['username'].widget.attrs['placeholder'] = 'Username'
-        self.fields['password'].widget.attrs['placeholder'] = 'Password'

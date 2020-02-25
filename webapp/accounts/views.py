@@ -20,3 +20,7 @@ def register_user(request):
         context = {'form': form}
         return render(request, 'registration/register.html', context)
 
+def login(request):
+    service = AccountService()
+    # return login form here :)
+

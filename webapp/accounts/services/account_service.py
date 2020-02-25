@@ -1,5 +1,5 @@
 from accounts import constants
-from accounts.forms import UserRegistrationForm
+from accounts.forms import UserRegistrationForm, UserLoginForm
 from accounts.models import Account
 from builder.models import Resume
 from django.contrib.auth import login
