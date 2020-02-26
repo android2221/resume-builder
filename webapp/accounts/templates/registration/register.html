@@ -46,7 +46,7 @@
 <div class="content-wrapper d-flex align-items-center auth theme-one">
     <div class="row w-100">
     <div class="col-xl-4 col-lg-6 col-md-8 mx-auto">
-        <h2 class="text-center mb-4">Register</h2>
+        <h2 class="text-center mb-4">{{ constants.REGISTER_OPTION }}</h2>
         <div class="auto-form-wrapper registration-form-container">
         <form action="./" method="post">
             {% csrf_token%}
@@ -72,11 +72,11 @@
             <div class="errors">{{ field.errors.as_text }}</div>
             {% endfor %}
             <div class="form-group">
-                <input type="submit" value="Register" class="btn btn-primary submit-btn btn-block">
+                <input type="submit" value="{{ constants.REGISTER_OPTION }}" class="btn btn-primary submit-btn btn-block">
             </div>
             <div class="text-block text-center my-3">
-                <span class="font-weight-semibold">Already have an account?</span>
-                <a href="{% url 'login' %}" class="text-black">Login</a>
+                <span class="font-weight-semibold">{{ constants.HAVE_ACCOUNT_MESSAGE }}</span>
+                <a href="{% url 'login' %}" class="text-black">{{ constants.LOGIN_OPTION }}</a>
             </div>
         </form>
         </div>

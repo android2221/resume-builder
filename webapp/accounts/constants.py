@@ -3,6 +3,7 @@ ERROR_DUPLICATE_EMAIL = "That username already exists, please choose another"
 ERROR_DUPLICATE_PROFILE_URL = "That profile url already exists"
 ERROR_PARSING_PROFILE_URL = "Could not use that profile URL, try another one"
 ERROR_SAVING_RESUME = "Resume Save Failed! Please try again and contact support if issue persists."
+ERROR_LOGIN = "Username or password is incorrect."
 
 # FORM HELP TEXTS
 FORM_PROFILE_URL_REQUIREMENTS = "Your resume URL may only contain letters, numbers, dashes, and hyphens"
