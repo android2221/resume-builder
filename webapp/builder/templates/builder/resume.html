@@ -19,11 +19,6 @@
         }
         .task-list-item { list-style-type: none; } 
         .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
-        #build-badge{
-            float: right;
-            position: relative;
-            top: 10px;
-        }
         footer {
             height: 40px;
             background: #027BFF;
@@ -32,24 +27,52 @@
             width: 100%;
         }
         .footer-container #footer-logo{
-            width: 200px;
+            width: 350px;
             height: 30px;
-            position: relative;
             top: 5px;
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
         }
+        #printer-logo{
+            position: relative;
+            width: 200px;
+            height: 48.39px;
+            display: none;
+        }
+        #printer-logo img{
+            width: 200px;
+        }
         .footer-container .image-container{
             position: absolute;
+            top: 5px;
             left: 50%;
-            margin-left: -100px;
+            margin-left: -175px;
+        }
+        @media print  
+        {
+            div{
+                page-break-inside: avoid;
+            }
+            .center-column{
+                margin-top: 0px;
+                margin-bottom: 0px;
+            }
+            footer{
+                display: none;
+            }
+            #printer-logo{
+                display: block;
+            }
         }
     </style>
 </head>
 
     <body>
         <div class="center-column">
+            <div id="printer-logo">
+                <img src="{% static 'builder/images/created-with-vertical.svg' %}">
+            </div>
             {% autoescape off %}
             {{ resume_content }}
             {% endautoescape %}
@@ -58,7 +81,7 @@
             <footer class="fixed-bottom">
                     <div class="footer-container col-lg-12">
                         <div class="image-container">
-                            <div id="footer-logo" style="background-image: url({% static 'builder/images/seemyresumelogo.svg' %})"></div>
+                            <div alt="seemyresume.io" id="footer-logo" style="background-image: url({% static 'builder/images/created-with-horizontal.svg' %})"></div>
                         </div>
                     </div>
             </footer>  
