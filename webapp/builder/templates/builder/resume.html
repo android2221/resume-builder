@@ -1,30 +1,69 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
-<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
-<style>
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu', 'Droid Sans', sans-serif;
-        font-size: 14px;
-        line-height: 1.6;
-        position: relative;
-    }
-    .center-column{
-        margin: 0 auto;
-        max-width: 1000px;
-        padding: 3px;
-    }
-    .task-list-item { list-style-type: none; } 
-    .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
-    #build-badge{
-        float: right;
-        position: relative;
-        top: 10px;
-    }
-</style>
+{% load static %}
 
-{% autoescape off %}
-    <div class="center-column">
-        {{ resume_content }}
-    </div>
-{% endautoescape %}
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>SeeMyResume.io</title>
+    <style>
+        body{
+            margin: 0px;
+        }
+        .center-column{
+            margin-top: .75rem;
+            margin: 0 auto;
+            max-width: 900px;
+            margin-bottom: 5rem;
+        }
+        .task-list-item { list-style-type: none; } 
+        .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+        #build-badge{
+            float: right;
+            position: relative;
+            top: 10px;
+        }
+        footer {
+            height: 40px;
+            background: #027BFF;
+            position: fixed;
+            bottom: 0px;
+            width: 100%;
+        }
+        .footer-container #footer-logo{
+            width: 200px;
+            height: 30px;
+            position: relative;
+            top: 5px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .footer-container .image-container{
+            position: absolute;
+            left: 50%;
+            margin-left: -100px;
+        }
+    </style>
+</head>
+
+    <body>
+        <div class="center-column">
+            {% autoescape off %}
+            {{ resume_content }}
+            {% endautoescape %}
+        </div>
+        <a href="{% url 'index' %}">
+            <footer class="fixed-bottom">
+                    <div class="footer-container col-lg-12">
+                        <div class="image-container">
+                            <div id="footer-logo" style="background-image: url({% static 'builder/images/seemyresumelogo.svg' %})"></div>
+                        </div>
+                    </div>
+            </footer>  
+        </a>
+    </body>
+
+</html>
+
