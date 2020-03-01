@@ -114,6 +114,9 @@
       max-width: 1500px;
       margin: 0 auto;
     }
+    #preview-button:focus{
+      border-color: initial;
+    }
 
 </style>
 
@@ -192,8 +195,8 @@
                           {% csrf_token%}
                           {{ forms.editor_form.media }}
                           {{ forms.editor_form.as_p }}
-                          <input class="btn btn-outline-primary" type="submit" value="{{ preview_button }}" formaction="{% url 'preview_resume' %}">
-                          <input class="btn btn-success btn-fw" type="submit" value="{{ save_button }}" formaction="{% url 'save_builder' %}">
+                          <input class="btn btn-outline-primary" id="preview-button" type="submit" value="{{ preview_button }}" formaction="{% url 'preview_resume' %}">
+                          <input class="btn btn-success btn-fw" id="save-button" type="submit" value="{{ save_button }}" formaction="{% url 'save_builder' %}">
                       </form>
                   </div>
               </div>
@@ -252,6 +255,15 @@
             }
           }
         });
+    });
+
+    // Send previews to a new window
+    $('#preview-button').click(function(e) {
+      $(this).closest('form').attr('target', '_blank');
+    });
+    $('#save-button').click(function(e) {
+      $(this).closest('form').attr('target', '');
+      return;
     });
 </script>
 {% endblock %}
