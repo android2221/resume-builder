@@ -28,13 +28,7 @@ def load_builder(request):
     context = { 'forms': forms, 
         'resume_is_active': request.user.resume.is_live,
         'site_url': settings.SITE_URL,
-        'resume_active_message': constants.RESUME_IS_PUBLISHED,
-        'resume_not_active_message': constants.RESUME_NOT_PUBLISHED,
-        'activate_resume_header': constants.ACTIVATE_RESUME_HEADER,
-        'not_live_text': constants.NOT_LIVE_TEXT,
-        'live_text': constants.LIVE_TEXT,
-        'save_button': constants.RESUME_SAVE_BUTTON,
-        'preview_button': constants.RESUME_PREVIEW_BUTTON
+        'constants': constants
     }
     return render(request, 'builder/builder.html', context)
 
@@ -50,12 +44,15 @@ def toggle_resume_active(request):
 def preview_resume(request):
     service = ResumeService()
     content = service.preview_resume(request.POST)
-    context = {'resume_content': content}
+    context = {'resume_content': content, 'is_preview': True, 'constants': constants}
     return render(request, 'builder/resume.html', context)
 
 def view_resume(request, request_profile_url):
     service = ResumeService()
     rendered_resume = service.get_rendered_resume_content(request_profile_url)
     if rendered_resume is not None:
-        return render(request, 'builder/resume.html', {"resume_content": rendered_resume})
+        return render(request, 'builder/resume.html', {
+            'resume_content': rendered_resume,
+            'constants': constants
+            })
     raise Http404(constants.PAGE_NOT_FOUND)

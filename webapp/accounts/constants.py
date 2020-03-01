@@ -18,6 +18,7 @@ FORM_PASSWORD_PLACEHOLDER = "Password"
 
 # MESSAGING
 HTML_WELCOME = "<h1>Welcome!</h1>"
+EDIT_MY_RESUME = "Edit My Resume"
 PAGE_NOT_FOUND = "Page not found"
 RESUME_NOT_PUBLISHED = "My resume is not published"
 RESUME_IS_PUBLISHED = "My resume is published"
@@ -28,6 +29,7 @@ LOGIN_OPTION = "Login"
 REGISTER_OPTION = "Register"
 NO_ACCOUNT_MESSAGE = "Don't have an account?"
 HAVE_ACCOUNT_MESSAGE = "Already have an account?"
+RESUME_PREVIEW_MESSAGE = "You are viewing a preview of your resume"
 
 # BUTTONS
 RESUME_SAVE_BUTTON = 'Save Changes'

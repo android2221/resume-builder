@@ -1,3 +1,5 @@
+{% extends './base.html' %}
+
 {% load static %}
 
 <!DOCTYPE html>
@@ -43,6 +45,14 @@
         #printer-logo img{
             width: 200px;
         }
+        #preview-bar{
+            padding: 5px 0px;
+            color: white;
+            width: 100%;
+            top: 0px;
+            text-align: center;
+            background-color: #44bd32;
+        }
         .footer-container .image-container{
             position: absolute;
             top: 5px;
@@ -69,6 +79,11 @@
 </head>
 
     <body>
+        {% if is_preview %}
+        <div id="preview-bar">
+            <h3>{{ constants.RESUME_PREVIEW_MESSAGE }}</h3>
+        </div>
+        {% endif %}
         <div class="center-column">
             <div id="printer-logo">
                 <img src="{% static 'builder/images/created-with-vertical.svg' %}">
