@@ -51,7 +51,7 @@ def preview_resume(request):
     service = ResumeService()
     content = service.preview_resume(request.POST)
     context = {'resume_content': content}
-    return render(request, 'builder/preview-resume.html', context)
+    return render(request, 'builder/resume.html', context)
 
 def view_resume(request, request_profile_url):
     service = ResumeService()

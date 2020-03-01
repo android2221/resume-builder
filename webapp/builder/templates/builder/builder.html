@@ -110,15 +110,19 @@
     .live-status-text{
       margin-top: 20px;
     }
+    #builder-container{
+      max-width: 1500px;
+      margin: 0 auto;
+    }
 
 </style>
 
 <script>
     tinymce.init({
         selector: '.resume-editor',
-        height: 500,
+        height: '66vh',
         plugins: "code, lists, link",
-        toolbar: "code | h1 | h2 | h3 | numlist | bullist | link",
+        toolbar: "code | fontselect | fontsizeselect | h1 | h2 | h3 | numlist | bullist | link",
         branding: false,
     });
 </script>
@@ -135,7 +139,8 @@
     {% endifequal %}
 {% endfor %}
 
-<div class="col-md-3 grid-margin float-right">
+<div id="builder-container">
+  <div class="col-md-3 grid-margin float-right">
     <div class="card activate-profile-container">
       <div class="card-body">
         <div class="row">
@@ -172,29 +177,31 @@
     </div>
   </div>
 
-<div class="col-md-9">
-    <div class="row">
-        <div class="col-lg-12 grid-margin">
-            <div class="card editor-container">
-                <div class="card-body">
-                    <div class="editor-title">
-                      <h3>Edit My Resume</h3>
-                      <div class=font-weight-bold id="profile-url">
-                        My resume url  is: <a target="_blank" href="http://{{site_url}}/{{ request.user.account.profile_url}}/">http://{{site_url}}/{{ request.user.account.profile_url}}/</a>
+  <div class="col-md-9">
+      <div class="row">
+          <div class="col-lg-12 grid-margin">
+              <div class="card editor-container">
+                  <div class="card-body">
+                      <div class="editor-title">
+                        <h3>Edit My Resume</h3>
+                        <div class=font-weight-bold id="profile-url">
+                          My resume url  is: <a target="_blank" href="http://{{site_url}}/{{ request.user.account.profile_url}}/">http://{{site_url}}/{{ request.user.account.profile_url}}/</a>
+                        </div>
                       </div>
-                    </div>
-                    <form method = "post">
-                        {% csrf_token%}
-                        {{ forms.editor_form.media }}
-                        {{ forms.editor_form.as_p }}
-                        <input class="btn btn-outline-primary" type="submit" value="{{ preview_button }}" formaction="{% url 'preview_resume' %}">
-                        <input class="btn btn-success btn-fw" type="submit" value="{{ save_button }}" formaction="{% url 'save_builder' %}">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+                      <form method = "post">
+                          {% csrf_token%}
+                          {{ forms.editor_form.media }}
+                          {{ forms.editor_form.as_p }}
+                          <input class="btn btn-outline-primary" type="submit" value="{{ preview_button }}" formaction="{% url 'preview_resume' %}">
+                          <input class="btn btn-success btn-fw" type="submit" value="{{ save_button }}" formaction="{% url 'save_builder' %}">
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
+
 
 <script>
     var slider = $('#activate-profile-slider');
