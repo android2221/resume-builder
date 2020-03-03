@@ -1,8 +1,8 @@
-{% extends 'builder/base.html' %}
+{% extends 'builder/app-base.html' %}
 
 {% load static %}
 
-{% block head_inserts %}
+{% block template_head_inserts %}
 <style>
 .login-form-container input{
     font-size: 1rem !important;
@@ -29,6 +29,10 @@
     padding: 5px 5px;
 }
 
+.login-form-container{
+    margin-top: 20px;
+}
+
 </style>
 
 <script>
@@ -38,12 +42,12 @@
 </script>
 {% endblock %}
 
-{% block content %}
-<div class="content-wrapper d-flex align-items-center auth theme-one">
-    <div class="row w-100">
-    <div class="col-xl-4 col-lg-6 col-md-8 mx-auto">
+{% block app_content %}
+<div class="content-wrapper align-items-center auth theme-one">
+    <div class="row">
+    <div class="col-xl-4 col-lg-6 col-md-8 login-form-container mx-auto">
         <h2 class="text-center mb-4">{{ constants.LOGIN_OPTION }}</h2>
-        <div class="auto-form-wrapper login-form-container">
+        <div class="auto-form-wrapper">
             {% if form.errors %}
             <div class="errors">{{ constants.ERROR_LOGIN }}</div>
             {% endif %}
