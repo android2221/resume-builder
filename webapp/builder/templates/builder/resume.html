@@ -2,106 +2,103 @@
 
 {% load static %}
 
-<!DOCTYPE html>
-
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>SeeMyResume.io</title>
-    <style>
-        body{
-            margin: 0px;
+{% block head_inserts %}
+<style>
+    body{
+        margin: 0px;
+    }
+    .center-column{
+        margin-top: .75rem;
+        margin: 0 auto;
+        max-width: 900px;
+        margin-bottom: 5rem;
+    }
+    .task-list-item { list-style-type: none; } 
+    .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+    footer {
+        height: 40px;
+        background: #027BFF;
+        position: fixed;
+        bottom: 0px;
+        width: 100%;
+    }
+    .footer-container #footer-logo{
+        width: 350px;
+        height: 30px;
+        top: 5px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    #printer-logo{
+        position: relative;
+        width: 200px;
+        height: 48.39px;
+        display: none;
+    }
+    #printer-logo img{
+        width: 200px;
+    }
+    #preview-bar{
+        padding: 10px 0px;
+        color: white;
+        width: 100%;
+        top: 0px;
+        text-align: center;
+        background-color: #44bd32;
+        font-family: sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .footer-container .image-container{
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        margin-left: -175px;
+    }
+    @media print  
+    {
+        div{
+            page-break-inside: avoid;
         }
         .center-column{
-            margin-top: .75rem;
-            margin: 0 auto;
-            max-width: 900px;
-            margin-bottom: 5rem;
+            margin-top: 0px;
+            margin-bottom: 0px;
         }
-        .task-list-item { list-style-type: none; } 
-        .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
-        footer {
-            height: 40px;
-            background: #027BFF;
-            position: fixed;
-            bottom: 0px;
-            width: 100%;
-        }
-        .footer-container #footer-logo{
-            width: 350px;
-            height: 30px;
-            top: 5px;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-        #printer-logo{
-            position: relative;
-            width: 200px;
-            height: 48.39px;
+        footer{
             display: none;
         }
-        #printer-logo img{
-            width: 200px;
+        #printer-logo{
+            display: block;
         }
-        #preview-bar{
-            padding: 5px 0px;
-            color: white;
-            width: 100%;
-            top: 0px;
-            text-align: center;
-            background-color: #44bd32;
-        }
-        .footer-container .image-container{
-            position: absolute;
-            top: 5px;
-            left: 50%;
-            margin-left: -175px;
-        }
-        @media print  
-        {
-            div{
-                page-break-inside: avoid;
-            }
-            .center-column{
-                margin-top: 0px;
-                margin-bottom: 0px;
-            }
-            footer{
-                display: none;
-            }
-            #printer-logo{
-                display: block;
-            }
-        }
-    </style>
-</head>
+    }
+</style>
+{% endblock %}
 
-    <body>
-        {% if is_preview %}
-        <div id="preview-bar">
-            <h3>{{ constants.RESUME_PREVIEW_MESSAGE }}</h3>
+{% block content %}
+<div id="resume-wrapper">
+    {% if is_preview %}
+    <div id="preview-bar">  
+        {{ constants.RESUME_PREVIEW_MESSAGE }}
+    </div>
+    {% endif %}
+    <div class="center-column">
+        <div id="printer-logo">
+            <img src="{% static 'builder/images/created-with-vertical.svg' %}">
         </div>
-        {% endif %}
-        <div class="center-column">
-            <div id="printer-logo">
-                <img src="{% static 'builder/images/created-with-vertical.svg' %}">
-            </div>
-            {% autoescape off %}
-            {{ resume_content }}
-            {% endautoescape %}
-        </div>
-        <a href="{% url 'index' %}">
-            <footer class="fixed-bottom">
-                    <div class="footer-container col-lg-12">
-                        <div class="image-container">
-                            <div alt="seemyresume.io" id="footer-logo" style="background-image: url({% static 'builder/images/created-with-horizontal.svg' %})"></div>
-                        </div>
+        {% autoescape off %}
+        {{ resume_content }}
+        {% endautoescape %}
+    </div>
+    <a href="{% url 'index' %}">
+        <footer class="fixed-bottom">
+                <div class="footer-container col-lg-12">
+                    <div class="image-container">
+                        <div alt="seemyresume.io" id="footer-logo" style="background-image: url({% static 'builder/images/created-with-horizontal.svg' %})"></div>
                     </div>
-            </footer>  
-        </a>
-    </body>
-
-</html>
+                </div>
+        </footer>  
+    </a>
+</div>
+{% endblock %}
 
