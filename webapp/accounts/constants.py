@@ -30,6 +30,7 @@ REGISTER_OPTION = "Register"
 NO_ACCOUNT_MESSAGE = "Don't have an account?"
 HAVE_ACCOUNT_MESSAGE = "Already have an account?"
 RESUME_PREVIEW_MESSAGE = "You are viewing a preview of your resume"
+RESUME_SAVE_SUCCESS = "Resume saved!"
 
 # BUTTONS
 RESUME_SAVE_BUTTON = 'Save Changes'
