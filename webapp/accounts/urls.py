@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import register_user, CustomLoginView
+from .views import register_user, CustomLoginView, CustomForgotPasswordView
 from .forms import UserLoginForm
 
 urlpatterns = [
@@ -9,5 +9,6 @@ urlpatterns = [
         CustomLoginView.as_view(
             authentication_form=UserLoginForm,
         ),
-    name='login')
+    name='login'),
+    path('password-reset/', CustomForgotPasswordView.as_view(), name="reset_password")
 ]
