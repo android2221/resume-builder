@@ -3,76 +3,19 @@
 {% load static %}
 
 {% block head_inserts %}
-<link rel="stylesheet" href="{% static 'builder/styles/common.css' %}">
+<link rel="stylesheet" href="{% static 'builder/styles/resume.css' %}">
+{% endblock %}
 
-<style>
-    body{
-        margin: 0px;
-    }
-    .center-column{
-        margin-top: .75rem;
-        margin: 0 auto;
-        max-width: 900px;
-        margin-bottom: 5rem;
-    }
-    .task-list-item { list-style-type: none; } 
-    .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
-    footer {
-        height: 40px;
-        background: #027BFF;
-        position: fixed;
-        bottom: 0px;
-        width: 100%;
-    }
-    .footer-container #footer-logo{
-        width: 350px;
-        height: 30px;
-        top: 5px;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-    #printer-logo{
-        position: relative;
-        width: 200px;
-        height: 48.39px;
-        display: none;
-    }
-    #printer-logo img{
-        width: 200px;
-    }
-    .footer-container .image-container{
-        position: absolute;
-        top: 5px;
-        left: 50%;
-        margin-left: -175px;
-    }
-    @media print  
-    {
-        div{
-            page-break-inside: avoid;
-        }
-        .center-column{
-            margin-top: 0px;
-            margin-bottom: 0px;
-        }
-        footer{
-            display: none;
-        }
-        #printer-logo{
-            display: block;
-        }
-    }
-</style>
+{% block info_message %}
+    {% if is_preview %}
+    <div id="info-bar" class="alert alert-success">  
+        {{ constants.RESUME_PREVIEW_MESSAGE }}
+    </div>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
 <div id="resume-wrapper">
-    {% if is_preview %}
-    <div id="info-bar">  
-        {{ constants.RESUME_PREVIEW_MESSAGE }}
-    </div>
-    {% endif %}
     <div class="center-column">
         <div id="printer-logo">
             <img src="{% static 'builder/images/created-with-vertical.svg' %}">

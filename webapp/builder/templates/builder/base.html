@@ -8,22 +8,23 @@
     <title>SeeMyResume.io</title>
     {% block head_inserts %}
     {% endblock %}
-    <style>
-    .content{
-      width: 100%;
-    }
-    </style>
+    <link rel="stylesheet" href="{% static 'builder/vendor/ui/css/shared/style.css' %}">
+    <link rel="stylesheet" href="{% static 'builder/styles/common.css' %}">
   </head>
   <body>
     <div class="container-scroller">
       {% block navbar %}
       {% endblock %}
-      <div class="container-fluid page-body-wrapper">
+      <div class="page-wrapper">
+        {% block info_message %}
+        {% endblock %}
         <div class="content">
           {% block content %}
           {% endblock %}
         </div>
       </div>
+      {% block footer %}
+      {% endblock %}
     </div>
   </body>
 </html>

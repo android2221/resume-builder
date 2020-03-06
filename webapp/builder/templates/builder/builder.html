@@ -4,7 +4,6 @@
 {% block template_head_inserts %}
 <script src="{% static 'builder/vendor/tinymce/js/tinymce/tinymce.min.js' %}"></script>
 <link rel="stylesheet" href="{% static 'builder/styles/builder.css' %}">
-<link rel="stylesheet" href="{% static 'builder/styles/common.css' %}">
 
 <script>
     tinymce.init({
@@ -16,12 +15,9 @@
     });
 
 </script>
-
 {% endblock %}
 
-{% block app_content %}
-
-<div id="builder-container">
+{% block info_message %}
   {% for message in messages %}
     {% ifequal message.tags "error" %}
     <div id="save-error" class="alert alert-danger {% if message.tags %}{{ message.tags }}{% endif %}">
@@ -34,6 +30,10 @@
     </div>
     {% endifequal %}
   {% endfor %}
+{% endblock %}
+
+{% block app_content %}
+<div id="builder-container">
   <div class="col-md-3 grid-margin float-right">
     <div class="card activate-profile-container">
       <div class="card-body">
@@ -160,7 +160,7 @@
     // Hide save success / failure banner after 5s
     setTimeout(
       function(){
-        $('.hide-me-after-5').addClass('display-none');
+        $('.hide-me-after-5').remove();
       }, 5000);
 </script>
 {% endblock %}

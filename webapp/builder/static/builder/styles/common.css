@@ -1,13 +1,16 @@
+.content{
+    width: 100%;
+}
+
 #info-bar{
     padding: 10px 0px;
     width: 100%;
-    top: 0px;
     text-align: center;
     font-family: sans-serif;
     font-size: 20px;
     font-weight: bold;
 }
 
-.display-none{
-    display: none;
+.navbar.fixed-top + .page-wrapper{
+    padding-top: 63px;
 }

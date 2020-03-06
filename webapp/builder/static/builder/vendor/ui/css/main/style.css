@@ -619,9 +619,6 @@
       margin-left: 0;
       width: 100%; } }
 
-.navbar.fixed-top + .page-body-wrapper {
-  padding-top: 63px; }
-
 .purchase-banner-active .navbar.fixed-top {
   top: 55px; }
   .purchase-banner-active .navbar.fixed-top + .page-body-wrapper {
