@@ -7,6 +7,7 @@ ERROR_LOGIN = "Username or password is incorrect."
 
 # FORM HELP TEXTS
 FORM_PROFILE_URL_REQUIREMENTS = "Your resume URL may only contain letters, numbers, dashes, and hyphens"
+FORM_RESET_MESSAGE = "Please enter your email address and you will receive an email with reset instructions if an account is found."
 FORM_EMAIL_PLACEHOLDER = "Email Address"
 FORM_FIRST_NAME_PLACEHOLDER = "First Name"
 FORM_LAST_NAME_PLACEHOLDER = "Last Name"
@@ -38,3 +39,6 @@ RESUME_SAVE_SUCCESS = "Resume saved!"
 # BUTTONS
 RESUME_SAVE_BUTTON = 'Save Changes'
 RESUME_PREVIEW_BUTTON = 'Preview Resume'
+
+# Classes
+INPUT_STYLE_NAME = 'form-control'

@@ -17,12 +17,12 @@ class UserRegistrationForm(UserCreationForm):
         self.fields['email'].required = True
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
-        self.fields['email'].widget.attrs['class'] = 'form-control'
-        self.fields['first_name'].widget.attrs['class'] = 'form-control'
-        self.fields['last_name'].widget.attrs['class'] = 'form-control'
-        self.fields['password1'].widget.attrs['class'] = 'form-control'
-        self.fields['password2'].widget.attrs['class'] = 'form-control'
-        self.fields['profile_url'].widget.attrs['class'] = 'form-control'
+        self.fields['email'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['first_name'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['last_name'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['password1'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['password2'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['profile_url'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['email'].widget.attrs['placeholder'] = constants.FORM_EMAIL_PLACEHOLDER
         self.fields['first_name'].widget.attrs['placeholder'] = constants.FORM_FIRST_NAME_PLACEHOLDER
         self.fields['last_name'].widget.attrs['placeholder'] = constants.FORM_LAST_NAME_PLACEHOLDER
@@ -78,14 +78,15 @@ def check_profile_url(profile_url):
 class UserLoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super(UserLoginForm, self).__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs['class'] = 'form-control'
-        self.fields['password'].widget.attrs['class'] = 'form-control'
+        self.fields['username'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['password'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['username'].widget.attrs['placeholder'] = constants.FORM_USERNAME_PLACEHOLDER
         self.fields['password'].widget.attrs['placeholder'] = constants.FORM_PASSWORD_PLACEHOLDER
 
 
-# class ResetForm(PasswordResetForm):
-#     def __init__(self, *args, **kwargs):
-#         super(UserLoginForm, self).__init__(*args, **kwargs)
-#         self.fields['emails'].widget.attrs['placeholder'] = constants.FORM_EMAIL_PLACEHOLDER
+class ResetForm(PasswordResetForm):
+    def __init__(self, *args, **kwargs):
+        super(PasswordResetForm, self).__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs['placeholder'] = constants.FORM_EMAIL_PLACEHOLDER
+        self.fields['email'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
 
