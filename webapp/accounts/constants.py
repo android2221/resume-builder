@@ -8,6 +8,7 @@ ERROR_LOGIN = "Username or password is incorrect."
 # FORM HELP TEXTS
 FORM_PROFILE_URL_REQUIREMENTS = "Your resume URL may only contain letters, numbers, dashes, and hyphens"
 FORM_RESET_MESSAGE = "Please enter your email address and you will receive an email with reset instructions if an account is found."
+FORM_RESET_INSTRUCTIONS = "Please enter a new password for your account."
 FORM_EMAIL_PLACEHOLDER = "Email Address"
 FORM_FIRST_NAME_PLACEHOLDER = "First Name"
 FORM_LAST_NAME_PLACEHOLDER = "Last Name"

@@ -1,7 +1,7 @@
 import re
 
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordResetForm
+from django.contrib.auth import forms as auth_forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -9,7 +9,7 @@ from . import constants, patterns
 from .models import Account
 
 
-class UserRegistrationForm(UserCreationForm):
+class UserRegistrationForm(auth_forms.UserCreationForm):
     profile_url = forms.CharField(help_text=constants.FORM_PROFILE_URL_REQUIREMENTS)
 
     def __init__(self, *args, **kwargs):
@@ -75,18 +75,27 @@ def check_profile_url(profile_url):
         return False
     return True
 
-class UserLoginForm(AuthenticationForm):
+class UserLoginForm(auth_forms.AuthenticationForm):
     def __init__(self, *args, **kwargs):
-        super(UserLoginForm, self).__init__(*args, **kwargs)
+        super(auth_forms.UserLoginForm, self).__init__(*args, **kwargs)
         self.fields['username'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['password'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['username'].widget.attrs['placeholder'] = constants.FORM_USERNAME_PLACEHOLDER
         self.fields['password'].widget.attrs['placeholder'] = constants.FORM_PASSWORD_PLACEHOLDER
 
 
-class ResetForm(PasswordResetForm):
+class ResetForm(auth_forms.PasswordResetForm):
     def __init__(self, *args, **kwargs):
-        super(PasswordResetForm, self).__init__(*args, **kwargs)
+        super(auth_forms.PasswordResetForm, self).__init__(*args, **kwargs)
         self.fields['email'].widget.attrs['placeholder'] = constants.FORM_EMAIL_PLACEHOLDER
         self.fields['email'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
 
+class ResetConfirmForm(auth_forms.SetPasswordForm):
+    def __init__(self, user, *args, **kwargs):
+        super(auth_forms.SetPasswordForm, self).__init__(*args, **kwargs)
+        self.fields['new_password1'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['new_password2'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['new_password1'].widget.attrs['placeholder'] = constants.FORM_PASSWORD_PLACEHOLDER
+        self.fields['new_password2'].widget.attrs['placeholder'] = constants.FORM_PASSOWRD_CONFIRM_PLACEHOLDER
+
+        

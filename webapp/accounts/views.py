@@ -44,3 +44,13 @@ class CustomForgotPasswordView(auth_views.PasswordResetView):
             'constants': constants
         })
         return context
+
+class CustomSetPasswordView(auth_views.PasswordResetConfirmView):
+    template_name = "registration/password_reset_confirm.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'constants': constants
+        })
+        return context
