@@ -15,8 +15,8 @@ urlpatterns = [
         CustomForgotPasswordView.as_view(form_class=ResetForm), 
         name="reset_password"
     ),
-    path('<uidb64>/<token>/set-password/',
+    path('<uidb64>/<token>/',
         CustomSetPasswordView.as_view(form_class=ResetConfirmForm),
-        name="set_password" 
+        name="set_new_password" 
     )
 ]

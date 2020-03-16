@@ -92,9 +92,9 @@ class ResetForm(auth_forms.PasswordResetForm):
         self.fields['email'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
 
 class ResetConfirmForm(auth_forms.SetPasswordForm):
-    user = None
     def __init__(self, user, *args, **kwargs):
         super(auth_forms.SetPasswordForm, self).__init__(*args, **kwargs)
+        self.user = user
         self.fields['new_password1'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['new_password2'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['new_password1'].widget.attrs['placeholder'] = constants.FORM_PASSWORD_PLACEHOLDER
