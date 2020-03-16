@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib.auth import views as auth_views
 
 from .views import register_user, CustomLoginView, CustomForgotPasswordView, CustomSetPasswordView
 from .forms import UserLoginForm, ResetForm, ResetConfirmForm
@@ -15,7 +16,7 @@ urlpatterns = [
         CustomForgotPasswordView.as_view(form_class=ResetForm), 
         name="reset_password"
     ),
-    path('<uidb64>/<token>/',
+    path('reset/<uidb64>/<token>/',
         CustomSetPasswordView.as_view(form_class=ResetConfirmForm),
         name="set_new_password" 
     )
