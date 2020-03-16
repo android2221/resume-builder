@@ -77,7 +77,8 @@ def check_profile_url(profile_url):
 
 class UserLoginForm(auth_forms.AuthenticationForm):
     def __init__(self, *args, **kwargs):
-        super(auth_forms.UserLoginForm, self).__init__(*args, **kwargs)
+        self.request = kwargs.pop('request', None)
+        super(auth_forms.AuthenticationForm, self).__init__(*args, **kwargs)
         self.fields['username'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['password'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['username'].widget.attrs['placeholder'] = constants.FORM_USERNAME_PLACEHOLDER
@@ -91,6 +92,7 @@ class ResetForm(auth_forms.PasswordResetForm):
         self.fields['email'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
 
 class ResetConfirmForm(auth_forms.SetPasswordForm):
+    user = None
     def __init__(self, user, *args, **kwargs):
         super(auth_forms.SetPasswordForm, self).__init__(*args, **kwargs)
         self.fields['new_password1'].widget.attrs['class'] = constants.INPUT_STYLE_NAME

@@ -31,8 +31,10 @@
 
 .login-form-container, .registration-form-container{
     margin-top: 20px;
+    max-width: 500px !important;
 }
 
 .login-form-container .input-group-text{
     padding: 0 2px;
 }
+
