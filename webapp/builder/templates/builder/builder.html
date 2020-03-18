@@ -43,7 +43,7 @@
             </div>
             <h3>{{ constants.ACTIVATE_RESUME_HEADER }}</h3>
             <div id="activate-profile-form-container">
-              <form id="activate-profile" action="{% url 'activate-resume' %}">
+              <form id="activate-profile" action="{% url 'activate_resume' %}">
                   {% csrf_token%}
                   {{ forms.activate_profile_form }}
                   <label class="profile-toggle-switch">

@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, reverse_lazy
 from django.contrib.auth import views as auth_views
 
 from .views import register_user, CustomLoginView, CustomForgotPasswordView, CustomSetPasswordView
@@ -21,7 +21,10 @@ urlpatterns = [
         name="set_new_password" 
     ),
     path('password-change', 
-        auth_views.PasswordChangeView.as_view(form_class=CustomPasswordChangeForm), 
+        auth_views.PasswordChangeView.as_view(
+            form_class=CustomPasswordChangeForm, 
+            success_url=reverse_lazy('load_builder'),
+        ), 
         name="change_password"
     )
 ]
