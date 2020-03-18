@@ -38,6 +38,7 @@ HAVE_ACCOUNT_MESSAGE = "Already have an account?"
 FORGOT_PASSWORD_MESSAGE = "Forgot your password?"
 RESUME_PREVIEW_MESSAGE = "You are viewing a preview of your resume"
 RESUME_SAVE_SUCCESS = "Resume saved!"
+PASSWORD_CHANGE_SUCCESS = "Password changed successfully!"
 
 # BUTTONS
 RESUME_SAVE_BUTTON = 'Save Changes'
