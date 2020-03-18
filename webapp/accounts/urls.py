@@ -2,7 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 
 from .views import register_user, CustomLoginView, CustomForgotPasswordView, CustomSetPasswordView
-from .forms import UserLoginForm, ResetForm, ResetConfirmForm
+from .forms import UserLoginForm, ResetForm, ResetConfirmForm, CustomPasswordChangeForm
 
 urlpatterns = [
     path('register/', register_user, name="register"),
@@ -19,5 +19,9 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/',
         CustomSetPasswordView.as_view(form_class=ResetConfirmForm),
         name="set_new_password" 
+    ),
+    path('password-change', 
+        auth_views.PasswordChangeView.as_view(form_class=CustomPasswordChangeForm), 
+        name="change_password"
     )
 ]
