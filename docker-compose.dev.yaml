@@ -20,5 +20,6 @@ services:
       - DJANGO_SITE_URL=localhost
       - DJANGO_LOCAL_PORT=8001
       - DJANGO_EMAIL_FILE_PATH=/sent_emails/
+      - POSTGRES_PASSWORD=myhardpassword
     depends_on:
       - db
