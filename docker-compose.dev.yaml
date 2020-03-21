@@ -6,6 +6,9 @@ services:
     environment:
       - POSTGRES_PASSWORD=myhardpassword
   webapp:
+    deploy:
+      restart_policy:
+        condition: on-failure
     build:
       context: ./
       dockerfile: build/local/Dockerfile
