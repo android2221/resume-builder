@@ -28,3 +28,19 @@
     border: 1px solid transparent;
     border-radius: 0.25rem;
 }
+
+.navbar-toggler{
+    display: none !important;
+}
+
+@media (max-width: 991px){
+    .navbar.default-layout .navbar-brand-wrapper {
+        width: 270px;
+    }
+    .navbar.default-layout .navbar-menu-wrapper {
+        width: calc(100% - 270px);
+    }
+    .navbar.default-layout .navbar-brand-wrapper .brand-logo {
+        display: block;
+    }
+}
