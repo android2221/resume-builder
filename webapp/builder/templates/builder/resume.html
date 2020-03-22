@@ -1,30 +1,39 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
-<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
-<style>
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu', 'Droid Sans', sans-serif;
-        font-size: 14px;
-        line-height: 1.6;
-        position: relative;
-    }
-    .center-column{
-        margin: 0 auto;
-        max-width: 1000px;
-        padding: 3px;
-    }
-    .task-list-item { list-style-type: none; } 
-    .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
-    #build-badge{
-        float: right;
-        position: relative;
-        top: 10px;
-    }
-</style>
+{% extends './base.html' %}
 
-{% autoescape off %}
-    <div class="center-column">
-        {{ resume_content }}
+{% load static %}
+
+{% block head_inserts %}
+<link rel="stylesheet" href="{% static 'builder/styles/resume.css' %}">
+<link rel="stylesheet" href="{% static 'builder/styles/common.css' %}">
+{% endblock %}
+
+{% block info_message %}
+    {% if is_preview %}
+    <div id="info-bar" class="alert alert-success">  
+        {{ constants.RESUME_PREVIEW_MESSAGE }}
     </div>
-{% endautoescape %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div id="resume-wrapper">
+    <div class="center-column">
+        <div id="printer-logo">
+            <img src="{% static 'builder/images/created-with-vertical.svg' %}">
+        </div>
+        {% autoescape off %}
+        {{ resume_content }}
+        {% endautoescape %}
+    </div>
+    <a href="{% url 'index' %}">
+        <footer class="fixed-bottom">
+                <div class="footer-container col-lg-12">
+                    <div class="image-container">
+                        <div alt="seemyresume.io" id="footer-logo" style="background-image: url({% static 'builder/images/created-with-horizontal.svg' %})"></div>
+                    </div>
+                </div>
+        </footer>  
+    </a>
+</div>
+{% endblock %}
+

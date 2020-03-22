@@ -1,151 +1,166 @@
-{% extends 'builder/base.html' %}
+{% extends 'builder/app-base.html' %}
 {% load static %}
 
-{% block head_inserts %}
+{% block template_head_inserts %}
 <script src="{% static 'builder/vendor/tinymce/js/tinymce/tinymce.min.js' %}"></script>
-
-<style>
-    /* The profile-toggle-switch - the box around the slider */
-    .profile-toggle-switch {
-        position: relative;
-        display: inline-block;
-        width: 60px;
-        height: 34px;
-    }
-
-    /* Hide default HTML checkbox */
-    .profile-toggle-switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-
-    /* The slider */
-    .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #ccc;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
-
-    .slider:before {
-        position: absolute;
-        content: "";
-        height: 26px;
-        width: 26px;
-        left: 4px;
-        bottom: 4px;
-        background-color: white;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
-
-    input:checked + .slider {
-        background-color: #2196F3;
-    }
-
-    input:focus + .slider {
-        box-shadow: 0 0 1px #2196F3;
-    }
-
-    input:checked + .slider:before {
-        -webkit-transform: translateX(26px);
-        -ms-transform: translateX(26px);
-        transform: translateX(26px);
-    }
-
-    /* Rounded sliders */
-    .slider.round {
-        border-radius: 34px;
-    }
-
-    .slider.round:before {
-        border-radius: 50%;
-    } 
-
-    /* Alert Box */
-    #save-error{
-        text-align: center;
-    }
-
-</style>
+<link rel="stylesheet" href="{% static 'builder/styles/builder.css' %}">
 
 <script>
-
     tinymce.init({
         selector: '.resume-editor',
-        //plugins: "lists",
+        height: '66vh',
+        plugins: "code, lists, link",
+        toolbar: "code | fontselect | fontsizeselect | h1 | h2 | h3 | numlist | bullist | link",
         branding: false,
-        //toolbar: "numlist bullist"
     });
 
 </script>
-
 {% endblock %}
 
-{% block content %}
-
-{% for message in messages %}
+{% block info_message %}
+  {% for message in messages %}
     {% ifequal message.tags "error" %}
     <div id="save-error" class="alert alert-danger {% if message.tags %}{{ message.tags }}{% endif %}">
         {{ message }}
     </div>
     {% endifequal %}
-{% endfor %}
+    {% ifequal message.tags "success" %}
+    <div id="info-bar" class="hide-me-after-5 alert alert-success {% if message.tags %}{{ message.tags }}{% endif %}">
+        {{ message }}
+    </div>
+    {% endifequal %}
+  {% endfor %}
+{% endblock %}
 
-<div id ="profile-url">
-    Your public profile URL is <a target="_blank" href="http://{{site_url}}/{{ request.user.account.profile_url}}/">http://{{site_url}}/{{ request.user.account.profile_url}}/</a>
+{% block app_content %}
+<div id="builder-container">
+  <div class="col-md-3 grid-margin float-right">
+    <div class="card activate-profile-container">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="d-flex align-items-center pb-2">
+            </div>
+            <h3>{{ constants.ACTIVATE_RESUME_HEADER }}</h3>
+            <div id="activate-profile-form-container">
+              <form id="activate-profile" action="{% url 'activate_resume' %}">
+                  {% csrf_token%}
+                  {{ forms.activate_profile_form }}
+                  <label class="profile-toggle-switch">
+                      <span id="activate-profile-slider" class="slider round"></span>
+                  </label>
+              </form>
+            </div>
+            <div class="live-indicator" id="not-live">
+              <div class="dot-indicator bg-danger mr-2"></div>
+              <span class='h4'>{{ constants.NOT_LIVE_TEXT }}</span>
+              <div class="col-lg-12 live-status-text">
+                {{ constants.RESUME_NOT_PUBLISHED }}
+              </div>
+            </div>
+            <div class="live-indicator" id="live">
+              <div class="dot-indicator bg-success mr-2"></div>
+              <span class='h4'>{{ constants.LIVE_TEXT }}</span>
+              <div class="col-lg-12 live-status-text">
+                {{ constants.RESUME_IS_PUBLISHED }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-9">
+      <div class="row">
+          <div class="col-lg-12 grid-margin">
+              <div class="card editor-container">
+                  <div class="card-body">
+                      <div class="editor-title">
+                        <h3>{{ constants.EDIT_MY_RESUME }}</h3>
+                        <div class=font-weight-bold id="profile-url">
+                          My resume url  is: <a target="_blank" href="http://{{site_url}}/{{ request.user.account.profile_url}}/">http://{{site_url}}/{{ request.user.account.profile_url}}/</a>
+                        </div>
+                      </div>
+                      <form method = "post">
+                          {% csrf_token%}
+                          {{ forms.editor_form.media }}
+                          {{ forms.editor_form.as_p }}
+                          <input class="btn btn-outline-primary" id="preview-button" type="submit" value="{{ constants.RESUME_PREVIEW_BUTTON }}" formaction="{% url 'preview_resume' %}">
+                          <input class="btn btn-success btn-fw" id="save-button" type="submit" value="{{ constants.RESUME_SAVE_BUTTON }}" formaction="{% url 'save_builder' %}">
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
 
-<div id="activate-profile-container">
-    <form id="activate-profile" action="{% url 'activate-resume' %}">
-        {% csrf_token%}
-        <label class="profile-toggle-switch">
-            {{ forms.activate_profile_form }}
-            <span class="slider round"></span>
-        </label>
-    </form>
-</div>
-
-<a href="{% url 'logout' %}">logout</a></li>
-
-<form method = "post">
-    {% csrf_token%}
-    {{ forms.editor_form.media }}
-    {{ forms.editor_form.as_p }}
-    <input type="submit" value="Preview" formaction="{% url 'preview_resume' %}">
-    <input type="submit" value="Save & Publish" formaction="{% url 'save_builder' %}">
-</form>
 
 <script>
-    var slider = $(".profile-toggle-switch .slider");
+    var slider = $('#activate-profile-slider');
+    var checkbox = $('#activate-profile-checkbox');
+    var liveIndicator = $('.live-indicator#live');
+    var notLiveIndicator = $('.live-indicator#not-live');
+
+    $(document).ready(function(){
+
+      if(checkbox.val() == 'True'){
+        slider.addClass('active');
+        liveIndicator.addClass('show');
+      } else{
+        notLiveIndicator.addClass('show');
+      }
+    });
+
     slider.click(function(){
         var form = $('#activate-profile');
-        var checkbox = $('#activate-profile-checkbox');
-        var checkedStatus = checkbox.is(":checked");
-        var formData = form.serializeArray();
-        if (checkedStatus == true){
-            formData[1] = {name: "profile_active", value: "False"}
+        var checkedStatus = checkbox.val()
+
+        if (checkedStatus == 'True'){
+            checkbox.val('False');
         } else{
-            formData[1] = {name: "profile_active", value: "True"}
+            checkbox.val('True')
         }
+
         $.ajax({
             type: "POST", 
             url: form.attr('action'),
-            data: formData,
-            success: function(){
-                // do nothing
+            data: form.serializeArray(),
+            success: function(res){
+              if (checkedStatus == 'True'){
+                slider.removeClass('active');
+                notLiveIndicator.addClass('show');
+                liveIndicator.removeClass('show');
+              } else{
+                slider.addClass('active');
+                notLiveIndicator.removeClass('show');
+                liveIndicator.addClass('show');
+              }
             },
             error: function() {
-                // roll slider on error
-                // build or grab some simple error banner
+              if (checkedStatus == 'True'){
+            checkbox.val('False');
+            } else{
+                checkbox.val('True')
             }
+          }
         });
     });
+
+    // Send previews to a new window
+    $('#preview-button').click(function(e) {
+      $(this).closest('form').attr('target', '_blank');
+    });
+    $('#save-button').click(function(e) {
+      $(this).closest('form').attr('target', '');
+      return;
+    });
+
+    // Hide save success / failure banner after 5s
+    setTimeout(
+      function(){
+        $('.hide-me-after-5').remove();
+      }, 5000);
 </script>
 {% endblock %}

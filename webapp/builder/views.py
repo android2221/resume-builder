@@ -19,6 +19,7 @@ def save_builder(request):
         save_success = service.save_resume(request.user.resume, request.POST)
         if save_success == False:
             messages.error(request, constants.ERROR_SAVING_RESUME )
+        messages.success(request, constants.RESUME_SAVE_SUCCESS)
         return HttpResponseRedirect(reverse("load_builder"))
 
 @login_required
@@ -26,7 +27,9 @@ def load_builder(request):
     service = ResumeService()
     forms = service.build_resume_forms(request.user.resume)
     context = { 'forms': forms, 
+        'resume_is_active': request.user.resume.is_live,
         'site_url': settings.SITE_URL,
+        'constants': constants
     }
     return render(request, 'builder/builder.html', context)
 
@@ -42,12 +45,15 @@ def toggle_resume_active(request):
 def preview_resume(request):
     service = ResumeService()
     content = service.preview_resume(request.POST)
-    context = {'resume_content': content}
-    return render(request, 'builder/preview-resume.html', context)
+    context = {'resume_content': content, 'is_preview': True, 'constants': constants}
+    return render(request, 'builder/resume.html', context)
 
 def view_resume(request, request_profile_url):
     service = ResumeService()
     rendered_resume = service.get_rendered_resume_content(request_profile_url)
     if rendered_resume is not None:
-        return render(request, 'builder/resume.html', {"resume_content": rendered_resume})
+        return render(request, 'builder/resume.html', {
+            'resume_content': rendered_resume,
+            'constants': constants
+            })
     raise Http404(constants.PAGE_NOT_FOUND)

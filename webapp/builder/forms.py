@@ -10,7 +10,7 @@ class ResumeEditorForm (forms.Form):
         self.fields['content'].widget.attrs={'class': "resume-editor"}
 
 class ActivateResumeForm (forms.Form):
-    profile_active = forms.BooleanField(required=False, label="")
+    profile_active = forms.BooleanField(required=False, label="", widget=forms.HiddenInput())
 
     def __init__(self, *args, **kwargs):
         super(ActivateResumeForm, self).__init__(*args, **kwargs)

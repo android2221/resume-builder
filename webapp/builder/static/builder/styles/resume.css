@@ -1,0 +1,65 @@
+body{
+    margin: 0px;
+}
+.center-column{
+    margin-top: .75rem;
+    margin: 0 auto;
+    max-width: 900px;
+    margin-bottom: 5rem;
+}
+.task-list-item { list-style-type: none; } 
+.task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+footer {
+    height: 40px;
+    background: #027BFF;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
+.footer-container #footer-logo{
+    width: 350px;
+    height: 30px;
+    top: 5px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#printer-logo{
+    position: relative;
+    width: 200px;
+    height: 48.39px;
+    display: none;
+}
+#printer-logo img{
+    width: 200px;
+}
+.footer-container .image-container{
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    margin-left: -175px;
+}
+#info-bar{
+    top: 0px;
+    position: relative;
+}
+#resume-wrapper{
+    margin-top: 20px;
+}
+
+@media print  
+{
+    div{
+        page-break-inside: avoid;
+    }
+    .center-column{
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    footer{
+        display: none;
+    }
+    #printer-logo{
+        display: block;
+    }
+}

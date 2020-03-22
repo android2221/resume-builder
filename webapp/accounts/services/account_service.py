@@ -1,5 +1,5 @@
 from accounts import constants
-from accounts.forms import UserRegistrationForm
+from accounts.forms import UserRegistrationForm, UserLoginForm
 from accounts.models import Account
 from builder.models import Resume
 from django.contrib.auth import login
@@ -32,6 +32,11 @@ class AccountService():
         if payload is None:
             return UserRegistrationForm()
         return UserRegistrationForm(payload)
+    
+    def build_login_form(self, payload=None):
+        if payload is None:
+            return UserLoginForm()
+        return UserLoginForm(payload)
 
     def create_user(email, password, first_name, last_name):
         user = User.objects.create_user(email, email, password)

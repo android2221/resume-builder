@@ -92,14 +92,14 @@ class ResumeViewTests(TestCase):
         form_data = {
             "profile_active": True
         }
-        response = authedClient.post(reverse("activate-resume"), form_data)
+        response = authedClient.post(reverse("activate_resume"), form_data)
         self.assertEqual(response.status_code, 200)
         resumeResult = Resume.objects.get(user=user)
         self.assertEqual(resumeResult.is_live, True)
         form_data = {
             "profile_active": False
         }
-        response = authedClient.post(reverse("activate-resume"), form_data)
+        response = authedClient.post(reverse("activate_resume"), form_data)
         resumeResult = Resume.objects.get(user=user)
         self.assertEqual(resumeResult.is_live, False)
 
@@ -113,14 +113,14 @@ class ResumeViewTests(TestCase):
         account.save()
         authedClient = Client()
         authedClient.force_login(user)
-        response = authedClient.post(reverse("activate-resume"), form_data)
+        response = authedClient.post(reverse("activate_resume"), form_data)
         self.assertEqual(response.status_code, 500)
 
     def test_unauthenticated_resume_active_toggle_redirects(self):
         form_data = {
             "profile_active": "True"
         }
-        response = self.client.post(reverse("activate-resume"), form_data)
+        response = self.client.post(reverse("activate_resume"), form_data)
         self.assertEqual(response.status_code, 302)
 
 # TODO: Markdown renderer returns error, do something (Currently fails explosively)
