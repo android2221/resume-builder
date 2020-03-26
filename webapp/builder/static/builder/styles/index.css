@@ -1,0 +1,18 @@
+header.masthead .header-content {
+    max-width: 500px;
+    padding: 0px 10px;
+}
+
+header.masthead{
+    height: 625px;
+    min-height: initial;
+    background: linear-gradient(to right, #067afb, #33b9ca) !important;
+}
+
+@media (min-width: 992px){
+    header.masthead .header-content h1 {
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+}
+
