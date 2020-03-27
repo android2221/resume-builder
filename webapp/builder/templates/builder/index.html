@@ -23,6 +23,15 @@
 
 {% endblock %}
 
+{% block navbar_items %}
+<li class="nav-item font-weight-semibold d-none d-lg-block">
+  <a class="nav-link" href="{% url 'login' %}">Log In</a>
+</li>
+<li class="nav-item d-none d-lg-block">
+  <a class="nav-link btn btn-primary font-weight-semibold " id="sign-up-button" href="{% url 'register' %}">Sign up</a>
+</li>
+{% endblock %}
+
 {% block app_content %}
 
   <header class="masthead">
@@ -33,7 +42,7 @@
             <h1>Create a resumé that's easy to view and share.</h1>
             <h4>SeeMyResume can help create beatiful a resumé and publish it on the web using a personalized url.</h4>
             <div class="cta-button-container">
-              <button class="btn btn-info toolbar-item">Sign Up For Free!</button>
+              <button class="btn btn-info toolbar-item">Get Started Now</button>
             </div>
           </div>
         </div>
