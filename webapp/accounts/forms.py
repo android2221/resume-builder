@@ -78,7 +78,7 @@ def check_profile_url(profile_url):
 class UserLoginForm(auth_forms.AuthenticationForm):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
-        super(auth_forms.AuthenticationForm, self).__init__(*args, **kwargs)
+        super(UserLoginForm, self).__init__(*args, **kwargs)
         self.fields['username'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['password'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['username'].widget.attrs['placeholder'] = constants.FORM_USERNAME_PLACEHOLDER
@@ -87,13 +87,13 @@ class UserLoginForm(auth_forms.AuthenticationForm):
 
 class ResetForm(auth_forms.PasswordResetForm):
     def __init__(self, *args, **kwargs):
-        super(auth_forms.PasswordResetForm, self).__init__(*args, **kwargs)
+        super(ResetForm, self).__init__(*args, **kwargs)
         self.fields['email'].widget.attrs['placeholder'] = constants.FORM_EMAIL_PLACEHOLDER
         self.fields['email'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
 
 class ResetConfirmForm(auth_forms.SetPasswordForm):
     def __init__(self, user, *args, **kwargs):
-        super(auth_forms.SetPasswordForm, self).__init__(*args, **kwargs)
+        super(ResetConfirmForm, self).__init__(*args, **kwargs)
         self.user = user
         self.fields['new_password1'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['new_password2'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
@@ -102,11 +102,11 @@ class ResetConfirmForm(auth_forms.SetPasswordForm):
 
 class CustomPasswordChangeForm(auth_forms.PasswordChangeForm):
     def __init__(self, user, *args, **kwargs):
-        super(auth_forms.SetPasswordForm, self).__init__(*args, **kwargs)
+        super(CustomPasswordChangeForm, self).__init__(user, *args, **kwargs)
         self.user = user
         self.fields['old_password'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['new_password1'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['new_password2'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
-        self.fields['new_password1'].widget.attrs['placeholder'] = constants.FORM_PASSWORD_PLACEHOLDER
-        self.fields['new_password2'].widget.attrs['placeholder'] = constants.FORM_PASSOWRD_CONFIRM_PLACEHOLDER
+        self.fields['new_password1'].widget.attrs['placeholder'] = constants.FORM_NEW_PASSWORD_PLACEHOLDER
+        self.fields['new_password2'].widget.attrs['placeholder'] = constants.FORM_CONFIRM_NEW_PASSWORD
         self.fields['old_password'].widget.attrs['placeholder'] = constants.FORM_OLD_PASSWORD_PLACEHOLDER

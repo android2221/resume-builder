@@ -29,6 +29,7 @@ def register_user(request):
 
 class CustomLoginView(auth_views.LoginView):
     template_name = 'registration/login.html'
+    redirect_authenticated_user = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

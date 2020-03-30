@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="{% static 'builder/vendor/ui/vendors/css/vendor.bundle.addons.css' %}">
 <link rel="stylesheet" href="{% static 'builder/vendor/ui/vendors/iconfonts/font-awesome/css/font-awesome.min.css' %}">
 <link rel="stylesheet" href="{% static 'builder/vendor/ui/css/main/style.css' %}">
-<link rel="shortcut icon" href="{% static 'builder/vendor/ui/images/favicon.png' %}" />
 <link rel="stylesheet" href="{% static 'builder/styles/app-base.css' %}">
 <link rel="stylesheet" href="{% static 'builder/styles/common.css' %}">
 <link rel="stylesheet" href="{% static 'builder/vendor/ui/css/shared/style.css' %}">
@@ -54,6 +53,22 @@
         <ul class="navbar-nav ml-auto">
             {% block navbar_items %}
             {% endblock %}
+            {% if request.user.is_authenticated and request.path != '/' %}
+                <li class="nav-item dropdown d-xl-inline-block user-dropdown">
+                    <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-user-circle-o"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+                    <div class="dropdown-header text-center">
+                        <i class="fa fa-user-circle-o profile-dropdown-icon"></i>
+                        <p class="mb-1 mt-3 font-weight-semibold">{{ request.user.first_name }} {{ request.user.last_name }}</p>
+                        <p class="font-weight-light text-muted mb-0">{{ request.user.email }}</p>
+                    </div>
+                    <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+                    <a class="dropdown-item" href="{% url 'change_password' %}">Change Password</a>
+                    </div>
+                </li>
+            {% endif %}
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
         <span class="mdi mdi-menu"></span>
