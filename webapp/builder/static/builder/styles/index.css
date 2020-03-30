@@ -23,6 +23,14 @@ header.masthead{
     font-size: 1.5625rem;
 }
 
+section#features{
+    padding: 30px 0px;
+}
+
+#hero-image img{
+    width: 100%;
+}
+
 @media (min-width: 992px){
     header.masthead .header-content h1 {
         font-weight: 700;
