@@ -12,6 +12,11 @@
         plugins: "code, lists, link",
         toolbar: "code | fontselect | fontsizeselect | h1 | h2 | h3 | numlist | bullist | link",
         branding: false,
+        setup: function (ed) {
+                    ed.on('init', function (e) {
+                    ed.execCommand("fontName", false, "Arial");
+                  });
+                }   
     });
 
 </script>
