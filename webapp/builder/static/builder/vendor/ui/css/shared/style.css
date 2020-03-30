@@ -2286,12 +2286,12 @@ fieldset:disabled a.btn {
 
 .btn-info {
   color: #fff;
-  background-color: #8862e0;
-  border-color: #8862e0; }
+  background-color: #6C63FF;
+  border-color: #6C63FF; }
   .btn-info:hover {
     color: #fff;
-    background-color: #7042da;
-    border-color: #6837d8; }
+    background-color: #5f55fd;
+    border-color: #5f55fd; }
   .btn-info:focus, .btn-info.focus {
     -webkit-box-shadow: 0 0 0 0.2rem rgba(154, 122, 229, 0.5);
     box-shadow: 0 0 0 0.2rem rgba(154, 122, 229, 0.5); }
