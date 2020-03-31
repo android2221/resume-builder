@@ -39,11 +39,11 @@
       <div class="row h-100">
         <div class="col-lg-6 my-auto">
           <div class="header-content mx-auto">
-            <h1>Create a resumé that's easy to view and share.</h1>
-            <h4>SeeMyResume has the tools to craft a beautiful resumé and publish it on the web with a personalized url.</h4>
+            <h1>Easily build and share a beautiful resumé.</h1>
+            <h4>SeeMyResume has the tools to craft a your resumé and publish it on the web with a personalized url.</h4>
             <div class="cta-button-container">
               <a href="{% url 'register' %}">
-                <button class="btn btn-info toolbar-item">Get Started Now!</button>
+                <button class="btn btn-info">Start Building Now!</button>
               </a>
             </div>
           </div>
@@ -57,27 +57,40 @@
     </div>
   </header>
 
+  <section class="join-beta" id="join-beta">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+          <div class="text-container">
+            <div class="section-heading">
+              <h2>Join The Beta!</h2>
+              <hr>
+            </div>
+            <div class="beta-text">
+              The price is <b>free</b> for now but it may not always be. You'll be able to create a resumé and publish it immediately, and you will be the first to know about new features and exclusive offers.
+            </div>
+            <div class="cta-button-container join-now">
+              <a href="{% url 'register' %}">
+                <button class="btn btn-primary">Join Now!</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="features" id="features">
     <div class="container">
-      <div class="section-heading text-center">
+      <div class="row text-center">
+        <div class="col-lg-6 offset-lg-3"></div>
         <h2>Unlimited Features, Unlimited Fun</h2>
-        <p class="text-muted">Check out what you can do with this app theme!</p>
         <hr>
       </div>
       <div class="row">
         <div class="col-lg-4 my-auto">
-          <div class="device-container">
-            <div class="device-mockup iphone6_plus portrait white">
-              <div class="device">
-                <div class="screen">
-                  <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                  <img src="img/demo-screen-1.jpg" class="img-fluid" alt="">
-                </div>
-                <div class="button">
-                  <!-- You can hook the "home button" to some JavaScript events or just remove it -->
-                </div>
-              </div>
-            </div>
+          <div id="features-image">
+            <img src="{% static 'builder/images/features-image.svg' %}">
           </div>
         </div>
         <div class="col-lg-8 my-auto">
@@ -118,16 +131,6 @@
         </div>
       </div>
     </div>
-  </section>
-
-  <section class="cta">
-    <div class="cta-content">
-      <div class="container">
-        <h2>Stop waiting.<br>Start building.</h2>
-        <a href="#contact" class="btn btn-outline btn-xl js-scroll-trigger">Let's Get Started!</a>
-      </div>
-    </div>
-    <div class="overlay"></div>
   </section>
 
   <section class="contact bg-primary" id="contact">

@@ -6,7 +6,7 @@ header.masthead .header-content {
 header.masthead{
     height: 525px;
     min-height: initial;
-    background: linear-gradient(to right, #0158b9, #33b9ca) !important;
+    background: linear-gradient(to right, #0158b9, #37ffe3) !important;
 }
 
 .cta-button-container{
@@ -19,16 +19,34 @@ header.masthead{
     font-weight: 400;
 }
 
+.cta-button-container.join-now button{
+    font-size: 1.25rem;
+}
+
 .header-content h4{
     font-size: 1.5625rem;
 }
 
 section#features{
     padding: 30px 0px;
+    background-color: #dcdde1;
 }
 
-#hero-image img{
+section#join-beta{
+    padding: 55px 0px;
+}
+
+section#join-beta .text-container{
+    text-align: center;
+}
+
+#hero-image img,
+#features-image img{
     width: 100%;
+}
+
+.section-heading{
+    margin-bottom: 30px;
 }
 
 @media (min-width: 992px){
