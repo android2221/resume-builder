@@ -12,10 +12,12 @@
         plugins: "code, lists, link",
         toolbar: "code | fontselect | fontsizeselect | h1 | h2 | h3 | numlist | bullist | link",
         branding: false,
+        //fontsize_formats: "test=3vw test2=4vw",
         setup: function (ed) {
                     ed.on('init', function (e) {
-                    ed.execCommand("fontName", false, "Arial");
-                  });
+                      ed.execCommand("fontName", false, "Arial");
+                     // ed.getBody().style.fontSize = '4vw';
+                    });
                 }   
     });
 
