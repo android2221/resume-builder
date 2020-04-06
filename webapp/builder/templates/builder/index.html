@@ -43,7 +43,7 @@
             <h4>SeeMyResume has the tools to craft your resumé and publish it on the web with a personalized url.</h4>
             <div class="cta-button-container">
               <a href="{% url 'register' %}">
-                <button class="btn btn-info">Start Building Now!</button>
+                <button class="btn btn-success">Get Started!</button>
               </a>
             </div>
           </div>
@@ -57,38 +57,8 @@
     </div>
   </header>
 
-  <section class="join-beta" id="join-beta">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 offset-lg-2">
-          <div class="text-container">
-            <div class="section-heading">
-              <h2>Join The Beta!</h2>
-              <hr>
-            </div>
-            <div class="beta-text">
-              The price is <b>free</b> for now but it may not always be. You'll be able to create a resumé and publish it immediately, and you will be the first to know about new features and exclusive offers.
-            </div>
-            <div class="cta-button-container join-now">
-              <a href="{% url 'register' %}">
-                <button class="btn btn-primary">Join Now!</button>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="features" id="features">
     <div class="container">
-      <div class="row text-center">
-        <div class="col-lg-8 offset-lg-2">
-          <h2>TEST TEXT</h2>
-          <hr>
-        </div>
-        <hr>
-      </div>
       <div class="row">
         <div class="col-lg-4 my-auto">
           <div id="features-image">
@@ -109,7 +79,7 @@
                 <div class="feature-item">
                   <i class="icon-globe text-primary"></i>
                   <h3 class="font-weight-bold">Custom URL</h3>
-                  <p>Publish your resumé on the web behind a personalized URL that makes it easy to share.</p>
+                  <p>Publish your resumé on the web behind a personalized URL that makes it easy to share anywhere.</p>
                 </div>
               </div>
             </div>
@@ -125,7 +95,7 @@
                 <div class="feature-item">
                   <i class="icon-briefcase text-primary"></i>
                   <h3 class="font-weight-bold">Dedicated Platform</h3>
-                  <p>Always have a place for your most important document during a job search.</p>
+                  <p>Always have a place for the most important document of your career.</p>
                 </div>
               </div>
             </div>
@@ -135,47 +105,41 @@
     </div>
   </section>
 
-  <section class="contact bg-primary" id="contact">
+  <section class="join-beta" id="join-beta">
     <div class="container">
-      <h2>We
-        <i class="fas fa-heart"></i>
-        new friends!</h2>
-      <ul class="list-inline list-social">
-        <li class="list-inline-item social-twitter">
-          <a href="#">
-            <i class="fab fa-twitter"></i>
-          </a>
-        </li>
-        <li class="list-inline-item social-facebook">
-          <a href="#">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-        </li>
-        <li class="list-inline-item social-google-plus">
-          <a href="#">
-            <i class="fab fa-google-plus-g"></i>
-          </a>
-        </li>
-      </ul>
+      <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+          <div class="text-container">
+            <div class="section-heading">
+              <h2>Join The Beta!</h2>
+              <hr>
+            </div>
+            <div class="beta-text">
+              Everything is <b>free</b> for now while we work on adding more features. You'll be able to create a resumé and publish it immediately, and you will be the first to know about new features and exclusive offers.
+            </div>
+            <div class="cta-button-container join-now">
+              <a href="{% url 'register' %}">
+                <button class="btn btn-info">Join Now</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <footer>
+  <!-- <section class="contact bg-primary" id="contact">
     <div class="container">
-      <p>&copy; Your Website 2019. All Rights Reserved.</p>
-      <ul class="list-inline">
-        <li class="list-inline-item">
-          <a href="#">Privacy</a>
-        </li>
-        <li class="list-inline-item">
-          <a href="#">Terms</a>
-        </li>
-        <li class="list-inline-item">
-          <a href="#">FAQ</a>
-        </li>
-      </ul>
+      <div class="row">
+        <div class="col-lg-4 offset-lg-4">
+          <h2>Start Creating</h2>
+          <p>
+            Make your credentials available and well-known so you can land your next opportunity quickly and easily.
+          </p>
+        </div>
+      </div>
     </div>
-  </footer>
+  </section> -->
 
   {% endblock %}
 

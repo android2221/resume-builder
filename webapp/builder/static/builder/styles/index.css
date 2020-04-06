@@ -1,3 +1,11 @@
+h2{
+    font-weight: 500;
+}
+
+p{
+    font-size: 1rem;
+}
+
 header.masthead .header-content {
     max-width: 500px;
     padding: 0px 10px;
@@ -16,7 +24,7 @@ header.masthead{
 .cta-button-container button{
     font-size: 1.5625rem;
     padding: .5rem 1rem;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 .cta-button-container.join-now button{
@@ -27,17 +35,16 @@ header.masthead{
     font-size: 1.5625rem;
 }
 
-section#features{
+section#join-beta{
     background-color: #0158b9;
     color: white;
 }
 
-section#features p{
+section#join-beta p{
     color: white;
-    font-size: 1rem;
 }
 
-section#features hr{
+section#join-beta hr{
     border-top: 1px solid white;
 }
 

@@ -13,18 +13,36 @@
 }
 
 .footer{
-    padding: 5px 1rem;
     background-color: #353b48;
+    height: 45px;
+    border-top: none;
+    position: relative;
+    padding: initial;
 }
+
+.footer a:hover{
+  color: white;
+}
+
 .footer #logo{
-    width: 175px;
-    height: 30px;
-    top: 5px;
-    float: right;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  width: 175px;
+  height: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
+
+.footer #logo-container{
+  position: relative;
+  float: right;
+  top: 7px;
+}
+.footer #footer-items-container{
+  position: relative;
+  float: left;
+  top: 10px;
+}
+
 .navbar.default-layout .navbar-brand-wrapper .navbar-brand img{
     width: 200px;
 }
