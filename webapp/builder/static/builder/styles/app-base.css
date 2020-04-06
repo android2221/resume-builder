@@ -25,6 +25,10 @@
     padding: initial;
 }
 
+.footer ul li a{
+  color: #dcdde1;
+}
+
 .footer a:hover{
   color: white;
 }
