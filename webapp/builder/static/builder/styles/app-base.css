@@ -10,6 +10,11 @@
 #sign-up-button{
   color: white;
   padding: .5rem 1rem;
+  min-width: 65px;
+}
+
+#log-in-button{
+  min-width: 45px;
 }
 
 .footer{
@@ -43,10 +48,8 @@
   top: 10px;
 }
 
-.navbar.default-layout .navbar-brand-wrapper .navbar-brand img{
-    width: 200px;
-}
-
-  .navbar.default-layout .navbar-menu-wrapper .navbar-nav .nav-item .nav-link {
-    font-size: 16px;
+@media (max-width: 500px){
+  #sign-up-button{
+    padding: .5rem .25rem;
+  }
 }
