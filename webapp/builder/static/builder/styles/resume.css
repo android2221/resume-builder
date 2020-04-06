@@ -6,6 +6,7 @@ body{
     margin: 0 auto;
     max-width: 900px;
     margin-bottom: 5rem;
+    padding: 0px 20px;
 }
 .task-list-item { list-style-type: none; } 
 .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
