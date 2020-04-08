@@ -34,8 +34,8 @@
 }
 
 .footer #logo{
-  width: 175px;
-  height: 30px;
+  width: 150px;
+  height: 25px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -44,12 +44,31 @@
 .footer #logo-container{
   position: relative;
   float: right;
-  top: 7px;
+  top: 9px;
 }
+
+.footer .list-inline-item:not(:last-child){
+  margin-right: 0.2rem;
+}
+
 .footer #footer-items-container{
   position: relative;
   float: left;
   top: 10px;
+}
+
+@media (min-width: 350px){
+  .footer #logo{
+    width: 175px;
+    height: 30px;
+  }
+  .footer #logo-container{
+    top: 7px;
+  }
+  .footer .list-inline-item:not(:last-child){
+    margin-right: 0.5rem;
+  }
+  
 }
 
 @media (max-width: 500px){
