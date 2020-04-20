@@ -1,0 +1,24 @@
+# Docker-compose file for local development
+version: "3.7"
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=myhardpassword
+  webapp:
+    build:
+      context: ./
+      dockerfile: build/prod/Dockerfile
+      args:
+        - DJANGO_SITE_URL=seemyresume.io
+        - DJANGO_EMAIL_FILE_PATH=/sent_emails/
+        - DATABASE_URL='db' 
+        - POSTGRES_PASSWORD=myhardpassword
+    entrypoint: ["uwsgi", "--show-config"]
+    ports:
+      - "8001:8000"
+    environment: 
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - db
