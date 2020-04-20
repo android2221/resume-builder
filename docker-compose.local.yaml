@@ -9,9 +9,9 @@ services:
       dockerfile: build/local/Dockerfile
     volumes:
       - "./webapp:/app/"
-      - "./build/docker-entrypoint.dev.sh:/docker-entrypoint/docker-entrypoint.dev.sh"
+      - "./build/docker-entrypoint.local.sh:/docker-entrypoint/docker-entrypoint.local.sh"
       - "./build/wait-for-it.sh:/wait-for-it.sh"
-    entrypoint: sh /docker-entrypoint/docker-entrypoint.dev.sh  
+    entrypoint: sh /docker-entrypoint/docker-entrypoint.local.sh
     ports:
       - "8001:8001"
     environment: 
