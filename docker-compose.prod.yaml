@@ -16,7 +16,7 @@ services:
         - POSTGRES_PASSWORD=myhardpassword
     entrypoint: ["uwsgi", "--show-config"]
     ports:
-      - "8001:8000"
+      - "80:8000"
     environment: 
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1
