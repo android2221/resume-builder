@@ -27,5 +27,6 @@ services:
     environment: 
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1
+      - DJANGO_SSL_REDIRECT=True
     depends_on:
       - db
