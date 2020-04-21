@@ -18,7 +18,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # RESUME BUILDER APP CONFIGS
 LOCAL_PORT = os.environ.get("DJANGO_LOCAL_PORT")
 ROOT_URL = os.environ["DJANGO_SITE_URL"]
-DJANGO_DEBUG = os.environ["DJANGO_DEBUG"]
 DJANGO_SSL_REDIRECT = os.environ["DJANGO_SSL_REDIRECT"]
 
 if LOCAL_PORT is not None:
@@ -32,11 +31,8 @@ else:
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'o-9=#fc$is3jt$sv#1$28dd!d@#!nh5dshcqc7ql1ko07a-b=y'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-if DJANGO_DEBUG is None or DJANGO_DEBUG == '':
-    DJANGO_DEBUG = False
-    
-DEBUG = DJANGO_DEBUG
+# DEBUG
+DEBUG = False
 
 ALLOWED_HOSTS = [ROOT_URL]
 
