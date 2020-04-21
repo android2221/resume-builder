@@ -59,7 +59,7 @@ RUN set -ex \
 RUN mkdir /code/
 WORKDIR /code/
 ADD webapp/ /code/
-RUN chown ${APP_USER}:/code/
+RUN chown -R ${APP_USER} /code/
 
 # uWSGI will listen on this port
 EXPOSE 8000
