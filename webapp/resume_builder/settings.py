@@ -32,12 +32,6 @@ else:
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'o-9=#fc$is3jt$sv#1$28dd!d@#!nh5dshcqc7ql1ko07a-b=y'
 
-# SSL REDIRECT
-if DJANGO_SSL_REDIRECT is None or DJANGO_DEBUG is '':
-    DJANGO_SSL_REDIRECT = True
-
-SECURE_SSL_REDIRECT = DJANGO_SSL_REDIRECT
-
 # SECURITY WARNING: don't run with debug turned on in production!
 if DJANGO_DEBUG is None or DJANGO_DEBUG == '':
     DJANGO_DEBUG = False
@@ -161,3 +155,10 @@ EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.environ.get("DJANGO_EMAIL_FILE_PATH")
 if EMAIL_FILE_PATH is None:
     EMAIL_FILE_PATH = "/sent_emails/"
+
+
+# SSL REDIRECT
+if DJANGO_SSL_REDIRECT is None or DJANGO_DEBUG is '':
+    DJANGO_SSL_REDIRECT = True
+
+SECURE_SSL_REDIRECT = DJANGO_SSL_REDIRECT
