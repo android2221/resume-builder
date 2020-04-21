@@ -12,13 +12,11 @@ services:
       args:
         - DJANGO_SITE_URL=seemyresume.io
         - DJANGO_EMAIL_FILE_PATH=/sent_emails/
-        - DJANGO_DEBUG='False'
-        - DJANGO_SSL_REDIRECT='True'
+
         - DATABASE_URL='db' 
         - POSTGRES_PASSWORD=myhardpassword
     entrypoint: ["uwsgi", "--shared-socket", "0.0.0.0:8443", "--uid", "appuser", "--gid", "appuser", "--https", "=0,/certs/cert.pem,/certs/privkey.pem"]
     ports:
-      - "8001:8000"
       - "80:8000"
       - "443:8443"
     volumes:
@@ -27,6 +25,7 @@ services:
     environment: 
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1
+      - DJANGO_DEBUG=False
       - DJANGO_SSL_REDIRECT=True
     depends_on:
       - db
