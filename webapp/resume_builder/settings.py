@@ -34,7 +34,7 @@ SECRET_KEY = 'o-9=#fc$is3jt$sv#1$28dd!d@#!nh5dshcqc7ql1ko07a-b=y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if DJANGO_DEBUG is None or DJANGO_DEBUG == '':
-    DJANGO_DEBUG = True
+    DJANGO_DEBUG = False
     
 DEBUG = DJANGO_DEBUG
 
