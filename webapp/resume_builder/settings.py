@@ -34,7 +34,7 @@ SECRET_KEY = 'o-9=#fc$is3jt$sv#1$28dd!d@#!nh5dshcqc7ql1ko07a-b=y'
 # DEBUG
 DEBUG = False
 
-ALLOWED_HOSTS = [ROOT_URL]
+ALLOWED_HOSTS = [ROOT_URL, f'www.{ROOT_URL}']
 
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "/builder"
