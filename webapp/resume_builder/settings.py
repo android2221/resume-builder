@@ -19,6 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOCAL_PORT = os.environ.get("DJANGO_LOCAL_PORT")
 ROOT_URL = os.environ["DJANGO_SITE_URL"]
 DJANGO_DEBUG = os.environ["DJANGO_DEBUG"]
+DJANGO_SSL_REDIRECT = os.environ["DJANGO_SSL_REDIRECT"]
 
 if LOCAL_PORT is not None:
     SITE_URL = f'{ROOT_URL}:{LOCAL_PORT}'
@@ -30,6 +31,12 @@ else:
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'o-9=#fc$is3jt$sv#1$28dd!d@#!nh5dshcqc7ql1ko07a-b=y'
+
+# SSL REDIRECT
+if DJANGO_SSL_REDIRECT is None or DJANGO_DEBUG is '':
+    DJANGO_SSL_REDIRECT = True
+
+SECURE_SSL_REDIRECT = DJANGO_SSL_REDIRECT
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if DJANGO_DEBUG is None or DJANGO_DEBUG == '':
