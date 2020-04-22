@@ -10,11 +10,15 @@ services:
       context: ./
       dockerfile: build/prod/Dockerfile
       args:
-        - DJANGO_SITE_URL=seemyresume.io
-        - DJANGO_EMAIL_FILE_PATH=/sent_emails/
-        - DATABASE_URL='db' 
+        - DJANGO_SITE_URL='seemyresume.io'
+        - DJANGO_EMAIL_FILE_PATH='/sent_emails/''
         - DJANGO_SSL_REDIRECT=True
-        - POSTGRES_PASSWORD=myhardpassword
+        - DATABASE_URL='db-prod-postgresql-sfo2-83726-do-user-7063963-0.a.db.ondigitalocean.com' 
+        - DB_DBNAME='seemyresume'
+        - DB_PASSWORD='udjjje3t0dbq0tee'
+        - DB_USERNAME='doadmin'
+        - DB_FQDN='db-prod-postgresql-sfo2-83726-do-user-7063963-0.a.db.ondigitalocean.com'
+        - DB_PORT='25060'
     entrypoint: ["uwsgi", "--shared-socket", "0.0.0.0:8443", "--uid", "appuser", "--gid", "appuser", "--https", "=0,/certs/cert.pem,/certs/privkey.pem"]
     ports:
       - "80:8000"
@@ -27,3 +31,11 @@ services:
       - PYTHONUNBUFFERED=1
     depends_on:
       - db
+
+
+#       username = doadmin
+# password = udjjje3t0dbq0tee hide
+# host = db-prod-postgresql-sfo2-83726-do-user-7063963-0.a.db.ondigitalocean.com
+# port = 25060
+# database = defaultdb
+# sslmode = require

@@ -95,15 +95,14 @@ WSGI_APPLICATION = 'resume_builder.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DB_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'HOST': 'db',
-        'PASSWORD': DB_PASSWORD,
-        'PORT': 5432,
+        'NAME': os.environ.get("DB_DBNAME"),
+        'USER': os.environ.get("DB_USERNAME"),
+        'HOST': os.environ.get("DB_FQDN"),
+        'PASSWORD': os.environ.get("DB_PASSWORD"),
+        'PORT': os.environ.get("DB_PORT"),
     }
 }
 
