@@ -1,10 +1,6 @@
 # Docker-compose file for local development
 version: "3.7"
 services:
-  db:
-    image: postgres
-    environment:
-      - POSTGRES_PASSWORD=myhardpassword
   webapp:
     build:
       context: ./
@@ -29,13 +25,3 @@ services:
     environment: 
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1
-    depends_on:
-      - db
-
-
-#       username = doadmin
-# password = udjjje3t0dbq0tee hide
-# host = db-prod-postgresql-sfo2-83726-do-user-7063963-0.a.db.ondigitalocean.com
-# port = 25060
-# database = defaultdb
-# sslmode = require
