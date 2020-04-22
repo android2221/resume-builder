@@ -66,6 +66,10 @@ ADD webapp/ /code/
 
 RUN chown -R ${APP_USER} /code/
 
+# Directory for sent emails
+RUN mkdir /sent_emails/
+RUN chown -R ${APP_USER} /sent_emails/
+
 # uWSGI will listen on this port
 EXPOSE 8000
 EXPOSE 8443
