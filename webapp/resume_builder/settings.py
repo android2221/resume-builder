@@ -20,7 +20,7 @@ LOCAL_PORT = os.environ.get("DJANGO_LOCAL_PORT")
 ROOT_URL = os.environ["DJANGO_SITE_URL"]
 DJANGO_SSL_REDIRECT = os.environ["DJANGO_SSL_REDIRECT"]
 
-if LOCAL_PORT is not None or LOCAL_PORT is '':
+if LOCAL_PORT is None or LOCAL_PORT is '':
     SITE_URL = f'{ROOT_URL}:{LOCAL_PORT}'
 else:
     SITE_URL = ROOT_URL
