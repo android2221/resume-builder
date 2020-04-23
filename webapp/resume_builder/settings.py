@@ -18,11 +18,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # RESUME BUILDER APP CONFIGS
 LOCAL_PORT = os.environ.get("DJANGO_LOCAL_PORT")
 ROOT_URL = os.environ["DJANGO_SITE_URL"]
+DJANGO_SSL_REDIRECT = os.environ["DJANGO_SSL_REDIRECT"]
 
-if LOCAL_PORT is not None:
-    SITE_URL = f'{ROOT_URL}:{LOCAL_PORT}'
-else:
-    SITE_URL = ROOT_URL
+# if LOCAL_PORT is not None or LOCAL_PORT is not '':
+#     SITE_URL = f'{ROOT_URL}:{LOCAL_PORT}'
+# else:
+#     SITE_URL = ROOT_URL
+SITE_URL = ROOT_URL
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -30,10 +32,10 @@ else:
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'o-9=#fc$is3jt$sv#1$28dd!d@#!nh5dshcqc7ql1ko07a-b=y'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG
+DEBUG = False
 
-ALLOWED_HOSTS = [ROOT_URL]
+ALLOWED_HOSTS = [ROOT_URL, f'www.{ROOT_URL}']
 
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "/builder"
@@ -93,15 +95,14 @@ WSGI_APPLICATION = 'resume_builder.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DB_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'HOST': 'db',
-        'PASSWORD': DB_PASSWORD,
-        'PORT': 5432,
+        'NAME': os.environ.get("DB_DBNAME"),
+        'USER': os.environ.get("DB_USERNAME"),
+        'HOST': os.environ.get("DB_FQDN"),
+        'PASSWORD': os.environ.get("DB_PASSWORD"),
+        'PORT': os.environ.get("DB_PORT"),
     }
 }
 
@@ -150,3 +151,14 @@ EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.environ.get("DJANGO_EMAIL_FILE_PATH")
 if EMAIL_FILE_PATH is None:
     EMAIL_FILE_PATH = "/sent_emails/"
+
+
+# # SSL REDIRECT
+# if DJANGO_SSL_REDIRECT is None or DJANGO_SSL_REDIRECT is '':
+#     DJANGO_SSL_REDIRECT = True
+
+SECURE_SSL_REDIRECT=True
+SESSION_COOKIE_SECURE=True
+CSRF_COOKIE_SECURE=True
+X_FRAME_OPTIONS='DENY'
+SECURE_REFERRER_POLICY='origin'
