@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+# Big Production flag, we use production settings where we need to based on the 
+# boolean value of this field
+IS_PRODUCTION=True
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -33,7 +37,7 @@ SITE_URL = ROOT_URL
 SECRET_KEY = 'o-9=#fc$is3jt$sv#1$28dd!d@#!nh5dshcqc7ql1ko07a-b=y'
 
 # DEBUG
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [ROOT_URL, f'www.{ROOT_URL}']
 
@@ -84,6 +88,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'resume-builder.context_processors.get_production_setting'
             ],
         },
     },
