@@ -14,7 +14,13 @@ import os
 
 # Big Production flag, we use production settings where we need to based on the 
 # boolean value of this field
-IS_PRODUCTION=True
+IS_PRODUCTION=False
+PRODUCTION_SETTING=os.environ["DJANGO_IS_PRODUCTION"]
+
+if PRODUCTION_SETTING == 'True':
+    IS_PRODUCTION=True
+else:
+    IS_PRODUCTION=False
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -22,7 +28,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # RESUME BUILDER APP CONFIGS
 LOCAL_PORT = os.environ.get("DJANGO_LOCAL_PORT")
 ROOT_URL = os.environ["DJANGO_SITE_URL"]
-DJANGO_SSL_REDIRECT = os.environ["DJANGO_SSL_REDIRECT"]
 
 # if LOCAL_PORT is not None or LOCAL_PORT is not '':
 #     SITE_URL = f'{ROOT_URL}:{LOCAL_PORT}'
@@ -40,6 +45,9 @@ SECRET_KEY = 'o-9=#fc$is3jt$sv#1$28dd!d@#!nh5dshcqc7ql1ko07a-b=y'
 DEBUG = True
 
 ALLOWED_HOSTS = [ROOT_URL, f'www.{ROOT_URL}']
+
+if IS_PRODUCTION == False:
+    ALLOWED_HOSTS=['localhost']
 
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "/builder"
@@ -88,7 +96,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'resume-builder.context_processors.get_production_setting'
+                'resume_builder.context_processors.get_production_setting'
             ],
         },
     },
@@ -157,13 +165,9 @@ EMAIL_FILE_PATH = os.environ.get("DJANGO_EMAIL_FILE_PATH")
 if EMAIL_FILE_PATH is None:
     EMAIL_FILE_PATH = "/sent_emails/"
 
-
-# # SSL REDIRECT
-# if DJANGO_SSL_REDIRECT is None or DJANGO_SSL_REDIRECT is '':
-#     DJANGO_SSL_REDIRECT = True
-
-SECURE_SSL_REDIRECT=True
-SESSION_COOKIE_SECURE=True
-CSRF_COOKIE_SECURE=True
-X_FRAME_OPTIONS='DENY'
-SECURE_REFERRER_POLICY='origin'
+if IS_PRODUCTION == True:
+    SECURE_SSL_REDIRECT=True
+    SESSION_COOKIE_SECURE=True
+    CSRF_COOKIE_SECURE=True
+    X_FRAME_OPTIONS='DENY'
+    SECURE_REFERRER_POLICY='origin'

@@ -6,33 +6,39 @@ services:
   webapp:
     build:
       context: ./
-      dockerfile: build/local/Dockerfile
+      dockerfile: Dockerfile
+      args:
+        - DJANGO_IS_PRODUCTION=False
+        - DJANGO_SITE_URL=localhost:8001
+        - DJANGO_EMAIL_FILE_PATH=/sent_emails/
+        - DB_DBNAME=postgres
+        - DB_PASSWORD=myhardpassword
+        - DB_USERNAME=postgres
+        - DB_FQDN=db
+        - DB_PORT=5432
     volumes:
-      - "./webapp:/app/"
-      - "./build/docker-entrypoint.local.sh:/docker-entrypoint/docker-entrypoint.local.sh"
+      - "./webapp:/code/"
+      - "./build/docker-entrypoint.dev.sh:/docker-entrypoint/docker-entrypoint.sh"
       - "./build/wait-for-it.sh:/wait-for-it.sh"
-    entrypoint: sh /docker-entrypoint/docker-entrypoint.local.sh
+    entrypoint: sh /docker-entrypoint/docker-entrypoint.sh
     ports:
       - "8001:8001"
     environment: 
-      - DJANGO_SITE_URL=localhost
-      - DJANGO_LOCAL_PORT=8001
-      - DJANGO_EMAIL_FILE_PATH=/sent_emails/
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1
     depends_on:
       - db
-  webapp-tests:
-    build:
-      context: ./
-      dockerfile: ./build/tests/Dockerfile
-    volumes:
-      - "./webapp:/app/"
-      - "./build/docker-test-entrypoint.sh:/docker-entrypoint/docker-test-entrypoint.sh"
-      - "./build/wait-for-it.sh:/wait-for-it.sh"
-    entrypoint: sh /docker-entrypoint/docker-test-entrypoint.sh
-    environment: 
-      - DJANGO_SITE_URL=localhost:8001
-      - DJANGO_EMAIL_FILE_PATH=/sent_emails/
-    depends_on:
-      - db
+  # webapp-tests:
+  #   build:
+  #     context: ./
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - "./webapp:/app/"
+  #     - "./build/docker-test-entrypoint.sh:/docker-entrypoint/docker-test-entrypoint.sh"
+  #     - "./build/wait-for-it.sh:/wait-for-it.sh"
+  #   entrypoint: sh /docker-entrypoint/docker-test-entrypoint.sh
+  #   environment: 
+  #     - DJANGO_SITE_URL=localhost:8001
+  #     - DJANGO_EMAIL_FILE_PATH=/sent_emails/
+  #   depends_on:
+  #     - db

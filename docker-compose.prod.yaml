@@ -6,9 +6,9 @@ services:
       context: ./
       dockerfile: build/prod/Dockerfile
       args:
+        - DJANGO_IS_PRODUCTION=True
         - DJANGO_SITE_URL=seemyresume.io
         - DJANGO_EMAIL_FILE_PATH=/sent_emails/
-        - DJANGO_SSL_REDIRECT=True
         - DATABASE_URL=db-prod-postgresql-sfo2-83726-do-user-7063963-0.a.db.ondigitalocean.com 
         - DB_DBNAME=seemyresume
         - DB_PASSWORD=udjjje3t0dbq0tee
