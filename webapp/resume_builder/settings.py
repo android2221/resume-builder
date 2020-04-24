@@ -15,7 +15,7 @@ import os
 # Big Production flag, we use production settings where we need to based on the 
 # boolean value of this field
 IS_PRODUCTION=False
-PRODUCTION_SETTING=os.environ["DJANGO_IS_PRODUCTION"]
+PRODUCTION_SETTING=os.environ.get("DJANGO_IS_PRODUCTION", False)
 
 if PRODUCTION_SETTING == 'True':
     IS_PRODUCTION=True
@@ -26,13 +26,8 @@ else:
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # RESUME BUILDER APP CONFIGS
-LOCAL_PORT = os.environ.get("DJANGO_LOCAL_PORT")
-ROOT_URL = os.environ["DJANGO_SITE_URL"]
+ROOT_URL = os.environ.get("DJANGO_SITE_URL", "")
 
-# if LOCAL_PORT is not None or LOCAL_PORT is not '':
-#     SITE_URL = f'{ROOT_URL}:{LOCAL_PORT}'
-# else:
-#     SITE_URL = ROOT_URL
 SITE_URL = ROOT_URL
 
 # Quick-start development settings - unsuitable for production
@@ -111,11 +106,11 @@ WSGI_APPLICATION = 'resume_builder.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get("DB_DBNAME"),
-        'USER': os.environ.get("DB_USERNAME"),
-        'HOST': os.environ.get("DB_FQDN"),
-        'PASSWORD': os.environ.get("DB_PASSWORD"),
-        'PORT': os.environ.get("DB_PORT"),
+        'NAME': os.environ.get("DB_DBNAME", ""),
+        'USER': os.environ.get("DB_USERNAME", ""),
+        'HOST': os.environ.get("DB_FQDN", ""),
+        'PASSWORD': os.environ.get("DB_PASSWORD", ""),
+        'PORT': os.environ.get("DB_PORT", ""),
     }
 }
 
@@ -161,7 +156,7 @@ STATIC_ROOT = '/django-static-root/'
 
 # Email Settings
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-EMAIL_FILE_PATH = os.environ.get("DJANGO_EMAIL_FILE_PATH")
+EMAIL_FILE_PATH = os.environ.get("DJANGO_EMAIL_FILE_PATH", "")
 if EMAIL_FILE_PATH is None:
     EMAIL_FILE_PATH = "/sent_emails/"
 

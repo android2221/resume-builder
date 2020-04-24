@@ -7,15 +7,6 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-      args:
-        - DJANGO_IS_PRODUCTION=False
-        - DJANGO_SITE_URL=localhost:8001
-        - DJANGO_EMAIL_FILE_PATH=/sent_emails/
-        - DB_DBNAME=postgres
-        - DB_PASSWORD=myhardpassword
-        - DB_USERNAME=postgres
-        - DB_FQDN=db
-        - DB_PORT=5432
     volumes:
       - "./webapp:/code/"
       - "./build/docker-entrypoint.dev.sh:/docker-entrypoint/docker-entrypoint.sh"
@@ -24,6 +15,14 @@ services:
     ports:
       - "8001:8001"
     environment: 
+      - DJANGO_IS_PRODUCTION=False
+      - DJANGO_SITE_URL=localhost:8001
+      - DJANGO_EMAIL_FILE_PATH=/sent_emails/
+      - DB_DBNAME=postgres
+      - DB_PASSWORD=myhardpassword
+      - DB_USERNAME=postgres
+      - DB_FQDN=db
+      - DB_PORT=5432
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1
     depends_on:
