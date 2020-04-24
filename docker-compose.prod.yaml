@@ -12,15 +12,8 @@ services:
     volumes:
       - "/etc/letsencrypt/live/seemyresume.io/cert.pem:/certs/cert.pem"
       - "/etc/letsencrypt/live/seemyresume.io/privkey.pem:/certs/privkey.pem"
+    env_file:
+      - ./env-vars.env
     environment: 
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1
-      - DJANGO_IS_PRODUCTION=True
-      - DJANGO_SITE_URL=seemyresume.io
-      - DJANGO_EMAIL_FILE_PATH=/sent_emails/
-      - DATABASE_URL=db-prod-postgresql-sfo2-83726-do-user-7063963-0.a.db.ondigitalocean.com 
-      - DB_DBNAME=seemyresume
-      - DB_PASSWORD=udjjje3t0dbq0tee
-      - DB_USERNAME=doadmin
-      - DB_FQDN=db-prod-postgresql-sfo2-83726-do-user-7063963-0.a.db.ondigitalocean.com
-      - DB_PORT=25060
