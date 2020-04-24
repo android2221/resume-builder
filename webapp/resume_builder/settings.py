@@ -37,7 +37,10 @@ SITE_URL = ROOT_URL
 SECRET_KEY = 'o-9=#fc$is3jt$sv#1$28dd!d@#!nh5dshcqc7ql1ko07a-b=y'
 
 # DEBUG
-DEBUG = True
+if IS_PRODUCTION == True:
+    DEBUG = False
+else:
+    DEBUG = True
 
 ALLOWED_HOSTS = [ROOT_URL, f'www.{ROOT_URL}']
 
