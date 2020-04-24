@@ -4,7 +4,7 @@ services:
   webapp:
     build:
       context: ./
-      dockerfile: build/prod/Dockerfile
+      dockerfile: ./build/prod/Dockerfile
     entrypoint: ["uwsgi", "--shared-socket", "0.0.0.0:8443", "--uid", "appuser", "--gid", "appuser", "--https", "=0,/certs/cert.pem,/certs/privkey.pem"]
     ports:
       - "80:8000"
