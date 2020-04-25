@@ -4,9 +4,6 @@
 echo "Waiting for database"
 /wait-for-it.sh db:5432
 
-# Make things editable for our dev user
-sudo chown -R `whoami` /code/
-
 echo "Apply database migrations"
 python manage.py makemigrations accounts builder
 python manage.py migrate
