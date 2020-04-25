@@ -10,5 +10,5 @@ jobs:
       env:
         USERNAME: root
         HOST: dev.seemyresume.io
-        SCRIPT: ls /
         KEY: ${{ secrets.DEV_WEBSERVER_SSH_KEY }}
+        SCRIPT: ls /
