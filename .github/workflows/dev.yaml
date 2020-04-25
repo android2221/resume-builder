@@ -1,0 +1,14 @@
+name: CI
+on: [push]
+ 
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy to nerdhood.de
+      uses: appleboy/ssh-action@master
+      env:
+        USERNAME: my_username
+        HOST: my_host
+        SCRIPT: echo "dude, i'm a server"
+        KEY: ${{ secrets.DEV_WEBSERVER_SSH_KEY }}
