@@ -18,4 +18,4 @@ jobs:
           && git checkout develop \
           && git pull \
           && docker-compose -f ./docker-compose.dev.yaml build \
-          && docker-compose -f ./docker-compose.dev.yaml up --no-deps -d webapp"
+          && docker-compose -f ./docker-compose.dev.yaml up --no-deps -d"
