@@ -1,14 +1,16 @@
-name: CI
+name: remote ssh command
 on: [push]
- 
 jobs:
-  deploy:
+
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
-    - name: Execute SSH commmands on remote server
-      uses: JimCronqvist/action-ssh@master
+    - name: executing remote ssh commands using ssh key
+      uses: appleboy/ssh-action@master
       with:
-        hosts: 'root@dev.seemyresume.io'
-        privateKey: ${{ secrets.DEV_WEBSERVER_SSH_PRIVATE_KEY }}
-        command: ls -lah
-        debug: true
+        host: dev.seemyresume.io
+        username: root
+        key: ${{ secrets.DEV_WEBSERVER_SSH_PRIVATE_KEY }}
+        port: 22
+        script: whoami
