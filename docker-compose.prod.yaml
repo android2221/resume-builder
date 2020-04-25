@@ -15,5 +15,9 @@ services:
     env_file:
       - ./env-vars.env
     environment: 
+      - SECURE_SSL_REDIRECT=True
+      - SESSION_COOKIE_SECURE=True
+      - CSRF_COOKIE_SECURE=True
+      - ACTIVATE_GOOGLE_ANALYTICS=True
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1

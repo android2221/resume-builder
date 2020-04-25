@@ -22,6 +22,9 @@ if PRODUCTION_SETTING == 'True':
 else:
     IS_PRODUCTION=False
 
+# Activate Google Analytics
+ACTIVATE_GOOGLE_ANALYTICS=os.environ.get("ACTIVATE_GOOGLE_ANALYTICS", False)
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -163,9 +166,10 @@ EMAIL_FILE_PATH = os.environ.get("DJANGO_EMAIL_FILE_PATH", "")
 if EMAIL_FILE_PATH is None:
     EMAIL_FILE_PATH = "/sent_emails/"
 
+SECURE_SSL_REDIRECT=os.environ.get("SECURE_SSL_REDIRECT", "")
+SESSION_COOKIE_SECURE=os.environ.get("SESSION_COOKIE_SECURE", "")
+CSRF_COOKIE_SECURE=os.environ.get("CSRF_COOKIE_SECURE", "")
+
 if IS_PRODUCTION == True:
-    SECURE_SSL_REDIRECT=True
-    SESSION_COOKIE_SECURE=True
-    CSRF_COOKIE_SECURE=True
     X_FRAME_OPTIONS='DENY'
     SECURE_REFERRER_POLICY='origin'
