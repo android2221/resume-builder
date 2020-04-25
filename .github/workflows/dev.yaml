@@ -11,6 +11,6 @@ jobs:
       with:
         host: dev.seemyresume.io
         username: root
-        key: ${{ secrets.DEV_WEBSERVER_SSH_PRIVATE_KEY }}
+        password: ${{ secrets.DEV_WEBSERVER_PASSWORD }}
         port: 22
         script: whoami
