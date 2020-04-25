@@ -17,7 +17,7 @@ services:
     entrypoint: sh /docker-entrypoint/docker-entrypoint.sh
     restart: always
     ports:
-      - "8001:8001"
+      - "80:8001"
     environment: 
       - DJANGO_IS_PRODUCTION=True
       - DJANGO_SITE_URL=seemyresume.io
