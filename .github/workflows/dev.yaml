@@ -11,3 +11,4 @@ jobs:
         hosts: 'root@dev.seemyresume.io'
         privateKey: ${{ secrets.DEV_WEBSERVER_SSH_PRIVATE_KEY }}
         command: ls -lah
+        debug: true
