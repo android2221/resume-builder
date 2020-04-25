@@ -12,18 +12,25 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+# Big Production flag, we use production settings where we need to based on the 
+# boolean value of this field
+IS_PRODUCTION=False
+PRODUCTION_SETTING=os.environ.get("DJANGO_IS_PRODUCTION", False)
+
+if PRODUCTION_SETTING == 'True':
+    IS_PRODUCTION=True
+else:
+    IS_PRODUCTION=False
+
+# Activate Google Analytics
+ACTIVATE_GOOGLE_ANALYTICS=os.environ.get("ACTIVATE_GOOGLE_ANALYTICS", False)
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # RESUME BUILDER APP CONFIGS
-LOCAL_PORT = os.environ.get("DJANGO_LOCAL_PORT")
-ROOT_URL = os.environ["DJANGO_SITE_URL"]
-DJANGO_SSL_REDIRECT = os.environ["DJANGO_SSL_REDIRECT"]
+ROOT_URL = os.environ.get("DJANGO_SITE_URL", "")
 
-# if LOCAL_PORT is not None or LOCAL_PORT is not '':
-#     SITE_URL = f'{ROOT_URL}:{LOCAL_PORT}'
-# else:
-#     SITE_URL = ROOT_URL
 SITE_URL = ROOT_URL
 
 # Quick-start development settings - unsuitable for production
@@ -33,9 +40,15 @@ SITE_URL = ROOT_URL
 SECRET_KEY = 'o-9=#fc$is3jt$sv#1$28dd!d@#!nh5dshcqc7ql1ko07a-b=y'
 
 # DEBUG
-DEBUG = False
+if IS_PRODUCTION == True:
+    DEBUG = False
+else:
+    DEBUG = True
 
 ALLOWED_HOSTS = [ROOT_URL, f'www.{ROOT_URL}']
+
+if IS_PRODUCTION == False:
+    ALLOWED_HOSTS=['localhost']
 
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "/builder"
@@ -84,6 +97,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'resume_builder.context_processors.get_production_setting'
             ],
         },
     },
@@ -98,11 +112,11 @@ WSGI_APPLICATION = 'resume_builder.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get("DB_DBNAME"),
-        'USER': os.environ.get("DB_USERNAME"),
-        'HOST': os.environ.get("DB_FQDN"),
-        'PASSWORD': os.environ.get("DB_PASSWORD"),
-        'PORT': os.environ.get("DB_PORT"),
+        'NAME': os.environ.get("DB_DBNAME", ""),
+        'USER': os.environ.get("DB_USERNAME", ""),
+        'HOST': os.environ.get("DB_FQDN", ""),
+        'PASSWORD': os.environ.get("DB_PASSWORD", ""),
+        'PORT': os.environ.get("DB_PORT", ""),
     }
 }
 
@@ -148,17 +162,14 @@ STATIC_ROOT = '/django-static-root/'
 
 # Email Settings
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-EMAIL_FILE_PATH = os.environ.get("DJANGO_EMAIL_FILE_PATH")
+EMAIL_FILE_PATH = os.environ.get("DJANGO_EMAIL_FILE_PATH", "")
 if EMAIL_FILE_PATH is None:
     EMAIL_FILE_PATH = "/sent_emails/"
 
+SECURE_SSL_REDIRECT=os.environ.get("SECURE_SSL_REDIRECT", "")
+SESSION_COOKIE_SECURE=os.environ.get("SESSION_COOKIE_SECURE", "")
+CSRF_COOKIE_SECURE=os.environ.get("CSRF_COOKIE_SECURE", "")
 
-# # SSL REDIRECT
-# if DJANGO_SSL_REDIRECT is None or DJANGO_SSL_REDIRECT is '':
-#     DJANGO_SSL_REDIRECT = True
-
-SECURE_SSL_REDIRECT=True
-SESSION_COOKIE_SECURE=True
-CSRF_COOKIE_SECURE=True
-X_FRAME_OPTIONS='DENY'
-SECURE_REFERRER_POLICY='origin'
+if IS_PRODUCTION == True:
+    X_FRAME_OPTIONS='DENY'
+    SECURE_REFERRER_POLICY='origin'

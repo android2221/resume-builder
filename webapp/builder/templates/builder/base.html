@@ -4,6 +4,17 @@
 
 <html lang="en">
   <head>
+    {% if ACTIVATE_GOOGLE_ANALYTICS %}
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-164320146-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-164320146-1');
+      </script>
+    {% endif %}
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>SeeMyResume.io</title>
@@ -22,7 +33,7 @@
           {% block content %}
           {% endblock %}
         </div>
-      </div>
+      </div>  
       {% block footer %}
       {% endblock %}
     </div>
