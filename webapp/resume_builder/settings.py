@@ -40,10 +40,11 @@ SITE_URL = ROOT_URL
 SECRET_KEY = 'o-9=#fc$is3jt$sv#1$28dd!d@#!nh5dshcqc7ql1ko07a-b=y'
 
 # DEBUG
-if IS_PRODUCTION == True:
-    DEBUG = False
+DJANGO_DEBUG=os.environ.get("DJANGO_DEBUG", False)
+if DJANGO_DEBUG == 'True':
+    DEBUG=True
 else:
-    DEBUG = True
+    DEBUG=False
 
 ALLOWED_HOSTS = [ROOT_URL, f'www.{ROOT_URL}']
 
