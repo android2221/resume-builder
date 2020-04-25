@@ -9,6 +9,6 @@ jobs:
       uses: appleboy/ssh-action@master
       env:
         USERNAME: my_username
-        HOST: my_host
+        HOST: dev.seemyresume.io
         SCRIPT: echo "dude, i'm a server"
         KEY: ${{ secrets.DEV_WEBSERVER_SSH_KEY }}
