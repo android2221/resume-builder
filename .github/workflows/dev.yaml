@@ -8,7 +8,7 @@ jobs:
     - name: Deploy to DEV
       uses: appleboy/ssh-action@master
       env:
-        USERNAME: root
-        HOST: dev.seemyresume.io
+        USERNAME: 'root'
+        HOST: 'dev.seemyresume.io'
         KEY: ${{ secrets.DEV_WEBSERVER_SSH_KEY }}
-        SCRIPT: ls /
+        SCRIPT: 'ls /'
