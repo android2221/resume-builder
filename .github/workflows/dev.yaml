@@ -5,11 +5,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Deploy to DEV
-      uses: appleboy/ssh-action@master
+    - name: Execute SSH commmands on remote server
+      uses: JimCronqvist/action-ssh@master
       with:
-        username: root
-        host: dev.seemyresume.io
-        key: ${{ secrets.DEV_WEBSERVER_SSH_PRIVATE_KEY }}
-        port: 22
-        script: ls
+        hosts: 'root@dev.seemyresume.io'
+        privateKey: ${{ secrets.DEV_WEBSERVER_SSH_PRIVATE_KEY }}
+        command: ls -lah
