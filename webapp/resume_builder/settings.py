@@ -46,10 +46,10 @@ if DJANGO_DEBUG == 'True':
 else:
     DEBUG=False
 
-# if IS_PRODUCTION == False:
-#     ALLOWED_HOSTS=['localhost', ROOT_URL, f'dev.{ROOT_URL}']
-# else:
-#     ALLOWED_HOSTS = [ROOT_URL, f'www.{ROOT_URL}']
+if IS_PRODUCTION == False:
+    ALLOWED_HOSTS=['localhost', ROOT_URL, f'dev.{ROOT_URL}']
+else:
+    ALLOWED_HOSTS = [ROOT_URL, f'www.{ROOT_URL}']
 
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "/builder"
