@@ -24,6 +24,10 @@ else:
 
 # Activate Google Analytics
 ACTIVATE_GOOGLE_ANALYTICS=os.environ.get("ACTIVATE_GOOGLE_ANALYTICS", False)
+if ACTIVATE_GOOGLE_ANALYTICS == 'True':
+    ACTIVATE_GOOGLE_ANALYTICS=True
+else:
+    ACTIVATE_GOOGLE_ANALYTICS=False
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
