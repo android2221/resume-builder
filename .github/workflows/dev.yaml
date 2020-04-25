@@ -14,4 +14,8 @@ jobs:
           host: dev.seemyresume.io
           username: root
           key: ${{ secrets.DEV_WEBSERVER_SSH_PRIVATE_KEY }}
-          script: whoami
+          script: "cd /app/resume-builder/ \
+          && git checkout develop \
+          && git pull \
+          && docker-compose -f ./docker-compose.dev.yaml build \
+          && docker-compose -f ./docker-compose.dev.yaml up"
