@@ -47,8 +47,10 @@ RUN set -ex \
 RUN mkdir /code/
 WORKDIR /code/
 ADD webapp/ /code/
+ADD build/ /build/
 
 RUN chown -R ${APP_USER} /code/
+RUN chown -R ${APP_USER} /build/
 
 # Directory for sent emails
 RUN mkdir /sent_emails/

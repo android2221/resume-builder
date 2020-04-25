@@ -10,10 +10,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    volumes:
-      - "./build/docker-entrypoint.dev.sh:/docker-entrypoint/docker-entrypoint.sh"
-      - "./build/wait-for-it.sh:/wait-for-it.sh"
-    entrypoint: sh /docker-entrypoint/docker-entrypoint.sh
+    entrypoint: sh /build/docker-entrypoint.sh
     restart: always
     ports:
       - "80:8001"
