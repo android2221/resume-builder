@@ -17,6 +17,5 @@ jobs:
           script: "cd /app/resume-builder/ \
           && git checkout develop \
           && git pull \
-          && chmod -R 666 /app/resume-builder/ \
           && docker-compose -f ./docker-compose.dev.yaml build \
           && docker-compose -f ./docker-compose.dev.yaml up -d"
