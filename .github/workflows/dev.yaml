@@ -5,10 +5,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Deploy to nerdhood.de
+    - name: Deploy to DEV
       uses: appleboy/ssh-action@master
       env:
-        USERNAME: my_username
+        USERNAME: root
         HOST: dev.seemyresume.io
         SCRIPT: echo "dude, i'm a server"
         KEY: ${{ secrets.DEV_WEBSERVER_SSH_KEY }}
