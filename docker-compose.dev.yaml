@@ -15,9 +15,9 @@ services:
     ports:
       - "80:8001"
     environment: 
-      - DJANGO_IS_PRODUCTION=True
+      - DJANGO_IS_PRODUCTION=False
       - DJANGO_DEBUG=True
-      - DJANGO_SITE_URL=dev.seemyresume.io
+      - DJANGO_SITE_URL=seemyresume.io
       - DJANGO_EMAIL_FILE_PATH=/sent_emails/
       - DB_DBNAME=postgres
       - DB_PASSWORD=myhardpassword
