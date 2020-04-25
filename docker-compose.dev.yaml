@@ -10,7 +10,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    entrypoint: sh /build/docker-entrypoint.sh
+    entrypoint: sh /build/docker-entrypoint.dev.sh
     restart: always
     ports:
       - "80:8001"

@@ -51,6 +51,8 @@ ADD build/ /build/
 
 RUN chown -R ${APP_USER} /code/
 RUN chown -R ${APP_USER} /build/
+RUN chmod u+x /build/docker-entrypoint.dev.sh
+RUN chmod u+x /build/wait-for-it.sh
 
 # Directory for sent emails
 RUN mkdir /sent_emails/
