@@ -24,9 +24,6 @@ services:
       - DB_USERNAME=postgres
       - DB_FQDN=db
       - DB_PORT=5432
-      - SECURE_SSL_REDIRECT=False
-      - SESSION_COOKIE_SECURE=False
-      - CSRF_COOKIE_SECURE=False
       - ACTIVATE_GOOGLE_ANALYTICS=False
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1
