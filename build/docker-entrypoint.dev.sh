@@ -4,6 +4,9 @@
 echo "Waiting for database"
 /wait-for-it.sh db:5432
 
+# Make things editable
+chmod -R 666 /code/
+
 echo "Apply database migrations"
 python manage.py makemigrations accounts builder
 python manage.py migrate
