@@ -6,11 +6,10 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-    - name: executing remote ssh commands using ssh key
-      uses: appleboy/ssh-action@master
-      with:
-        host: dev.seemyresume.io
-        username: root
-        password: ${{ secrets.DEV_WEBSERVER_PASSWORD }}
-        port: 22
-        script: whoami
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          host: dev.seemyresume.io
+          username: root
+          key: ${{ secrets.DEV_WEBSERVER_SSH_PRIVATE_KEY }}
+          script: whoami
