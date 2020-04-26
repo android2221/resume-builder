@@ -14,7 +14,10 @@ services:
     restart: always
     ports:
       - "80:8001"
+    env_file: 
+      - ./env-vars.env
     environment: 
+      - USE_SENDGRID=True
       - DJANGO_IS_PRODUCTION=False
       - DJANGO_DEBUG=False
       - DJANGO_SITE_URL=dev.seemyresume.io

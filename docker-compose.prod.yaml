@@ -16,6 +16,7 @@ services:
       - ./env-vars.env
     restart: always
     environment: 
+      - USE_SENDGRID=False
       - DJANGO_IS_PRODUCTION=True 
       - DJANGO_DEBUG=True
       - SECURE_SSL_REDIRECT=True

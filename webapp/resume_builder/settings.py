@@ -166,7 +166,19 @@ STATIC_URL = '/static/'
 STATIC_ROOT = '/django-static-root/'
 
 # Email Settings
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+USE_SENDGRID=os.environ.get("USE_SENDGRID", True)
+if (USE_SENDGRID == 'False'):
+    SHOULD_USE_SENDGRID=False
+else:
+    SHOULD_USE_SENDGRID=True
+
+if SHOULD_USE_SENDGRID:
+    EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+
+SENDGRID_API_KEY = os.environ["SENDGRID_API_KEY"]
+
 EMAIL_FILE_PATH = os.environ.get("DJANGO_EMAIL_FILE_PATH", "")
 if EMAIL_FILE_PATH is None:
     EMAIL_FILE_PATH = "/sent_emails/"

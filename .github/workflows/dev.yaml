@@ -15,7 +15,7 @@ jobs:
           username: root
           key: ${{ secrets.DEV_WEBSERVER_SSH_PRIVATE_KEY }}
           script: "cd /app/resume-builder/ \
-          && git checkout develop \
-          && git pull \
+          && git fetch --all \
+          && git reset --hard origin/develop \
           && docker-compose -f ./docker-compose.dev.yaml build \
           && docker-compose -f ./docker-compose.dev.yaml up -d"
