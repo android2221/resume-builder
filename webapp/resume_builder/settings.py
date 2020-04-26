@@ -178,7 +178,9 @@ else:
     EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "")
+print(SENDGRID_API_KEY)
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+SENDGRID_ECHO_TO_STDOUT=True
 
 EMAIL_FILE_PATH = os.environ.get("DJANGO_EMAIL_FILE_PATH", "")
 
