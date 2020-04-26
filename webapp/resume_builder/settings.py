@@ -177,7 +177,7 @@ if SHOULD_USE_SENDGRID:
 else:
     EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 
-SENDGRID_API_KEY = os.environ["SENDGRID_API_KEY"]
+SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "")
 
 EMAIL_FILE_PATH = os.environ.get("DJANGO_EMAIL_FILE_PATH", "")
 if EMAIL_FILE_PATH is None:
