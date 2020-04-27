@@ -40,6 +40,7 @@ class CustomLoginView(auth_views.LoginView):
 
 class CustomForgotPasswordView(auth_views.PasswordResetView):
     template_name = "registration/password_reset_form.html"
+    html_email_template_name = "registration/password_reset_email.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
