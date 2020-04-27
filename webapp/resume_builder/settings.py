@@ -178,7 +178,6 @@ else:
     EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "")
-print(SENDGRID_API_KEY)
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 SENDGRID_ECHO_TO_STDOUT=True
 DEFAULT_FROM_EMAIL  = 'webmaster@seemyresume.io'
