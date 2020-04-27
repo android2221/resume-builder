@@ -96,7 +96,7 @@ class ResetConfirmForm(auth_forms.SetPasswordForm):
         self.user = user
         self.fields['new_password1'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['new_password2'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
-        self.fields['new_password1'].widget.attrs['placeholder'] = constants.FORM_PASSWORD_PLACEHOLDER
+        self.fields['new_password1'].widget.attrs['placeholder'] = constants.FORM_NEW_PASSWORD_PLACEHOLDER
         self.fields['new_password2'].widget.attrs['placeholder'] = constants.FORM_PASSWORD_CONFIRM_PLACEHOLDER
 
 class CustomPasswordChangeForm(auth_forms.PasswordChangeForm):
