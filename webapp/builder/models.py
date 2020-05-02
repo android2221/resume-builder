@@ -9,15 +9,14 @@ class Resume(models.Model):
     resume_title=models.CharField(max_length=500, null=True)
     personal_statement=models.TextField(null=True)
     current_skills=models.TextField(null=True)
-    rendered_html_resume = models.TextField(default=constants.HTML_WELCOME)
 
 class ResumeJob(models.Model):
     resume=models.ForeignKey(Resume, on_delete=models.CASCADE)
-    position_title=models.CharField(max_length=500, null=True)
-    company_name=models.CharField(max_length=500, null=True)
-    start_date=models.DateField(null=True)
-    end_date=models.DateField(null=True)
-    position_description=models.TextField(null=True)
+    position_title=models.CharField(max_length=500, null=True, blank=True)
+    company_name=models.CharField(max_length=500, null=True, blank=True)
+    start_date=models.DateField(null=True, blank=True)
+    end_date=models.DateField(null=True, blank=True)
+    position_description=models.TextField(null=True, blank=True)
 
 class ResumeEducation(models.Model):
     resume=models.ForeignKey(Resume, on_delete=models.CASCADE)

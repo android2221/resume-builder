@@ -1,7 +1,7 @@
 from builder.forms import ResumeEditorForm, ActivateResumeForm, ResumeJobsFormset
 from django.core.exceptions import ObjectDoesNotExist
 from accounts.models import Account
-from .models import ResumeJob
+from builder.models import ResumeJob
 import requests
 
 
@@ -24,16 +24,20 @@ class ResumeService():
     
     def save_resume(self, resume, payload):
         posted_forms = ResumeJobsFormset(payload)
-        print(posted_forms.errors)
         if posted_forms.is_valid():
             try:
                 for form in posted_forms:
                     resume_job = ResumeJob()
-                    print(form.cleaned_data.get('position_title'))
+                    resume_job.resume = resume
+                    resume_job.position_title = form.cleaned_data.get('position_title')
+                    resume_job.company_name = form.cleaned_data.get('company_name')
+                    resume_job.start_date = form.cleaned_data.get('start_date')
+                    resume_job.end_date = form.cleaned_data.get('end_date')
+                    resume_job.position_description = form.cleaned_data.get('position_description')
+                    resume_job.save()
                     resume.save()
                     return True
             except:
-                print('not valid')
                 return False           
             return False
     
