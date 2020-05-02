@@ -25,7 +25,8 @@ def save_builder(request):
         save_success = service.save_resume(request.user.resume, request.POST)
         if not save_success:
             messages.error(request, constants.ERROR_SAVING_RESUME)
-        messages.success(request, constants.RESUME_SAVE_SUCCESS)
+        else:
+            messages.success(request, constants.RESUME_SAVE_SUCCESS)
         return HttpResponseRedirect(reverse("load_builder"))
 
 

@@ -1,6 +1,8 @@
 from accounts import constants
 from django import forms
+from django.forms import modelformset_factory
 from django.contrib.auth.models import User
+from .models import ResumeJob
 
 class ResumeEditorForm (forms.Form):
     content = forms.CharField(widget=forms.Textarea, required=False)
@@ -15,3 +17,10 @@ class ActivateResumeForm (forms.Form):
     def __init__(self, *args, **kwargs):
         super(ActivateResumeForm, self).__init__(*args, **kwargs)
         self.fields["profile_active"].widget.attrs={'id': "activate-profile-checkbox"}
+
+
+ResumeJobsFormset = modelformset_factory(
+    ResumeJob,
+    fields=('position_title', 'company_name', 'start_date', 'end_date', 'position_description'),
+    extra=1
+)
