@@ -33,7 +33,7 @@ def save_builder(request):
 @login_required
 def load_builder(request):
     service = ResumeService()
-    forms = service.build_resume_forms(request.user.resume)
+    forms = service.build_resume_forms(request)
     context = {'forms': forms,
                'resume_is_active': request.user.resume.is_live,
                'site_url': settings.SITE_URL,

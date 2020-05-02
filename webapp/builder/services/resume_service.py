@@ -16,27 +16,25 @@ class ResumeService():
             return account.user.resume.content
         return None
     
-    def build_resume_forms(self, resume):
-        profile_form_data = {'profile_active': resume.is_live }
+    def build_resume_forms(self, request):
+        print(request.user.resume.pk)
+        jobs = ResumeJob.objects.filter(resume=request.user.resume.pk)
+        print(jobs)
+        profile_form_data = {'profile_active': request.user.resume.is_live }
         return {'activate_profile_form': ActivateResumeForm(profile_form_data),
-            'resume_jobs_formset': ResumeJobsFormset() 
+            'resume_jobs_formset': ResumeJobsFormset(queryset=ResumeJob.objects.filter(resume=request.user.resume.pk))
         }
     
     def save_resume(self, resume, payload):
-        posted_forms = ResumeJobsFormset(payload)
-        if posted_forms.is_valid():
+        posted_resume_forms = ResumeJobsFormset(payload)
+        if posted_resume_forms.is_valid():
             try:
-                for form in posted_forms:
-                    resume_job = ResumeJob()
+                for form in posted_resume_forms:
+                    resume_job = form.save(commit=False)
                     resume_job.resume = resume
-                    resume_job.position_title = form.cleaned_data.get('position_title')
-                    resume_job.company_name = form.cleaned_data.get('company_name')
-                    resume_job.start_date = form.cleaned_data.get('start_date')
-                    resume_job.end_date = form.cleaned_data.get('end_date')
-                    resume_job.position_description = form.cleaned_data.get('position_description')
                     resume_job.save()
                     resume.save()
-                    return True
+                return True
             except:
                 return False           
             return False
