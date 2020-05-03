@@ -12,8 +12,8 @@ class Resume(models.Model):
 
 class ResumeJob(models.Model):
     resume=models.ForeignKey(Resume, on_delete=models.CASCADE)
-    position_title=models.CharField(max_length=500, null=True, blank=True)
-    company_name=models.CharField(max_length=500, null=True, blank=True)
+    position_title=models.CharField(max_length=500, null=True)
+    company_name=models.CharField(max_length=500, null=True)
     start_date=models.DateField(null=True, blank=True)
     end_date=models.DateField(null=True, blank=True)
     position_description=models.TextField(null=True, blank=True)

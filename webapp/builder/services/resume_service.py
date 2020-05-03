@@ -1,4 +1,4 @@
-from builder.forms import ResumeEditorForm, ActivateResumeForm, ResumeJobsFormset
+from builder.forms import ResumeEditorForm, ActivateResumeForm, ResumeJobsFormset, ResumeDetailsForm
 from django.core.exceptions import ObjectDoesNotExist
 from accounts.models import Account
 from builder.models import ResumeJob
@@ -22,6 +22,7 @@ class ResumeService():
         print(jobs)
         profile_form_data = {'profile_active': request.user.resume.is_live }
         return {'activate_profile_form': ActivateResumeForm(profile_form_data),
+            'resume_details_form': ResumeDetailsForm(),
             'resume_jobs_formset': ResumeJobsFormset(queryset=ResumeJob.objects.filter(resume=request.user.resume.pk))
         }
     
