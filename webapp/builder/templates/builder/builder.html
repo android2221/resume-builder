@@ -59,10 +59,10 @@
                           {{ forms.resume_details_form }}
                           {{ forms.resume_jobs_formset.management_form }}
                           {% for form in forms.resume_jobs_formset %}
-                            {{ form.media }}
-                            {{ form.as_p }}
+                            {{ form }}
                             {{ form.errors }}
                           {% endfor %}
+                          {{ forms.resume_education_formset }}
                           <input class="btn btn-outline-primary" id="preview-button" type="submit" value="{{ constants.RESUME_PREVIEW_BUTTON }}" formaction="{% url 'preview_resume' %}">
                           <input class="btn btn-success btn-fw" id="save-button" type="submit" value="{{ constants.RESUME_SAVE_BUTTON }}" formaction="{% url 'save_builder' %}">
                       </form>
