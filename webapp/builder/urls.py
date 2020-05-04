@@ -2,8 +2,6 @@ from builder import views
 from django.urls import path, reverse_lazy
 from django.views.generic import FormView
 
-from .forms import ResumeEditorForm
-
 urlpatterns = [
     path('', views.index, name='index'),
     path('builder/', views.load_builder, name='load_builder'),
