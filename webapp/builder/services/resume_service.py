@@ -17,29 +17,42 @@ class ResumeService():
         return None
     
     def build_resume_forms(self, request):
-        print(request.user.resume.pk)
         jobs = ResumeJob.objects.filter(resume=request.user.resume.pk)
-        print(jobs)
         profile_form_data = {'profile_active': request.user.resume.is_live }
         return {'activate_profile_form': ActivateResumeForm(profile_form_data),
             'resume_details_form': ResumeDetailsForm(),
-            'resume_jobs_formset': ResumeJobsFormset(queryset=ResumeJob.objects.filter(resume=request.user.resume.pk)),
-            'resume_education_formset': ResumeEducationFormset(queryset=ResumeEducation.objects.filter(resume=request.user.resume.pk))
+            'resume_jobs_formset': ResumeJobsFormset(queryset=ResumeJob.objects.filter(resume=request.user.resume.pk), prefix='resume_job'),
+            'resume_education_formset': ResumeEducationFormset(queryset=ResumeEducation.objects.filter(resume=request.user.resume.pk), prefix='resume_education')
         }
     
     def save_resume(self, resume, payload):
-        posted_resume_forms = ResumeJobsFormset(payload)
-        if posted_resume_forms.is_valid():
-            try:
+        posted_resume_forms = ResumeJobsFormset(payload, prefix='resume_job')
+        posted_education_forms = ResumeEducationFormset(payload, prefix='resume_education')
+        print('save hit')
+        # Save resume jobs
+        try:
+            if posted_resume_forms.is_valid():  
+                print('jobs valid')          
                 for form in posted_resume_forms:
-                    resume_job = form.save(commit=False)
-                    resume_job.resume = resume
-                    resume_job.save()
-                    resume.save()
-                return True
-            except:
-                return False           
-            return False
+                    if form.has_changed():
+                        resume_job = form.save(commit=False)
+                        resume_job.resume = resume
+                        resume_job.save()
+                        print(resume_job)
+                
+            if posted_education_forms.is_valid():
+                print('education valid')          
+                for form in posted_education_forms:
+                    if form.has_changed():
+                        resume_education = form.save(commit=False)
+                        resume_education.resume = resume
+                        resume_education.save()
+                        print(resume_education)
+            return True
+        except Exception as ex:
+            print(ex)
+            return False           
+        return False
     
     def preview_resume(self, payload):
         posted_form = ResumeEditorForm(payload)

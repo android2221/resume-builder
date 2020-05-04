@@ -13,16 +13,16 @@ class Resume(models.Model):
 
 class ResumeJob(models.Model):
     resume=models.ForeignKey(Resume, on_delete=models.CASCADE)
-    position_title=models.CharField(max_length=500, null=True)
-    company_name=models.CharField(max_length=500, null=True)
+    position_title=models.CharField(max_length=500)
+    company_name=models.CharField(max_length=500)
     start_date=models.DateField(null=True, blank=True)
     end_date=models.DateField(null=True, blank=True)
     position_description=models.TextField(null=True, blank=True)
 
 class ResumeEducation(models.Model):
     resume=models.ForeignKey(Resume, on_delete=models.CASCADE)
-    education_title=models.CharField(max_length=500, null=True, blank=True)
-    institution_name=models.CharField(max_length=500, null=True, blank=True)
+    education_title=models.CharField(max_length=500)
+    institution_name=models.CharField(max_length=500)
     start_date=models.DateField(null=True, blank=True)
     end_date=models.DateField(null=True, blank=True)
     degree_year=models.DateField(null=True, blank=True)

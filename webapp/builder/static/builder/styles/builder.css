@@ -108,3 +108,7 @@ label[for=id_content]{
 #preview-button:focus{
   border-color: initial;
 }
+#builder-form input,
+#builder-form textarea{
+  display: block;
+}

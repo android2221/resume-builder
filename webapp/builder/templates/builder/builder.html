@@ -54,7 +54,7 @@
                           My resumé url  is: <a target="_blank" href="http://{{site_url}}/{{ request.user.account.profile_url}}/">http://{{site_url}}/{{ request.user.account.profile_url}}/</a>
                         </div>
                       </div>
-                      <form method = "post">
+                      <form method = "post" id="builder-form">
                           {% csrf_token %}
                           {{ forms.resume_details_form }}
                           {{ forms.resume_jobs_formset.management_form }}
@@ -62,7 +62,11 @@
                             {{ form }}
                             {{ form.errors }}
                           {% endfor %}
-                          {{ forms.resume_education_formset }}
+                          {{ forms.resume_education_formset.management_form }}
+                          {% for form in forms.resume_education_formset %}
+                            {{ form }}
+                            {{ form.errors }}
+                          {% endfor %}
                           <input class="btn btn-outline-primary" id="preview-button" type="submit" value="{{ constants.RESUME_PREVIEW_BUTTON }}" formaction="{% url 'preview_resume' %}">
                           <input class="btn btn-success btn-fw" id="save-button" type="submit" value="{{ constants.RESUME_SAVE_BUTTON }}" formaction="{% url 'save_builder' %}">
                       </form>
