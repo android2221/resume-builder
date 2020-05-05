@@ -12,10 +12,13 @@ class ActivateResumeForm (forms.Form):
         self.fields["profile_active"].widget.attrs={'id': "activate-profile-checkbox"}
 
 class ResumeJobsSectionTitleForm(forms.Form):
-    experience_section_title=forms.CharField(required=False)
+    resume_jobs_section_title=forms.CharField(required=False)
+
+class ResumeEducationSectionTitleForm(forms.Form):
+    resume_education_section_title=forms.CharField(required=False)
 
 class ResumeDetailsForm(forms.Form):
-    resume_title=forms.CharField()
+    resume_title=forms.CharField(required=False)
     contact_information=forms.CharField(widget=forms.Textarea(), required=False)
     personal_statement=forms.CharField(widget=forms.Textarea(), required=False)
     current_skills=forms.CharField(widget=forms.Textarea(), required=False)
