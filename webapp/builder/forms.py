@@ -19,8 +19,11 @@ class ResumeEducationSectionTitleForm(forms.Form):
 
 class ResumeDetailsForm(forms.Form):
     resume_title=forms.CharField(required=False)
+    contact_information_section_title=forms.CharField(required=False)
     contact_information=forms.CharField(widget=forms.Textarea(), required=False)
+    personal_statement_section_title=forms.CharField(required=False)
     personal_statement=forms.CharField(widget=forms.Textarea(), required=False)
+    current_skills_section_title=forms.CharField(required=False)
     current_skills=forms.CharField(widget=forms.Textarea(), required=False)
 
 class ResumeJobFormsetForm(forms.ModelForm):

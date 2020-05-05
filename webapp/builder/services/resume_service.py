@@ -4,7 +4,6 @@ from accounts.models import Account
 from builder.models import ResumeJob, ResumeEducation
 import requests
 
-
 class ResumeService():
 
     def get_resume_by_profile_url(self, request_profile_url):
@@ -29,8 +28,11 @@ class ResumeService():
         resume_education_section_title_form_data = {'resume_education_section_title': request.user.resume.resume_education_section_title}
         resume_detail_form_data = { 
             'resume_title': request.user.resume.resume_title,
+            'contact_information_section_title': request.user.resume.contact_information_section_title,
             'contact_information': request.user.resume.contact_information,
+            'personal_statement_section_title': request.user.resume.personal_statement_section_title,
             'personal_statement': request.user.resume.personal_statement,
+            'current_skills_section_title': request.user.resume.current_skills_section_title,
             'current_skills': request.user.resume.current_skills
         }
         return {
@@ -50,17 +52,24 @@ class ResumeService():
         posted_education_forms = ResumeEducationFormset(payload, prefix='resume_education')
         # Save resume jobs
         try:
-            if posted_resume_details.is_valid():       
-                resume.resume_title=posted_resume_details.cleaned_data.get('resume_title')
-                resume.contact_information=posted_resume_details.cleaned_data.get('contact_information')
-                resume.personal_statement=posted_resume_details.cleaned_data.get('personal_statement')
-                resume.current_skills=posted_resume_details.cleaned_data.get('current_skills')
+            if posted_resume_details.is_valid():
+                form = posted_resume_details
+                resume.resume_title=form.cleaned_data.get('resume_title')
+                resume.contact_information_section_title=form.cleaned_data.get('contact_information_section_title')
+                print(resume.contact_information_section_title)
+                resume.contact_information=form.cleaned_data.get('contact_information')
+                resume.personal_statement_section_title=form.cleaned_data.get('personal_statement_section_title')
+                resume.personal_statement=form.cleaned_data.get('personal_statement')
+                resume.current_skills_section_title=form.cleaned_data.get('current_skills_section_title')
+                resume.current_skills=form.cleaned_data.get('current_skills')
 
             if posted_resume_jobs_section_title_form.is_valid():
-                resume.resume_jobs_section_title = posted_resume_jobs_section_title_form.cleaned_data.get('resume_jobs_section_title')
+                form = posted_resume_jobs_section_title_form
+                resume.resume_jobs_section_title = form.cleaned_data.get('resume_jobs_section_title')
 
             if posted_resume_education_section_title_form.is_valid():
-                resume.resume_education_section_title = posted_resume_education_section_title_form.cleaned_data.get('resume_education_section_title')
+                form = posted_resume_education_section_title_form
+                resume.resume_education_section_title = form.cleaned_data.get('resume_education_section_title')
 
             if posted_resume_jobs.is_valid():  
                 for form in posted_resume_jobs:
