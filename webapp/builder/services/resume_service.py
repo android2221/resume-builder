@@ -1,4 +1,4 @@
-from builder.forms import ActivateResumeForm, ResumeJobsFormset, ResumeDetailsForm, ResumeEducationFormset
+from builder.forms import ActivateResumeForm, ResumeJobsFormset, ResumeDetailsForm, ResumeEducationFormset, ResumeJobsSectionTitleForm
 from django.core.exceptions import ObjectDoesNotExist
 from accounts.models import Account
 from builder.models import ResumeJob, ResumeEducation
@@ -25,6 +25,7 @@ class ResumeService():
     def build_resume_forms(self, request):
         jobs = ResumeJob.objects.filter(resume=request.user.resume.pk)
         profile_form_data = {'profile_active': request.user.resume.is_live }
+        experience_section_title_form_data = {'experience_section_title': request.user.resume.resume_jobs_section_title}
         resume_detail_form_data = { 
             'resume_title': request.user.resume.resume_title,
             'contact_information': request.user.resume.contact_information,
@@ -34,12 +35,14 @@ class ResumeService():
         return {
             'activate_profile_form': ActivateResumeForm(profile_form_data),
             'resume_details_form': ResumeDetailsForm(resume_detail_form_data),
+            'experience_info_section_form': ResumeJobsSectionTitleForm(experience_section_title_form_data),
             'resume_jobs_formset': ResumeJobsFormset(queryset=ResumeJob.objects.filter(resume=request.user.resume.pk), prefix='resume_job'),
             'resume_education_formset': ResumeEducationFormset(queryset=ResumeEducation.objects.filter(resume=request.user.resume.pk), prefix='resume_education')
         }
     
     def save_resume(self, resume, payload):
         posted_resume_details = ResumeDetailsForm(payload)
+        posted_experience_section_title_form = ResumeJobsSectionTitleForm(payload)
         posted_resume_jobs = ResumeJobsFormset(payload, prefix='resume_job')
         posted_education_forms = ResumeEducationFormset(payload, prefix='resume_education')
         # Save resume jobs
@@ -49,6 +52,10 @@ class ResumeService():
                 resume.contact_information=posted_resume_details.cleaned_data.get('contact_information')
                 resume.personal_statement=posted_resume_details.cleaned_data.get('personal_statement')
                 resume.current_skills=posted_resume_details.cleaned_data.get('current_skills')
+                resume.save()
+            
+            if posted_experience_section_title_form.is_valid():
+                resume.resume_jobs_section_title = posted_experience_section_title_form.cleaned_data.get('experience_section_title')
                 resume.save()
 
             if posted_resume_jobs.is_valid():  

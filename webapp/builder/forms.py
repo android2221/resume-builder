@@ -11,6 +11,9 @@ class ActivateResumeForm (forms.Form):
         super(ActivateResumeForm, self).__init__(*args, **kwargs)
         self.fields["profile_active"].widget.attrs={'id': "activate-profile-checkbox"}
 
+class ResumeJobsSectionTitleForm(forms.Form):
+    experience_section_title=forms.CharField(required=False)
+
 class ResumeDetailsForm(forms.Form):
     resume_title=forms.CharField()
     contact_information=forms.CharField(widget=forms.Textarea(), required=False)

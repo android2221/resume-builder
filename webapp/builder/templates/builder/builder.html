@@ -58,6 +58,7 @@
                           {% csrf_token %}
                           {{ forms.resume_details_form }}
                           {{ forms.resume_jobs_formset.management_form }}
+                          {{ forms.experience_info_section_form }}
                           {% for form in forms.resume_jobs_formset %}
                             {{ form }}
                             {{ form.errors }}
