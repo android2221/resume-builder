@@ -64,3 +64,17 @@ footer {
         display: block;
     }
 }
+
+/* Basic Template */
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#resume-title h1{
+    font-weight: normal;
+    padding-bottom: 0.3em;
+    line-height: 1.2;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+/* End Basic Template */

@@ -7,14 +7,20 @@ import requests
 
 class ResumeService():
 
-    def get_rendered_resume_content(self, request_profile_url):
+    def get_resume_by_profile_url(self, request_profile_url):
         try:
             account = Account.objects.get(profile_url=request_profile_url)
         except ObjectDoesNotExist:
             return None
         if account.user.resume.is_live is True:
-            return account.user.resume.content
+            return account.user.resume
         return None
+    
+    def get_resume_jobs_by_id(self, resume_id):
+        return ResumeJob.objects.filter(resume=resume_id)
+    
+    def get_resume_education_by_id(self, resume_id):
+        return ResumeEducation.objects.filter(resume=resume_id)
     
     def build_resume_forms(self, request):
         jobs = ResumeJob.objects.filter(resume=request.user.resume.pk)

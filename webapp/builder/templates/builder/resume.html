@@ -21,9 +21,31 @@
         <div id="printer-logo">
             <img src="{% static 'builder/images/created-with-vertical.svg' %}">
         </div>
-        {% autoescape off %}
-        {{ resume_content }}
-        {% endautoescape %}
+        <!-- Basic template -->
+        <div id="resume-title">
+            <h1>{{ resume.resume_title }}</h1>
+        </div>
+        <div id="contact-info">
+            {{ resume.contact_information }}
+        </div> 
+        <div id="skills-list">
+            {{ resume.current_skills }}
+        </div>
+        <div id="experience-list">
+            {% for job in resume_jobs %}
+            <div class="position">
+                {{ job.position_title }}
+            </div>
+            {% endfor %}
+        </div>
+        <div id="education-list">
+            {% for education in resume_education %}
+                <div class="education">
+                    {{ education.education_title }}
+                </div>
+            {% endfor %}
+        </div>
+        <!-- End Basic template -->
     </div>
     <a href="{% url 'index' %}">
         <footer class="fixed-bottom">
