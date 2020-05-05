@@ -10,6 +10,11 @@ class Resume(models.Model):
     contact_information=models.TextField(null=True, blank=True)
     personal_statement=models.TextField(null=True, blank=True)
     current_skills=models.TextField(null=True, blank=True)
+    contact_information_section_title=models.CharField(max_length=500, null=True, blank=True, default='Contact Information')
+    personal_statement_section_title=models.CharField(max_length=500, null=True, blank=True, default='Personal Statement')
+    current_skills_section_title=models.CharField(max_length=500, null=True, blank=True, default='Current Skills')
+    resume_jobs_section_title=models.CharField(max_length=500, null=True, blank=True, default='Experience')
+    resume_education_section_title=models.CharField(max_length=500, null=True, blank=True, default='Education')
 
 class ResumeJob(models.Model):
     resume=models.ForeignKey(Resume, on_delete=models.CASCADE)
