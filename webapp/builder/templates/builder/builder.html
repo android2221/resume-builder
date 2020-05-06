@@ -57,14 +57,21 @@
                       <form method = "post" id="builder-form">
                           {% csrf_token %}
                           {{ forms.resume_details_form }}
-                          {{ forms.resume_jobs_formset.management_form }}
+                          {{ forms.resume_details_form.errors }}
+
                           {{ forms.resume_jobs_section_title_form }}
+                          {{ forms.resume_jobs_section_title_form.errors }}
+
+                          {{ forms.resume_jobs_formset.management_form }}
                           {% for form in forms.resume_jobs_formset %}
                             {{ form }}
                             {{ form.errors }}
                           {% endfor %}
-                          {{ forms.resume_education_formset.management_form }}
+
                           {{ forms.resume_education_section_title_form }}
+                          {{ forms.resume_education_section_title_form.errors }}
+
+                          {{ forms.resume_education_formset.management_form }}
                           {% for form in forms.resume_education_formset %}
                             {{ form }}
                             {{ form.errors }}

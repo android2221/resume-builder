@@ -8,11 +8,12 @@ class ResumeService():
 
     def get_resume_by_profile_url(self, request_profile_url):
         try:
+            accounts = Account.objects.filter(profile_url=request_profile_url)
             account = Account.objects.get(profile_url=request_profile_url)
+            if account.user.resume.is_live is True:
+                return account.user.resume
         except ObjectDoesNotExist:
             return None
-        if account.user.resume.is_live is True:
-            return account.user.resume
         return None
     
     def get_resume_jobs_by_id(self, resume_id):
@@ -56,7 +57,6 @@ class ResumeService():
                 form = posted_resume_details
                 resume.resume_title=form.cleaned_data.get('resume_title')
                 resume.contact_information_section_title=form.cleaned_data.get('contact_information_section_title')
-                print(resume.contact_information_section_title)
                 resume.contact_information=form.cleaned_data.get('contact_information')
                 resume.personal_statement_section_title=form.cleaned_data.get('personal_statement_section_title')
                 resume.personal_statement=form.cleaned_data.get('personal_statement')

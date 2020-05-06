@@ -62,6 +62,8 @@ def preview_resume(request):
 def view_resume(request, request_profile_url):
     service = ResumeService()
     resume = service.get_resume_by_profile_url(request_profile_url)
+    if (resume is None):
+        raise Http404(constants.PAGE_NOT_FOUND)
     resume_jobs = service.get_resume_jobs_by_id(resume.pk)
     resume_education = service.get_resume_education_by_id(resume.pk)
     if resume is not None:
