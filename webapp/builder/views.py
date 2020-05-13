@@ -22,13 +22,16 @@ def index(request):
 def builder_page(request):
     service = ResumeService()
     if request.POST:
-        save_success = service.save_resume(request.user.resume, request.POST)
+        save_result = service.save_resume(request.user.resume, request.POST)
+        forms = service.build_resume_forms(save_result=save_result)
     else:
-        forms = service.build_resume_forms(request)
-        context = {'forms': forms,
-                   'resume_is_active': request.user.resume.is_live,
-                   'site_url': settings.SITE_URL,
-                   'constants': constants}
+        forms = service.build_resume_forms(request=request)
+    context = {
+                'forms': forms,
+                'resume_is_active': request.user.resume.is_live,
+                'site_url': settings.SITE_URL,
+                'constants': constants
+            }
     return render(request, 'builder/builder.html', context)
 
 # @login_required
