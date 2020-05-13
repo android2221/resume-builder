@@ -10,12 +10,12 @@ from . import constants
 def register_user(request):
     service = AccountService()
     if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('load_builder'))
+        return HttpResponseRedirect(reverse('builder_page'))
     if request.POST:
         result = service.register_user(request)
         if result is True:
             # save worked, go to the builder
-            return HttpResponseRedirect(reverse('load_builder'))
+            return HttpResponseRedirect(reverse('builder_page'))
         else:
             context = {
                 'form': service.build_registration_form(request.POST),

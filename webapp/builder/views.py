@@ -19,27 +19,39 @@ def index(request):
 
 
 @login_required
-def save_builder(request):
+def builder_page(request):
     service = ResumeService()
     if request.POST:
         save_success = service.save_resume(request.user.resume, request.POST)
-        if not save_success:
-            messages.error(request, constants.ERROR_SAVING_RESUME)
-        else:
-            messages.success(request, constants.RESUME_SAVE_SUCCESS)
-        return HttpResponseRedirect(reverse("load_builder"))
-
-
-@login_required
-def load_builder(request):
-    service = ResumeService()
-    forms = service.build_resume_forms(request)
-    context = {'forms': forms,
-               'resume_is_active': request.user.resume.is_live,
-               'site_url': settings.SITE_URL,
-               'constants': constants
-               }
+    else:
+        forms = service.build_resume_forms(request)
+        context = {'forms': forms,
+                   'resume_is_active': request.user.resume.is_live,
+                   'site_url': settings.SITE_URL,
+                   'constants': constants}
     return render(request, 'builder/builder.html', context)
+
+# @login_required
+# def save_builder(request):
+#     service = ResumeService()
+#     if request.POST:
+#         save_success = service.save_resume(request.user.resume, request.POST)
+#         if not save_success:
+#             messages.error(request, constants.ERROR_SAVING_RESUME)
+#         else:
+#             messages.success(request, constants.RESUME_SAVE_SUCCESS)
+#         return HttpResponseRedirect(reverse("builder_page"))
+
+# @login_required
+# def builder_page(request):
+#     service = ResumeService()
+#     forms = service.build_resume_forms(request)
+#     context = {'forms': forms,
+#                'resume_is_active': request.user.resume.is_live,
+#                'site_url': settings.SITE_URL,
+#                'constants': constants
+#                }
+#     return render(request, 'builder/builder.html', context)
 
 
 @login_required

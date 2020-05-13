@@ -23,7 +23,7 @@ urlpatterns = [
     path('password-change', 
         CustomPasswordChangeView.as_view(
             form_class=CustomPasswordChangeForm, 
-            success_url=reverse_lazy('load_builder'),
+            success_url=reverse_lazy('builder_page'),
         ), 
         name="change_password"
     )
