@@ -23,27 +23,26 @@ class ResumeService():
         return ResumeEducation.objects.filter(resume=resume_id)
     
     def build_resume_forms(self, request=None, save_result=None):
-        jobs = ResumeJob.objects.filter(resume=request.user.resume.pk)
-        profile_form_data = {'profile_active': request.user.resume.is_live }
-        resume_jobs_section_title_form_data = {'resume_jobs_section_title': request.user.resume.resume_jobs_section_title}
-        resume_education_section_title_form_data = {'resume_education_section_title': request.user.resume.resume_education_section_title}
-        resume_detail_form_data = { 
-            'resume_title': request.user.resume.resume_title,
-            'contact_information_section_title': request.user.resume.contact_information_section_title,
-            'contact_information': request.user.resume.contact_information,
-            'personal_statement_section_title': request.user.resume.personal_statement_section_title,
-            'personal_statement': request.user.resume.personal_statement,
-            'current_skills_section_title': request.user.resume.current_skills_section_title,
-            'current_skills': request.user.resume.current_skills
-        }
-        return {
-            'activate_profile_form': ActivateResumeForm(profile_form_data),
-            'resume_details_form': ResumeDetailsForm(resume_detail_form_data),
-            'resume_jobs_section_title_form': ResumeJobsSectionTitleForm(resume_jobs_section_title_form_data),
-            'resume_education_section_title_form': ResumeEducationSectionTitleForm(resume_education_section_title_form_data),
-            'resume_jobs_formset': ResumeJobsFormset(queryset=ResumeJob.objects.filter(resume=request.user.resume.pk), prefix='resume_job'),
-            'resume_education_formset': ResumeEducationFormset(queryset=ResumeEducation.objects.filter(resume=request.user.resume.pk), prefix='resume_education')
-        }
+        return_data = {}
+        if save_result is not None:
+            if save_result['resume_details_result'] is not None:
+                return_data['resume_details_form'] = ResumeDetailsForm(save_result['resume_details_result'])
+        else:
+            profile_form_data = {'profile_active': request.user.resume.is_live }
+            resume_jobs_section_title_form_data = {'resume_jobs_section_title': request.user.resume.resume_jobs_section_title}
+            resume_education_section_title_form_data = {'resume_education_section_title': request.user.resume.resume_education_section_title}
+            resume_detail_form_data = { 
+                'resume_title': request.user.resume.resume_title,
+                'contact_information_section_title': request.user.resume.contact_information_section_title,
+                'contact_information': request.user.resume.contact_information,
+                'personal_statement_section_title': request.user.resume.personal_statement_section_title,
+                'personal_statement': request.user.resume.personal_statement,
+                'current_skills_section_title': request.user.resume.current_skills_section_title,
+                'current_skills': request.user.resume.current_skills
+            }
+            return_data['resume_details_form'] = ResumeDetailsForm(resume_detail_form_data)
+        return return_data
+
     
     def save_resume(self, resume, payload):
         posted_resume_jobs_section_title_form = ResumeJobsSectionTitleForm(payload)
@@ -55,8 +54,10 @@ class ResumeService():
             save_results = {
                 "resume_details_result": resume_details_result
             }
+            resume.save()
         except Exception as ex:
-            return False  
+            return False
+        return save_results
 
         #     if posted_resume_jobs_section_title_form.is_valid():
         #         form = posted_resume_jobs_section_title_form

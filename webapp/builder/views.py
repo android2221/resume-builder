@@ -23,7 +23,9 @@ def builder_page(request):
     service = ResumeService()
     if request.POST:
         save_result = service.save_resume(request.user.resume, request.POST)
+        print(save_result)
         forms = service.build_resume_forms(save_result=save_result)
+        print(forms)
     else:
         forms = service.build_resume_forms(request=request)
     context = {
