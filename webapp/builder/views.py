@@ -23,22 +23,63 @@ def index(request):
 def builder_page(request):
     service = ResumeService()
     forms = {}
+    resume = request.user.resume
+    # Variables
+    resume_detail_form_data = { 
+        'resume_title': request.user.resume.resume_title,
+        'contact_information_section_title': request.user.resume.contact_information_section_title,
+        'contact_information': request.user.resume.contact_information,
+        'personal_statement_section_title': request.user.resume.personal_statement_section_title,
+        'personal_statement': request.user.resume.personal_statement,
+        'current_skills_section_title': request.user.resume.current_skills_section_title,
+        'current_skills': request.user.resume.current_skills
+    }
     if request.POST:
-        save_result = service.save_resume(request.user.resume, request.POST)
-        print(save_result)
+        # Get forms from POST
+        posted_resume_details = ResumeDetailsForm(request.POST)
+        posted_resume_jobs = ResumeJobsFormset(request.POST, prefix='resume_job')
+        posted_education_forms = ResumeEducationFormset(request.POST, prefix='resume_education')
+        posted_resume_jobs_section_title_form = ResumeJobsSectionTitleForm(request.POST)
+        posted_resume_education_section_title_form = ResumeEducationSectionTitleForm(request.POST)
+        # Cull out data for each form and formset
+        if posted_resume_details.is_valid():
+            form = posted_resume_details
+            resume.resume_title=form.cleaned_data.get('resume_title')
+            resume.contact_information_section_title=form.cleaned_data.get('contact_information_section_title')
+            resume.contact_information=form.cleaned_data.get('contact_information')
+            resume.personal_statement_section_title=form.cleaned_data.get('personal_statement_section_title')
+            resume.personal_statement=form.cleaned_data.get('personal_statement')
+            resume.current_skills_section_title=form.cleaned_data.get('current_skills_section_title')
+            resume.current_skills=form.cleaned_data.get('current_skills')
+            resume.save()
+            forms['resume_details_form'] = ResumeDetailsForm(resume_detail_form_data)
+        else:
+            forms['resume_details_form'] = posted_resume_details
+
+        if posted_resume_jobs.is_valid():  
+            for form in posted_resume_jobs:
+                if form.has_changed():
+                    resume_job = form.save(commit=False)
+                    resume_job.resume = resume
+                    resume_job.save()
+            forms['resume_jobs_formset'] = ResumeJobsFormset(queryset=ResumeJob.objects.filter(resume=request.user.resume.pk), prefix='resume_job')
+        else:
+            forms['resume_jobs_formset'] = posted_resume_jobs
+
+        if posted_education_forms.is_valid():
+            for form in posted_education_forms:
+                if form.has_changed():
+                    resume_education = form.save(commit=False)
+                    resume_education.resume = resume
+                    resume_education.save()
+            forms['resume_education_formset'] = ResumeEducationFormset(queryset=ResumeEducation.objects.filter(resume=request.user.resume.pk), prefix='resume_education')
+        else:    
+            forms['resume_education_formset'] = posted_education_forms
     else:
         profile_form_data = {'profile_active': request.user.resume.is_live }
         resume_jobs_section_title_form_data = {'resume_jobs_section_title': request.user.resume.resume_jobs_section_title}
         resume_education_section_title_form_data = {'resume_education_section_title': request.user.resume.resume_education_section_title}
-        resume_detail_form_data = { 
-                'resume_title': request.user.resume.resume_title,
-                'contact_information_section_title': request.user.resume.contact_information_section_title,
-                'contact_information': request.user.resume.contact_information,
-                'personal_statement_section_title': request.user.resume.personal_statement_section_title,
-                'personal_statement': request.user.resume.personal_statement,
-                'current_skills_section_title': request.user.resume.current_skills_section_title,
-                'current_skills': request.user.resume.current_skills
-            }
+
         forms = {
             'activate_profile_form': ActivateResumeForm(profile_form_data),
             'resume_details_form': ResumeDetailsForm(resume_detail_form_data),
@@ -48,10 +89,10 @@ def builder_page(request):
             'resume_education_formset': ResumeEducationFormset(queryset=ResumeEducation.objects.filter(resume=request.user.resume.pk), prefix='resume_education')
             }
     context = {
-                'forms': forms,
-                'resume_is_active': request.user.resume.is_live,
-                'site_url': settings.SITE_URL,
-                'constants': constants
+            'forms': forms,
+            'resume_is_active': request.user.resume.is_live,
+            'site_url': settings.SITE_URL,
+            'constants': constants
             }
     return render(request, 'builder/builder.html', context)
 
