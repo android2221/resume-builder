@@ -6,7 +6,8 @@ from django.urls import reverse
 from django.conf import settings
 from .services.resume_service import ResumeService
 from django.contrib import messages
-
+from builder.forms import ActivateResumeForm, ResumeJobsFormset, ResumeDetailsForm, ResumeEducationFormset, ResumeJobsSectionTitleForm, ResumeEducationSectionTitleForm
+from builder.models import ResumeJob, ResumeEducation
 
 def handler404(request, exception):
     response = render(request, "builder/404.html", {})
@@ -21,13 +22,31 @@ def index(request):
 @login_required
 def builder_page(request):
     service = ResumeService()
+    forms = {}
     if request.POST:
         save_result = service.save_resume(request.user.resume, request.POST)
         print(save_result)
-        forms = service.build_resume_forms(save_result=save_result)
-        print(forms)
     else:
-        forms = service.build_resume_forms(request=request)
+        profile_form_data = {'profile_active': request.user.resume.is_live }
+        resume_jobs_section_title_form_data = {'resume_jobs_section_title': request.user.resume.resume_jobs_section_title}
+        resume_education_section_title_form_data = {'resume_education_section_title': request.user.resume.resume_education_section_title}
+        resume_detail_form_data = { 
+                'resume_title': request.user.resume.resume_title,
+                'contact_information_section_title': request.user.resume.contact_information_section_title,
+                'contact_information': request.user.resume.contact_information,
+                'personal_statement_section_title': request.user.resume.personal_statement_section_title,
+                'personal_statement': request.user.resume.personal_statement,
+                'current_skills_section_title': request.user.resume.current_skills_section_title,
+                'current_skills': request.user.resume.current_skills
+            }
+        forms = {
+            'activate_profile_form': ActivateResumeForm(profile_form_data),
+            'resume_details_form': ResumeDetailsForm(resume_detail_form_data),
+            'resume_jobs_section_title_form': ResumeJobsSectionTitleForm(resume_jobs_section_title_form_data),
+            'resume_education_section_title_form': ResumeEducationSectionTitleForm(resume_education_section_title_form_data),
+            'resume_jobs_formset': ResumeJobsFormset(queryset=ResumeJob.objects.filter(resume=request.user.resume.pk), prefix='resume_job'),
+            'resume_education_formset': ResumeEducationFormset(queryset=ResumeEducation.objects.filter(resume=request.user.resume.pk), prefix='resume_education')
+            }
     context = {
                 'forms': forms,
                 'resume_is_active': request.user.resume.is_live,
@@ -35,28 +54,6 @@ def builder_page(request):
                 'constants': constants
             }
     return render(request, 'builder/builder.html', context)
-
-# @login_required
-# def save_builder(request):
-#     service = ResumeService()
-#     if request.POST:
-#         save_success = service.save_resume(request.user.resume, request.POST)
-#         if not save_success:
-#             messages.error(request, constants.ERROR_SAVING_RESUME)
-#         else:
-#             messages.success(request, constants.RESUME_SAVE_SUCCESS)
-#         return HttpResponseRedirect(reverse("builder_page"))
-
-# @login_required
-# def builder_page(request):
-#     service = ResumeService()
-#     forms = service.build_resume_forms(request)
-#     context = {'forms': forms,
-#                'resume_is_active': request.user.resume.is_live,
-#                'site_url': settings.SITE_URL,
-#                'constants': constants
-#                }
-#     return render(request, 'builder/builder.html', context)
 
 
 @login_required
