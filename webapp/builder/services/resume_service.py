@@ -21,17 +21,9 @@ class ResumeService():
     
     def get_resume_education_by_id(self, resume_id):
         return ResumeEducation.objects.filter(resume=resume_id)
-    
-    def build_resume_forms(self, request=None, save_result=None):
-        return_data = {}
-        if save_result is not None:
-            if save_result['resume_details_result'] is not None:
-                return_data['resume_details_form'] = ResumeDetailsForm(save_result['resume_details_result'])
-        else:
-            profile_form_data = {'profile_active': request.user.resume.is_live }
-            resume_jobs_section_title_form_data = {'resume_jobs_section_title': request.user.resume.resume_jobs_section_title}
-            resume_education_section_title_form_data = {'resume_education_section_title': request.user.resume.resume_education_section_title}
-            resume_detail_form_data = { 
+
+    def init_resume_detail_form(self, request):
+        return { 
                 'resume_title': request.user.resume.resume_title,
                 'contact_information_section_title': request.user.resume.contact_information_section_title,
                 'contact_information': request.user.resume.contact_information,
@@ -40,10 +32,22 @@ class ResumeService():
                 'current_skills_section_title': request.user.resume.current_skills_section_title,
                 'current_skills': request.user.resume.current_skills
             }
+    
+    def build_resume_forms(self, request=None, save_result=None):
+        return_data = {}
+        if save_result is not None:
+            if save_result['resume_details_result'] is not None:
+                return_data['resume_details_form'] = ResumeDetailsForm(save_result['resume_details_result'])
+            else: save_result['resume_details_form'] = self.init_resume_detail_form(request)
+        else:
+            print('loading data')
+            profile_form_data = {'profile_active': request.user.resume.is_live }
+            resume_jobs_section_title_form_data = {'resume_jobs_section_title': request.user.resume.resume_jobs_section_title}
+            resume_education_section_title_form_data = {'resume_education_section_title': request.user.resume.resume_education_section_title}
+            resume_detail_form_data = self.init_resume_detail_form(request)
             return_data['resume_details_form'] = ResumeDetailsForm(resume_detail_form_data)
         return return_data
 
-    
     def save_resume(self, resume, payload):
         posted_resume_jobs_section_title_form = ResumeJobsSectionTitleForm(payload)
         posted_resume_education_section_title_form = ResumeEducationSectionTitleForm(payload)
