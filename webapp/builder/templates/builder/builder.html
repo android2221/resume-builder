@@ -64,8 +64,11 @@
 
                           {{ forms.resume_jobs_formset.management_form }}
                           {% for form in forms.resume_jobs_formset %}
-                            {{ form }}
-                            {{ form.errors }}
+                            {% for field in form.visible_fields %}
+                              {{ field.label }}
+                              {{ field }}
+                              {{ field.errors }}
+                            {% endfor %}
                           {% endfor %}
 
                           {{ forms.resume_education_section_title_form }}

@@ -19,17 +19,27 @@ def index(request):
 
 @login_required
 def builder_page(request):
+    # Loading and saving resume page
     service = ResumeService()
     if request.POST:
         forms = service.save_resume(user=request.user, post_payload=request.POST)
+        has_errors = False
+        for form in forms.values():
+            if form.errors:
+                has_errors = True
+                break
+        if not has_errors:
+            messages.success(request, constants.RESUME_SAVE_SUCCESS)
+        else:
+            messages.error(request, constants.ERROR_SAVING_RESUME)
     else:
         forms = service.init_forms(resume=request.user.resume)
     context = {
-            'forms': forms,
-            'resume_is_active': request.user.resume.is_live,
-            'site_url': settings.SITE_URL,
-            'constants': constants
-            }
+        'forms': forms,
+        'resume_is_active': request.user.resume.is_live,
+        'site_url': settings.SITE_URL,
+        'constants': constants
+    }
     return render(request, 'builder/builder.html', context)
 
 

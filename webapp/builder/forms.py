@@ -13,9 +13,11 @@ class ActivateResumeForm (forms.Form):
 
 class ResumeJobsSectionTitleForm(forms.Form):
     resume_jobs_section_title=forms.CharField(required=False)
+    error_css_class='error'
 
 class ResumeEducationSectionTitleForm(forms.Form):
     resume_education_section_title=forms.CharField(required=False)
+    error_css_class='error'
 
 class ResumeDetailsForm(forms.Form):
     resume_title=forms.CharField(required=False)
@@ -29,7 +31,7 @@ class ResumeDetailsForm(forms.Form):
 class ResumeJobFormsetForm(forms.ModelForm):
     class Meta:
         model = ResumeJob
-        exclude = ()
+        fields=('position_title', 'company_name', 'start_date', 'end_date', 'position_description')
 
 class ResumeEducationForm(forms.ModelForm):
     class Meta:
@@ -45,7 +47,6 @@ ResumeEducationFormset = modelformset_factory(
 
 ResumeJobsFormset = modelformset_factory(
     ResumeJob,
-    fields=('position_title', 'company_name', 'start_date', 'end_date', 'position_description'),
     form=ResumeJobFormsetForm,
     validate_min=True
 )

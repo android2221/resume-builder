@@ -26,11 +26,13 @@ class ResumeService():
         resume_jobs_formset = self.process_resume_jobs_formset(post_payload, user.resume)
         resume_education_formset = self.process_resume_education_formset(post_payload, user.resume)
         resume_jobs_section_title_form = self.process_resume_section_title_form(post_payload, user.resume)
+        resume_education_section_title_form = self.process_resume_education_section_title_form(post_payload, user.resume)
         forms = {
             'resume_details_form': resume_details_form,
             'resume_jobs_formset': resume_jobs_formset,
             'resume_education_formset': resume_education_formset,
             'resume_jobs_section_title_form': resume_jobs_section_title_form,
+            'resume_education_section_title_form': resume_education_section_title_form
         }
         user.resume.save()
         return forms
@@ -67,7 +69,7 @@ class ResumeService():
         form = ResumeEducationSectionTitleForm(post_payload)
         if form.is_valid():
             resume.resume_education_section_title = form.cleaned_data.get('resume_education_section_title')
-            return ResumeEducationSectionTitleForm(self.init_resume_education_section_title_form)
+            return ResumeEducationSectionTitleForm(self.init_resume_education_section_title_form(resume))
         else:
             return form
 
@@ -104,7 +106,6 @@ class ResumeService():
             return forms
         
     def process_resume_detail_form(self, post_payload, resume):
-        resume_detail_form_data = self.init_resume_detail_form_data(resume)
         form = ResumeDetailsForm(post_payload)
         if form.is_valid():
             resume.resume_title=form.cleaned_data.get('resume_title')
@@ -115,7 +116,7 @@ class ResumeService():
             resume.current_skills_section_title=form.cleaned_data.get('current_skills_section_title')
             resume.current_skills=form.cleaned_data.get('current_skills')
             resume.save()
-            return ResumeDetailsForm(resume_detail_form_data)
+            return ResumeDetailsForm(self.init_resume_detail_form_data(resume))
         else:
             return form
 
