@@ -1,8 +1,8 @@
 from builder.forms import ActivateResumeForm, ResumeJobsFormset, ResumeDetailsForm, ResumeEducationFormset, ResumeJobsSectionTitleForm, ResumeEducationSectionTitleForm
 from django.core.exceptions import ObjectDoesNotExist
 from accounts.models import Account
-from builder.models import ResumeJob, ResumeEducation
 import requests
+from builder.models import ResumeJob, ResumeEducation
 
 class ResumeService():
 
@@ -51,6 +51,17 @@ class ResumeService():
     
     def init_resume_education_section_title_form(self, resume):
         return {'resume_education_section_title': resume.resume_education_section_title}
+
+    def init_forms(self, resume):
+        resume_active_form = {'profile_active': resume.is_live }
+        return {
+            'activate_profile_form': ActivateResumeForm(resume_active_form),
+            'resume_details_form': ResumeDetailsForm(self.init_resume_detail_form_data(resume)),
+            'resume_jobs_section_title_form': ResumeJobsSectionTitleForm(self.init_resume_jobs_section_title_form(resume)),
+            'resume_education_section_title_form': ResumeEducationSectionTitleForm(self.init_resume_education_section_title_form(resume)),
+            'resume_jobs_formset': ResumeJobsFormset(queryset=ResumeJob.objects.filter(resume=resume.pk), prefix='resume_job'),
+            'resume_education_formset': ResumeEducationFormset(queryset=ResumeEducation.objects.filter(resume=resume.pk), prefix='resume_education')
+            }
         
     def process_resume_education_section_title_form(self, post_payload, resume):
         form = ResumeEducationSectionTitleForm(post_payload)

@@ -6,8 +6,6 @@ from django.urls import reverse
 from django.conf import settings
 from .services.resume_service import ResumeService
 from django.contrib import messages
-from builder.forms import ActivateResumeForm, ResumeJobsFormset, ResumeDetailsForm, ResumeEducationFormset, ResumeJobsSectionTitleForm, ResumeEducationSectionTitleForm
-from builder.models import ResumeJob, ResumeEducation
 
 def handler404(request, exception):
     response = render(request, "builder/404.html", {})
@@ -22,21 +20,10 @@ def index(request):
 @login_required
 def builder_page(request):
     service = ResumeService()
-    forms = {}
-    # Variables
     if request.POST:
         forms = service.save_resume(user=request.user, post_payload=request.POST)
     else:
-        profile_form_data = {'profile_active': request.user.resume.is_live }
-
-        forms = {
-            'activate_profile_form': ActivateResumeForm(profile_form_data),
-            #'resume_details_form': ResumeDetailsForm(resume_detail_form_data),
-            'resume_jobs_section_title_form': ResumeJobsSectionTitleForm(resume_jobs_section_title_form_data),
-            'resume_education_section_title_form': ResumeEducationSectionTitleForm(resume_education_section_title_form_data),
-            'resume_jobs_formset': ResumeJobsFormset(queryset=ResumeJob.objects.filter(resume=request.user.resume.pk), prefix='resume_job'),
-            'resume_education_formset': ResumeEducationFormset(queryset=ResumeEducation.objects.filter(resume=request.user.resume.pk), prefix='resume_education')
-            }
+        forms = service.init_forms(resume=request.user.resume)
     context = {
             'forms': forms,
             'resume_is_active': request.user.resume.is_live,
