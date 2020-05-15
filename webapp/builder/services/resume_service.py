@@ -21,20 +21,21 @@ class ResumeService():
     def get_resume_education_by_id(self, resume_id):
         return ResumeEducation.objects.filter(resume=resume_id)
 
-    def save_resume(self, user, post_payload):
-        resume_details_form = self.process_resume_detail_form(post_payload, user.resume)
-        resume_jobs_formset = self.process_resume_jobs_formset(post_payload, user.resume)
-        resume_education_formset = self.process_resume_education_formset(post_payload, user.resume)
-        resume_jobs_section_title_form = self.process_resume_section_title_form(post_payload, user.resume)
-        resume_education_section_title_form = self.process_resume_education_section_title_form(post_payload, user.resume)
+    def save_resume(self, resume, post_payload):
+        resume_details_form = self.process_resume_detail_form(post_payload, resume)
+        resume_jobs_formset = self.process_resume_jobs_formset(post_payload, resume)
+        resume_education_formset = self.process_resume_education_formset(post_payload, resume)
+        resume_jobs_section_title_form = self.process_resume_section_title_form(post_payload, resume)
+        resume_education_section_title_form = self.process_resume_education_section_title_form(post_payload, resume)
         forms = {
             'resume_details_form': resume_details_form,
             'resume_jobs_formset': resume_jobs_formset,
             'resume_education_formset': resume_education_formset,
             'resume_jobs_section_title_form': resume_jobs_section_title_form,
-            'resume_education_section_title_form': resume_education_section_title_form
+            'resume_education_section_title_form': resume_education_section_title_form,
+            'activate_profile_form': self.init_resume_active_form(resume)
         }
-        user.resume.save()
+        resume.save()
         return forms
 
     def init_resume_detail_form_data(self, resume):
@@ -53,11 +54,14 @@ class ResumeService():
     
     def init_resume_education_section_title_form(self, resume):
         return {'resume_education_section_title': resume.resume_education_section_title}
+    
+    def init_resume_active_form(self, resume):
+        resume_active_form = {'profile_active': resume.is_live }
+        return ActivateResumeForm(resume_active_form)
 
     def init_forms(self, resume):
-        resume_active_form = {'profile_active': resume.is_live }
         return {
-            'activate_profile_form': ActivateResumeForm(resume_active_form),
+            'activate_profile_form': self.init_resume_active_form(resume),
             'resume_details_form': ResumeDetailsForm(self.init_resume_detail_form_data(resume)),
             'resume_jobs_section_title_form': ResumeJobsSectionTitleForm(self.init_resume_jobs_section_title_form(resume)),
             'resume_education_section_title_form': ResumeEducationSectionTitleForm(self.init_resume_education_section_title_form(resume)),

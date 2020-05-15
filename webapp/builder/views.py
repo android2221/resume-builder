@@ -22,7 +22,7 @@ def builder_page(request):
     # Loading and saving resume page
     service = ResumeService()
     if request.POST:
-        forms = service.save_resume(user=request.user, post_payload=request.POST)
+        forms = service.save_resume(resume=request.user.resume, post_payload=request.POST)
         has_errors = False
         for form in forms.values():
             if form.errors:
