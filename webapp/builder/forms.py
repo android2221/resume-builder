@@ -40,7 +40,7 @@ class ResumeEducationForm(forms.ModelForm):
 
 ResumeEducationFormset = modelformset_factory(
     ResumeEducation,
-    fields=('education_title', 'institution_name', 'start_date', 'end_date', 'degree_year', 'education_description'),
+    fields=('education_title', 'institution_name', 'start_date', 'end_date', 'education_description'),
     form=ResumeEducationForm,
     validate_min=True
 )

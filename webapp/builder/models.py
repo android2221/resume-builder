@@ -30,6 +30,5 @@ class ResumeEducation(models.Model):
     institution_name=models.CharField(max_length=500)
     start_date=models.DateField(null=True, blank=True)
     end_date=models.DateField(null=True, blank=True)
-    degree_year=models.DateField(null=True, blank=True)
     education_description=models.TextField(null=True, blank=True)
 

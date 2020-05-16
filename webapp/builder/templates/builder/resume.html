@@ -29,51 +29,82 @@
         {% endif %}
 
         {% if resume.contact_information %}
-            {% if resume.contact_information_section_title %}
-                <h2>{{ resume.contact_information_section_title }}</h2>
-            {% endif %}
             <div id="contact-info">
+                {% if resume.contact_information_section_title %}
+                <h2>{{ resume.contact_information_section_title }}</h2>
+                {% endif %}
                 {{ resume.contact_information }}
             </div> 
         {% endif %}
 
         {% if resume.personal_statement %}
-            {% if resume.personal_statement_section_title %}
-                <h2>{{ resume.personal_statement_section_title }}</h2>
-            {% endif %}
             <div id="personal-statement">
+                {% if resume.personal_statement_section_title %}
+                <h2>{{ resume.personal_statement_section_title }}</h2>
+                {% endif %}
                 {{ resume.personal_statement }}
             </div>
         {% endif %}
 
         {% if resume.current_skills %}
-            {% if resume.current_skills_section_title %}
-                <h2>{{ resume.current_skills_section_title }}</h2>
-            {% endif %}
             <div id="skills-list">
+                {% if resume.current_skills_section_title %}
+                <h2>{{ resume.current_skills_section_title }}</h2>
+                {% endif %}
                 {{ resume.current_skills }}
             </div>
         {% endif %}
 
         {% if resume_jobs %}
-            {% if resume.resume_jobs_section_title %}
-            <h2>{{ resume.resume_jobs_section_title }}</h2>
-            {% endif %}
             <div id="experience-list">
+                {% if resume.resume_jobs_section_title %}
+                <h2>{{ resume.resume_jobs_section_title }}</h2>
+                {% endif %}
                 {% for job in resume_jobs %}
                 <div class="position">
-                    {{ job.position_title }}
+                    <div class="position-title">
+                        {{ job.position_title }}
+                    </div>
+                    <div class="company-name">
+                        {{ job.company_name }}
+                    </div>
+                    <div class="start-date">
+                        {{ job.start_date }}
+                    </div>
+                    <div class="end-date">
+                        {{ job.end_date }}
+                    </div>
+                    <div class="job-description">
+                        {{ job.position_description }}
+                    </div>
                 </div>
                 {% endfor %}
             </div>        
         {% endif %}
 
-        {% if resume_education is not None %}
+        {% if resume_education %}
         <div id="education-list">
+            {% if resume.resume_education_section_title %}
+            <h2>{{ resume.resume_education_section_title }}</h2>
+            {% endif %}
             {% for education in resume_education %}
-                <div class="education">
+            <div class="education">
+                <div class="education-title">
                     {{ education.education_title }}
                 </div>
+                <div class="institution-name">
+                    {{ education.institution_name }}
+                </div>
+                <div class="education-start-date">
+                    {{ education.start_date }}
+                </div>
+                <div class="education-end-date">
+                    {{ education.end_date }}
+                </div>
+                <div class="education-description">
+                    {{ education.education_description }}
+                </div>
+            </div>
             {% endfor %}
         </div>
         {% endif %}
