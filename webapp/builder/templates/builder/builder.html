@@ -56,20 +56,65 @@
                       </div>
                       <form method = "post" id="builder-form">
                           {% csrf_token %}
-                          {{ forms.resume_details_form }}
+                          <div id="accordion">
+                            <!-- resume details-->
+                            <div class="card">
+                              <div class="card-header" id="heading-1" data-toggle="collapse" data-target="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
+                                <h5>
+                                  Resume Details Section
+                                </h5>
+                              </div>
+                            
+                              <div id="collapse-1" class="collapse" aria-labelledby="heading-1" data-parent="#accordion">
+                                <div class="card-body">
+                                  {{ forms.resume_details_form }}
+                                </div>
+                              </div>
+                            </div>
+                            <!-- end resume details -->
+                            <!-- resume experience section -->
+                            <div class="card">
+                              <div class="card-header" id="heading-2" data-toggle="collapse" data-target="#collapse-2" aria-expanded="true" aria-controls="collapse-2">
+                                <h5>
+                                  Resume Experience Section
+                                </h5>
+                              </div>
+                              <div id="collapse-2" class="collapse" aria-labelledby="heading-2" data-parent="#accordion">
+                                <div class="card-body">
 
-                          {{ forms.resume_jobs_section_title_form }}
+                                  {{ forms.resume_jobs_section_title_form }}
+                                  {{ forms.resume_jobs_formset.management_form }}
 
-                          {{ forms.resume_jobs_formset.management_form }}
-                          {% for form in forms.resume_jobs_formset %}
-                            {{ form.id }}
-                            {% for field in form.visible_fields %}
-                              {{ field.label }}
-                              {{ field }}
-                              {{ field.errors }}
-                            {% endfor %}
-                            {{ form.errors }}
-                          {% endfor %}
+                                  <div id="accordion-resume-jobs">
+                                    <div class="card">
+                                      <div class="card-header" id="jobs-accordion-header" data-toggle="collapse" data-target="#job-dropdown" aria-expanded="true" aria-controls="job-dropdown">
+                                        <h5>
+                                          Job
+                                        </h5>
+                                      </div>
+                                      <div id="job-dropdown" class="collapse" aria-labelledby="jobs-accordion-header" data-parent="#accordion-resume-jobs">
+                                        <div class="card-body">
+                                          job body
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                          
+                                  {% for form in forms.resume_jobs_formset %}
+                                    {{ form.id }}
+                                    {% for field in form.visible_fields %}
+                                      {{ field.label }}
+                                      {{ field }}
+                                      {{ field.errors }}
+                                    {% endfor %}
+                                    {{ form.errors }}
+                                  {% endfor %}
+                                </div>
+                              </div>
+                            </div>
+                            <!-- end resume experience section -->
+                          </div>  
 
                           {{ forms.resume_education_section_title_form }}
 
