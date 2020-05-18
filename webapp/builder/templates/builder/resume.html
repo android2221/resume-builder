@@ -5,6 +5,7 @@
 {% block head_inserts %}
 <link rel="stylesheet" href="{% static 'builder/styles/resume.css' %}">
 <link rel="stylesheet" href="{% static 'builder/styles/common.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block info_message %}
@@ -29,7 +30,7 @@
         {% endif %}
 
         {% if resume.contact_information %}
-            <div id="contact-info">
+            <div id="contact-info spaced">
                 {% if resume.contact_information_section_title %}
                 <h2>{{ resume.contact_information_section_title }}</h2>
                 {% endif %}
@@ -38,7 +39,7 @@
         {% endif %}
 
         {% if resume.personal_statement %}
-            <div id="personal-statement">
+            <div id="personal-statement spaced">
                 {% if resume.personal_statement_section_title %}
                 <h2>{{ resume.personal_statement_section_title }}</h2>
                 {% endif %}
@@ -47,7 +48,7 @@
         {% endif %}
 
         {% if resume.current_skills %}
-            <div id="skills-list">
+            <div id="skills-list spaced">
                 {% if resume.current_skills_section_title %}
                 <h2>{{ resume.current_skills_section_title }}</h2>
                 {% endif %}
@@ -61,20 +62,22 @@
                 <h2>{{ resume.resume_jobs_section_title }}</h2>
                 {% endif %}
                 {% for job in resume_jobs %}
-                <div class="position">
-                    <div class="position-title">
-                        {{ job.position_title }}
+                <div class="position spaced">
+                    <div class="position-info">
+                        <div class="position-title">
+                            {{ job.position_title }}
+                        </div>
+                        <div class="company-name">
+                            {{ job.company_name }}
+                        </div>
+                        <div class="position-start-date">
+                            {{ job.start_date }}
+                        </div>
+                        <div class="position-end-date">
+                            {{ job.end_date }}
+                        </div>
                     </div>
-                    <div class="company-name">
-                        {{ job.company_name }}
-                    </div>
-                    <div class="start-date">
-                        {{ job.start_date }}
-                    </div>
-                    <div class="end-date">
-                        {{ job.end_date }}
-                    </div>
-                    <div class="job-description">
+                    <div class="job-description spaced">
                         {{ job.position_description }}
                     </div>
                 </div>
@@ -88,20 +91,22 @@
             <h2>{{ resume.resume_education_section_title }}</h2>
             {% endif %}
             {% for education in resume_education %}
-            <div class="education">
-                <div class="education-title">
-                    {{ education.education_title }}
+            <div class="education spaced">
+                <div class="education-info">
+                    <div class="education-title">
+                        {{ education.education_title }}
+                    </div>
+                    <div class="institution-name">
+                        {{ education.institution_name }}
+                    </div>
+                    <div class="education-start-date">
+                        {{ education.start_date }}
+                    </div>
+                    <div class="education-end-date">
+                        {{ education.end_date }}
+                    </div>
                 </div>
-                <div class="institution-name">
-                    {{ education.institution_name }}
-                </div>
-                <div class="education-start-date">
-                    {{ education.start_date }}
-                </div>
-                <div class="education-end-date">
-                    {{ education.end_date }}
-                </div>
-                <div class="education-description">
+                <div class="education-description spaced">
                     {{ education.education_description }}
                 </div>
             </div>
