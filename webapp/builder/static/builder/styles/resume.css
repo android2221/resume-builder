@@ -40,6 +40,15 @@ footer {
     left: 50%;
     margin-left: -175px;
 }
+
+@media (max-width: 375px){
+    .footer-container #footer-logo{
+        width: 300px;
+    }
+    .footer-container .image-container{
+        margin-left: -150px;
+    }
+}
 #info-bar{
     top: 0px;
     position: relative;
