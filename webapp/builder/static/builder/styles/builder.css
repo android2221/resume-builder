@@ -112,3 +112,7 @@ label[for=id_content]{
 #builder-form textarea{
   display: block;
 }
+
+.card-header{
+  cursor: pointer;
+}
