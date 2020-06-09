@@ -56,13 +56,15 @@
                       </div>
                       <form method = "post" id="builder-form">
                           {% csrf_token %}
+                          <!-- resume details accordion start -->
                           <div id="accordion">
                             <!-- resume details-->
                             <div class="card">
-                              <div class="card-header" id="heading-1" data-toggle="collapse" data-target="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
-                                <h5>
+                              <div class="card-header" id="heading-1" data-toggle="collapse" data-target="#collapse-1" aria-expanded="false" aria-controls="collapse-1">
+                                <h4>
                                   Resume Details Section
-                                </h5>
+                                </h4>
+                                <i class="fa fa-chevron-down chevron"></i>
                               </div>
                             
                               <div id="collapse-1" class="collapse" aria-labelledby="heading-1" data-parent="#accordion">
@@ -75,10 +77,11 @@
                             
                             <!-- resume experience section -->
                             <div class="card">
-                              <div class="card-header" id="heading-2" data-toggle="collapse" data-target="#collapse-2" aria-expanded="true" aria-controls="collapse-2">
-                                <h5>
+                              <div class="card-header" id="heading-2" data-toggle="collapse" data-target="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
+                                <h4>
                                   Resume Experience Section
-                                </h5>
+                                </h4>
+                                <i class="fa fa-chevron-down chevron"></i>
                               </div>
                               <div id="collapse-2" class="collapse" aria-labelledby="heading-2" data-parent="#accordion">
                                 <div class="card-body">
@@ -90,7 +93,7 @@
                                     {% for form in forms.resume_jobs_formset %}
                                     <!-- individual job -->
                                     <div class="card">
-                                      <div class="card-header" id="jobs-accordion-header" data-toggle="collapse" data-target="#job-dropdown-{{ form.instance.id }}" aria-expanded="true" aria-controls="job-dropdown-{{ form.instance.id }}">
+                                      <div class="card-header" id="jobs-accordion-header" data-toggle="collapse" data-target="#job-dropdown-{{ form.instance.id }}" aria-expanded="false" aria-controls="job-dropdown-{{ form.instance.id }}">
                                         <h5>
                                           {% if form.instance.position_title %}
                                           <strong>Position:</strong> {{ form.instance.position_title }} {% if form.instance.company_name %} | {{ form.instance.company_name}} {% endif %} 
@@ -113,30 +116,63 @@
                                     </div>
                                     <!-- end individual job -->
 
-                                  {% endfor %}
-                                    
-                                  </div>
-
-                          
+                                  {% endfor %}                                    
+                                  </div>                       
                                   
                                 </div>
                               </div>
                             </div>
                             <!-- end resume experience section -->
-                          </div>  
+                            <!-- start resume education section -->
 
-                          {{ forms.resume_education_section_title_form }}
+                            <div class="card">
+                              <div class="card-header" id="heading-3" data-toggle="collapse" data-target="#collapse-3" aria-expanded="false" aria-controls="collapse-3">
+                                <h4>
+                                  Resume Education Section
+                                </h4>
+                                <i class="fa fa-chevron-down chevron"></i>
+                              </div>
+                              <div id="collapse-3" class="collapse" aria-labelledby="heading-3" data-parent="#accordion">
+                                <div class="card-body">
+                                  {{ forms.resume_education_section_title_form }}
+                                  {{ forms.resume_education_formset.management_form }}
 
-                          {{ forms.resume_education_formset.management_form }}
-                          {% for form in forms.resume_education_formset %}
-                            {{ form.id }}
-                            {% for field in form.visible_fields %}
-                              {{ field.label }}
-                              {{ field }}
-                              {{ field.errors }}
-                            {% endfor %}
-                            {{ form.errors }}
-                          {% endfor %}
+                                  <div id="accordion-resume-education">
+                                    {% for form in forms.resume_education_formset %}
+                                    <!-- individual education -->
+                                    <div class="card">
+                                      <div class="card-header" id="education-accordion-header" data-toggle="collapse" data-target="#education-dropdown-{{ form.instance.id }}" aria-expanded="false" aria-controls="education-dropdown-{{ form.instance.id }}">
+                                        <h5>
+                                          {% if form.instance.education_title %}
+                                          <strong>Education:</strong> {{ form.instance.institution_name }} {% if form.instance.education_title %} | {{ form.instance.education_title }} {% endif %} 
+                                          {% else %}
+                                          <strong>Add A New Educational Milestone</strong>
+                                          {% endif %}
+                                        </h5>
+                                      </div>
+                                      <div id="education-dropdown-{{ form.instance.id }}" class="collapse" aria-labelledby="education-accordion-header" data-parent="#accordion-resume-education">
+                                        <div class="card-body">
+                                          {{ form.id }}
+                                          {% for field in form.visible_fields %}
+                                            {{ field.label }}
+                                            {{ field }}
+                                            {{ field.errors }}
+                                          {% endfor %}
+                                          {{ form.errors }}
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- end individual education -->
+
+                                  {% endfor %}                                    
+                                  </div>                       
+                                  
+                                </div>
+                              </div>
+                            </div>
+                            <!-- end resume education section -->
+                          </div> 
+                          <!-- end accordion --> 
                           <input class="btn btn-outline-primary" id="preview-button" type="submit" value="{{ constants.RESUME_PREVIEW_BUTTON }}" formaction="{% url 'preview_resume' %}">
                           <input class="btn btn-success btn-fw" id="save-button" type="submit" value="{{ constants.RESUME_SAVE_BUTTON }}" formaction="{% url 'builder_page' %}">
                       </form>

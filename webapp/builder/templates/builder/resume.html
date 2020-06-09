@@ -71,7 +71,7 @@
                             {{ job.company_name }}
                         </div>
                         <div class="position-start-date">
-                            {{ job.start_date }}
+                            {{ job.start_date }} {% if job.start_date %} - {% endif %}
                         </div>
                         <div class="position-end-date">
                             {{ job.end_date }}
@@ -100,7 +100,7 @@
                         {{ education.institution_name }}
                     </div>
                     <div class="education-start-date">
-                        {{ education.start_date }}
+                        {{ education.start_date }} {% if education.start_date %} - {% endif %}
                     </div>
                     <div class="education-end-date">
                         {{ education.end_date }}

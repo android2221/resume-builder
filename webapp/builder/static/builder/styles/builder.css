@@ -102,7 +102,7 @@ label[for=id_content]{
 #builder-container{
   max-width: 1500px;
   margin: 0 auto;
-  min-height: 600px;
+  min-height: calc(100vh - 108px);
   padding: 30px;
 }
 #preview-button:focus{
@@ -113,6 +113,22 @@ label[for=id_content]{
   display: block;
 }
 
+.card{
+  margin-bottom: 30px;
+}
+
 .card-header{
   cursor: pointer;
+}
+
+i.chevron{
+  position: absolute;
+  top: 32px;
+  right: 30px;
+  transition: .25s ease-in-out;
+  transition-delay: .25s;
+}
+
+.card-header[aria-expanded=true] i.chevron{
+  transform: rotate(180deg);
 }
