@@ -11,10 +11,11 @@ services:
       context: ./
       dockerfile: Dockerfile
     volumes:
-      - "./webapp:/code/"
+      - "./webapp:/local-code/"
       - "./build/docker-entrypoint.dev.sh:/docker-entrypoint/docker-entrypoint.sh"
       - "./build/wait-for-it.sh:/wait-for-it.sh"
     entrypoint: sh /docker-entrypoint/docker-entrypoint.sh
+    working_dir: /local-code/
     ports:
       - "8001:8001"
     environment: 
