@@ -10,8 +10,9 @@ class ResumeService():
     def get_resume_by_profile_url(self, request_profile_url):
         try:
             account = Account.objects.get(profile_url=request_profile_url)
-            if account.user.resume.is_live is True:
-                return account.user.resume
+            resume = self.get_resume_for_user(account.user.id)
+            if resume.is_live is True:
+                return resume
         except ObjectDoesNotExist:
             return None
         return None
