@@ -4,7 +4,8 @@ from accounts import constants
 
 
 class Resume(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    is_preview = models.BooleanField(default=True)
     is_live = models.BooleanField(default=False, null=True, blank=True)
     resume_title=models.CharField(max_length=500, null=True, blank=True)
     contact_information=models.TextField(null=True, blank=True)

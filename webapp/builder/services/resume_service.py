@@ -1,6 +1,7 @@
 from builder.forms import ActivateResumeForm, ResumeJobsFormset, ResumeDetailsForm, ResumeEducationFormset, ResumeJobsSectionTitleForm, ResumeEducationSectionTitleForm
 from django.core.exceptions import ObjectDoesNotExist
 from accounts.models import Account
+from builder.models import Resume
 import requests
 from builder.models import ResumeJob, ResumeEducation
 
@@ -14,6 +15,13 @@ class ResumeService():
         except ObjectDoesNotExist:
             return None
         return None
+
+    def get_preview_resume(self, user_id):
+        resume = Resume.objects.get(user=user_id, is_preview=1)
+        if not resume:
+            return None
+        else:
+            return resume
     
     def get_resume_jobs_by_id(self, resume_id):
         return ResumeJob.objects.filter(resume=resume_id)
@@ -123,14 +131,6 @@ class ResumeService():
             return ResumeDetailsForm(self.init_resume_detail_form_data(resume))
         else:
             return form
-
-    def preview_resume(self, payload):
-        posted_form = ResumeEditorForm(payload)
-        if posted_form.is_valid():
-            form_data = posted_form.cleaned_data
-            resume_content = form_data["content"]
-            return resume_content
-        return None
 
     def toggle_resume_active(self, user, payload):
         form = ActivateResumeForm(payload)

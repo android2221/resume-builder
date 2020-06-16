@@ -54,10 +54,24 @@ def toggle_resume_active(request):
 
 @login_required
 def preview_resume(request):
+    # saving and loading previews
     service = ResumeService()
-    content = service.preview_resume(request.POST)
-    context = {'resume_content': content, 'is_preview': True, 'constants': constants}
-    return render(request, 'builder/resume.html', context)
+    if request.POST:   
+        forms = service.save_resume(resume=request.user.resume, post_payload=request.POST, is_preview=True)
+    else:
+        preview_resume = service.get_preview_resume(request.user.id)
+        if (preview_resume is None):
+            raise Http404(constants.PAGE_NOT_FOUND)
+        preview_resume_jobs = service.get_resume_jobs_by_id(preview_resume.id)
+        preview_resume_education = service.get_resume_education_by_id(preview_resume.id)
+        if preview_resume is not None:
+            return render(request, 'builder/resume.html', {
+                'resume': preview_resume,
+                'resume_jobs': preview_resume_jobs,
+                'resume_education': preview_resume_education,
+                'constants': constants
+            })
+    raise Http404(constants.PAGE_NOT_FOUND)
 
 
 def view_resume(request, request_profile_url):

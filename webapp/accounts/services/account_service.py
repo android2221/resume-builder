@@ -26,6 +26,7 @@ class AccountService():
         newaccount = Account(user=user, profile_url=form_data["profile_url"])
         newaccount.save()
         self.create_resume(user)
+        self.create_preview_resume(user)
         return user
 
     def build_registration_form(self, payload=None):
@@ -48,3 +49,7 @@ class AccountService():
     def create_resume(self, user):
         newResume = Resume(user=user)
         newResume.save()
+    
+    def create_preview_resume(self, user):
+        preview_resume = Resume(user=user, is_preview=True)
+        preview_resume.save()
