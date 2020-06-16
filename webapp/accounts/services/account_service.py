@@ -39,7 +39,7 @@ class AccountService():
             return UserLoginForm()
         return UserLoginForm(payload)
 
-    def create_user(email, password, first_name, last_name):
+    def create_user(self, email, password, first_name, last_name):
         user = User.objects.create_user(email, email, password)
         user.first_name = first_name
         user.last_name = last_name
@@ -47,7 +47,7 @@ class AccountService():
         return user
 
     def create_resume(self, user):
-        newResume = Resume(user=user)
+        newResume = Resume(user=user, is_preview=False)
         newResume.save()
     
     def create_preview_resume(self, user):

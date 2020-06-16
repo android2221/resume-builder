@@ -16,8 +16,8 @@ class ResumeService():
             return None
         return None
 
-    def get_preview_resume(self, user_id):
-        resume = Resume.objects.get(user=user_id, is_preview=1)
+    def get_resume_for_user(self, user_id, is_preview=False):
+        resume = Resume.objects.get(user=user_id, is_preview=is_preview)
         if not resume:
             return None
         else:
