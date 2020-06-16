@@ -136,8 +136,10 @@ class ResumeService():
         form = ActivateResumeForm(payload)
         if form.is_valid():
             try:
-                user.resume.is_live = form.cleaned_data["profile_active"]
-                user.resume.save()
+                resume = self.get_resume_for_user(user.id)
+                resume.is_live = form.cleaned_data["profile_active"]
+                resume.save()
                 return True
-            except:
+            except Exception as e:
+                print(e)
                 return False

@@ -71,24 +71,6 @@ def preview_resume(request):
     }
     return render(request, 'builder/resume.html', context)
 
-
-
-    # else:
-    #     preview_resume = service.get_resume_for_user(request.user.id, is_preview=True)
-    #     if (preview_resume is None):
-    #         raise Http404(constants.PAGE_NOT_FOUND)
-    #     preview_resume_jobs = service.get_resume_jobs_by_id(preview_resume.id)
-    #     preview_resume_education = service.get_resume_education_by_id(preview_resume.id)
-    #     if preview_resume is not None:
-    #         return render(request, 'builder/resume.html', {
-    #             'resume': preview_resume,
-    #             'resume_jobs': preview_resume_jobs,
-    #             'resume_education': preview_resume_education,
-    #             'constants': constants
-    #         })
-    #     raise Http404(constants.PAGE_NOT_FOUND) 
-
-
 def view_resume(request, request_profile_url):
     service = ResumeService()
     resume = service.get_resume_by_profile_url(request_profile_url)
