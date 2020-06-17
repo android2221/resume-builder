@@ -1,6 +1,11 @@
 body{
     margin: 0px;
 }
+
+.container-scroller{
+    overflow: hidden;
+}
+
 .center-column{
     margin-top: .75rem;
     margin: 0 auto;

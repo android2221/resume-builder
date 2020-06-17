@@ -126,9 +126,13 @@ i.chevron{
   top: 32px;
   right: 30px;
   transition: .25s ease-in-out;
-  transition-delay: .25s;
 }
 
 .card-header[aria-expanded=true] i.chevron{
   transform: rotate(180deg);
+}
+
+#builder-form .resume-form-actions .btn{
+  display: inline-block;
+  font-size: 1rem;
 }

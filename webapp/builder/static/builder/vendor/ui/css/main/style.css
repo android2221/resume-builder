@@ -675,7 +675,8 @@
   flex-grow: 1; }
 
 .container-scroller {
-  overflow: hidden; }
+  overflow: hidden; 
+}
 
 .page-header {
   display: -webkit-box;
