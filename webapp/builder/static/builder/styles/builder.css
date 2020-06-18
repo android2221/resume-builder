@@ -111,6 +111,7 @@ label[for=id_content]{
 #builder-form input,
 #builder-form textarea{
   display: block;
+  font-size: 1rem;
 }
 
 .card{

@@ -59,13 +59,17 @@ def preview_resume(request):
     service = ResumeService()
     if request.POST:   
         resume = service.get_resume_for_user(request.user.id, is_preview=True)
-        forms = service.save_resume(resume=resume, post_payload=request.POST)
+        service.save_resume(resume=resume, post_payload=request.POST)
+        resume = service.get_resume_for_user(request.user.id, is_preview=True)
     else:
         resume = service.get_resume_for_user(request.user.id, is_preview=True)
+    resume_jobs = service.get_resume_jobs_by_id(resume.pk)
+    resume_education = service.get_resume_education_by_id(resume.pk)
     context = {
         'resume': resume,
+        'resume_jobs': resume_jobs,
+        'resume_education': resume_education,
         'is_preview': True,
-        'resume_is_active': resume.is_live,
         'site_url': settings.SITE_URL,
         'constants': constants
     }

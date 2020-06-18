@@ -36,7 +36,15 @@ class ResumeJobFormsetForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ResumeJobFormsetForm, self).__init__(*args, **kwargs)
         self.fields['position_title'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['company_name'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['start_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['end_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['position_description'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['position_title'].widget.attrs['placeholder'] = constants.RESUME_JOB_TITLE_PLACEHOLDER
+        self.fields['company_name'].widget.attrs['placeholder'] = constants.RESUME_JOB_COMPANY_NAME
+        self.fields['start_date'].widget.attrs['placeholder'] = constants.RESUME_JOB_START_DATE
+        self.fields['end_date'].widget.attrs['placeholder'] = constants.RESUME_JOB_END_DATE
+        self.fields['position_description'].widget.attrs['placeholder'] = constants.RESUME_JOB_POSITION_DESCRIPTION
 
 class ResumeEducationForm(forms.ModelForm):
     class Meta:

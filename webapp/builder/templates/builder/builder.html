@@ -108,9 +108,8 @@
                                           {% for field in form.visible_fields %}
                                           <div class="form-group{% if field.errors %} has-errors{% endif %}">
                                             <div class="input-group">
-                                              {{ field.label }}
-                                                {{ field }}
-                                                {{ field.errors }}
+                                              {{ field }}
+                                              {{ field.errors }}
                                             </div>
                                           </div>
                                     
