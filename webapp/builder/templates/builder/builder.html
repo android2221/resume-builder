@@ -108,7 +108,6 @@
                                     </div>
                                   </div>
                                   {% endfor %}
-                                  {{ form.errors }}
 
                                   {{ forms.resume_jobs_formset.management_form }}
 
@@ -164,7 +163,19 @@
                               </div>
                               <div id="collapse-3" class="collapse" aria-labelledby="heading-3" data-parent="#accordion">
                                 <div class="card-body">
-                                  {{ forms.resume_education_section_title_form }}
+                                  {% for field in forms.resume_education_section_title_form  %}
+                                  <div class="form-group{% if field.errors %} has-errors{% endif %}">
+                                    <div class="input-group">
+                                      <div class="field-label">
+                                        {{ field.label }}
+                                      </div>
+                                      {{ field }}
+                                      {{ field.errors }}
+                                    </div>
+                                  </div>
+                                  {% endfor %}
+
+
                                   {{ forms.resume_education_formset.management_form }}
 
                                   <div id="accordion-resume-education">
@@ -184,9 +195,15 @@
                                         <div class="card-body">
                                           {{ form.id }}
                                           {% for field in form.visible_fields %}
-                                            {{ field.label }}
-                                            {{ field }}
-                                            {{ field.errors }}
+                                          <div class="form-group{% if field.errors %} has-errors{% endif %}">
+                                            <div class="input-group">
+                                              <div class="field-label">
+                                                {{ field.label }}
+                                              </div>
+                                              {{ field }}
+                                              {{ field.errors }}
+                                            </div>
+                                          </div>                                    
                                           {% endfor %}
                                           {{ form.errors }}
                                         </div>
