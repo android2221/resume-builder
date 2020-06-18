@@ -137,3 +137,13 @@ i.chevron{
   display: inline-block;
   font-size: 1rem;
 }
+
+#builder-form .form-group{
+  margin-bottom: 30px;
+}
+
+#builder-form .field-label{
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+}
