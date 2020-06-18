@@ -14,6 +14,9 @@ class ActivateResumeForm (forms.Form):
 class ResumeJobsSectionTitleForm(forms.Form):
     resume_jobs_section_title=forms.CharField(required=False)
     error_css_class='error'
+    def __init__(self, *args, **kwargs):
+        super(ResumeJobsSectionTitleForm, self).__init__(*args, **kwargs)
+        self.fields['resume_jobs_section_title'].widget.attrs['class'] = constants.INPUT_STYLE_NAME 
 
 class ResumeEducationSectionTitleForm(forms.Form):
     resume_education_section_title=forms.CharField(required=False)

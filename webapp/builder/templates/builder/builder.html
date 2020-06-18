@@ -69,7 +69,18 @@
                             
                               <div id="collapse-1" class="collapse" aria-labelledby="heading-1" data-parent="#accordion">
                                 <div class="card-body">
-                                  {{ forms.resume_details_form }}
+                                  {% for field in forms.resume_details_form.visible_fields %}
+                                  <div class="form-group{% if field.errors %} has-errors{% endif %}">
+                                    <div class="input-group">
+                                      <div class="field-label">
+                                        {{ field.label }}
+                                      </div>
+                                      {{ field }}
+                                      {{ field.errors }}
+                                    </div>
+                                  </div>
+                                  {% endfor %}
+                                  {{ form.errors }}
                                 </div>
                               </div>
                             </div>
@@ -86,7 +97,19 @@
                               <div id="collapse-2" class="collapse" aria-labelledby="heading-2" data-parent="#accordion">
                                 <div class="card-body">
 
-                                  {{ forms.resume_jobs_section_title_form }}
+                                  {% for field in forms.resume_jobs_section_title_form %}
+                                  <div class="form-group{% if field.errors %} has-errors{% endif %}">
+                                    <div class="input-group">
+                                      <div class="field-label">
+                                        {{ field.label }}
+                                      </div>
+                                      {{ field }}
+                                      {{ field.errors }}
+                                    </div>
+                                  </div>
+                                  {% endfor %}
+                                  {{ form.errors }}
+
                                   {{ forms.resume_jobs_formset.management_form }}
 
                                   <div id="accordion-resume-jobs">
