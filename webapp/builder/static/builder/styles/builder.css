@@ -75,6 +75,10 @@ label[for=id_content]{
   margin-bottom: 15px;
 }
 
+.editor-container{
+  background-color: #f5f6fa;
+}
+
 .activate-profile-container{
   text-align: center;
 }
@@ -105,6 +109,11 @@ label[for=id_content]{
   min-height: calc(100vh - 108px);
   padding: 30px;
 }
+
+#preview-button{
+  background-color: white;
+}
+
 #preview-button:focus{
   border-color: initial;
 }
@@ -185,4 +194,8 @@ i.chevron{
 #builder-form .new-item-header{
   font-weight: bold;
   margin-bottom: 30px;
+}
+
+.content{
+  background-color: #487eb0;
 }
