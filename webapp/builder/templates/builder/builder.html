@@ -51,7 +51,7 @@
                       <div class="editor-title">
                         <h3>{{ constants.EDIT_MY_RESUME }}</h3>
                         <div class=font-weight-bold id="profile-url">
-                          My resumé url  is: <a target="_blank" href="http://{{site_url}}/{{ request.user.account.profile_url}}/">http://{{site_url}}/{{ request.user.account.profile_url}}/</a>
+                          My resume url  is: <a target="_blank" href="http://{{site_url}}/{{ request.user.account.profile_url}}/">http://{{site_url}}/{{ request.user.account.profile_url}}/</a>
                         </div>
                       </div>
                       <form method = "post" id="builder-form">
@@ -113,15 +113,12 @@
 
                                   <div id="accordion-resume-jobs">
                                     {% for form in forms.resume_jobs_formset %}
+                                    {% if form.instance.position_title %}
                                     <!-- individual job -->
                                     <div class="card">
                                       <div class="card-header" id="jobs-accordion-header" data-toggle="collapse" data-target="#job-dropdown-{{ form.instance.id }}" aria-expanded="false" aria-controls="job-dropdown-{{ form.instance.id }}">
                                         <h5>
-                                          {% if form.instance.position_title %}
                                           <strong>Position:</strong> {{ form.instance.position_title }} {% if form.instance.company_name %} | {{ form.instance.company_name}} {% endif %} 
-                                          {% else %}
-                                          <strong>Add New Position</strong>
-                                          {% endif %}
                                         </h5>
                                       </div>
                                       <div id="job-dropdown-{{ form.instance.id }}" class="collapse" aria-labelledby="jobs-accordion-header" data-parent="#accordion-resume-jobs">
@@ -143,6 +140,31 @@
                                         </div>
                                       </div>
                                     </div>
+
+                                    {% else %}
+                                    <div class="new-item-button" data-toggle="collapse" data-target="#job-dropdown-{{ form.instance.id }}" aria-expanded="false" aria-controls="jobs-dropdown-{{ form.instance.id }}">
+                                      <i class="fa fa-plus-circle icon-sm"></i>
+                                      <div class="new-item-text">Add Experience</div>
+                                    </div>
+
+                                    <div id="job-dropdown-{{ form.instance.id }}" class="collapse blue-outline new-item" aria-labelledby="jobs-accordion-header" data-parent="#accordion-resume-jobs">
+                                      {{ form.id }}
+                                      <div class="new-item-header">New Experience</div>
+                                      {% for field in form.visible_fields %}
+                                      <div class="form-group{% if field.errors %} has-errors{% endif %}">
+                                        <div class="input-group">
+                                          <div class="field-label">
+                                            {{ field.label }}
+                                          </div>
+                                          {{ field }}
+                                          {{ field.errors }}
+                                        </div>
+                                      </div>
+                                
+                                      {% endfor %}
+                                      {{ form.errors }}
+                                    </div>
+                                    {% endif %}
                                     <!-- end individual job -->
 
                                   {% endfor %}                                    
@@ -210,7 +232,7 @@
 
                                     <div class="new-item-button" data-toggle="collapse" data-target="#education-dropdown-{{ form.instance.id }}" aria-expanded="false" aria-controls="education-dropdown-{{ form.instance.id }}">
                                       <i class="fa fa-plus-circle icon-sm"></i>
-                                      <div class="new-item-text">Educational Milestone</div>
+                                      <div class="new-item-text">Add Educational Milestone</div>
                                     </div>
 
                                     <div id="education-dropdown-{{ form.instance.id }}" class="collapse blue-outline new-item" aria-labelledby="education-accordion-header" data-parent="#accordion-resume-education">

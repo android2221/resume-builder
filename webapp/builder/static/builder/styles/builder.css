@@ -174,7 +174,7 @@ i.chevron{
 }
 
 #builder-form .blue-outline{
-  border: 1px solid #2196F3;
+  border: 1px solid rgba(33, 149, 243, 0.52);
   border-radius: 5px;
 }
 
@@ -184,5 +184,5 @@ i.chevron{
 
 #builder-form .new-item-header{
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
