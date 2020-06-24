@@ -138,6 +138,10 @@ i.chevron{
   font-size: 1rem;
 }
 
+#builder-form .form-group:last-child{
+  margin-bottom: initial;
+}
+
 #builder-form .form-group{
   margin-bottom: 30px;
 }
@@ -151,15 +155,34 @@ i.chevron{
 #builder-form .new-item-button{
   cursor: pointer;
   position: relative;
+  height: 50px;
 }
 
 #builder-form .new-item-button i{
-  color: #027BFF;
+  color: #2196F3;
   font-size: 2.5rem;
-  
+  top: 0px;
   position: absolute;
 }
 
 #builder-form .new-item-button .new-item-text{
   display: inline;
+  position: absolute;
+  top: .5rem;
+  left: 50px;
+  font-weight: bold;
+}
+
+#builder-form .blue-outline{
+  border: 1px solid #2196F3;
+  border-radius: 5px;
+}
+
+#builder-form .new-item{
+  padding: 20px;
+}
+
+#builder-form .new-item-header{
+  font-weight: bold;
+  margin-bottom: 10px;
 }

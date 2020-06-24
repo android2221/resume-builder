@@ -210,11 +210,12 @@
 
                                     <div class="new-item-button" data-toggle="collapse" data-target="#education-dropdown-{{ form.instance.id }}" aria-expanded="false" aria-controls="education-dropdown-{{ form.instance.id }}">
                                       <i class="fa fa-plus-circle icon-sm"></i>
-                                      <div class="new-item-text">Add New Educational Milestone</div>
+                                      <div class="new-item-text">Educational Milestone</div>
                                     </div>
 
-                                    <div id="education-dropdown-{{ form.instance.id }}" class="collapse" aria-labelledby="education-accordion-header" data-parent="#accordion-resume-education">
+                                    <div id="education-dropdown-{{ form.instance.id }}" class="collapse blue-outline new-item" aria-labelledby="education-accordion-header" data-parent="#accordion-resume-education">
                                       {{ form.id }}
+                                      <div class="new-item-header">New Educational Milestone</div>
                                       {% for field in form.visible_fields %}
                                       <div class="form-group{% if field.errors %} has-errors{% endif %}">
                                         <div class="input-group">
