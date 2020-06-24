@@ -181,14 +181,11 @@
                                   <div id="accordion-resume-education">
                                     {% for form in forms.resume_education_formset %}
                                     <!-- individual education -->
+                                    {% if form.instance.education_title %}
                                     <div class="card">
                                       <div class="card-header" id="education-accordion-header" data-toggle="collapse" data-target="#education-dropdown-{{ form.instance.id }}" aria-expanded="false" aria-controls="education-dropdown-{{ form.instance.id }}">
                                         <h5>
-                                          {% if form.instance.education_title %}
                                           <strong>Education:</strong> {{ form.instance.institution_name }} {% if form.instance.education_title %} | {{ form.instance.education_title }} {% endif %} 
-                                          {% else %}
-                                          <strong>Add A New Educational Milestone</strong>
-                                          {% endif %}
                                         </h5>
                                       </div>
                                       <div id="education-dropdown-{{ form.instance.id }}" class="collapse" aria-labelledby="education-accordion-header" data-parent="#accordion-resume-education">
@@ -209,6 +206,30 @@
                                         </div>
                                       </div>
                                     </div>
+                                    {% else %}
+
+                                    <div class="new-item-button" data-toggle="collapse" data-target="#education-dropdown-{{ form.instance.id }}" aria-expanded="false" aria-controls="education-dropdown-{{ form.instance.id }}">
+                                      <i class="fa fa-plus-circle icon-sm"></i>
+                                      <div class="new-item-text">Add New Educational Milestone</div>
+                                    </div>
+
+                                    <div id="education-dropdown-{{ form.instance.id }}" class="collapse" aria-labelledby="education-accordion-header" data-parent="#accordion-resume-education">
+                                      {{ form.id }}
+                                      {% for field in form.visible_fields %}
+                                      <div class="form-group{% if field.errors %} has-errors{% endif %}">
+                                        <div class="input-group">
+                                          <div class="field-label">
+                                            {{ field.label }}
+                                          </div>
+                                          {{ field }}
+                                          {{ field.errors }}
+                                        </div>
+                                      </div>                                    
+                                      {% endfor %}
+                                      {{ form.errors }}
+                                    </div>
+
+                                    {% endif %}
                                     <!-- end individual education -->
 
                                   {% endfor %}                                    

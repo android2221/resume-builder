@@ -147,3 +147,19 @@ i.chevron{
   width: 100%;
   margin-bottom: 5px;
 }
+
+#builder-form .new-item-button{
+  cursor: pointer;
+  position: relative;
+}
+
+#builder-form .new-item-button i{
+  color: #027BFF;
+  font-size: 2.5rem;
+  
+  position: absolute;
+}
+
+#builder-form .new-item-button .new-item-text{
+  display: inline;
+}
