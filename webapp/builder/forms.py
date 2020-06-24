@@ -57,15 +57,23 @@ class ResumeJobFormsetForm(forms.ModelForm):
         self.fields['end_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['position_description'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
 
-class ResumeEducationForm(forms.ModelForm):
+class ResumeEducationFormsetForm(forms.ModelForm):
     class Meta:
         model = ResumeEducation
         exclude = ()
 
+    def __init__(self, *args, **kwargs):
+        super(ResumeEducationFormsetForm, self).__init__(*args, **kwargs)
+        self.fields['education_title'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['institution_name'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['start_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['end_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['education_description'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+
 ResumeEducationFormset = modelformset_factory(
     ResumeEducation,
     fields=('education_title', 'institution_name', 'start_date', 'end_date', 'education_description'),
-    form=ResumeEducationForm,
+    form=ResumeEducationFormsetForm,
     validate_min=True
 )
 
