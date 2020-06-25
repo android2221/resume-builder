@@ -88,7 +88,7 @@
                             
                             <!-- resume experience section -->
                             <div class="card">
-                              <div class="card-header" id="heading-2" data-toggle="collapse" data-target="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
+                              <div class="card-header {% if forms.resume_jobs_formset.is_valid is False %}section-has-errors{% endif %}" id="heading-2" data-toggle="collapse" data-target="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
                                 <h4>
                                   Resume Experience Section
                                 </h4>
@@ -115,7 +115,7 @@
                                     {% for form in forms.resume_jobs_formset %}
                                     {% if form.instance.position_title %}
                                     <!-- individual job -->
-                                    <div class="card">
+                                    <div class="card {% if form.is_valid is False %}section-has-errors{% endif %}">
                                       <div class="card-header" id="jobs-accordion-header" data-toggle="collapse" data-target="#job-dropdown-{{ form.instance.id }}" aria-expanded="false" aria-controls="job-dropdown-{{ form.instance.id }}">
                                         <h5>
                                           <strong>Position:</strong> {{ form.instance.position_title }} {% if form.instance.company_name %} | {{ form.instance.company_name}} {% endif %} 

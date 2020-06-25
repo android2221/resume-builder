@@ -106,10 +106,6 @@ label[for=id_content]{
   padding: 30px;
 }
 
-.has-errors input{
-  border-color: red;
-}
-
 #preview-button:focus{
   border-color: initial;
 }
@@ -190,4 +186,10 @@ i.chevron{
 #builder-form .new-item-header{
   font-weight: bold;
   margin-bottom: 30px;
+}
+
+#builder-container .section-has-errors,
+#builder-conatiner .has-errors,
+.has-errors input {
+  border: 1px solid rgba(255, 0, 0, 0.5);
 }
