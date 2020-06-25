@@ -59,7 +59,7 @@
                           <!-- resume details accordion start -->
                           <div id="accordion">
                             <!-- resume details-->
-                            <div class="card">
+                            <div class="card {% if forms.resume_details_form.is_valid is False %}section-has-errors{% endif %}">
                               <div class="card-header" id="heading-1" data-toggle="collapse" data-target="#collapse-1" aria-expanded="false" aria-controls="collapse-1">
                                 <h4>
                                   Resume Details Section
@@ -80,7 +80,6 @@
                                     </div>
                                   </div>
                                   {% endfor %}
-                                  {{ form.errors }}
                                 </div>
                               </div>
                             </div>
@@ -88,15 +87,23 @@
                             
                             <!-- resume experience section -->
                             <div class="card">
-                              <div class="card-header {% if forms.resume_jobs_formset.is_valid is False %}section-has-errors{% endif %}" id="heading-2" data-toggle="collapse" data-target="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
+                              <div class="card-header {% if forms.resume_jobs_formset.is_valid is False %}section-has-errors{% endif %}" 
+                                  id="heading-2" 
+                                  data-toggle="collapse" 
+                                  data-target="#collapse-2" 
+                                  aria-expanded="false" 
+                                  aria-controls="collapse-2">
                                 <h4>
                                   Resume Experience Section
                                 </h4>
                                 <i class="fa fa-chevron-down chevron"></i>
                               </div>
-                              <div id="collapse-2" class="collapse" aria-labelledby="heading-2" data-parent="#accordion">
-                                <div class="card-body">
+                              <div id="collapse-2" 
+                                class="collapse {% if forms.resume_jobs_formset.is_valid is not False or forms.resume_jobs_section_title_form.is_valid is not False%}show{% endif %}" 
+                                aria-labelledby="heading-2" 
+                                data-parent="#accordion">
 
+                                <div class="card-body">
                                   {% for field in forms.resume_jobs_section_title_form %}
                                   <div class="form-group{% if field.errors %} has-errors{% endif %}">
                                     <div class="input-group">
@@ -121,7 +128,7 @@
                                           <strong>Position:</strong> {{ form.instance.position_title }} {% if form.instance.company_name %} | {{ form.instance.company_name}} {% endif %} 
                                         </h5>
                                       </div>
-                                      <div id="job-dropdown-{{ form.instance.id }}" class="collapse" aria-labelledby="jobs-accordion-header" data-parent="#accordion-resume-jobs">
+                                      <div id="job-dropdown-{{ form.instance.id }}" class="collapse {% if form.is_valid is False %}show{% endif %}" aria-labelledby="jobs-accordion-header" data-parent="#accordion-resume-jobs">
                                         <div class="card-body">
                                           {{ form.id }}
                                           {% for field in form.visible_fields %}
@@ -136,7 +143,6 @@
                                           </div>
                                     
                                           {% endfor %}
-                                          {{ form.errors }}
                                         </div>
                                       </div>
                                     </div>
@@ -162,7 +168,6 @@
                                       </div>
                                 
                                       {% endfor %}
-                                      {{ form.errors }}
                                     </div>
                                     {% endif %}
                                     <!-- end individual job -->
@@ -224,7 +229,6 @@
                                             </div>
                                           </div>                                    
                                           {% endfor %}
-                                          {{ form.errors }}
                                         </div>
                                       </div>
                                     </div>
@@ -249,7 +253,6 @@
                                         </div>
                                       </div>                                    
                                       {% endfor %}
-                                      {{ form.errors }}
                                     </div>
 
                                     {% endif %}
