@@ -75,10 +75,6 @@ label[for=id_content]{
   margin-bottom: 15px;
 }
 
-.editor-container{
-  background-color: #f5f6fa;
-}
-
 .activate-profile-container{
   text-align: center;
 }
@@ -110,8 +106,8 @@ label[for=id_content]{
   padding: 30px;
 }
 
-#preview-button{
-  background-color: white;
+.has-errors input{
+  border-color: red;
 }
 
 #preview-button:focus{
@@ -194,8 +190,4 @@ i.chevron{
 #builder-form .new-item-header{
   font-weight: bold;
   margin-bottom: 30px;
-}
-
-.content{
-  background-color: #487eb0;
 }
