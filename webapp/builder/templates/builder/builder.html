@@ -27,7 +27,7 @@
 {% block info_message %}
   {% for message in messages %}
     {% ifequal message.tags "error" %}
-    <div id="save-error" class="alert alert-danger {% if message.tags %}{{ message.tags }}{% endif %}">
+    <div id="save-error" class="hide-me-after-5 alert alert-danger {% if message.tags %}{{ message.tags }}{% endif %}">
         {{ message }}
     </div>
     {% endifequal %}

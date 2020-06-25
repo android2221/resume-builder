@@ -23,7 +23,10 @@ def builder_page(request):
     service = ResumeService()
     resume = service.get_resume_for_user(request.user.id)
     if request.POST:
-        forms = service.save_resume(resume=resume, post_payload=request.POST)
+        try:
+            forms = service.save_resume(resume=resume, post_payload=request.POST)
+        except:
+            messages.error(request, constants.ERROR_SAVING_RESUME)
         has_errors = False
         for form in forms.values():
             if form.errors:
@@ -32,7 +35,7 @@ def builder_page(request):
         if not has_errors:
             messages.success(request, constants.RESUME_SAVE_SUCCESS)
         else:
-            messages.error(request, constants.ERROR_SAVING_RESUME)
+            messages.error(request, constants.FORM_ERROR_RESUME)
     else:
         forms = service.init_forms(resume=resume)
     context = {
