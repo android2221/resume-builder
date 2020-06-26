@@ -33,6 +33,11 @@ class ResumeDetailsForm(forms.Form):
     personal_statement=forms.CharField(widget=forms.Textarea(), required=False)
     current_skills_section_title=forms.CharField(required=False)
     current_skills=forms.CharField(widget=forms.Textarea(), required=False)
+    # # For testing error states
+    # def clean(self):
+    #     cd = self.cleaned_data
+    #     self.add_error('resume_title', "ERRORS")
+    #     return cd
 
     def __init__(self, *args, **kwargs):
         super(ResumeDetailsForm, self).__init__(*args, **kwargs)
@@ -42,7 +47,7 @@ class ResumeDetailsForm(forms.Form):
         self.fields['personal_statement_section_title'].widget.attrs['class'] = constants.INPUT_STYLE_NAME 
         self.fields['personal_statement'].widget.attrs['class'] = constants.INPUT_STYLE_NAME 
         self.fields['current_skills_section_title'].widget.attrs['class'] = constants.INPUT_STYLE_NAME 
-        self.fields['current_skills'].widget.attrs['class'] = constants.INPUT_STYLE_NAME 
+        self.fields['current_skills'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
 
 class ResumeJobFormsetForm(forms.ModelForm):
     class Meta:
