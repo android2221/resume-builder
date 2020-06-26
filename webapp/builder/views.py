@@ -37,7 +37,7 @@ def builder_page(request):
         else:
             messages.error(request, constants.FORM_ERROR_RESUME)
     else:
-        forms = service.init_forms(resume=resume)
+        forms = service.init_forms_from_resume(resume=resume)
     context = {
         'forms': forms,
         'resume_is_active': resume.is_live,

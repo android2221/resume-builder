@@ -67,7 +67,7 @@
                                 <i class="fa fa-chevron-down chevron"></i>
                               </div>
                             
-                              <div id="collapse-1" class="collapse" aria-labelledby="heading-1" data-parent="#accordion">
+                              <div id="collapse-1" class="collapse {% if forms.resume_details_form.is_valid is False %}show{% endif %}" aria-labelledby="heading-1" data-parent="#accordion">
                                 <div class="card-body">
                                   {% for field in forms.resume_details_form.visible_fields %}
                                   <div class="form-group{% if field.errors %} has-errors{% endif %}">
@@ -86,8 +86,8 @@
                             <!-- end resume details -->
                             
                             <!-- resume experience section -->
-                            <div class="card">
-                              <div class="card-header {% if forms.resume_jobs_formset.is_valid is False %}section-has-errors{% endif %}" 
+                            <div class="card  {% if forms.resume_jobs_formset.errors or forms.resume_jobs_section_title_form.errors %}section-has-errors{% endif %}">
+                              <div class="card-header" 
                                   id="heading-2" 
                                   data-toggle="collapse" 
                                   data-target="#collapse-2" 
@@ -99,7 +99,7 @@
                                 <i class="fa fa-chevron-down chevron"></i>
                               </div>
                               <div id="collapse-2" 
-                                class="collapse {% if forms.resume_jobs_formset.is_valid is not False or forms.resume_jobs_section_title_form.is_valid is not False%}show{% endif %}" 
+                                class="collapse {% if forms.resume_jobs_formset.errors or forms.resume_jobs_section_title_form.errors %}show{% endif %}" 
                                 aria-labelledby="heading-2" 
                                 data-parent="#accordion">
 
@@ -122,7 +122,7 @@
                                     {% for form in forms.resume_jobs_formset %}
                                     {% if form.instance.position_title %}
                                     <!-- individual job -->
-                                    <div class="card {% if form.is_valid is False %}section-has-errors{% endif %}">
+                                    <div class="card {% if form.errors %}section-has-errors{% endif %}">
                                       <div class="card-header" id="jobs-accordion-header" data-toggle="collapse" data-target="#job-dropdown-{{ form.instance.id }}" aria-expanded="false" aria-controls="job-dropdown-{{ form.instance.id }}">
                                         <h5>
                                           <strong>Position:</strong> {{ form.instance.position_title }} {% if form.instance.company_name %} | {{ form.instance.company_name}} {% endif %} 
@@ -153,7 +153,7 @@
                                       <div class="new-item-text">Add Experience</div>
                                     </div>
 
-                                    <div id="job-dropdown-{{ form.instance.id }}" class="collapse blue-outline new-item {% if form.is_valid is False %}show section-has-errors{% endif %}" aria-labelledby="jobs-accordion-header" data-parent="#accordion-resume-jobs">
+                                    <div id="job-dropdown-{{ form.instance.id }}" class="collapse blue-outline new-item {% if form.errors %}show section-has-errors{% endif %}" aria-labelledby="jobs-accordion-header" data-parent="#accordion-resume-jobs">
                                       {{ form.id }}
                                       <div class="new-item-header">New Experience</div>
                                       {% for field in form.visible_fields %}

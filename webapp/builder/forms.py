@@ -56,6 +56,9 @@ class ResumeJobFormsetForm(forms.ModelForm):
         self.fields['start_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['end_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['position_description'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['position_title'].required = False
+        self.fields['company_name'].required = False
+        self.fields['position_description'].required = False
 
 class ResumeEducationFormsetForm(forms.ModelForm):
     class Meta:

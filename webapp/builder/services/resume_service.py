@@ -68,7 +68,7 @@ class ResumeService():
         resume_active_form = {'profile_active': resume.is_live }
         return ActivateResumeForm(resume_active_form)
 
-    def init_forms(self, resume):
+    def init_forms_from_resume(self, resume):
         return {
             'activate_profile_form': self.init_resume_active_form(resume),
             'resume_details_form': ResumeDetailsForm(self.init_resume_detail_form_data(resume)),
