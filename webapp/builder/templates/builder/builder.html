@@ -123,10 +123,16 @@
                                     {% if form.instance.position_title %}
                                     <!-- individual job -->
                                     <div class="card {% if form.errors %}section-has-errors{% endif %}">
-                                      <div class="card-header" id="jobs-accordion-header" data-toggle="collapse" data-target="#job-dropdown-{{ form.instance.id }}" aria-expanded="false" aria-controls="job-dropdown-{{ form.instance.id }}">
+                                      <div class="card-header" 
+                                        id="jobs-accordion-header" 
+                                        data-toggle="collapse" 
+                                        data-target="#job-dropdown-{{ form.instance.id }}" 
+                                        aria-expanded="false" 
+                                        aria-controls="job-dropdown-{{ form.instance.id }}">
                                         <h5>
                                           <strong>Position:</strong> {{ form.instance.position_title }} {% if form.instance.company_name %} | {{ form.instance.company_name}} {% endif %} 
                                         </h5>
+                                        <i class="fa fa-chevron-down chevron"></i>
                                       </div>
                                       <div id="job-dropdown-{{ form.instance.id }}" class="collapse {% if form.errors %}show{% endif %}" aria-labelledby="jobs-accordion-header" data-parent="#accordion-resume-jobs">
                                         <div class="card-body">
@@ -223,6 +229,7 @@
                                         <h5>
                                           <strong>Education:</strong> {{ form.instance.institution_name }} {% if form.instance.education_title %} | {{ form.instance.education_title }} {% endif %} 
                                         </h5>
+                                        <i class="fa fa-chevron-down chevron"></i>
                                       </div>
                                       <div id="education-dropdown-{{ form.instance.id }}" 
                                         class="collapse {% if form.errors %}show{% endif %}" 
