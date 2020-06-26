@@ -153,7 +153,7 @@
                                       <div class="new-item-text">Add Experience</div>
                                     </div>
 
-                                    <div id="job-dropdown-{{ form.instance.id }}" class="collapse blue-outline new-item" aria-labelledby="jobs-accordion-header" data-parent="#accordion-resume-jobs">
+                                    <div id="job-dropdown-{{ form.instance.id }}" class="collapse blue-outline new-item {% if form.is_valid is False %}show section-has-errors{% endif %}" aria-labelledby="jobs-accordion-header" data-parent="#accordion-resume-jobs">
                                       {{ form.id }}
                                       <div class="new-item-header">New Experience</div>
                                       {% for field in form.visible_fields %}
