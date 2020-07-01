@@ -47,9 +47,11 @@ class ResumeService():
         resume.save()
         return forms
 
-    def save_preview(self, resume, request):
+    def save_preview(self, request):
         try:
             preview_resume = self.get_resume_for_user(request.user.id, True)
+            preview_resume.resumejob_set.all().delete()
+            preview_resume.resumeeducation_set.all().delete()
         except ObjectDoesNotExist:
             preview_resume = Resume(is_preview=True, user=request.user)
         preview_resume.save()
@@ -118,7 +120,8 @@ class ResumeService():
             return forms
 
     def process_resume_jobs_formset(self, post_payload, resume):
-        forms = ResumeJobsFormset(post_payload, prefix='resume_job')
+        print('formset')
+        forms = ResumeJobsFormset(post_payload, prefix='resume_job', queryset=resume.resumejob_set.all())
         print(forms.errors)
         if forms.is_valid():  
             for form in forms:

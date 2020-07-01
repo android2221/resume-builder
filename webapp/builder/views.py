@@ -27,12 +27,12 @@ def builder_page(request):
     if request.POST and request.GET and request.GET['preview']:
         # preview button
         print("PREVIEW!!")
-        new_preview_resume = service.save_preview(resume=preview_resume, request=request) 
-        print(new_preview_resume.id)
+        preview_resume = service.save_preview(request=request) 
+        print(preview_resume.id)
         if preview_resume is not None:
             return render(request, 'builder/resume.html', {
                 'resume': preview_resume,
-                'resume_jobs': [],
+                'resume_jobs': preview_resume.resumejob_set.all(),
                 'resume_education': [],
                 'constants': constants
             })
