@@ -6,6 +6,8 @@ from django.urls import reverse
 from django.conf import settings
 from .services.resume_service import ResumeService
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
+
 
 def handler404(request, exception):
     response = render(request, "builder/404.html", {})
@@ -22,7 +24,20 @@ def builder_page(request):
     # Loading and saving resume page
     service = ResumeService()
     resume = service.get_resume_for_user(request.user.id)
-    if request.POST:
+    if request.POST and request.GET and request.GET['preview']:
+        # preview button
+        print("PREVIEW!!")
+        new_preview_resume = service.save_preview(resume=preview_resume, request=request) 
+        print(new_preview_resume.id)
+        if preview_resume is not None:
+            return render(request, 'builder/resume.html', {
+                'resume': preview_resume,
+                'resume_jobs': [],
+                'resume_education': [],
+                'constants': constants
+            })
+    elif request.POST:
+        print('POST')
         try:
             forms = service.save_resume(resume=resume, post_payload=request.POST)
         except:
@@ -36,6 +51,7 @@ def builder_page(request):
             messages.success(request, constants.RESUME_SAVE_SUCCESS)
         else:
             messages.error(request, constants.FORM_ERROR_RESUME)
+
     else:
         forms = service.init_forms_from_resume(resume=resume)
     context = {
@@ -46,6 +62,9 @@ def builder_page(request):
     }
     return render(request, 'builder/builder.html', context)
 
+@login_required
+def preview_resume(request):
+    print('hit it')
 
 @login_required
 def toggle_resume_active(request):
@@ -54,29 +73,6 @@ def toggle_resume_active(request):
     if toggle_success is not True:
         return HttpResponse(status=500)
     return HttpResponse(status=200)
-
-
-@login_required
-def preview_resume(request):
-    # saving and loading previews
-    service = ResumeService()
-    if request.POST:   
-        resume = service.get_resume_for_user(request.user.id, is_preview=True)
-        service.save_resume(resume=resume, post_payload=request.POST)
-        resume = service.get_resume_for_user(request.user.id, is_preview=True)
-    else:
-        resume = service.get_resume_for_user(request.user.id, is_preview=True)
-    resume_jobs = service.get_resume_jobs_by_id(resume.pk)
-    resume_education = service.get_resume_education_by_id(resume.pk)
-    context = {
-        'resume': resume,
-        'resume_jobs': resume_jobs,
-        'resume_education': resume_education,
-        'is_preview': True,
-        'site_url': settings.SITE_URL,
-        'constants': constants
-    }
-    return render(request, 'builder/resume.html', context)
 
 def view_resume(request, request_profile_url):
     service = ResumeService()

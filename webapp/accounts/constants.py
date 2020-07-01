@@ -44,7 +44,7 @@ PASSWORD_CHANGE_SUCCESS = "Password changed successfully!"
 
 # BUTTONS
 RESUME_SAVE_BUTTON = 'Save and Publish'
-RESUME_PREVIEW_BUTTON = 'Preview Resume'
+RESUME_PREVIEW_BUTTON = 'Save and View Preview'
 
 # Classes
 INPUT_STYLE_NAME = 'form-control'

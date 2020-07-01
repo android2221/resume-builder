@@ -47,6 +47,17 @@ class ResumeService():
         resume.save()
         return forms
 
+    def save_preview(self, resume, request):
+        try:
+            preview_resume = self.get_resume_for_user(request.user.id, True)
+        except ObjectDoesNotExist:
+            preview_resume = Resume(is_preview=True, user=request.user)
+        preview_resume.save()
+        self.save_resume(preview_resume, request.POST)
+        print(request.POST)
+        print(preview_resume.resumejob_set.count())
+        return self.get_resume_for_user(request.user.id, True)
+
     def init_resume_detail_form_data(self, resume):
         return { 
             'resume_title': resume.resume_title,
@@ -108,9 +119,12 @@ class ResumeService():
 
     def process_resume_jobs_formset(self, post_payload, resume):
         forms = ResumeJobsFormset(post_payload, prefix='resume_job')
+        print(forms.errors)
         if forms.is_valid():  
             for form in forms:
+                print(resume.is_preview)
                 if form.has_changed():
+                    print('job saving')
                     resume_job = form.save(commit=False)
                     resume_job.resume = resume
                     resume_job.save()
