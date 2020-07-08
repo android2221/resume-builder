@@ -37,8 +37,6 @@
             </div> 
         {% endif %}
         
-        
-
         {% if resume.personal_statement %}
             <div id="personal-statement spaced">
                 {% if resume.personal_statement_section_title %}
@@ -71,14 +69,25 @@
                         <div class="company-name">
                             {{ job.company_name }}
                         </div>
+
+                        {% if job.start_date and job.end_date %}
+                        <span class="separator">|</span>
+                        {% endif %}
+
+                        {% if job.start_date %}
                         <div class="position-start-date">
-                            {{ job.start_date }} {% if job.start_date %} - {% endif %}
+                            {{ job.start_date }}
                         </div>
+                        {% endif %}
+
+                        {% if job.end_date %}
                         <div class="position-end-date">
-                            {{ job.end_date }}
+                            {% if job.start_date %} - {% endif %} 
+                            {{ job.end_date }} 
                         </div>
+                        {% endif %}
                     </div>
-                    <div class="job-description spaced">
+                    <div class="job-description">
                         {{ job.position_description }}
                     </div>
                 </div>

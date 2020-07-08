@@ -103,11 +103,6 @@ body{
     display: inline;
 }
 
-.company-name::after, .institution-name::after{
-    content: " | ";
-    font-style: italic;
-}
-
 .spaced{
     display: block;
     margin-block-start: 1em;
