@@ -343,8 +343,6 @@
 
   </div>
 
-
-
 </div>
 
 
@@ -356,7 +354,10 @@
 
     $(document).ready(function(){
       // init datepickers
-      $(".datepicker").datepicker();
+      $(".datepicker").datepicker({
+        'changeYear' : true,
+        'yearRange': "-65:+0",
+      });
 
       // Init slider
       if(checkbox.val() == 'True'){
