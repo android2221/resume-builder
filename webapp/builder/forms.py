@@ -58,7 +58,7 @@ class ResumeJobFormsetForm(forms.ModelForm):
         super(ResumeJobFormsetForm, self).__init__(*args, **kwargs)
         self.fields['position_title'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['company_name'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
-        self.fields['start_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['start_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME + ' ' + 'datepicker'
         self.fields['end_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['position_description'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['position_title'].required = False

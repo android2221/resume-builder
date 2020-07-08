@@ -3,7 +3,10 @@
 
 {% block template_head_inserts %}
 <script src="{% static 'builder/vendor/tinymce/js/tinymce/tinymce.min.js' %}"></script>
+<script src="{% static 'builder/vendor/jqueryUI/jquery-ui.min.js' %}"></script>
+
 <link rel="stylesheet" href="{% static 'builder/styles/builder.css' %}">
+<link rel="stylesheet" href="{% static 'builder/vendor/jqueryUI/jquery-ui.css' %}">
 
 <script>
     tinymce.init({
@@ -352,13 +355,17 @@
     var notLiveIndicator = $('.live-indicator#not-live');
 
     $(document).ready(function(){
+      // init datepickers
+      $(".datepicker").datepicker();
 
+      // Init slider
       if(checkbox.val() == 'True'){
         slider.addClass('active');
         liveIndicator.addClass('show');
       } else{
         notLiveIndicator.addClass('show');
       }
+      // End init slider
     });
 
     slider.click(function(){
