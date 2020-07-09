@@ -17,10 +17,11 @@ class ResumeService():
             return None
         return None
 
-    def get_resume_for_user(self, user_id, is_preview=False):
-        resume = Resume.objects.get(user=user_id, is_preview=is_preview)
+    def get_resume_for_user(self, user_id, is_draft=True):
+        resume = Resume.objects.get(user=user_id, is_draft=is_draft)
         if not resume:
-            return None
+            resume = Resume(user=user_id, is_draft=is_draft)
+            resume.save()
         else:
             return resume
     
@@ -46,19 +47,6 @@ class ResumeService():
         }
         resume.save()
         return forms
-
-    def save_preview(self, request):
-        try:
-            preview_resume = self.get_resume_for_user(request.user.id, True)
-            preview_resume.resumejob_set.all().delete()
-            preview_resume.resumeeducation_set.all().delete()
-        except ObjectDoesNotExist:
-            preview_resume = Resume(is_preview=True, user=request.user)
-        preview_resume.save()
-        self.save_resume(preview_resume, request.POST)
-        print(request.POST)
-        print(preview_resume.resumejob_set.count())
-        return self.get_resume_for_user(request.user.id, True)
 
     def init_resume_detail_form_data(self, resume):
         return { 
@@ -125,7 +113,7 @@ class ResumeService():
         print(forms.errors)
         if forms.is_valid():  
             for form in forms:
-                print(resume.is_preview)
+                print(resume.is_draft)
                 if form.has_changed():
                     print('job saving')
                     resume_job = form.save(commit=False)

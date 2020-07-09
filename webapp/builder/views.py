@@ -24,20 +24,7 @@ def builder_page(request):
     # Loading and saving resume page
     service = ResumeService()
     resume = service.get_resume_for_user(request.user.id)
-    if request.POST and request.GET and request.GET['preview']:
-        # preview button
-        print("PREVIEW!!")
-        preview_resume = service.save_preview(request=request) 
-        print(preview_resume.id)
-        if preview_resume is not None:
-            return render(request, 'builder/resume.html', {
-                'resume': preview_resume,
-                'resume_jobs': preview_resume.resumejob_set.all(),
-                'resume_education': [],
-                'constants': constants
-            })
-    elif request.POST:
-        print('POST')
+    if request.POST:
         try:
             forms = service.save_resume(resume=resume, post_payload=request.POST)
         except:
@@ -51,7 +38,6 @@ def builder_page(request):
             messages.success(request, constants.RESUME_SAVE_SUCCESS)
         else:
             messages.error(request, constants.FORM_ERROR_RESUME)
-
     else:
         forms = service.init_forms_from_resume(resume=resume)
     context = {

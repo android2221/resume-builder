@@ -47,9 +47,9 @@ class AccountService():
         return user
 
     def create_resume(self, user):
-        newResume = Resume(user=user, is_preview=False)
+        newResume = Resume(user=user, is_draft=False)
         newResume.save()
     
     def create_preview_resume(self, user):
-        preview_resume = Resume(user=user, is_preview=True)
+        preview_resume = Resume(user=user, is_draft=True)
         preview_resume.save()
