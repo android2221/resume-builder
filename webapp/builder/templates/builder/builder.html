@@ -295,7 +295,9 @@
                           <!-- end accordion --> 
                           <div class="resume-form-actions">
                             <input class="btn btn-lg btn-outline-primary btn-fw" id="save-button" type="submit" value="{{ constants.RESUME_SAVE_BUTTON }}" formaction="{% url 'builder_page' %}">
-                            <input class="btn btn-lg btn-outline-primary" id="preview-button" type="submit" value="{{ constants.RESUME_PREVIEW_BUTTON }}" formaction="{% url 'builder_page' %}?preview=True">
+                            <a href="{% url 'preview_resume' %}" target="_blank">
+                              <input class="btn btn-lg btn-outline-primary" id="preview-button" type="button" value="{{ constants.RESUME_PREVIEW_BUTTON }}">
+                            </a>
                             <input class="btn btn-lg btn-success btn-fw" id="publish-button" type="submit" value="{{ constants.RESUME_PUBLISH_BUTTON }}" formaction="{% url 'builder_page' %}">
                           </div>
                       </form>
@@ -403,15 +405,6 @@
             }
           }
         });
-    });
-
-    // Send previews to a new window
-    $('#preview-button').click(function(e) {
-      $(this).closest('form').attr('target', '_blank');
-    });
-    $('#save-button').click(function(e) {
-      $(this).closest('form').attr('target', '');
-      return;
     });
 
     // Hide save success / failure banner after 5s

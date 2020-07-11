@@ -137,6 +137,12 @@ i.chevron{
 #builder-form .resume-form-actions .btn{
   display: inline-block;
   font-size: 1rem;
+  cursor: pointer;
+}
+
+#builder-form .resume-form-actions a:hover{
+  cursor: pointer;
+  text-decoration: none;
 }
 
 #builder-form .form-group:last-child{

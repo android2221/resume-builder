@@ -51,7 +51,20 @@ def builder_page(request):
 
 @login_required
 def preview_resume(request):
-    print('hit it')
+    service = ResumeService()
+    preview_resume = service.get_resume_for_user(request.user.id, True)
+    if (preview_resume is None):
+        raise Http404(constants.PAGE_NOT_FOUND)
+    resume_jobs = service.get_resume_jobs_by_id(preview_resume.pk)
+    resume_education = service.get_resume_education_by_id(preview_resume.pk)
+    if preview_resume is not None:
+        return render(request, 'builder/resume.html', {
+            'resume': preview_resume,
+            'resume_jobs': resume_jobs,
+            'resume_education': resume_education,
+            'constants': constants
+        })
+    raise Http404(constants.PAGE_NOT_FOUND)
 
 @login_required
 def toggle_resume_active(request):
