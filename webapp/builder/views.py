@@ -67,6 +67,16 @@ def preview_resume(request):
     raise Http404(constants.PAGE_NOT_FOUND)
 
 @login_required
+def publish_resume(request):
+    service = ResumeService()
+    if request.POST:
+        service.publish_resume_for_user(request.user)
+        #This Eventually might become a JSON / AJAX endpoint
+        return HttpResponseRedirect(reverse('builder_page'))
+
+        
+
+@login_required
 def toggle_resume_active(request):
     service = ResumeService()
     toggle_success = service.toggle_resume_active(request.user, request.POST)

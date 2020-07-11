@@ -11,19 +11,20 @@ class ResumeService():
         try:
             account = Account.objects.get(profile_url=request_profile_url)
             resume = self.get_resume_for_user(account.user.id, is_draft)
-            if resume.is_live is True:
+            draft_resume = self.get_resume_for_user(account.user.id, True)
+            if draft_resume.is_live is True:
                 return resume
         except ObjectDoesNotExist:
             return None
         return None
 
     def get_resume_for_user(self, user_id, is_draft=True):
-        resume = Resume.objects.get(user=user_id, is_draft=is_draft)
-        if not resume:
-            resume = Resume(user=user_id, is_draft=is_draft)
+        try:
+            resume = Resume.objects.get(user_id=user_id, is_draft=is_draft)
+        except ObjectDoesNotExist:
+            resume = Resume(user_id=user_id, is_draft=is_draft)
             resume.save()
-        else:
-            return resume
+        return resume
     
     def get_resume_jobs_by_id(self, resume_id):
         return ResumeJob.objects.filter(resume=resume_id)
@@ -47,6 +48,28 @@ class ResumeService():
         }
         resume.save()
         return forms
+    
+    def publish_resume_for_user(self, user):
+        draft_resume = self.get_resume_for_user(user.id, True)
+        draft_jobs = draft_resume.resumejob_set.all()
+        draft_education = draft_resume.resumeeducation_set.all()
+        current_resume = self.get_resume_for_user(user.id, False)
+        current_resume.delete()
+        new_resume = draft_resume
+        new_resume.is_draft = False
+        new_resume.pk = None
+        new_resume.save()
+        for job in draft_jobs:
+            job.pk = None
+            job.resume = new_resume
+            job.save()
+        for education in draft_education:
+            education.pk = None
+            education.resume = new_resume
+            education.save()
+        
+        # Fix the 'activate resume' to associate it with the draft so it can be copied to a new instance
+        # basically ignore the 'live resume' until now.
 
     def init_resume_detail_form_data(self, resume):
         return { 
@@ -66,7 +89,9 @@ class ResumeService():
         return {'resume_education_section_title': resume.resume_education_section_title}
     
     def init_resume_active_form(self, resume):
-        resume_active_form = {'profile_active': resume.is_live }
+        draft_resume = self.get_resume_for_user(resume.user.id, True)
+        print(draft_resume.is_live)
+        resume_active_form = {'profile_active': draft_resume.is_live }
         return ActivateResumeForm(resume_active_form)
 
     def init_builder_forms(self, user_id):
@@ -111,14 +136,10 @@ class ResumeService():
             return forms
 
     def process_resume_jobs_formset(self, post_payload, resume):
-        print('formset')
         forms = ResumeJobsFormset(post_payload, prefix='resume_job', queryset=ResumeJob.objects.filter(resume=resume.pk))
-        print(forms.errors)
         if forms.is_valid():  
             for form in forms:
-                print(resume.is_draft)
                 if form.has_changed():
-                    print('job saving')
                     resume_job = form.save(commit=False)
                     resume_job.resume = resume
                     resume_job.save()
@@ -145,10 +166,9 @@ class ResumeService():
         form = ActivateResumeForm(payload)
         if form.is_valid():
             try:
-                resume = self.get_resume_for_user(user.id, False)
+                resume = self.get_resume_for_user(user.id, True)
                 resume.is_live = form.cleaned_data["profile_active"]
                 resume.save()
                 return True
             except Exception as e:
-                print(e)
                 return False
