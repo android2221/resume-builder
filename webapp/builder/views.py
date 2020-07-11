@@ -36,10 +36,11 @@ def builder_page(request):
                 break
         if not has_errors:
             messages.success(request, constants.RESUME_SAVE_SUCCESS)
+            return HttpResponseRedirect(reverse('builder_page'))
         else:
             messages.error(request, constants.FORM_ERROR_RESUME)
     else:
-        forms = service.init_forms_from_resume(resume=resume)
+        forms = service.init_builder_forms(user_id=request.user.id)
     context = {
         'forms': forms,
         'resume_is_active': resume.is_live,
@@ -62,7 +63,7 @@ def toggle_resume_active(request):
 
 def view_resume(request, request_profile_url):
     service = ResumeService()
-    resume = service.get_resume_by_profile_url(request_profile_url)
+    resume = service.get_resume_by_profile_url(request_profile_url, False)
     if (resume is None):
         raise Http404(constants.PAGE_NOT_FOUND)
     resume_jobs = service.get_resume_jobs_by_id(resume.pk)

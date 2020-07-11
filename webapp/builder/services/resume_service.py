@@ -7,10 +7,10 @@ from builder.models import ResumeJob, ResumeEducation
 
 class ResumeService():
 
-    def get_resume_by_profile_url(self, request_profile_url):
+    def get_resume_by_profile_url(self, request_profile_url, is_draft):
         try:
             account = Account.objects.get(profile_url=request_profile_url)
-            resume = self.get_resume_for_user(account.user.id)
+            resume = self.get_resume_for_user(account.user.id, is_draft)
             if resume.is_live is True:
                 return resume
         except ObjectDoesNotExist:
@@ -69,14 +69,17 @@ class ResumeService():
         resume_active_form = {'profile_active': resume.is_live }
         return ActivateResumeForm(resume_active_form)
 
-    def init_forms_from_resume(self, resume):
+    def init_builder_forms(self, user_id):
+        draft_resume = self.get_resume_for_user(user_id, True)
+        live_resume = self.get_resume_for_user(user_id, False)
+
         return {
-            'activate_profile_form': self.init_resume_active_form(resume),
-            'resume_details_form': ResumeDetailsForm(self.init_resume_detail_form_data(resume)),
-            'resume_jobs_section_title_form': ResumeJobsSectionTitleForm(self.init_resume_jobs_section_title_form(resume)),
-            'resume_education_section_title_form': ResumeEducationSectionTitleForm(self.init_resume_education_section_title_form(resume)),
-            'resume_jobs_formset': ResumeJobsFormset(queryset=ResumeJob.objects.filter(resume=resume.pk), prefix='resume_job'),
-            'resume_education_formset': ResumeEducationFormset(queryset=ResumeEducation.objects.filter(resume=resume.pk), prefix='resume_education')
+            'activate_profile_form': self.init_resume_active_form(live_resume),
+            'resume_details_form': ResumeDetailsForm(self.init_resume_detail_form_data(draft_resume)),
+            'resume_jobs_section_title_form': ResumeJobsSectionTitleForm(self.init_resume_jobs_section_title_form(draft_resume)),
+            'resume_education_section_title_form': ResumeEducationSectionTitleForm(self.init_resume_education_section_title_form(draft_resume)),
+            'resume_jobs_formset': ResumeJobsFormset(queryset=ResumeJob.objects.filter(resume=draft_resume.pk), prefix='resume_job'),
+            'resume_education_formset': ResumeEducationFormset(queryset=ResumeEducation.objects.filter(resume=draft_resume.pk), prefix='resume_education')
             }
         
     def process_resume_education_section_title_form(self, post_payload, resume):
@@ -96,7 +99,7 @@ class ResumeService():
             return form
 
     def process_resume_education_formset(self, post_payload, resume):
-        forms = ResumeEducationFormset(post_payload, prefix='resume_education')
+        forms = ResumeEducationFormset(post_payload, prefix='resume_education', queryset=ResumeEducation.objects.filter(resume=resume.pk))
         if forms.is_valid():
             for form in forms:
                 if form.has_changed():
@@ -109,7 +112,7 @@ class ResumeService():
 
     def process_resume_jobs_formset(self, post_payload, resume):
         print('formset')
-        forms = ResumeJobsFormset(post_payload, prefix='resume_job', queryset=resume.resumejob_set.all())
+        forms = ResumeJobsFormset(post_payload, prefix='resume_job', queryset=ResumeJob.objects.filter(resume=resume.pk))
         print(forms.errors)
         if forms.is_valid():  
             for form in forms:
@@ -142,7 +145,7 @@ class ResumeService():
         form = ActivateResumeForm(payload)
         if form.is_valid():
             try:
-                resume = self.get_resume_for_user(user.id)
+                resume = self.get_resume_for_user(user.id, False)
                 resume.is_live = form.cleaned_data["profile_active"]
                 resume.save()
                 return True
