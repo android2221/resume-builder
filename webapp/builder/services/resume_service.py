@@ -87,7 +87,6 @@ class ResumeService():
     
     def init_resume_active_form(self, resume):
         draft_resume = self.get_resume_for_user(resume.user.id, True)
-        print(draft_resume.is_live)
         resume_active_form = {'profile_active': draft_resume.is_live }
         return ActivateResumeForm(resume_active_form)
 
@@ -122,24 +121,30 @@ class ResumeService():
 
     def process_resume_education_formset(self, post_payload, resume):
         forms = ResumeEducationFormset(post_payload, prefix='resume_education', queryset=ResumeEducation.objects.filter(resume=resume.pk))
+        forms.save(commit=False)
         if forms.is_valid():
             for form in forms:
                 if form.has_changed():
                     resume_education = form.save(commit=False)
                     resume_education.resume = resume
                     resume_education.save()
+            for obj in forms.deleted_objects:
+                obj.delete()
             return ResumeEducationFormset(queryset=ResumeEducation.objects.filter(resume=resume.pk), prefix='resume_education')
         else:    
             return forms
 
     def process_resume_jobs_formset(self, post_payload, resume):
         forms = ResumeJobsFormset(post_payload, prefix='resume_job', queryset=ResumeJob.objects.filter(resume=resume.pk))
+        forms.save(commit=False)
         if forms.is_valid():  
             for form in forms:
                 if form.has_changed():
                     resume_job = form.save(commit=False)
                     resume_job.resume = resume
                     resume_job.save()
+            for obj in forms.deleted_objects:
+                obj.delete()
             return ResumeJobsFormset(queryset=ResumeJob.objects.filter(resume=resume.pk), prefix='resume_job')
         else:
             return forms

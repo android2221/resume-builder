@@ -86,11 +86,13 @@ ResumeEducationFormset = modelformset_factory(
     ResumeEducation,
     fields=('education_title', 'institution_name', 'start_date', 'end_date', 'education_description'),
     form=ResumeEducationFormsetForm,
-    validate_min=True
+    validate_min=True,
+    can_delete=True
 )
 
 ResumeJobsFormset = modelformset_factory(
     ResumeJob,
     form=ResumeJobFormsetForm,
-    validate_min=True
+    validate_min=True,
+    can_delete=True
 )
