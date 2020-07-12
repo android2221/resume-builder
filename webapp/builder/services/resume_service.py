@@ -67,9 +67,6 @@ class ResumeService():
             education.pk = None
             education.resume = new_resume
             education.save()
-        
-        # Fix the 'activate resume' to associate it with the draft so it can be copied to a new instance
-        # basically ignore the 'live resume' until now.
 
     def init_resume_detail_form_data(self, resume):
         return { 
