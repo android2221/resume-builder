@@ -71,10 +71,8 @@ def publish_resume(request):
     service = ResumeService()
     if request.POST:
         service.publish_resume_for_user(request.user)
-        #This Eventually might become a JSON / AJAX endpoint
+        messages.success(request, constants.RESUME_PUBLISHED_SUCCESS)
         return HttpResponseRedirect(reverse('builder_page'))
-
-        
 
 @login_required
 def toggle_resume_active(request):

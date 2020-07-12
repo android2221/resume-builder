@@ -39,13 +39,16 @@ NO_ACCOUNT_MESSAGE = "Don't have an account?"
 HAVE_ACCOUNT_MESSAGE = "Already have an account?"
 FORGOT_PASSWORD_MESSAGE = "Forgot your password?"
 RESUME_PREVIEW_MESSAGE = "You are viewing a preview of your resume"
-RESUME_SAVE_SUCCESS = "Resume saved!"
+RESUME_SAVE_SUCCESS = "Resume saved successfully!"
+RESUME_PUBLISHED_SUCCESS = "Resume published successfully!"
 PASSWORD_CHANGE_SUCCESS = "Password changed successfully!"
 
 # BUTTONS
 RESUME_SAVE_BUTTON = 'Save Resume'
 RESUME_PREVIEW_BUTTON = 'Preview Resume'
 RESUME_PUBLISH_BUTTON = 'Publish Resume'
+DELETE_JOB_BUTTON = 'Delete Experience'
+DELETE_EDUCATION_BUTTON = 'Delete Education'
 
 # Classes
 INPUT_STYLE_NAME = 'form-control'
