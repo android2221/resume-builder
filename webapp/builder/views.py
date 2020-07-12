@@ -70,6 +70,7 @@ def preview_resume(request):
 def publish_resume(request):
     service = ResumeService()
     if request.POST:
+        # TODO: Handle Failure
         service.publish_resume_for_user(request.user)
         messages.success(request, constants.RESUME_PUBLISHED_SUCCESS)
         return HttpResponseRedirect(reverse('builder_page'))

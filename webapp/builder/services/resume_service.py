@@ -33,21 +33,25 @@ class ResumeService():
         return ResumeEducation.objects.filter(resume=resume_id)
 
     def save_resume(self, resume, post_payload):
-        resume_details_form = self.process_resume_detail_form(post_payload, resume)
-        resume_jobs_formset = self.process_resume_jobs_formset(post_payload, resume)
-        resume_education_formset = self.process_resume_education_formset(post_payload, resume)
-        resume_jobs_section_title_form = self.process_resume_section_title_form(post_payload, resume)
-        resume_education_section_title_form = self.process_resume_education_section_title_form(post_payload, resume)
-        forms = {
-            'resume_details_form': resume_details_form,
-            'resume_jobs_formset': resume_jobs_formset,
-            'resume_education_formset': resume_education_formset,
-            'resume_jobs_section_title_form': resume_jobs_section_title_form,
-            'resume_education_section_title_form': resume_education_section_title_form,
-            'activate_profile_form': self.init_resume_active_form(resume)
-        }
-        resume.save()
-        return forms
+        try:
+            resume_details_form = self.process_resume_detail_form(post_payload, resume)
+            resume_jobs_formset = self.process_resume_jobs_formset(post_payload, resume)
+            resume_education_formset = self.process_resume_education_formset(post_payload, resume)
+            resume_jobs_section_title_form = self.process_resume_section_title_form(post_payload, resume)
+            resume_education_section_title_form = self.process_resume_education_section_title_form(post_payload, resume)
+            forms = {
+                'resume_details_form': resume_details_form,
+                'resume_jobs_formset': resume_jobs_formset,
+                'resume_education_formset': resume_education_formset,
+                'resume_jobs_section_title_form': resume_jobs_section_title_form,
+                'resume_education_section_title_form': resume_education_section_title_form,
+                'activate_profile_form': self.init_resume_active_form(resume)
+            }
+            resume.save()
+            return forms
+        except Exception as e:
+            print(e)
+            
     
     def publish_resume_for_user(self, user):
         draft_resume = self.get_resume_for_user(user.id, True)
@@ -120,15 +124,18 @@ class ResumeService():
             return form
 
     def process_resume_education_formset(self, post_payload, resume):
+        print('hit resume processing')
         forms = ResumeEducationFormset(post_payload, prefix='resume_education', queryset=ResumeEducation.objects.filter(resume=resume.pk))
-        forms.save(commit=False)
+        print('forms saved')
         if forms.is_valid():
+            forms.save(commit=False)
             for form in forms:
                 if form.has_changed():
+                    print(form)
                     resume_education = form.save(commit=False)
                     resume_education.resume = resume
                     resume_education.save()
-            for obj in forms.deleted_objects:
+            for obj in forms.deleted_objects:   
                 obj.delete()
             return ResumeEducationFormset(queryset=ResumeEducation.objects.filter(resume=resume.pk), prefix='resume_education')
         else:    
@@ -136,10 +143,11 @@ class ResumeService():
 
     def process_resume_jobs_formset(self, post_payload, resume):
         forms = ResumeJobsFormset(post_payload, prefix='resume_job', queryset=ResumeJob.objects.filter(resume=resume.pk))
-        forms.save(commit=False)
         if forms.is_valid():  
+            forms.save(commit=False)
             for form in forms:
                 if form.has_changed():
+                    print(form)
                     resume_job = form.save(commit=False)
                     resume_job.resume = resume
                     resume_job.save()
