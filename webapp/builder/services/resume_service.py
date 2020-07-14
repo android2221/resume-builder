@@ -124,14 +124,11 @@ class ResumeService():
             return form
 
     def process_resume_education_formset(self, post_payload, resume):
-        print('hit resume processing')
         forms = ResumeEducationFormset(post_payload, prefix='resume_education', queryset=ResumeEducation.objects.filter(resume=resume.pk))
-        print('forms saved')
         if forms.is_valid():
             forms.save(commit=False)
             for form in forms:
                 if form.has_changed():
-                    print(form)
                     resume_education = form.save(commit=False)
                     resume_education.resume = resume
                     resume_education.save()
@@ -147,7 +144,6 @@ class ResumeService():
             forms.save(commit=False)
             for form in forms:
                 if form.has_changed():
-                    print(form)
                     resume_job = form.save(commit=False)
                     resume_job.resume = resume
                     resume_job.save()
