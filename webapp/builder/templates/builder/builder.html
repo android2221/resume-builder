@@ -132,6 +132,11 @@
                                         data-target="#job-dropdown-{{ form.prefix }}" 
                                         aria-expanded="false" 
                                         aria-controls="job-dropdown-{{ form.prefix }}">
+                                        <div class="deleted-overlay header">
+                                          <div class="deleted-message">
+                                            This item has been deleted, open to restore.
+                                          </div>
+                                        </div>
                                         <h5>
                                           <strong>Position:</strong> {{ form.instance.position_title }} {% if form.instance.company_name %} | {{ form.instance.company_name}} {% endif %} 
                                         </h5>
@@ -141,6 +146,11 @@
                                       aria-labelledby="{{ form.prefix }}-header" 
                                       data-parent="#accordion-resume-jobs">
                                         <div class="card-body">
+                                          <div class="deleted-overlay item-body">
+                                            <div class="deleted-message">
+                                              Test
+                                            </div>
+                                          </div>
                                           {{ form.id }}
                                           {% for field in form.visible_fields %}
                                           <div class="form-group{% if field.errors %} has-errors{% endif %}">
@@ -426,7 +436,6 @@
 
     // Delete Item Checkbox and add styles
     $('.delete-button').click(function(){
-      // Toggle checkbox
       var clickedId = $(this).attr('data-id');
       var deleteId = '#id_' + clickedId + '-DELETE';
       var deleteCb = $(deleteId);
@@ -441,9 +450,6 @@
         $(cardId).addClass("deleted");
         console.log(cardId);
       }
-
-      // add styles
-
     });
 
 </script>

@@ -121,6 +121,7 @@ label[for=id_content]{
 
 .card-header{
   cursor: pointer;
+  position: relative;
 }
 
 i.chevron{
@@ -196,6 +197,46 @@ i.chevron{
 
 #builder-container .section-has-errors,
 #builder-conatiner .has-errors,
-.has-errors input {
+.has-errors input,
+.card.deleted .item-body,
+.card.deleted .card-header{
   border: 1px solid rgba(255, 0, 0, 0.5);
 }
+
+.card.deleted .item-body{
+  border-top: none;
+}
+
+#builder-form .deleted-overlay{
+  display: none;
+  background-color: #ffffff94;
+  width: 100%;
+  text-align: center;
+  color: red;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0; 
+  position: absolute;
+  text-align: center;
+}
+
+#builder-form .deleted .deleted-overlay{
+  display: block;
+  z-index: 2;
+}
+
+#builder-form .deleted-overlay .deleted-message{
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  width: 100%;
+  text-align: center;
+}
+
+#builder-form .card-body{
+  position: relative;
+}
+
