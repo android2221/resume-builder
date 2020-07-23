@@ -134,8 +134,9 @@
                                         aria-controls="job-dropdown-{{ form.prefix }}">
                                         <div class="deleted-overlay header">
                                           <div class="deleted-message">
-                                            This item has been deleted, open to restore.
+                                            <strong>This item has been deleted</strong>
                                           </div>
+                                          <button type="button" class="btn btn-primary restore-button">Restore Item <i class="fa fa-trash-o"></i></button>
                                         </div>
                                         <h5>
                                           <strong>Position:</strong> {{ form.instance.position_title }} {% if form.instance.company_name %} | {{ form.instance.company_name}} {% endif %} 
@@ -147,9 +148,7 @@
                                       data-parent="#accordion-resume-jobs">
                                         <div class="card-body">
                                           <div class="deleted-overlay item-body">
-                                            <div class="deleted-message">
-                                              Test
-                                            </div>
+                                            <button type="button" class="btn btn-primary restore-button body">Restore Item <i class="fa fa-trash-o"></i></button>
                                           </div>
                                           {{ form.id }}
                                           {% for field in form.visible_fields %}
@@ -165,7 +164,7 @@
                                     
                                           {% endfor %}
                                           <div class="delete-button-container">
-                                            <input class="btn btn-lg btn-danger delete-button" data-id="{{ form.prefix }}" type="button" value="{{ constants.DELETE_JOB_BUTTON }}">
+                                            <button class="btn btn-lg btn-danger delete-button" data-id="{{ form.prefix }}" type="button">{{ constants.DELETE_JOB_BUTTON }}<i class="fa fa-trash"></i></button>
                                           </div>
                                         </div>
                                       </div>

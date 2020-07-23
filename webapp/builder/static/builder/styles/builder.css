@@ -209,7 +209,7 @@ i.chevron{
 
 #builder-form .deleted-overlay{
   display: none;
-  background-color: #ffffff94;
+  background-color: #ffffffce;
   width: 100%;
   text-align: center;
   color: red;
@@ -222,6 +222,10 @@ i.chevron{
   text-align: center;
 }
 
+#builder-form .card-header .deleted-overlay{
+  background-color: #ffffff;
+}
+
 #builder-form .deleted .deleted-overlay{
   display: block;
   z-index: 2;
@@ -232,7 +236,10 @@ i.chevron{
   top: 50%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-  width: 100%;
+  left: 30px;
+}
+
+#builder-form .card-body .deleted-overlay{
   text-align: center;
 }
 
@@ -240,3 +247,16 @@ i.chevron{
   position: relative;
 }
 
+#builder-form .restore-button{
+  font-size: 1rem;
+}
+
+#builder-form .card-header .restore-button{
+  float: right;
+  margin-right: 30px;
+  margin-top: 25px;
+}
+
+#builder-form .restore-button.body{
+  margin-top: 50px;
+}
