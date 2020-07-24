@@ -269,3 +269,7 @@ i.chevron{
   margin-left: 10px;
   font-size: 1rem;
 }
+
+.form-group#DELETE{
+  display: none;
+}
