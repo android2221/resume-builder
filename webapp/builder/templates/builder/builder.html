@@ -181,7 +181,7 @@
                                       {{ form.id }}
                                       <div class="new-item-header">New Experience</div>
                                       {% for field in form.visible_fields %}
-                                      <div class="form-group{% if field.errors %} has-errors{% endif %}">
+                                      <div class="form-group{% if field.errors %} has-errors{% endif %}" id="{{ field.name }}">
                                         <div class="input-group">
                                           <div class="field-label">
                                             {{ field.label }}
@@ -241,22 +241,30 @@
                                       <div class="card-header" 
                                         id="{{ form.prefix }}-header" 
                                         data-toggle="collapse" 
-                                        data-target="#education-dropdown-{{ form.prefix }}" 
+                                        data-target="#dropdown-{{ form.prefix }}" 
                                         aria-expanded="false" 
-                                        aria-controls="education-dropdown-{{ form.prefix }}">
+                                        aria-controls="dropdown-{{ form.prefix }}">
+                                        <div class="deleted-overlay header">
+                                          <div class="deleted-message">
+                                            <strong>This item will be deleted on save</strong>
+                                          </div>
+                                          <button type="button" class="btn btn-primary restore-button" data-id="{{ form.prefix }}">Restore Item <i class="fa fa-trash-o"></i></button>
+                                        </div>
                                         <h5>
                                           <strong>Education:</strong> {{ form.instance.institution_name }} {% if form.instance.education_title %} | {{ form.instance.education_title }} {% endif %} 
                                         </h5>
                                         <i class="fa fa-chevron-down chevron"></i>
                                       </div>
-                                      <div id="education-dropdown-{{ form.prefix }}" 
-                                        class="collapse {% if form.errors %}show{% endif %}" 
-                                        aria-labelledby="{{ form.prefix }}-header" 
-                                        data-parent="#accordion-resume-education">
+                                      <div id="dropdown-{{ form.prefix }}" class="collapse {% if form.errors %}show{% endif %}" 
+                                      aria-labelledby="{{ form.prefix }}-header" 
+                                      data-parent="#accordion-resume-jobs">
                                         <div class="card-body">
+                                          <div class="deleted-overlay item-body">
+                                            <button type="button" class="btn btn-primary restore-button body" data-id="{{ form.prefix }}">Restore Item <i class="fa fa-trash-o"></i></button>
+                                          </div>
                                           {{ form.id }}
                                           {% for field in form.visible_fields %}
-                                          <div class="form-group{% if field.errors %} has-errors{% endif %}">
+                                          <div class="form-group{% if field.errors %} has-errors{% endif %}" id="{{ field.name }}">
                                             <div class="input-group">
                                               <div class="field-label">
                                                 {{ field.label }}
@@ -267,7 +275,7 @@
                                           </div>                                    
                                           {% endfor %}
                                           <div class="delete-button-container">
-                                            <input class="btn btn-lg btn-danger delete-button" data-id="{{ form.prefix }}" type="button" value="{{ constants.DELETE_EDUCATION_BUTTON }}">
+                                            <button class="btn btn-lg btn-danger delete-button" data-id="{{ form.prefix }}" type="button">{{ constants.DELETE_EDUCATION_BUTTON }}<i class="fa fa-trash"></i></button>
                                           </div>
                                         </div>
                                       </div>
@@ -276,14 +284,14 @@
 
                                     <div class="new-item-button" 
                                       data-toggle="collapse" 
-                                      data-target="#education-dropdown-{{ form.prefix }}" 
+                                      data-target="#dropdown-{{ form.prefix }}" 
                                       aria-expanded="false" 
-                                      aria-controls="education-dropdown-{{ form.prefix }}">
+                                      aria-controls="dropdown-{{ form.prefix }}">
                                       <i class="fa fa-plus-circle icon-sm"></i>
                                       <div class="new-item-text">Add Educational Milestone</div>
                                     </div>
 
-                                    <div id="education-dropdown-{{ form.prefix }}" class="collapse blue-outline {% if form.errors %}show section-has-errors{% endif %}new-item" 
+                                    <div id="dropdown-{{ form.prefix }}" class="collapse blue-outline {% if form.errors %}show section-has-errors{% endif %}new-item" 
                                     aria-labelledby="{{ form.prefix }}-header" data-parent="#accordion-resume-education">
                                       {{ form.id }}
                                       <div class="new-item-header">New Educational Milestone</div>
