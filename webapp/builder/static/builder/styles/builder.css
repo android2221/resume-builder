@@ -129,6 +129,7 @@ i.chevron{
   top: 32px;
   right: 30px;
   transition: .25s ease-in-out;
+  z-index: 5;
 }
 
 .card-header[aria-expanded=true] i.chevron{
@@ -253,10 +254,18 @@ i.chevron{
 
 #builder-form .card-header .restore-button{
   float: right;
-  margin-right: 30px;
+  margin-right: 60px;
   margin-top: 25px;
+  position: relative;
+  z-index: 5;
 }
 
 #builder-form .restore-button.body{
   margin-top: 50px;
+}
+
+#builder-form .delete-button i,
+#builder-form .restore-button i{
+  margin-left: 10px;
+  font-size: 1rem;
 }

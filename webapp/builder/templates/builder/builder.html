@@ -129,30 +129,30 @@
                                       <div class="card-header" 
                                         id="{{ form.prefix }}-header" 
                                         data-toggle="collapse" 
-                                        data-target="#job-dropdown-{{ form.prefix }}" 
+                                        data-target="#dropdown-{{ form.prefix }}" 
                                         aria-expanded="false" 
-                                        aria-controls="job-dropdown-{{ form.prefix }}">
+                                        aria-controls="dropdown-{{ form.prefix }}">
                                         <div class="deleted-overlay header">
                                           <div class="deleted-message">
-                                            <strong>This item has been deleted</strong>
+                                            <strong>This item will be deleted on save</strong>
                                           </div>
-                                          <button type="button" class="btn btn-primary restore-button">Restore Item <i class="fa fa-trash-o"></i></button>
+                                          <button type="button" class="btn btn-primary restore-button" data-id="{{ form.prefix }}">Restore Item <i class="fa fa-trash-o"></i></button>
                                         </div>
                                         <h5>
                                           <strong>Position:</strong> {{ form.instance.position_title }} {% if form.instance.company_name %} | {{ form.instance.company_name}} {% endif %} 
                                         </h5>
                                         <i class="fa fa-chevron-down chevron"></i>
                                       </div>
-                                      <div id="job-dropdown-{{ form.prefix }}" class="collapse {% if form.errors %}show{% endif %}" 
+                                      <div id="dropdown-{{ form.prefix }}" class="collapse {% if form.errors %}show{% endif %}" 
                                       aria-labelledby="{{ form.prefix }}-header" 
                                       data-parent="#accordion-resume-jobs">
                                         <div class="card-body">
                                           <div class="deleted-overlay item-body">
-                                            <button type="button" class="btn btn-primary restore-button body">Restore Item <i class="fa fa-trash-o"></i></button>
+                                            <button type="button" class="btn btn-primary restore-button body" data-id="{{ form.prefix }}">Restore Item <i class="fa fa-trash-o"></i></button>
                                           </div>
                                           {{ form.id }}
                                           {% for field in form.visible_fields %}
-                                          <div class="form-group{% if field.errors %} has-errors{% endif %}">
+                                          <div class="form-group{% if field.errors %} has-errors{% endif %}" id="{{ field.name }}">
                                             <div class="input-group">
                                               <div class="field-label">
                                                 {{ field.label }}
@@ -160,8 +160,7 @@
                                               {{ field }}
                                               {{ field.errors }}
                                             </div>
-                                          </div>
-                                    
+                                          </div>                                    
                                           {% endfor %}
                                           <div class="delete-button-container">
                                             <button class="btn btn-lg btn-danger delete-button" data-id="{{ form.prefix }}" type="button">{{ constants.DELETE_JOB_BUTTON }}<i class="fa fa-trash"></i></button>
@@ -171,12 +170,12 @@
                                     </div>
 
                                     {% else %}
-                                    <div class="new-item-button" data-toggle="collapse" data-target="#job-dropdown-{{ form.prefix }}" aria-expanded="false" aria-controls="jobs-dropdown-{{ form.prefix }}">
+                                    <div class="new-item-button" data-toggle="collapse" data-target="#dropdown-{{ form.prefix }}" aria-expanded="false" aria-controls="jobs-dropdown-{{ form.prefix }}">
                                       <i class="fa fa-plus-circle icon-sm"></i>
                                       <div class="new-item-text">Add Experience</div>
                                     </div>
 
-                                    <div id="job-dropdown-{{ form.prefix }}" class="collapse blue-outline new-item {% if form.errors %}show section-has-errors{% endif %}" 
+                                    <div id="dropdown-{{ form.prefix }}" class="collapse blue-outline new-item {% if form.errors %}show section-has-errors{% endif %}" 
                                     aria-labelledby="{{ form.prefix }}-header" 
                                     data-parent="#accordion-resume-jobs">
                                       {{ form.id }}
@@ -439,6 +438,25 @@
       var deleteId = '#id_' + clickedId + '-DELETE';
       var deleteCb = $(deleteId);
       var cardId = '#' + clickedId + '-card';
+      var dropdown = '#dropdown-' + clickedId;
+      var itemCard = $(cardId);
+      
+      if (deleteCb.prop('checked') == true){
+        deleteCb.prop('checked', false);
+        $(cardId).removeClass("deleted");
+      } else{
+        deleteCb.prop('checked', true);
+        $(cardId).addClass("deleted");
+        $(dropdown).collapse('hide');
+      }
+    });
+
+    // Restore button remove styles
+    $('.restore-button').click(function(event){
+      var clickedId = $(this).attr('data-id');
+      var deleteId = '#id_' + clickedId + '-DELETE';
+      var deleteCb = $(deleteId);
+      var cardId = '#' + clickedId + '-card';
       var itemCard = $(cardId);
       
       if (deleteCb.prop('checked') == true){
@@ -449,7 +467,9 @@
         $(cardId).addClass("deleted");
         console.log(cardId);
       }
+      event.stopPropagation();
     });
+    
 
 </script>
 {% endblock %}
