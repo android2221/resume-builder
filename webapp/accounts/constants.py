@@ -49,6 +49,11 @@ RESUME_PREVIEW_BUTTON = 'Preview Resume'
 RESUME_PUBLISH_BUTTON = 'Publish Resume'
 DELETE_JOB_BUTTON = 'Delete Experience'
 DELETE_EDUCATION_BUTTON = 'Delete Education'
+REORDER_ITEMS = 'Edit Item Order'
 
 # Classes
 INPUT_STYLE_NAME = 'form-control'
+
+# Modals
+RESUME_JOB_ORDER_TITLE = 'Change Experience Order'
+RESUME_EDUCATION_ORDER_TITLE = 'Change Education Order'

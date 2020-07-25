@@ -372,6 +372,41 @@
     </div>
 
   </div>
+ 
+  <!-- MODALS -->
+
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#job-order-modal">
+    Launch demo modal
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="job-order-modal" tabindex="-1" role="dialog" aria-labelledby="job-order-modal-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="job-order-modal-label">{{ constants.RESUME_JOB_ORDER_TITLE}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="reorder-items resume-items">
+            {% for form in forms.resume_jobs_formset %}
+            {% if form.instance.position_title %}
+              <div class="resume-reorder-item">{{ form.instance.position_title }} {% if form.instance.company_name %} | {{ form.instance.company_name}} {% endif %} </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Modals -->
 
 </div>
 
