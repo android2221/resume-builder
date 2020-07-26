@@ -522,8 +522,16 @@
       {
         stop: function(event, ui){
           var itemOrder = $(this).sortable('toArray');
-          console.log('the array');
-          console.log(itemOrder);
+          
+          itemOrder.forEach(function(element, i){
+            var orderItem = $('#' + element);
+            var formTargetItem = orderItem.attr('data-form-target');
+            console.log(formTargetItem);
+            console.log('#id_' + formTargetItem);
+            console.log($('#id_' + formTargetItem));
+            console.log(i);
+            $('#id_' + formTargetItem).attr('value', i);
+          });
         }
       });
     
