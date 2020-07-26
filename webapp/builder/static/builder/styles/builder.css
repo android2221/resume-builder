@@ -273,3 +273,10 @@ i.chevron{
 .form-group#DELETE{
   display: none;
 }
+
+.reorder-items div{
+  padding: 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}

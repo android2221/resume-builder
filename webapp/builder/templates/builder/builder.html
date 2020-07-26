@@ -391,10 +391,14 @@
           </button>
         </div>
         <div class="modal-body">
-          <div class="reorder-items resume-items">
+          <div class="reorder-items resume-items sortable">
             {% for form in forms.resume_jobs_formset %}
             {% if form.instance.position_title %}
-              <div class="resume-reorder-item">{{ form.instance.position_title }} {% if form.instance.company_name %} | {{ form.instance.company_name}} {% endif %} </div>
+              <div id="{{ form.prefix }}-sortable-item" 
+                class="resume-reorder-item card" 
+                data-form-target="{{ form.prefix }}-ORDER">
+                  {{ form.instance.position_title }} {% if form.instance.company_name %} | {{ form.instance.company_name}} {% endif %}
+              </div>
             {% endif %}
             {% endfor %}
           </div>
@@ -512,6 +516,16 @@
       }
       event.stopPropagation();
     });
+  
+    // handle sortables
+    $('.sortable').sortable(
+      {
+        stop: function(event, ui){
+          var itemOrder = $(this).sortable('toArray');
+          console.log('the array');
+          console.log(itemOrder);
+        }
+      });
     
 
 </script>
