@@ -391,7 +391,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <div class="reorder-items resume-items sortable">
+          <div class="reorder-items resume-items sortable" data-sortable-id="resume-jobs-sortable">
             {% for form in forms.resume_jobs_formset %}
             {% if form.instance.position_title %}
               <div id="{{ form.prefix }}-sortable-item" 
@@ -405,7 +405,13 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button 
+            type="button" 
+            class="btn btn-primary" 
+            data-button-type="save-resume"
+            data-sortable-target="resume-jobs-sortable">
+              {{ constants.RESUME_SAVE_BUTTON }}
+          </button>
         </div>
       </div>
     </div>
@@ -435,7 +441,14 @@
       } else{
         notLiveIndicator.addClass('show');
       }
-      // End init slider
+
+    // init sortables
+    $('.sortable').sortable(
+      {
+        // stop: function(event, ui){
+        //   var itemOrder = $(this).sortable('toArray');
+        // }
+      });
     });
 
     slider.click(function(){
@@ -516,24 +529,30 @@
       }
       event.stopPropagation();
     });
-  
-    // handle sortables
-    $('.sortable').sortable(
-      {
-        stop: function(event, ui){
-          var itemOrder = $(this).sortable('toArray');
-          
-          itemOrder.forEach(function(element, i){
-            var orderItem = $('#' + element);
-            var formTargetItem = orderItem.attr('data-form-target');
-            console.log(formTargetItem);
-            console.log('#id_' + formTargetItem);
-            console.log($('#id_' + formTargetItem));
-            console.log(i);
-            $('#id_' + formTargetItem).attr('value', i);
-          });
-        }
-      });
+
+    // Handle save on re-order modals
+    $('[data-button-type]').click(function(){
+      var target = $(this).attr('data-sortable-target');
+      var selector = `[data-sortable-id="${target}"]`;
+      var itemOrder = $(selector).sortable('toArray');
+
+      console.log(itemOrder);
+      // // Set values on form
+      //   itemOrder.forEach(function(element, i){
+      //     var orderItem = $('#' + element);
+      //     var formTargetItem = orderItem.attr('data-form-target');
+      //     console.log(formTargetItem);
+      //     console.log('#id_' + formTargetItem);
+      //     console.log($('#id_' + formTargetItem));
+      //     console.log(i);
+      //     $('#id_' + formTargetItem).attr('value', i);
+      //   });
+
+      // // Trigger resume save
+    });
+
+
+
     
 
 </script>
