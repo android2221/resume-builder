@@ -27,10 +27,10 @@ class ResumeService():
         return resume
     
     def get_resume_jobs_by_id(self, resume_id):
-        return ResumeJob.objects.filter(resume=resume_id)
+        return ResumeJob.objects.filter(resume=resume_id).order_by('resume_position')
     
     def get_resume_education_by_id(self, resume_id):
-        return ResumeEducation.objects.filter(resume=resume_id)
+        return ResumeEducation.objects.filter(resume=resume_id).order_by('resume_position')
 
     def save_resume(self, resume, post_payload):
         try:
@@ -82,7 +82,7 @@ class ResumeService():
             'current_skills_section_title': resume.current_skills_section_title,
             'current_skills': resume.current_skills
         }
-    
+        
     def init_resume_jobs_section_title_form(self, resume):
         return {'resume_jobs_section_title': resume.resume_jobs_section_title}
     
@@ -103,8 +103,8 @@ class ResumeService():
             'resume_details_form': ResumeDetailsForm(self.init_resume_detail_form_data(draft_resume)),
             'resume_jobs_section_title_form': ResumeJobsSectionTitleForm(self.init_resume_jobs_section_title_form(draft_resume)),
             'resume_education_section_title_form': ResumeEducationSectionTitleForm(self.init_resume_education_section_title_form(draft_resume)),
-            'resume_jobs_formset': ResumeJobsFormset(queryset=ResumeJob.objects.filter(resume=draft_resume.pk), prefix='resume_job'),
-            'resume_education_formset': ResumeEducationFormset(queryset=ResumeEducation.objects.filter(resume=draft_resume.pk), prefix='resume_education')
+            'resume_jobs_formset': ResumeJobsFormset(queryset=ResumeJob.objects.filter(resume=draft_resume.pk).order_by('resume_position'), prefix='resume_job'),
+            'resume_education_formset': ResumeEducationFormset(queryset=ResumeEducation.objects.filter(resume=draft_resume.pk).order_by('resume_position'), prefix='resume_education')
             }
         
     def process_resume_education_section_title_form(self, post_payload, resume):
@@ -131,6 +131,7 @@ class ResumeService():
                 if form.has_changed():
                     resume_education = form.save(commit=False)
                     resume_education.resume = resume
+                    resume_education.resume_position = form.cleaned_data['ORDER']
                     resume_education.save()
             for obj in forms.deleted_objects:   
                 obj.delete()
@@ -146,6 +147,7 @@ class ResumeService():
                 if form.has_changed():
                     resume_job = form.save(commit=False)
                     resume_job.resume = resume
+                    resume_job.resume_position = form.cleaned_data['ORDER']
                     resume_job.save()
             for obj in forms.deleted_objects:
                 obj.delete()

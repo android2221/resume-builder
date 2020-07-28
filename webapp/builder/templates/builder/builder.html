@@ -4,6 +4,7 @@
 {% block template_head_inserts %}
 <script src="{% static 'builder/vendor/tinymce/js/tinymce/tinymce.min.js' %}"></script>
 <script src="{% static 'builder/vendor/jqueryUI/jquery-ui.min.js' %}"></script>
+<script src="{% static 'builder/vendor/touch-punch/touch-punch.min.js' %}"></script>
 
 <link rel="stylesheet" href="{% static 'builder/styles/builder.css' %}">
 <link rel="stylesheet" href="{% static 'builder/vendor/jqueryUI/jquery-ui.min.css' %}">
@@ -537,23 +538,17 @@
       var itemOrder = $(selector).sortable('toArray');
 
       console.log(itemOrder);
-      // // Set values on form
-      //   itemOrder.forEach(function(element, i){
-      //     var orderItem = $('#' + element);
-      //     var formTargetItem = orderItem.attr('data-form-target');
-      //     console.log(formTargetItem);
-      //     console.log('#id_' + formTargetItem);
-      //     console.log($('#id_' + formTargetItem));
-      //     console.log(i);
-      //     $('#id_' + formTargetItem).attr('value', i);
-      //   });
+      // Set values on form
+        itemOrder.forEach(function(element, i){
+          var orderItem = $('#' + element);
+          var formTargetItem = orderItem.attr('data-form-target');
+          $('#id_' + formTargetItem).attr('value', i + 1);
+        });
 
-      // // Trigger resume save
+      // Trigger resume save
+      $('#builder-form').submit()
     });
 
-
-
     
-
 </script>
 {% endblock %}
