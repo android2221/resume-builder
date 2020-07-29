@@ -280,3 +280,12 @@ i.chevron{
   margin-bottom: 5px;
   cursor: pointer;
 }
+
+#builder-form .reorder-button{
+  float: right;
+  margin-bottom: 20px;
+}
+
+.modal-content .close{
+  padding: 1.6rem 2.2rem;
+}

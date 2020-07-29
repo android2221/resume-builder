@@ -108,6 +108,14 @@
                                 data-parent="#accordion">
 
                                 <div class="card-body">
+                                    <!-- Ordering modal button -->
+                                    {% if forms.resume_jobs_formset.total_form_count >= 3 %}
+                                    <div class="reorder-button">
+                                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#job-order-modal">
+                                        {{ constants.REORDER_EXPERIENCE_BUTTON }}
+                                      </button>
+                                    </div>
+                                    {% endif %}
                                   {% for field in forms.resume_jobs_section_title_form %}
                                   <div class="form-group{% if field.errors %} has-errors{% endif %}">
                                     <div class="input-group">
@@ -375,11 +383,6 @@
   </div>
  
   <!-- MODALS -->
-
-  <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#job-order-modal">
-    Launch demo modal
-  </button>
 
   <!-- Modal -->
   <div class="modal fade" id="job-order-modal" tabindex="-1" role="dialog" aria-labelledby="job-order-modal-label" aria-hidden="true">
