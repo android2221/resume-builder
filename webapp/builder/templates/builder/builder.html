@@ -228,6 +228,14 @@
                               </div>
                               <div id="collapse-3" class="collapse {% if forms.resume_education_section_title_form.errors or forms.resume_education_formset.errors %}show{% endif %}" aria-labelledby="heading-3" data-parent="#accordion">
                                 <div class="card-body">
+                                  <!-- Ordering modal button -->
+                                  {% if forms.resume_education_formset.total_form_count >= 3 %}
+                                  <div class="reorder-button">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#education-order-modal">
+                                      {{ constants.REORDER_EDUCATION_BUTTON }}
+                                    </button>
+                                  </div>
+                                  {% endif %}
                                   {% for field in forms.resume_education_section_title_form  %}
                                   <div class="form-group{% if field.errors %} has-errors{% endif %}">
                                     <div class="input-group">
@@ -414,6 +422,42 @@
             class="btn btn-primary" 
             data-button-type="save-resume"
             data-sortable-target="resume-jobs-sortable">
+              {{ constants.RESUME_SAVE_BUTTON }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="education-order-modal" tabindex="-1" role="dialog" aria-labelledby="education-order-modal-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="education-order-modal-label">{{ constants.RESUME_JOB_ORDER_TITLE}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="reorder-items resume-items sortable" data-sortable-id="resume-education-sortable">
+            {% for form in forms.resume_education_formset %}
+            {% if form.instance.education_title %}
+              <div id="{{ form.prefix }}-sortable-item" 
+                class="resume-reorder-item card" 
+                data-form-target="{{ form.prefix }}-ORDER">
+                  {{ form.instance.education_title }} {% if form.instance.institution_name %} | {{ form.instance.institution_name}} {% endif %}
+              </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button 
+            type="button" 
+            class="btn btn-primary" 
+            data-button-type="save-resume"
+            data-sortable-target="resume-education-sortable">
               {{ constants.RESUME_SAVE_BUTTON }}
           </button>
         </div>
