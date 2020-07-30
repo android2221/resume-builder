@@ -66,7 +66,7 @@
                             <div class="card {% if forms.resume_details_form.errors %}section-has-errors{% endif %}">
                               <div class="card-header" id="heading-1" data-toggle="collapse" data-target="#collapse-1" aria-expanded="false" aria-controls="collapse-1">
                                 <h4>
-                                  Resume Details Section
+                                  Details Section
                                 </h4>
                                 <i class="fa fa-chevron-down chevron"></i>
                               </div>
@@ -98,7 +98,7 @@
                                   aria-expanded="false" 
                                   aria-controls="collapse-2">
                                 <h4>
-                                  Resume Experience Section
+                                  Experience Section
                                 </h4>
                                 <i class="fa fa-chevron-down chevron"></i>
                               </div>
@@ -225,7 +225,7 @@
                                 aria-expanded="false" 
                                 aria-controls="collapse-3">
                                 <h4>
-                                  Resume Education Section
+                                  Education Section
                                 </h4>
                                 <i class="fa fa-chevron-down chevron"></i>
                               </div>
@@ -452,7 +452,7 @@
               <div id="{{ form.prefix }}-sortable-item" 
                 class="resume-reorder-item card" 
                 data-form-target="{{ form.prefix }}-ORDER">
-                  {{ form.instance.institution_name }} {% if form.instance.education_title %} | {{ form.instance.education_title}} {% endif %}
+                  {{ form.instance.institution_name }} {% if form.instance.education_title %} | {{ form.instance.education_title }} {% endif %}
               </div>
             {% endif %}
             {% endfor %}

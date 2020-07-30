@@ -59,3 +59,8 @@ INPUT_STYLE_NAME = 'form-control'
 # Modals
 RESUME_JOB_ORDER_TITLE = 'Change Experience Order'
 RESUME_EDUCATION_ORDER_TITLE = 'Change Education Order'
+
+#labels
+RESUME_JOB_SECTION_TITLE = "Experience section title"
+RESUME_EDUCATION_SECTION_TITLE = "Education section name"
+EDUCATION_ITEM_TITLE = "Educational acheivement name"

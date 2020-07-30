@@ -17,6 +17,7 @@ class ResumeJobsSectionTitleForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(ResumeJobsSectionTitleForm, self).__init__(*args, **kwargs)
         self.fields['resume_jobs_section_title'].widget.attrs['class'] = constants.INPUT_STYLE_NAME 
+        self.fields['resume_jobs_section_title'].label = constants.RESUME_JOB_SECTION_TITLE
 
 class ResumeEducationSectionTitleForm(forms.Form):
     resume_education_section_title=forms.CharField(required=False)
@@ -24,6 +25,7 @@ class ResumeEducationSectionTitleForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(ResumeEducationSectionTitleForm, self).__init__(*args, **kwargs)
         self.fields['resume_education_section_title'].widget.attrs['class'] = constants.INPUT_STYLE_NAME 
+        self.fields['resume_education_section_title'].label = constants.RESUME_EDUCATION_SECTION_TITLE
 
 class ResumeDetailsForm(forms.Form):
     resume_title=forms.CharField(required=False)
@@ -75,6 +77,7 @@ class ResumeEducationFormsetForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ResumeEducationFormsetForm, self).__init__(*args, **kwargs)
         self.fields['education_title'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['education_title'].label = constants.EDUCATION_ITEM_TITLE
         self.fields['institution_name'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['start_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME + ' ' + 'datepicker'
         self.fields['start_date'].widget.attrs['readonly'] = "readonly"
