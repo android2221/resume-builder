@@ -161,15 +161,17 @@
                                           </div>
                                           {{ form.id }}
                                           {% for field in form.visible_fields %}
-                                          <div class="form-group{% if field.errors %} has-errors{% endif %}" id="{{ field.name }}">
-                                            <div class="input-group">
-                                              <div class="field-label">
-                                                {{ field.label }}
+                                            {% if field.name != 'ORDER' %}
+                                            <div class="form-group{% if field.errors %} has-errors{% endif %}" id="{{ field.name }}">
+                                              <div class="input-group">
+                                                <div class="field-label">
+                                                  {{ field.label }}
+                                                </div>
+                                                {{ field }}
+                                                {{ field.errors }}
                                               </div>
-                                              {{ field }}
-                                              {{ field.errors }}
                                             </div>
-                                          </div>                                    
+                                            {% endif %}                                    
                                           {% endfor %}
                                           <div class="delete-button-container">
                                             <button class="btn btn-lg btn-danger delete-button" data-id="{{ form.prefix }}" type="button">{{ constants.DELETE_JOB_BUTTON }}<i class="fa fa-trash"></i></button>
@@ -190,16 +192,17 @@
                                       {{ form.id }}
                                       <div class="new-item-header">New Experience</div>
                                       {% for field in form.visible_fields %}
-                                      <div class="form-group{% if field.errors %} has-errors{% endif %}" id="{{ field.name }}">
-                                        <div class="input-group">
-                                          <div class="field-label">
-                                            {{ field.label }}
+                                        {% if field.name != 'ORDER' %}
+                                        <div class="form-group{% if field.errors %} has-errors{% endif %}" id="{{ field.name }}">
+                                          <div class="input-group">
+                                            <div class="field-label">
+                                              {{ field.label }}
+                                            </div>
+                                            {{ field }}
+                                            {{ field.errors }}
                                           </div>
-                                          {{ field }}
-                                          {{ field.errors }}
                                         </div>
-                                      </div>
-                                
+                                        {% endif %}
                                       {% endfor %}
                                     </div>
                                     {% endif %}
@@ -237,15 +240,15 @@
                                   </div>
                                   {% endif %}
                                   {% for field in forms.resume_education_section_title_form  %}
-                                  <div class="form-group{% if field.errors %} has-errors{% endif %}">
-                                    <div class="input-group">
-                                      <div class="field-label">
-                                        {{ field.label }}
+                                    <div class="form-group{% if field.errors %} has-errors{% endif %}">
+                                      <div class="input-group">
+                                        <div class="field-label">
+                                          {{ field.label }}
+                                        </div>
+                                        {{ field }}
+                                        {{ field.errors }}
                                       </div>
-                                      {{ field }}
-                                      {{ field.errors }}
                                     </div>
-                                  </div>
                                   {% endfor %}
 
                                   {{ forms.resume_education_formset.management_form }}
@@ -281,15 +284,17 @@
                                           </div>
                                           {{ form.id }}
                                           {% for field in form.visible_fields %}
-                                          <div class="form-group{% if field.errors %} has-errors{% endif %}" id="{{ field.name }}">
-                                            <div class="input-group">
-                                              <div class="field-label">
-                                                {{ field.label }}
+                                            {% if field.name != 'ORDER' %}
+                                            <div class="form-group{% if field.errors %} has-errors{% endif %}" id="{{ field.name }}">
+                                              <div class="input-group">
+                                                <div class="field-label">
+                                                  {{ field.label }}
+                                                </div>
+                                                {{ field }}
+                                                {{ field.errors }}
                                               </div>
-                                              {{ field }}
-                                              {{ field.errors }}
-                                            </div>
-                                          </div>                                    
+                                            </div>   
+                                            {% endif %}                                 
                                           {% endfor %}
                                           <div class="delete-button-container">
                                             <button class="btn btn-lg btn-danger delete-button" data-id="{{ form.prefix }}" type="button">{{ constants.DELETE_EDUCATION_BUTTON }}<i class="fa fa-trash"></i></button>
@@ -313,15 +318,17 @@
                                       {{ form.id }}
                                       <div class="new-item-header">New Educational Milestone</div>
                                       {% for field in form.visible_fields %}
-                                      <div class="form-group{% if field.errors %} has-errors{% endif %}" id="{{ field.name }}">
-                                        <div class="input-group">
-                                          <div class="field-label">
-                                            {{ field.label }}
-                                          </div>
-                                          {{ field }}
-                                          {{ field.errors }}
-                                        </div> 
-                                      </div>                                    
+                                        {% if field.name != 'ORDER' %}
+                                        <div class="form-group{% if field.errors %} has-errors{% endif %}" id="{{ field.name }}">
+                                          <div class="input-group">
+                                            <div class="field-label">
+                                              {{ field.label }}
+                                            </div>
+                                            {{ field }}
+                                            {{ field.errors }}
+                                          </div> 
+                                        </div>  
+                                        {% endif %}                                  
                                       {% endfor %}
                                     </div>
 
@@ -445,7 +452,7 @@
               <div id="{{ form.prefix }}-sortable-item" 
                 class="resume-reorder-item card" 
                 data-form-target="{{ form.prefix }}-ORDER">
-                  {{ form.instance.education_title }} {% if form.instance.institution_name %} | {{ form.instance.institution_name}} {% endif %}
+                  {{ form.instance.institution_name }} {% if form.instance.education_title %} | {{ form.instance.education_title}} {% endif %}
               </div>
             {% endif %}
             {% endfor %}
