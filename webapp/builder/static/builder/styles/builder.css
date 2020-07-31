@@ -270,7 +270,8 @@ i.chevron{
   font-size: 1rem;
 }
 
-.form-group#DELETE{
+#builder-form .form-group.field-ORDER,
+#builder-form .form-group.field-DELETE{
   display: none;
 }
 

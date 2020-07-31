@@ -85,7 +85,7 @@ class ResumeEducationFormsetForm(forms.ModelForm):
         self.fields['end_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['end_date'].widget.attrs['readonly'] = "readonly"
         self.fields['education_description'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
-        self.fields['is_current'].label = constants
+        self.fields['is_current'].label = constants.RESUME_EDUCATION_IS_CURRENT
 
 ResumeEducationFormset = modelformset_factory(
     ResumeEducation,

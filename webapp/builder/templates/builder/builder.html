@@ -161,8 +161,7 @@
                                           </div>
                                           {{ form.id }}
                                           {% for field in form.visible_fields %}
-                                            {% if field.name != 'ORDER' %}
-                                            <div class="form-group{% if field.errors %} has-errors{% endif %}" id="{{ field.name }}">
+                                            <div class="form-group{% if field.errors %} has-errors{% endif %} field-{{ field.name }}">
                                               <div class="input-group">
                                                 <div class="field-label">
                                                   {{ field.label }}
@@ -171,7 +170,6 @@
                                                 {{ field.errors }}
                                               </div>
                                             </div>
-                                            {% endif %}                                    
                                           {% endfor %}
                                           <div class="delete-button-container">
                                             <button class="btn btn-lg btn-danger delete-button" data-id="{{ form.prefix }}" type="button">{{ constants.DELETE_JOB_BUTTON }}<i class="fa fa-trash"></i></button>
@@ -192,8 +190,7 @@
                                       {{ form.id }}
                                       <div class="new-item-header">New Experience</div>
                                       {% for field in form.visible_fields %}
-                                        {% if field.name != 'ORDER' %}
-                                        <div class="form-group{% if field.errors %} has-errors{% endif %}" id="{{ field.name }}">
+                                        <div class="form-group{% if field.errors %} has-errors{% endif %} field-{{ field.name }}">
                                           <div class="input-group">
                                             <div class="field-label">
                                               {{ field.label }}
@@ -202,7 +199,6 @@
                                             {{ field.errors }}
                                           </div>
                                         </div>
-                                        {% endif %}
                                       {% endfor %}
                                     </div>
                                     {% endif %}
@@ -284,8 +280,7 @@
                                           </div>
                                           {{ form.id }}
                                           {% for field in form.visible_fields %}
-                                            {% if field.name != 'ORDER' %}
-                                            <div class="form-group{% if field.errors %} has-errors{% endif %}" id="{{ field.name }}">
+                                            <div class="form-group{% if field.errors %} has-errors{% endif %} field-{{ field.name }}">
                                               <div class="input-group">
                                                 <div class="field-label">
                                                   {{ field.label }}
@@ -294,7 +289,6 @@
                                                 {{ field.errors }}
                                               </div>
                                             </div>   
-                                            {% endif %}                                 
                                           {% endfor %}
                                           <div class="delete-button-container">
                                             <button class="btn btn-lg btn-danger delete-button" data-id="{{ form.prefix }}" type="button">{{ constants.DELETE_EDUCATION_BUTTON }}<i class="fa fa-trash"></i></button>
@@ -318,8 +312,7 @@
                                       {{ form.id }}
                                       <div class="new-item-header">New Educational Milestone</div>
                                       {% for field in form.visible_fields %}
-                                        {% if field.name != 'ORDER' %}
-                                        <div class="form-group{% if field.errors %} has-errors{% endif %}" id="{{ field.name }}">
+                                        <div class="form-group{% if field.errors %} has-errors{% endif %} field-{{ field.name }}">
                                           <div class="input-group">
                                             <div class="field-label">
                                               {{ field.label }}
@@ -328,7 +321,6 @@
                                             {{ field.errors }}
                                           </div> 
                                         </div>  
-                                        {% endif %}                                  
                                       {% endfor %}
                                     </div>
 
