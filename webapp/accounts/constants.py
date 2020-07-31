@@ -64,3 +64,5 @@ RESUME_EDUCATION_ORDER_TITLE = 'Change Education Order'
 RESUME_JOB_SECTION_TITLE = "Experience section title"
 RESUME_EDUCATION_SECTION_TITLE = "Education section name"
 EDUCATION_ITEM_TITLE = "Educational acheivement name"
+RESUME_JOB_IS_CURRENT = "I am currently employed here"
+RESUME_EDUCATION_IS_CURRENT = "I am currently attending here"

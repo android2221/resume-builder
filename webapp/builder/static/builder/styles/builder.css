@@ -289,3 +289,12 @@ i.chevron{
 .modal-content .close{
   padding: 1.6rem 2.2rem;
 }
+
+#builder-form .resume-date{
+  width: 50%;
+  float: left;
+}
+
+#builder-form .resume-date:last-child{
+  float: right;
+}

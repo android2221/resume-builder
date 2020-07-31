@@ -24,6 +24,7 @@ class ResumeJob(models.Model):
     start_date=models.DateField(null=True, blank=True)
     end_date=models.DateField(null=True, blank=True)
     position_description=models.TextField(null=True, blank=True)
+    is_current=models.BooleanField(default=False)
     resume_position=models.IntegerField(null=True, blank=True)
 
 class ResumeEducation(models.Model):
@@ -33,5 +34,6 @@ class ResumeEducation(models.Model):
     start_date=models.DateField(null=True, blank=True)
     end_date=models.DateField(null=True, blank=True)
     education_description=models.TextField(null=True, blank=True)
+    is_current=models.BooleanField(default=False)
     resume_position=models.IntegerField(null=True, blank=True)
 
