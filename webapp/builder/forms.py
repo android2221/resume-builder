@@ -54,7 +54,7 @@ class ResumeDetailsForm(forms.Form):
 class ResumeJobFormsetForm(forms.ModelForm):
     class Meta:
         model = ResumeJob
-        fields=('position_title', 'company_name', 'start_date', 'end_date', 'is_current', 'position_description')
+        fields=('position_title', 'company_name', 'is_current', 'start_date', 'end_date', 'position_description')
 
     def __init__(self, *args, **kwargs):
         super(ResumeJobFormsetForm, self).__init__(*args, **kwargs)
@@ -89,7 +89,7 @@ class ResumeEducationFormsetForm(forms.ModelForm):
 
 ResumeEducationFormset = modelformset_factory(
     ResumeEducation,
-    fields=('education_title', 'institution_name', 'start_date', 'end_date', 'is_current', 'education_description'),
+    fields=('education_title', 'institution_name', 'is_current', 'start_date', 'end_date', 'education_description'),
     form=ResumeEducationFormsetForm,
     validate_min=True,
     can_delete=True,

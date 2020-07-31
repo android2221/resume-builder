@@ -299,3 +299,14 @@ i.chevron{
 #builder-form .resume-date:last-child{
   float: right;
 }
+
+#builder-form .field-start_date,
+#builder-form .field-end_date{
+  width: 45%;
+  margin-right: 10%;
+  float: left;
+}
+
+#builder-form .field-end_date{
+  margin-right: initial;
+}
