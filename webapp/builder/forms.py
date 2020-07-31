@@ -60,9 +60,9 @@ class ResumeJobFormsetForm(forms.ModelForm):
         super(ResumeJobFormsetForm, self).__init__(*args, **kwargs)
         self.fields['position_title'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['company_name'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
-        self.fields['start_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['start_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME + ' ' + 'datepicker'
         self.fields['start_date'].widget.attrs['readonly'] = "readonly"
-        self.fields['end_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['end_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME + ' ' + 'datepicker'
         self.fields['end_date'].widget.attrs['readonly'] = "readonly"
         self.fields['position_description'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['position_title'].required = False
@@ -80,9 +80,9 @@ class ResumeEducationFormsetForm(forms.ModelForm):
         self.fields['education_title'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['education_title'].label = constants.EDUCATION_ITEM_TITLE
         self.fields['institution_name'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
-        self.fields['start_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['start_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME + ' ' + 'datepicker'
         self.fields['start_date'].widget.attrs['readonly'] = "readonly"
-        self.fields['end_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['end_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME + ' ' + 'datepicker'
         self.fields['end_date'].widget.attrs['readonly'] = "readonly"
         self.fields['education_description'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['is_current'].label = constants.RESUME_EDUCATION_IS_CURRENT
