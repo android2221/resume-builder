@@ -3,6 +3,7 @@ ERROR_DUPLICATE_EMAIL = "That username already exists, please choose another"
 ERROR_DUPLICATE_PROFILE_URL = "That profile url already exists"
 ERROR_PARSING_PROFILE_URL = "Could not use that profile URL, try another one"
 ERROR_SAVING_RESUME = "Resume Save Failed! Please try again and contact support if issue persists."
+FORM_ERROR_RESUME = "There are errors in your resume, please correct them before continuing."
 ERROR_LOGIN = "Username or password is incorrect."
 
 # FORM HELP TEXTS
@@ -38,12 +39,30 @@ NO_ACCOUNT_MESSAGE = "Don't have an account?"
 HAVE_ACCOUNT_MESSAGE = "Already have an account?"
 FORGOT_PASSWORD_MESSAGE = "Forgot your password?"
 RESUME_PREVIEW_MESSAGE = "You are viewing a preview of your resume"
-RESUME_SAVE_SUCCESS = "Resume saved!"
+RESUME_SAVE_SUCCESS = "Resume saved successfully!"
+RESUME_PUBLISHED_SUCCESS = "Resume published successfully!"
 PASSWORD_CHANGE_SUCCESS = "Password changed successfully!"
 
 # BUTTONS
-RESUME_SAVE_BUTTON = 'Save Changes'
+RESUME_SAVE_BUTTON = 'Save Resume'
 RESUME_PREVIEW_BUTTON = 'Preview Resume'
+RESUME_PUBLISH_BUTTON = 'Publish Resume'
+DELETE_JOB_BUTTON = 'Delete Experience'
+DELETE_EDUCATION_BUTTON = 'Delete Education'
+REORDER_EXPERIENCE_BUTTON = 'Edit Experience Order'
+REORDER_EDUCATION_BUTTON = 'Edit Education Order'
+
 
 # Classes
 INPUT_STYLE_NAME = 'form-control'
+
+# Modals
+RESUME_JOB_ORDER_TITLE = 'Change Experience Order'
+RESUME_EDUCATION_ORDER_TITLE = 'Change Education Order'
+
+#labels
+RESUME_JOB_SECTION_TITLE = "Experience section title"
+RESUME_EDUCATION_SECTION_TITLE = "Education section name"
+EDUCATION_ITEM_TITLE = "Educational acheivement name"
+RESUME_JOB_IS_CURRENT = "I am currently employed here"
+RESUME_EDUCATION_IS_CURRENT = "I am currently attending here"

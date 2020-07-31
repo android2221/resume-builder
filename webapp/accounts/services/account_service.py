@@ -26,6 +26,7 @@ class AccountService():
         newaccount = Account(user=user, profile_url=form_data["profile_url"])
         newaccount.save()
         self.create_resume(user)
+        self.create_preview_resume(user)
         return user
 
     def build_registration_form(self, payload=None):
@@ -38,7 +39,7 @@ class AccountService():
             return UserLoginForm()
         return UserLoginForm(payload)
 
-    def create_user(email, password, first_name, last_name):
+    def create_user(self, email, password, first_name, last_name):
         user = User.objects.create_user(email, email, password)
         user.first_name = first_name
         user.last_name = last_name
@@ -46,5 +47,9 @@ class AccountService():
         return user
 
     def create_resume(self, user):
-        newResume = Resume(user=user)
+        newResume = Resume(user=user, is_draft=False)
         newResume.save()
+    
+    def create_preview_resume(self, user):
+        preview_resume = Resume(user=user, is_draft=True)
+        preview_resume.save()

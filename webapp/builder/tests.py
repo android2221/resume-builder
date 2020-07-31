@@ -25,11 +25,11 @@ class ResumeBuilderViewTests(TestCase):
         self.authedClient.force_login(self.user)
 
     def test_login_required_redirect_works(self):
-        response = self.client.get(reverse("load_builder"))
+        response = self.client.get(reverse("builder_page"))
         self.assertRedirects(response, "/account/login/?next=/builder/")
     
-    def test_can_load_builder_after_login(self):
-        response = self.authedClient.get(reverse("load_builder"))
+    def test_can_builder_page_after_login(self):
+        response = self.authedClient.get(reverse("builder_page"))
         self.assertEqual(response.status_code, 200)
         self.assertIn(self.resume_content, str(response.content))
 
@@ -39,7 +39,7 @@ class ResumeBuilderViewTests(TestCase):
         requests.post = MagicMock(return_value=response_object)
         form_data = {"content": "# My test thing"}
         response = self.authedClient.post(reverse("save_builder"), form_data)
-        self.assertRedirects(response, reverse("load_builder"))
+        self.assertRedirects(response, reverse("builder_page"))
 
 class ResumeViewTests(TestCase):
     def setUp(self):

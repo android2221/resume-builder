@@ -102,9 +102,199 @@ label[for=id_content]{
 #builder-container{
   max-width: 1500px;
   margin: 0 auto;
-  min-height: 600px;
+  min-height: calc(100vh - 108px);
   padding: 30px;
 }
+
 #preview-button:focus{
   border-color: initial;
+}
+#builder-form input,
+#builder-form textarea{
+  display: block;
+  font-size: 1rem;
+}
+
+.card{
+  margin-bottom: 30px;
+}
+
+.card-header{
+  cursor: pointer;
+  position: relative;
+}
+
+i.chevron{
+  position: absolute;
+  top: 32px;
+  right: 30px;
+  transition: .25s ease-in-out;
+  z-index: 5;
+}
+
+.card-header[aria-expanded=true] i.chevron{
+  transform: rotate(180deg);
+}
+
+#builder-form .resume-form-actions .btn{
+  display: inline-block;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#builder-form .resume-form-actions a:hover{
+  cursor: pointer;
+  text-decoration: none;
+}
+
+#builder-form .form-group:last-child{
+  margin-bottom: initial;
+}
+
+#builder-form .form-group{
+  margin-bottom: 30px;
+}
+
+#builder-form .field-label{
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+#builder-form .new-item-button{
+  cursor: pointer;
+  position: relative;
+  height: 50px;
+}
+
+#builder-form .new-item-button i{
+  color: #2196F3;
+  font-size: 2.5rem;
+  top: 0px;
+  position: absolute;
+}
+
+#builder-form .new-item-button .new-item-text{
+  display: inline;
+  position: absolute;
+  top: .5rem;
+  left: 50px;
+  font-weight: bold;
+}
+
+#builder-form .blue-outline{
+  border: 1px solid rgba(33, 149, 243, 0.52);
+  border-radius: 5px;
+}
+
+#builder-form .new-item{
+  padding: 20px;
+}
+
+#builder-form .new-item-header{
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+#builder-container .section-has-errors,
+#builder-conatiner .has-errors,
+.has-errors input,
+.card.deleted .item-body,
+.card.deleted .card-header{
+  border: 1px solid rgba(255, 0, 0, 0.5);
+}
+
+.card.deleted .item-body{
+  border-top: none;
+}
+
+#builder-form .deleted-overlay{
+  display: none;
+  background-color: #ffffffce;
+  width: 100%;
+  text-align: center;
+  color: red;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0; 
+  position: absolute;
+  text-align: center;
+}
+
+#builder-form .card-header .deleted-overlay{
+  background-color: #ffffff;
+}
+
+#builder-form .deleted .deleted-overlay{
+  display: block;
+  z-index: 2;
+}
+
+#builder-form .deleted-overlay .deleted-message{
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  left: 30px;
+}
+
+#builder-form .card-body .deleted-overlay{
+  text-align: center;
+}
+
+#builder-form .card-body{
+  position: relative;
+}
+
+#builder-form .restore-button{
+  font-size: 1rem;
+}
+
+#builder-form .card-header .restore-button{
+  float: right;
+  margin-right: 60px;
+  margin-top: 25px;
+  position: relative;
+  z-index: 5;
+}
+
+#builder-form .restore-button.body{
+  margin-top: 50px;
+}
+
+#builder-form .delete-button i,
+#builder-form .restore-button i{
+  margin-left: 10px;
+  font-size: 1rem;
+}
+
+.form-group#DELETE{
+  display: none;
+}
+
+.reorder-items div{
+  padding: 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+#builder-form .reorder-button{
+  float: right;
+  margin-bottom: 20px;
+}
+
+.modal-content .close{
+  padding: 1.6rem 2.2rem;
+}
+
+#builder-form .resume-date{
+  width: 50%;
+  float: left;
+}
+
+#builder-form .resume-date:last-child{
+  float: right;
 }

@@ -1,6 +1,11 @@
 body{
     margin: 0px;
 }
+
+.container-scroller{
+    overflow: hidden;
+}
+
 .center-column{
     margin-top: .75rem;
     margin: 0 auto;
@@ -40,6 +45,15 @@ footer {
     left: 50%;
     margin-left: -175px;
 }
+
+@media (max-width: 375px){
+    .footer-container #footer-logo{
+        width: 300px;
+    }
+    .footer-container .image-container{
+        margin-left: -150px;
+    }
+}
 #info-bar{
     top: 0px;
     position: relative;
@@ -64,3 +78,47 @@ footer {
         display: block;
     }
 }
+
+/* Basic Template */
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+#resume-title h1{
+    font-weight: normal;
+    padding-bottom: 0.3em;
+    line-height: 1.2;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+.education-title, .position-title{
+    font-weight: bold;
+    line-height: 1.6;
+}
+
+.company-name, .position-start-date, .position-end-date,
+.institution-name, .education-start-date, .education-end-date{
+    font-style: italic;
+    display: inline;
+}
+
+.spaced{
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+h2 {
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+/* End Basic Template */
