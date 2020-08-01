@@ -45,7 +45,7 @@ class ResumeDetailsForm(forms.Form):
         super(ResumeDetailsForm, self).__init__(*args, **kwargs)
         self.fields['resume_title'].widget.attrs['class'] = constants.INPUT_STYLE_NAME 
         self.fields['contact_information_section_title'].widget.attrs['class'] = constants.INPUT_STYLE_NAME 
-        self.fields['contact_information'].widget.attrs['class'] = constants.INPUT_STYLE_NAME 
+        self.fields['contact_information'].widget.attrs['class'] = constants.INPUT_STYLE_NAME + ' tinymce-editor'
         self.fields['personal_statement_section_title'].widget.attrs['class'] = constants.INPUT_STYLE_NAME 
         self.fields['personal_statement'].widget.attrs['class'] = constants.INPUT_STYLE_NAME 
         self.fields['current_skills_section_title'].widget.attrs['class'] = constants.INPUT_STYLE_NAME 

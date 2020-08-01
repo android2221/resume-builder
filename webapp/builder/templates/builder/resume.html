@@ -33,7 +33,7 @@
                 {% if resume.contact_information_section_title %}
                 <h2>{{ resume.contact_information_section_title }}</h2>
                 {% endif %}
-                {{ resume.contact_information }}
+                {{ resume.contact_information|safe }}
             </div> 
         {% endif %}
         

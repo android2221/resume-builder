@@ -11,10 +11,11 @@
 
 <script>
     tinymce.init({
-        selector: '.resume-editor',
-        height: '66vh',
-        plugins: "code, lists, link",
-        toolbar: "code | fontselect | fontsizeselect | h1 | h2 | h3 | numlist | bullist | link",
+        selector: '.tinymce-editor',
+        height: '45vh',
+        width: '100%',
+        plugins: "lists, link",
+        toolbar: "removeformat | numlist | bullist | link",
         branding: false,
         //fontsize_formats: "test=3vw test2=4vw",
         setup: function (ed) {
