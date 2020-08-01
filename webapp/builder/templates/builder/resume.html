@@ -80,10 +80,15 @@
                         </div>
                         {% endif %}
 
-                        {% if job.end_date %}
+                        {% if job.end_date and not job.is_current and job.start_date %}
                         <div class="position-end-date">
                             {% if job.start_date %} - {% endif %} 
                             {{ job.end_date }} 
+                        </div>
+                        {% else %}
+                        <div class="position-end-date">
+                            {% if job.start_date %} - {% endif %} 
+                            Current
                         </div>
                         {% endif %}
                     </div>
