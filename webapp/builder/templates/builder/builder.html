@@ -14,14 +14,14 @@
         selector: '.tinymce-editor',
         height: '45vh',
         width: '100%',
-        plugins: "lists, link",
-        toolbar: "removeformat | numlist | bullist | link",
+        paste_as_text: true,
+        plugins: "lists, paste, link",
+        menubar: false,
+        toolbar: "numlist | bullist | link | bold | italic | h1 | h2 | h3 | removeformat",
         branding: false,
-        //fontsize_formats: "test=3vw test2=4vw",
         setup: function (ed) {
                     ed.on('init', function (e) {
                       ed.execCommand("fontName", false, "Arial");
-                     // ed.getBody().style.fontSize = '4vw';
                     });
                 }   
     });
