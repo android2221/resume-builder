@@ -47,9 +47,9 @@ class ResumeDetailsForm(forms.Form):
         self.fields['contact_information_section_title'].widget.attrs['class'] = constants.INPUT_STYLE_NAME 
         self.fields['contact_information'].widget.attrs['class'] = constants.INPUT_STYLE_NAME + ' tinymce-editor'
         self.fields['personal_statement_section_title'].widget.attrs['class'] = constants.INPUT_STYLE_NAME 
-        self.fields['personal_statement'].widget.attrs['class'] = constants.INPUT_STYLE_NAME 
+        self.fields['personal_statement'].widget.attrs['class'] = constants.INPUT_STYLE_NAME + ' tinymce-editor'
         self.fields['current_skills_section_title'].widget.attrs['class'] = constants.INPUT_STYLE_NAME 
-        self.fields['current_skills'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['current_skills'].widget.attrs['class'] = constants.INPUT_STYLE_NAME + ' tinymce-editor'
 
 class ResumeJobFormsetForm(forms.ModelForm):
     class Meta:
@@ -64,7 +64,7 @@ class ResumeJobFormsetForm(forms.ModelForm):
         self.fields['start_date'].widget.attrs['readonly'] = "readonly"
         self.fields['end_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME + ' ' + 'datepicker'
         self.fields['end_date'].widget.attrs['readonly'] = "readonly"
-        self.fields['position_description'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['position_description'].widget.attrs['class'] = constants.INPUT_STYLE_NAME + ' tinymce-editor'
         self.fields['position_title'].required = False
         self.fields['company_name'].required = False
         self.fields['position_description'].required = False
@@ -84,7 +84,7 @@ class ResumeEducationFormsetForm(forms.ModelForm):
         self.fields['start_date'].widget.attrs['readonly'] = "readonly"
         self.fields['end_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME + ' ' + 'datepicker'
         self.fields['end_date'].widget.attrs['readonly'] = "readonly"
-        self.fields['education_description'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
+        self.fields['education_description'].widget.attrs['class'] = constants.INPUT_STYLE_NAME + ' tinymce-editor'
         self.fields['is_current'].label = constants.RESUME_EDUCATION_IS_CURRENT
 
 ResumeEducationFormset = modelformset_factory(
