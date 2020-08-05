@@ -316,3 +316,7 @@ i.chevron{
   width: 100%;
   color: red;
 }
+
+#builder-form .field-label.required::after{
+  content: " *";
+}

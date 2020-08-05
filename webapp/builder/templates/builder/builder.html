@@ -78,7 +78,7 @@
                                   {% for field in forms.resume_details_form.visible_fields %}
                                   <div class="form-group{% if field.errors %} has-errors{% endif %}">
                                     <div class="input-group">
-                                      <div class="field-label">
+                                      <div class="field-label{% if field.field.required %} required{% endif %}">
                                         {{ field.label }}
                                       </div>
                                       {{ field }}
@@ -121,7 +121,7 @@
                                   {% for field in forms.resume_jobs_section_title_form %}
                                   <div class="form-group{% if field.errors %} has-errors{% endif %}">
                                     <div class="input-group">
-                                      <div class="field-label">
+                                      <div class="field-label{% if field.field.required %} required{% endif %}">
                                         {{ field.label }}
                                       </div>
                                       {{ field }}
@@ -165,7 +165,7 @@
                                           {% for field in form.visible_fields %}
                                             <div class="form-group{% if field.errors %} has-errors{% endif %} field-{{ field.name }}">
                                               <div class="input-group">
-                                                <div class="field-label">
+                                                <div class="field-label{% if field.field.required %} required{% endif %}">
                                                   {{ field.label }}
                                                 </div>
                                                 {{ field }}
@@ -194,7 +194,7 @@
                                       {% for field in form.visible_fields %}
                                         <div class="form-group{% if field.errors %} has-errors{% endif %} field-{{ field.name }}">
                                           <div class="input-group">
-                                            <div class="field-label">
+                                            <div class="field-label{% if field.field.required %} required{% endif %}">
                                               {{ field.label }}
                                             </div>
                                             {{ field }}
@@ -240,7 +240,7 @@
                                   {% for field in forms.resume_education_section_title_form  %}
                                     <div class="form-group{% if field.errors %} has-errors{% endif %}">
                                       <div class="input-group">
-                                        <div class="field-label">
+                                        <div class="field-label{% if field.field.required %} required{% endif %}">
                                           {{ field.label }}
                                         </div>
                                         {{ field }}
@@ -284,7 +284,7 @@
                                           {% for field in form.visible_fields %}
                                             <div class="form-group{% if field.errors %} has-errors{% endif %} field-{{ field.name }}">
                                               <div class="input-group">
-                                                <div class="field-label">
+                                                <div class="field-label{% if field.field.required %} required{% endif %}">
                                                   {{ field.label }}
                                                 </div>
                                                 {{ field }}
@@ -316,7 +316,7 @@
                                       {% for field in form.visible_fields %}
                                         <div class="form-group{% if field.errors %} has-errors{% endif %} field-{{ field.name }}">
                                           <div class="input-group">
-                                            <div class="field-label">
+                                            <div class="field-label{% if field.field.required %} required{% endif %}">
                                               {{ field.label }}
                                             </div>
                                             {{ field }}

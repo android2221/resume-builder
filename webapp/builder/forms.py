@@ -55,6 +55,7 @@ class ResumeJobFormsetForm(forms.ModelForm):
     class Meta:
         model = ResumeJob
         fields=('position_title', 'company_name', 'is_current', 'start_date', 'end_date', 'position_description')
+        required_css_class = 'required'
 
     def __init__(self, *args, **kwargs):
         super(ResumeJobFormsetForm, self).__init__(*args, **kwargs)
@@ -71,6 +72,7 @@ class ResumeEducationFormsetForm(forms.ModelForm):
     class Meta:
         model = ResumeEducation
         exclude = ()
+        required_css_class = 'required'
 
     def __init__(self, *args, **kwargs):
         super(ResumeEducationFormsetForm, self).__init__(*args, **kwargs)
