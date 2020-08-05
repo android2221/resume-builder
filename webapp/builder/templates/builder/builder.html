@@ -133,7 +133,7 @@
 
                                   <div id="accordion-resume-jobs">
                                     {% for form in forms.resume_jobs_formset %}
-                                    {% if form.instance.position_title %}
+                                    {% if form.instance.id %}
                                     <!-- individual job -->
                                     <div id="{{ form.prefix }}-card" class="card {% if form.errors %}section-has-errors{% endif %}">
                                       <div class="card-header" 
@@ -253,7 +253,7 @@
                                   <div id="accordion-resume-education">
                                     {% for form in forms.resume_education_formset %}
                                     <!-- individual education -->
-                                    {% if form.instance.education_title %}
+                                    {% if form.instance.id %}
                                     <div class="card {% if form.errors %}section-has-errors{% endif %}" id="{{ form.prefix }}-card">
                                       <div class="card-header" 
                                         id="{{ form.prefix }}-header" 
@@ -308,7 +308,7 @@
                                       <div class="new-item-text">Add Educational Milestone</div>
                                     </div>
 
-                                    <div id="dropdown-{{ form.prefix }}" class="collapse blue-outline {% if form.errors %}show section-has-errors{% endif %}new-item" 
+                                    <div id="dropdown-{{ form.prefix }}" class="collapse blue-outline {% if form.errors %}show section-has-errors{% endif %} new-item" 
                                     aria-labelledby="{{ form.prefix }}-header" data-parent="#accordion-resume-education">
                                       {{ form.id }}
                                       <div class="new-item-header">New Educational Milestone</div>
