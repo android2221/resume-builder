@@ -82,7 +82,7 @@
                                         {{ field.label }}
                                       </div>
                                       {{ field }}
-                                      {{ field.errors }}
+                                      <div class="errors">{{ field.errors.as_text }}</div>
                                     </div>
                                   </div>
                                   {% endfor %}
@@ -125,7 +125,7 @@
                                         {{ field.label }}
                                       </div>
                                       {{ field }}
-                                      {{ field.errors }}
+                                      <div class="errors">{{ field.errors.as_text }}</div>
                                     </div>
                                   </div>
                                   {% endfor %}
@@ -169,7 +169,7 @@
                                                   {{ field.label }}
                                                 </div>
                                                 {{ field }}
-                                                {{ field.errors }}
+                                                <div class="errors">{{ field.errors.as_text }}</div>
                                               </div>
                                             </div>
                                           {% endfor %}
@@ -198,7 +198,7 @@
                                               {{ field.label }}
                                             </div>
                                             {{ field }}
-                                            {{ field.errors }}
+                                            <div class="errors">{{ field.errors.as_text }}</div>
                                           </div>
                                         </div>
                                       {% endfor %}
@@ -244,7 +244,7 @@
                                           {{ field.label }}
                                         </div>
                                         {{ field }}
-                                        {{ field.errors }}
+                                        <div class="errors">{{ field.errors.as_text }}</div>
                                       </div>
                                     </div>
                                   {% endfor %}
@@ -288,7 +288,7 @@
                                                   {{ field.label }}
                                                 </div>
                                                 {{ field }}
-                                                {{ field.errors }}
+                                                <div class="errors">{{ field.errors.as_text }}</div>
                                               </div>
                                             </div>   
                                           {% endfor %}
@@ -320,7 +320,7 @@
                                               {{ field.label }}
                                             </div>
                                             {{ field }}
-                                            {{ field.errors }}
+                                            <div class="errors">{{ field.errors.as_text }}</div>
                                           </div> 
                                         </div>  
                                       {% endfor %}

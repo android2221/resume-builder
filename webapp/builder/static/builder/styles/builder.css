@@ -310,3 +310,9 @@ i.chevron{
 #builder-form .field-end_date{
   margin-right: initial;
 }
+
+#builder-form .errors{
+  display: block;
+  width: 100%;
+  color: red;
+}
