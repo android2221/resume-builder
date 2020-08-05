@@ -114,12 +114,26 @@
                     <div class="institution-name">
                         {{ education.institution_name }}
                     </div>
+
+                    {% if education.start_date and education.end_date %}
+                    <span class="separator">|</span>
+                    {% endif %}
+
                     <div class="education-start-date">
-                        {{ education.start_date }} {% if education.start_date %} - {% endif %}
+                        {{ education.start_date }}
                     </div>
+
+                    {% if education.end_date and not education.is_current and education.start_date %}
                     <div class="education-end-date">
-                        {{ education.end_date }}
+                        {% if education.start_date %} - {% endif %} 
+                        {{ education.end_date }}                     
                     </div>
+                    {% else %}
+                    <div class="education-end-date">
+                        {% if education.start_date %} - {% endif %} 
+                        Current                     
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="education-description spaced">
                     {{ education.education_description }}
