@@ -42,7 +42,7 @@
                 {% if resume.personal_statement_section_title %}
                 <h2>{{ resume.personal_statement_section_title }}</h2>
                 {% endif %}
-                {{ resume.personal_statement }}
+                {{ resume.personal_statement|safe }}
             </div>
         {% endif %}
 
@@ -51,7 +51,7 @@
                 {% if resume.current_skills_section_title %}
                 <h2>{{ resume.current_skills_section_title }}</h2>
                 {% endif %}
-                {{ resume.current_skills }}
+                {{ resume.current_skills|safe }}
             </div>
         {% endif %}
 
@@ -93,7 +93,7 @@
                         {% endif %}
                     </div>
                     <div class="job-description">
-                        {{ job.position_description }}
+                        {{ job.position_description|safe }}
                     </div>
                 </div>
                 {% endfor %}
@@ -136,7 +136,7 @@
                     {% endif %}
                 </div>
                 <div class="education-description spaced">
-                    {{ education.education_description }}
+                    {{ education.education_description|safe }}
                 </div>
             </div>
             {% endfor %}
