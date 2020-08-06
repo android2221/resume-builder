@@ -66,7 +66,7 @@
                           <div id="accordion">
                             <!-- resume details-->
                             <div class="card {% if forms.resume_details_form.errors %}section-has-errors{% endif %}">
-                              <div class="card-header" id="heading-1" data-toggle="collapse" data-target="#collapse-1" aria-expanded="false" aria-controls="collapse-1">
+                              <div class="card-header section-header" id="heading-1" data-toggle="collapse" data-target="#collapse-1" aria-expanded="false" aria-controls="collapse-1">
                                 <h4>
                                   Details Section
                                 </h4>
@@ -93,7 +93,7 @@
                             
                             <!-- resume experience section -->
                             <div class="card  {% if forms.resume_jobs_formset.errors or forms.resume_jobs_section_title_form.errors %}section-has-errors{% endif %}">
-                              <div class="card-header" 
+                              <div class="card-header section-header" 
                                   id="heading-2" 
                                   data-toggle="collapse" 
                                   data-target="#collapse-2" 
@@ -216,7 +216,7 @@
                             <!-- start resume education section -->
 
                             <div class="card {% if forms.resume_education_section_title_form.errors or forms.resume_education_formset.errors %}section-has-errors{% endif %}">
-                              <div class="card-header" 
+                              <div class="card-header section-header" 
                                 id="heading-3" 
                                 data-toggle="collapse" 
                                 data-target="#collapse-3" 
@@ -477,6 +477,7 @@
     var notLiveIndicator = $('.live-indicator#not-live');
 
     $(document).ready(function(){
+
       // init datepickers
       $(".datepicker").datepicker({
         'changeYear' : true,
@@ -491,13 +492,38 @@
         notLiveIndicator.addClass('show');
       }
 
-    // init sortables
-    $('.sortable').sortable(
-      {
-        // stop: function(event, ui){
-        //   var itemOrder = $(this).sortable('toArray');
-        // }
-      });
+      // init sortables
+      $('.sortable').sortable({});
+
+      // load last used section
+      var last_open_section = JSON.parse(sessionStorage.getItem("last_open_section"));
+      
+      if(last_open_section.last_open_section.is_expanded){
+        var section_id = '#' + last_open_section.last_open_section.section_name;
+        var accordion_target = $(section_id).attr('data-target');
+        console.log(accordion_target);
+        $(accordion_target).addClass('show');
+        $(accordion_target).attr('aria-expanded', true);
+        $(section_id).attr('aria-expanded', true);
+      }
+
+    });
+
+    // save last used section
+    $('.section-header').click(function(){
+      var lastItemId = $(this).attr("id");
+
+      var opened_status = !($(this).attr('aria-expanded') === 'true');
+      console.log(opened_status);
+
+      var last_section_info = {
+        "last_open_section" : {
+          "section_name": lastItemId,
+          "is_expanded" : opened_status
+        }
+      };
+
+      sessionStorage.setItem("last_open_section", JSON.stringify(last_section_info));
     });
 
     slider.click(function(){
@@ -533,6 +559,7 @@
             }
           }
         });
+        
     });
 
     // Hide save success / failure banner after 5s
@@ -574,7 +601,6 @@
       } else{
         deleteCb.prop('checked', true);
         $(cardId).addClass("deleted");
-        console.log(cardId);
       }
       event.stopPropagation();
     });
@@ -585,7 +611,6 @@
       var selector = `[data-sortable-id="${target}"]`;
       var itemOrder = $(selector).sortable('toArray');
 
-      console.log(itemOrder);
       // Set values on form
         itemOrder.forEach(function(element, i){
           var orderItem = $('#' + element);
