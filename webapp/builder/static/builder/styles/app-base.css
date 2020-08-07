@@ -23,6 +23,7 @@
     border-top: none;
     position: relative;
     padding: initial;
+    overflow: hidden;
 }
 
 .footer ul li a{
