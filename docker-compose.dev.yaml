@@ -19,7 +19,7 @@ services:
     environment: 
       - USE_SENDGRID=True
       - DJANGO_IS_PRODUCTION=False
-      - DJANGO_DEBUG=True
+      - DJANGO_DEBUG=False
       - DJANGO_SITE_URL=dev.seemyresume.io
       - DJANGO_EMAIL_FILE_PATH=/sent_emails/
       - DB_DBNAME=postgres

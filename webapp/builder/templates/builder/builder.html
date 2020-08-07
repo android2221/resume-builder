@@ -477,6 +477,11 @@
     var notLiveIndicator = $('.live-indicator#not-live');
 
     $(document).ready(function(){
+      // init datepickers
+      $(".datepicker").datepicker({
+        'changeYear' : true,
+        'yearRange': "-65:+0",
+      });
 
       // init datepickers
       $(".datepicker").datepicker({
