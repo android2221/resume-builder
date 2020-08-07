@@ -11,16 +11,18 @@
 
 <script>
     tinymce.init({
-        selector: '.resume-editor',
-        height: '66vh',
-        plugins: "code, lists, link",
-        toolbar: "code | fontselect | fontsizeselect | h1 | h2 | h3 | numlist | bullist | link",
+        selector: '.tinymce-editor',
+        height: '45vh',
+        width: '100%',
+        paste_as_text: true,
+        plugins: "lists, paste, link",
+        menubar: false,
+        toolbar: "numlist | bullist | link | bold | italic | h1 | h2 | h3 | removeformat",
         branding: false,
-        //fontsize_formats: "test=3vw test2=4vw",
+        forced_root_block:"",
         setup: function (ed) {
                     ed.on('init', function (e) {
                       ed.execCommand("fontName", false, "Arial");
-                     // ed.getBody().style.fontSize = '4vw';
                     });
                 }   
     });
@@ -51,7 +53,7 @@
       <div class="row">
           <div class="col-lg-12 grid-margin">
               <div class="card editor-container">
-                  <div class="card-body">
+                  <div class="card-body" id="editor-container-body">
                       <div class="editor-title">
                         <h3>{{ constants.EDIT_MY_RESUME }}</h3>
                         <div class=font-weight-bold id="profile-url">
@@ -64,7 +66,7 @@
                           <div id="accordion">
                             <!-- resume details-->
                             <div class="card {% if forms.resume_details_form.errors %}section-has-errors{% endif %}">
-                              <div class="card-header" id="heading-1" data-toggle="collapse" data-target="#collapse-1" aria-expanded="false" aria-controls="collapse-1">
+                              <div class="card-header section-header" id="heading-1" data-toggle="collapse" data-target="#collapse-1" aria-expanded="false" aria-controls="collapse-1">
                                 <h4>
                                   Details Section
                                 </h4>
@@ -72,15 +74,15 @@
                               </div>
                             
                               <div id="collapse-1" class="collapse {% if forms.resume_details_form.errors %}show{% endif %}" aria-labelledby="heading-1" data-parent="#accordion">
-                                <div class="card-body">
+                                <div class="card-body section-body">
                                   {% for field in forms.resume_details_form.visible_fields %}
                                   <div class="form-group{% if field.errors %} has-errors{% endif %}">
                                     <div class="input-group">
-                                      <div class="field-label">
+                                      <div class="field-label{% if field.field.required %} required{% endif %}">
                                         {{ field.label }}
                                       </div>
                                       {{ field }}
-                                      {{ field.errors }}
+                                      <div class="errors">{{ field.errors.as_text }}</div>
                                     </div>
                                   </div>
                                   {% endfor %}
@@ -91,7 +93,7 @@
                             
                             <!-- resume experience section -->
                             <div class="card  {% if forms.resume_jobs_formset.errors or forms.resume_jobs_section_title_form.errors %}section-has-errors{% endif %}">
-                              <div class="card-header" 
+                              <div class="card-header section-header" 
                                   id="heading-2" 
                                   data-toggle="collapse" 
                                   data-target="#collapse-2" 
@@ -107,7 +109,7 @@
                                 aria-labelledby="heading-2" 
                                 data-parent="#accordion">
 
-                                <div class="card-body">
+                                <div class="card-body section-body">
                                     <!-- Ordering modal button -->
                                     {% if forms.resume_jobs_formset.total_form_count >= 3 %}
                                     <div class="reorder-button">
@@ -119,11 +121,11 @@
                                   {% for field in forms.resume_jobs_section_title_form %}
                                   <div class="form-group{% if field.errors %} has-errors{% endif %}">
                                     <div class="input-group">
-                                      <div class="field-label">
+                                      <div class="field-label{% if field.field.required %} required{% endif %}">
                                         {{ field.label }}
                                       </div>
                                       {{ field }}
-                                      {{ field.errors }}
+                                      <div class="errors">{{ field.errors.as_text }}</div>
                                     </div>
                                   </div>
                                   {% endfor %}
@@ -132,7 +134,7 @@
 
                                   <div id="accordion-resume-jobs">
                                     {% for form in forms.resume_jobs_formset %}
-                                    {% if form.instance.position_title %}
+                                    {% if form.instance.id %}
                                     <!-- individual job -->
                                     <div id="{{ form.prefix }}-card" class="card {% if form.errors %}section-has-errors{% endif %}">
                                       <div class="card-header" 
@@ -161,17 +163,15 @@
                                           </div>
                                           {{ form.id }}
                                           {% for field in form.visible_fields %}
-                                            {% if field.name != 'ORDER' %}
-                                            <div class="form-group{% if field.errors %} has-errors{% endif %}" id="{{ field.name }}">
+                                            <div class="form-group{% if field.errors %} has-errors{% endif %} field-{{ field.name }}">
                                               <div class="input-group">
-                                                <div class="field-label">
+                                                <div class="field-label{% if field.field.required %} required{% endif %}">
                                                   {{ field.label }}
                                                 </div>
                                                 {{ field }}
-                                                {{ field.errors }}
+                                                <div class="errors">{{ field.errors.as_text }}</div>
                                               </div>
                                             </div>
-                                            {% endif %}                                    
                                           {% endfor %}
                                           <div class="delete-button-container">
                                             <button class="btn btn-lg btn-danger delete-button" data-id="{{ form.prefix }}" type="button">{{ constants.DELETE_JOB_BUTTON }}<i class="fa fa-trash"></i></button>
@@ -192,17 +192,15 @@
                                       {{ form.id }}
                                       <div class="new-item-header">New Experience</div>
                                       {% for field in form.visible_fields %}
-                                        {% if field.name != 'ORDER' %}
-                                        <div class="form-group{% if field.errors %} has-errors{% endif %}" id="{{ field.name }}">
+                                        <div class="form-group{% if field.errors %} has-errors{% endif %} field-{{ field.name }}">
                                           <div class="input-group">
-                                            <div class="field-label">
+                                            <div class="field-label{% if field.field.required %} required{% endif %}">
                                               {{ field.label }}
                                             </div>
                                             {{ field }}
-                                            {{ field.errors }}
+                                            <div class="errors">{{ field.errors.as_text }}</div>
                                           </div>
                                         </div>
-                                        {% endif %}
                                       {% endfor %}
                                     </div>
                                     {% endif %}
@@ -218,7 +216,7 @@
                             <!-- start resume education section -->
 
                             <div class="card {% if forms.resume_education_section_title_form.errors or forms.resume_education_formset.errors %}section-has-errors{% endif %}">
-                              <div class="card-header" 
+                              <div class="card-header section-header" 
                                 id="heading-3" 
                                 data-toggle="collapse" 
                                 data-target="#collapse-3" 
@@ -230,7 +228,7 @@
                                 <i class="fa fa-chevron-down chevron"></i>
                               </div>
                               <div id="collapse-3" class="collapse {% if forms.resume_education_section_title_form.errors or forms.resume_education_formset.errors %}show{% endif %}" aria-labelledby="heading-3" data-parent="#accordion">
-                                <div class="card-body">
+                                <div class="card-body section-body">
                                   <!-- Ordering modal button -->
                                   {% if forms.resume_education_formset.total_form_count >= 3 %}
                                   <div class="reorder-button">
@@ -242,11 +240,11 @@
                                   {% for field in forms.resume_education_section_title_form  %}
                                     <div class="form-group{% if field.errors %} has-errors{% endif %}">
                                       <div class="input-group">
-                                        <div class="field-label">
+                                        <div class="field-label{% if field.field.required %} required{% endif %}">
                                           {{ field.label }}
                                         </div>
                                         {{ field }}
-                                        {{ field.errors }}
+                                        <div class="errors">{{ field.errors.as_text }}</div>
                                       </div>
                                     </div>
                                   {% endfor %}
@@ -256,7 +254,7 @@
                                   <div id="accordion-resume-education">
                                     {% for form in forms.resume_education_formset %}
                                     <!-- individual education -->
-                                    {% if form.instance.education_title %}
+                                    {% if form.instance.id %}
                                     <div class="card {% if form.errors %}section-has-errors{% endif %}" id="{{ form.prefix }}-card">
                                       <div class="card-header" 
                                         id="{{ form.prefix }}-header" 
@@ -284,17 +282,15 @@
                                           </div>
                                           {{ form.id }}
                                           {% for field in form.visible_fields %}
-                                            {% if field.name != 'ORDER' %}
-                                            <div class="form-group{% if field.errors %} has-errors{% endif %}" id="{{ field.name }}">
+                                            <div class="form-group{% if field.errors %} has-errors{% endif %} field-{{ field.name }}">
                                               <div class="input-group">
-                                                <div class="field-label">
+                                                <div class="field-label{% if field.field.required %} required{% endif %}">
                                                   {{ field.label }}
                                                 </div>
                                                 {{ field }}
-                                                {{ field.errors }}
+                                                <div class="errors">{{ field.errors.as_text }}</div>
                                               </div>
                                             </div>   
-                                            {% endif %}                                 
                                           {% endfor %}
                                           <div class="delete-button-container">
                                             <button class="btn btn-lg btn-danger delete-button" data-id="{{ form.prefix }}" type="button">{{ constants.DELETE_EDUCATION_BUTTON }}<i class="fa fa-trash"></i></button>
@@ -313,22 +309,20 @@
                                       <div class="new-item-text">Add Educational Milestone</div>
                                     </div>
 
-                                    <div id="dropdown-{{ form.prefix }}" class="collapse blue-outline {% if form.errors %}show section-has-errors{% endif %}new-item" 
+                                    <div id="dropdown-{{ form.prefix }}" class="collapse blue-outline {% if form.errors %}show section-has-errors{% endif %} new-item" 
                                     aria-labelledby="{{ form.prefix }}-header" data-parent="#accordion-resume-education">
                                       {{ form.id }}
                                       <div class="new-item-header">New Educational Milestone</div>
                                       {% for field in form.visible_fields %}
-                                        {% if field.name != 'ORDER' %}
-                                        <div class="form-group{% if field.errors %} has-errors{% endif %}" id="{{ field.name }}">
+                                        <div class="form-group{% if field.errors %} has-errors{% endif %} field-{{ field.name }}">
                                           <div class="input-group">
-                                            <div class="field-label">
+                                            <div class="field-label{% if field.field.required %} required{% endif %}">
                                               {{ field.label }}
                                             </div>
                                             {{ field }}
-                                            {{ field.errors }}
+                                            <div class="errors">{{ field.errors.as_text }}</div>
                                           </div> 
                                         </div>  
-                                        {% endif %}                                  
                                       {% endfor %}
                                     </div>
 
@@ -489,6 +483,12 @@
         'yearRange': "-65:+0",
       });
 
+      // init datepickers
+      $(".datepicker").datepicker({
+        'changeYear' : true,
+        'yearRange': "-65:+0",
+      });
+
       // Init slider
       if(checkbox.val() == 'True'){
         slider.addClass('active');
@@ -497,13 +497,38 @@
         notLiveIndicator.addClass('show');
       }
 
-    // init sortables
-    $('.sortable').sortable(
-      {
-        // stop: function(event, ui){
-        //   var itemOrder = $(this).sortable('toArray');
-        // }
-      });
+      // init sortables
+      $('.sortable').sortable({});
+
+      // load last used section
+      var last_open_section = JSON.parse(sessionStorage.getItem("last_open_section"));
+      
+      if(last_open_section.last_open_section.is_expanded){
+        var section_id = '#' + last_open_section.last_open_section.section_name;
+        var accordion_target = $(section_id).attr('data-target');
+        console.log(accordion_target);
+        $(accordion_target).addClass('show');
+        $(accordion_target).attr('aria-expanded', true);
+        $(section_id).attr('aria-expanded', true);
+      }
+
+    });
+
+    // save last used section
+    $('.section-header').click(function(){
+      var lastItemId = $(this).attr("id");
+
+      var opened_status = !($(this).attr('aria-expanded') === 'true');
+      console.log(opened_status);
+
+      var last_section_info = {
+        "last_open_section" : {
+          "section_name": lastItemId,
+          "is_expanded" : opened_status
+        }
+      };
+
+      sessionStorage.setItem("last_open_section", JSON.stringify(last_section_info));
     });
 
     slider.click(function(){
@@ -539,6 +564,7 @@
             }
           }
         });
+        
     });
 
     // Hide save success / failure banner after 5s
@@ -580,7 +606,6 @@
       } else{
         deleteCb.prop('checked', true);
         $(cardId).addClass("deleted");
-        console.log(cardId);
       }
       event.stopPropagation();
     });
@@ -591,7 +616,6 @@
       var selector = `[data-sortable-id="${target}"]`;
       var itemOrder = $(selector).sortable('toArray');
 
-      console.log(itemOrder);
       // Set values on form
         itemOrder.forEach(function(element, i){
           var orderItem = $('#' + element);

@@ -33,7 +33,7 @@
                 {% if resume.contact_information_section_title %}
                 <h2>{{ resume.contact_information_section_title }}</h2>
                 {% endif %}
-                {{ resume.contact_information }}
+                {{ resume.contact_information|safe }}
             </div> 
         {% endif %}
         
@@ -42,7 +42,7 @@
                 {% if resume.personal_statement_section_title %}
                 <h2>{{ resume.personal_statement_section_title }}</h2>
                 {% endif %}
-                {{ resume.personal_statement }}
+                {{ resume.personal_statement|safe }}
             </div>
         {% endif %}
 
@@ -51,7 +51,7 @@
                 {% if resume.current_skills_section_title %}
                 <h2>{{ resume.current_skills_section_title }}</h2>
                 {% endif %}
-                {{ resume.current_skills }}
+                {{ resume.current_skills|safe }}
             </div>
         {% endif %}
 
@@ -70,7 +70,7 @@
                             {{ job.company_name }}
                         </div>
 
-                        {% if job.start_date and job.end_date %}
+                        {% if job.start_date or job.end_date %}
                         <span class="separator">|</span>
                         {% endif %}
 
@@ -80,15 +80,18 @@
                         </div>
                         {% endif %}
 
-                        {% if job.end_date %}
+                        {% if job.end_date and not job.is_current %}
                         <div class="position-end-date">
-                            {% if job.start_date %} - {% endif %} 
-                            {{ job.end_date }} 
+                            - {{ job.end_date }}
                         </div>
+                        
+                        {% elif job.is_current %}
+                        <div class="position-end-date">- Current</div>
                         {% endif %}
+                        
                     </div>
                     <div class="job-description">
-                        {{ job.position_description }}
+                        {{ job.position_description|safe }}
                     </div>
                 </div>
                 {% endfor %}
@@ -109,15 +112,29 @@
                     <div class="institution-name">
                         {{ education.institution_name }}
                     </div>
-                    <div class="education-start-date">
-                        {{ education.start_date }} {% if education.start_date %} - {% endif %}
+
+                    {% if education.start_date or education.end_date %}
+                    <span class="separator">|</span>
+                    {% endif %}
+
+                    {% if education.start_date %}
+                    <div class="position-start-date">
+                        {{ education.start_date }}
                     </div>
-                    <div class="education-end-date">
-                        {{ education.end_date }}
+                    {% endif %}
+
+                    {% if education.end_date and not education.is_current %}
+                    <div class="position-end-date">
+                        - {{ education.end_date }}
                     </div>
+                    
+                    {% elif education.is_current %}
+                    <div class="position-end-date">- Current</div>
+                    {% endif %}
+
                 </div>
                 <div class="education-description spaced">
-                    {{ education.education_description }}
+                    {{ education.education_description|safe }}
                 </div>
             </div>
             {% endfor %}

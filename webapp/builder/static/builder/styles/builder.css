@@ -270,7 +270,8 @@ i.chevron{
   font-size: 1rem;
 }
 
-.form-group#DELETE{
+#builder-form .form-group.field-ORDER,
+#builder-form .form-group.field-DELETE{
   display: none;
 }
 
@@ -297,4 +298,57 @@ i.chevron{
 
 #builder-form .resume-date:last-child{
   float: right;
+}
+
+#builder-form .field-start_date,
+#builder-form .field-end_date{
+  width: 45%;
+  margin-right: 10%;
+  float: left;
+}
+
+#builder-form .field-end_date{
+  margin-right: initial;
+}
+
+#builder-form .errors{
+  display: block;
+  width: 100%;
+  color: red;
+}
+
+#builder-form .field-label.required::after{
+  content: " *";
+}
+
+@media screen and (max-width: 425px) {
+  #builder-container{
+    padding: 5px;
+  }
+
+  #editor-container-body{
+    padding: 1.88rem 10px;
+  }
+
+  #builder-form .section-header{
+    padding: 1.25rem;
+  }
+
+  #builder-form .section-header i.chevron{
+    top: 23px;
+  }
+  
+  #builder-form .section-header[aria-expanded=true] i.chevron{
+    top: 25px;
+  }
+
+  #builder-form .section-body{
+    padding: 1.25rem;
+  }
+
+  #builder-form #save-button, 
+  #builder-form #preview-button{
+    margin-bottom: 20px;
+  }
+
 }
