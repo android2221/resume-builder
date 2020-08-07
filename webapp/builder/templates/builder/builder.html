@@ -53,7 +53,7 @@
       <div class="row">
           <div class="col-lg-12 grid-margin">
               <div class="card editor-container">
-                  <div class="card-body">
+                  <div class="card-body" id="editor-container-body">
                       <div class="editor-title">
                         <h3>{{ constants.EDIT_MY_RESUME }}</h3>
                         <div class=font-weight-bold id="profile-url">
@@ -74,7 +74,7 @@
                               </div>
                             
                               <div id="collapse-1" class="collapse {% if forms.resume_details_form.errors %}show{% endif %}" aria-labelledby="heading-1" data-parent="#accordion">
-                                <div class="card-body">
+                                <div class="card-body section-body">
                                   {% for field in forms.resume_details_form.visible_fields %}
                                   <div class="form-group{% if field.errors %} has-errors{% endif %}">
                                     <div class="input-group">
@@ -109,7 +109,7 @@
                                 aria-labelledby="heading-2" 
                                 data-parent="#accordion">
 
-                                <div class="card-body">
+                                <div class="card-body section-body">
                                     <!-- Ordering modal button -->
                                     {% if forms.resume_jobs_formset.total_form_count >= 3 %}
                                     <div class="reorder-button">
@@ -228,7 +228,7 @@
                                 <i class="fa fa-chevron-down chevron"></i>
                               </div>
                               <div id="collapse-3" class="collapse {% if forms.resume_education_section_title_form.errors or forms.resume_education_formset.errors %}show{% endif %}" aria-labelledby="heading-3" data-parent="#accordion">
-                                <div class="card-body">
+                                <div class="card-body section-body">
                                   <!-- Ordering modal button -->
                                   {% if forms.resume_education_formset.total_form_count >= 3 %}
                                   <div class="reorder-button">

@@ -320,3 +320,30 @@ i.chevron{
 #builder-form .field-label.required::after{
   content: " *";
 }
+
+@media screen and (max-width: 425px) {
+  #builder-container{
+    padding: 5px;
+  }
+
+  #editor-container-body{
+    padding: 1.88rem 10px;
+  }
+
+  #builder-form .section-header{
+    padding: 1.25rem;
+  }
+
+  #builder-form .section-header i.chevron{
+    top: 23px;
+  }
+  
+  #builder-form .section-header[aria-expanded=true] i.chevron{
+    top: 24px;
+  }
+
+  #builder-form .section-body{
+    padding: 1.25rem;
+  }
+
+}
