@@ -140,6 +140,12 @@ i.chevron{
   display: inline-block;
   font-size: 1rem;
   cursor: pointer;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+
+#builder-form .resume-form-actions #publish-button{
+  margin-right: 0px;
 }
 
 #builder-form .resume-form-actions a:hover{
