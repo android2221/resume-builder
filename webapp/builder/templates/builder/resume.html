@@ -76,13 +76,13 @@
 
                         {% if job.start_date %}
                         <div class="position-start-date">
-                            {{ job.start_date }}
+                            {{ job.start_date|date:"M Y" }}
                         </div>
                         {% endif %}
 
                         {% if job.end_date and not job.is_current %}
                         <div class="position-end-date">
-                            - {{ job.end_date }}
+                            - {{ job.end_date|date:"M Y" }}
                         </div>
                         
                         {% elif job.is_current %}
@@ -90,7 +90,7 @@
                         {% endif %}
                         
                     </div>
-                    <div class="job-description">
+                    <div class="job-description spaced">
                         {{ job.position_description|safe }}
                     </div>
                 </div>
@@ -119,13 +119,13 @@
 
                     {% if education.start_date %}
                     <div class="position-start-date">
-                        {{ education.start_date }}
+                        {{ education.start_date|date:"M Y" }}
                     </div>
                     {% endif %}
 
                     {% if education.end_date and not education.is_current %}
                     <div class="position-end-date">
-                        - {{ education.end_date }}
+                        - {{ education.end_date|date:"M Y" }}
                     </div>
                     
                     {% elif education.is_current %}

@@ -352,9 +352,4 @@ i.chevron{
     padding: 1.25rem;
   }
 
-  #builder-form #save-button, 
-  #builder-form #preview-button{
-    margin-bottom: 20px;
-  }
-
 }
