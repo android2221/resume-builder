@@ -79,16 +79,14 @@ class ResumeEducationFormsetForm(forms.ModelForm):
         self.fields['education_title'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
         self.fields['education_title'].label = constants.EDUCATION_ITEM_TITLE
         self.fields['institution_name'].widget.attrs['class'] = constants.INPUT_STYLE_NAME
-        self.fields['start_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME + ' ' + 'datepicker'
-        self.fields['start_date'].widget.attrs['readonly'] = "readonly"
-        self.fields['end_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME + ' ' + 'datepicker'
-        self.fields['end_date'].widget.attrs['readonly'] = "readonly"
+        self.fields['completed_date'].widget.attrs['class'] = constants.INPUT_STYLE_NAME + ' ' + 'datepicker'
+        self.fields['completed_date'].widget.attrs['readonly'] = "readonly"
         self.fields['education_description'].widget.attrs['class'] = constants.INPUT_STYLE_NAME + ' tinymce-editor'
         self.fields['is_current'].label = constants.RESUME_EDUCATION_IS_CURRENT
 
 ResumeEducationFormset = modelformset_factory(
     ResumeEducation,
-    fields=('education_title', 'institution_name', 'is_current', 'start_date', 'end_date', 'education_description'),
+    fields=('education_title', 'institution_name', 'is_current', 'completed_date', 'education_description'),
     form=ResumeEducationFormsetForm,
     validate_min=True,
     can_delete=True,

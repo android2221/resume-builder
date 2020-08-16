@@ -327,13 +327,21 @@ i.chevron{
   content: " *";
 }
 
-@media screen and (max-width: 425px) {
+#builder-form .field-completed_date{
+  width: 50%;
+}
+
+@media screen and (max-width: 550px) {
   #builder-container{
     padding: 5px;
   }
 
   #editor-container-body{
     padding: 1.88rem 10px;
+  }
+
+  #builder-form .field-completed_date{
+    width: initial;
   }
 
   #builder-form .section-header{

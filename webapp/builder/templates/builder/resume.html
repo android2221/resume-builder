@@ -70,7 +70,7 @@
                             {{ job.company_name }}
                         </div>
 
-                        {% if job.start_date or job.end_date %}
+                        {% if job.start_date or job.end_date  or job.is_current %}
                         <span class="separator">|</span>
                         {% endif %}
 
@@ -113,23 +113,17 @@
                         {{ education.institution_name }}
                     </div>
 
-                    {% if education.start_date or education.end_date %}
+                    {% if education.is_current or education.completed_date %}
                     <span class="separator">|</span>
                     {% endif %}
 
-                    {% if education.start_date %}
-                    <div class="position-start-date">
-                        {{ education.start_date|date:"M Y" }}
-                    </div>
-                    {% endif %}
-
-                    {% if education.end_date and not education.is_current %}
+                    {% if education.completed_date and not education.is_current %}
                     <div class="position-end-date">
-                        - {{ education.end_date|date:"M Y" }}
+                        {{ education.completed_date|date:"M Y" }}
                     </div>
                     
                     {% elif education.is_current %}
-                    <div class="position-end-date">- Current</div>
+                    <div class="position-end-date">In Progress</div>
                     {% endif %}
 
                 </div>
