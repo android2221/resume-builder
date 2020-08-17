@@ -29,16 +29,9 @@
 <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
         <div class="navbar-brand brand-logo">
-            {% if request.user.is_authenticated %}
-            <a class="" href="{% url 'builder_page' %}">
-                <img src="{% static 'builder/images/seemyresumelogo-beta.svg' %}" alt="logo" /> 
-            </a>
-            {% endif %}
-            {% if request.user.is_authenticated == False %}
             <a class="" href="{% url 'index' %}">
                 <img src="{% static 'builder/images/seemyresumelogo-beta.svg' %}" alt="logo" /> 
             </a>
-            {% endif %}
         </div>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-center">
@@ -54,6 +47,7 @@
                         <p class="mb-1 mt-3 font-weight-semibold">{{ request.user.first_name }} {{ request.user.last_name }}</p>
                         <p class="font-weight-light text-muted mb-0">{{ request.user.email }}</p>
                     </div>
+                    <a class="dropdown-item" href="{% url 'builder_page' %}">Resume Builder</a>
                     <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
                     <a class="dropdown-item" href="{% url 'change_password' %}">Change Password</a>
                     </div>

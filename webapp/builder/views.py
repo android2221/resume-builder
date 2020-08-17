@@ -62,7 +62,8 @@ def preview_resume(request):
             'resume': preview_resume,
             'resume_jobs': resume_jobs,
             'resume_education': resume_education,
-            'constants': constants
+            'constants': constants,
+            'site_title': preview_resume.resume_title
         })
     raise Http404(constants.PAGE_NOT_FOUND)
 
@@ -95,6 +96,7 @@ def view_resume(request, request_profile_url):
             'resume': resume,
             'resume_jobs': resume_jobs,
             'resume_education': resume_education,
-            'constants': constants
+            'constants': constants,
+            'site_title': resume.resume_title
         })
     raise Http404(constants.PAGE_NOT_FOUND)
