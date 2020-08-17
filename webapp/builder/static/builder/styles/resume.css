@@ -111,6 +111,11 @@ body{
     margin-inline-end: 0px;
 }
 
+.education.spaced,
+.position.spaced{
+  margin-block-end: 2em;
+}
+
 h2 {
     display: block;
     font-size: 1.5em;
