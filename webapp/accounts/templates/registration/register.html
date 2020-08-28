@@ -1,6 +1,7 @@
 {% extends 'builder/app-base.html' %}
 
 {% load static %}
+{% load honeypot %}
 
 {% block template_head_inserts %}
 <link rel="stylesheet" href="{% static 'accounts/styles/forms.css' %}">
@@ -41,6 +42,7 @@
             </div>
             <div class="errors">{{ field.errors.as_text }}</div>
             {% endfor %}
+            {% render_honeypot_field %}
             <div class="form-group">
                 <input type="submit" value="{{ constants.REGISTER_OPTION }}" class="btn btn-primary submit-btn btn-block">
             </div>

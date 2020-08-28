@@ -4,9 +4,10 @@ from .services.account_service import AccountService
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
+from honeypot.decorators import check_honeypot
 from . import constants
 
-
+@check_honeypot(field_name='address1')
 def register_user(request):
     service = AccountService()
     if request.user.is_authenticated:

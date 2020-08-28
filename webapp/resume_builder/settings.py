@@ -71,7 +71,8 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles'
+    'django.contrib.staticfiles',
+    'honeypot'
 ]
 
 MIDDLEWARE = [
@@ -188,9 +189,13 @@ EMAIL_FILE_PATH = os.environ.get("DJANGO_EMAIL_FILE_PATH", "")
 if EMAIL_FILE_PATH is None:
     EMAIL_FILE_PATH = "/sent_emails/"
 
+# My Settings
+
 if IS_PRODUCTION == True:
     SECURE_SSL_REDIRECT=True
     SESSION_COOKIE_SECURE=True
     CSRF_COOKIE_SECURE=True
     X_FRAME_OPTIONS='DENY'
     SECURE_REFERRER_POLICY='origin'
+
+HONEYPOT_FIELD_NAME = 'address1'
