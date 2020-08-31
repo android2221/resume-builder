@@ -140,6 +140,12 @@ i.chevron{
   display: inline-block;
   font-size: 1rem;
   cursor: pointer;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+
+#builder-form .resume-form-actions #publish-button{
+  margin-right: 0px;
 }
 
 #builder-form .resume-form-actions a:hover{
@@ -321,13 +327,21 @@ i.chevron{
   content: " *";
 }
 
-@media screen and (max-width: 425px) {
+#builder-form .field-completed_date{
+  width: 50%;
+}
+
+@media screen and (max-width: 550px) {
   #builder-container{
     padding: 5px;
   }
 
   #editor-container-body{
     padding: 1.88rem 10px;
+  }
+
+  #builder-form .field-completed_date{
+    width: initial;
   }
 
   #builder-form .section-header{
@@ -344,11 +358,6 @@ i.chevron{
 
   #builder-form .section-body{
     padding: 1.25rem;
-  }
-
-  #builder-form #save-button, 
-  #builder-form #preview-button{
-    margin-bottom: 20px;
   }
 
 }

@@ -70,19 +70,19 @@
                             {{ job.company_name }}
                         </div>
 
-                        {% if job.start_date or job.end_date %}
+                        {% if job.start_date or job.end_date  or job.is_current %}
                         <span class="separator">|</span>
                         {% endif %}
 
                         {% if job.start_date %}
                         <div class="position-start-date">
-                            {{ job.start_date }}
+                            {{ job.start_date|date:"M Y" }}
                         </div>
                         {% endif %}
 
                         {% if job.end_date and not job.is_current %}
                         <div class="position-end-date">
-                            - {{ job.end_date }}
+                            - {{ job.end_date|date:"M Y" }}
                         </div>
                         
                         {% elif job.is_current %}
@@ -90,7 +90,7 @@
                         {% endif %}
                         
                     </div>
-                    <div class="job-description">
+                    <div class="job-description spaced">
                         {{ job.position_description|safe }}
                     </div>
                 </div>
@@ -113,23 +113,17 @@
                         {{ education.institution_name }}
                     </div>
 
-                    {% if education.start_date or education.end_date %}
+                    {% if education.is_current or education.completed_date %}
                     <span class="separator">|</span>
                     {% endif %}
 
-                    {% if education.start_date %}
-                    <div class="position-start-date">
-                        {{ education.start_date }}
-                    </div>
-                    {% endif %}
-
-                    {% if education.end_date and not education.is_current %}
+                    {% if education.completed_date and not education.is_current %}
                     <div class="position-end-date">
-                        - {{ education.end_date }}
+                        {{ education.completed_date|date:"M Y" }}
                     </div>
                     
                     {% elif education.is_current %}
-                    <div class="position-end-date">- Current</div>
+                    <div class="position-end-date">In Progress</div>
                     {% endif %}
 
                 </div>

@@ -23,7 +23,7 @@ services:
       - DJANGO_IS_PRODUCTION=False
       - DJANGO_SITE_URL=localhost:8001
       - DJANGO_EMAIL_FILE_PATH=/sent_emails/
-      - DJANGO_DEBUG=True
+      - DJANGO_DEBUG=False
       - DB_DBNAME=postgres
       - DB_PASSWORD=myhardpassword
       - DB_USERNAME=postgres

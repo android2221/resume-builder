@@ -46,10 +46,19 @@
   position: relative;
   float: right;
   top: 9px;
+  cursor: pointer;
+}
+
+.footer #logo-container #logo-small{
+  display: none;
+  height: 22px;
+  width: 22px;
+  background-size: cover;
+  position: relative;
 }
 
 .footer .list-inline-item:not(:last-child){
-  margin-right: 0.2rem;
+  margin-right: 0.35rem;
 }
 
 .footer #footer-items-container{
@@ -57,6 +66,7 @@
   float: left;
   top: 10px;
 }
+
 
 @media (min-width: 350px){
   .footer #logo{
@@ -77,6 +87,18 @@
 @media (max-width: 500px){
   #sign-up-button{
     padding: .5rem .25rem;
+  }
+
+  .footer #logo-container{
+    top: 10px;
+  }
+
+  .footer #logo-container #logo-small{
+    display: block;
+  }
+
+  .footer #logo-container #logo{
+    display: none;
   }
 
 }
