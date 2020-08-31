@@ -508,26 +508,24 @@
       $('.sortable').sortable({});
 
       // load last used section
-      var last_open_section = JSON.parse(sessionStorage.getItem("last_open_section"));
+      var last_open_section = sessionStorage.getItem("last_open_section");
       
-      if(last_open_section.last_open_section.is_expanded){
-        var section_id = '#' + last_open_section.last_open_section.section_name;
-        var accordion_target = $(section_id).attr('data-target');
-        console.log(accordion_target);
-        $(accordion_target).addClass('show');
-        $(accordion_target).attr('aria-expanded', true);
-        $(section_id).attr('aria-expanded', true);
+      if(last_open_section){
+        var parsedInfo = JSON.parse(last_open_section);
+        if (parsedInfo.last_open_section.is_expanded){
+          var section_id = '#' + parsedInfo.last_open_section.section_name;
+          var accordion_target = $(section_id).attr('data-target');
+          $(accordion_target).addClass('show');
+          $(accordion_target).attr('aria-expanded', true);
+          $(section_id).attr('aria-expanded', true);
+        }
       }
-
     });
 
     // save last used section
     $('.section-header').click(function(){
       var lastItemId = $(this).attr("id");
-
       var opened_status = !($(this).attr('aria-expanded') === 'true');
-      console.log(opened_status);
-
       var last_section_info = {
         "last_open_section" : {
           "section_name": lastItemId,
