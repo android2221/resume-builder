@@ -18,7 +18,7 @@ services:
     environment: 
       - USE_SENDGRID=False
       - DJANGO_IS_PRODUCTION=True 
-      - DJANGO_DEBUG=True
+      - DJANGO_DEBUG=False
       - SECURE_SSL_REDIRECT=True
       - SESSION_COOKIE_SECURE=True
       - CSRF_COOKIE_SECURE=True
