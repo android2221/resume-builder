@@ -6,13 +6,6 @@ body{
     overflow: hidden;
 }
 
-.center-column{
-    margin-top: .75rem;
-    margin: 0 auto;
-    max-width: 900px;
-    margin-bottom: 5rem;
-    padding: 0px 20px;
-}
 .task-list-item { list-style-type: none; } 
 .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
 footer {
@@ -32,12 +25,13 @@ footer {
 }
 #printer-logo{
     position: relative;
-    width: 200px;
-    height: 48.39px;
+    width: 100%;
+    height: 30px;
     display: none;
 }
 #printer-logo img{
     width: 200px;
+    float: right;
 }
 .footer-container .image-container{
     position: absolute;

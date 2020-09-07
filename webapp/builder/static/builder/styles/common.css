@@ -1,5 +1,6 @@
 .content{
     width: 100%;
+    min-height: 80vh;
 }
 
 #info-bar{
@@ -54,7 +55,19 @@
 .navbar.default-layout .navbar-menu-wrapper .navbar-nav .nav-item .nav-link {
     font-size: 16px;
 }
-  
+
+.center-column{
+    margin-top: .75rem;
+    margin: 0 auto;
+    max-width: 900px;
+    margin-bottom: 5rem;
+    padding: 0px 20px;
+    word-wrap: break-word;
+}  
+
+.center-column.single-page{
+    margin-top: 40px;
+}
 
 @media (max-width: 500px){
     .navbar.default-layout .navbar-brand-wrapper {
