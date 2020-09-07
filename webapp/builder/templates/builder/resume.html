@@ -18,9 +18,6 @@
 {% block content %}
 <div id="resume-wrapper">
     <div class="center-column">
-        <div id="printer-logo">
-            <img src="{% static 'builder/images/created-with-vertical.svg' %}">
-        </div>
         <!-- Basic template -->
         {% if resume.resume_title %}
         <div id="resume-title">
@@ -147,32 +144,6 @@
         </footer>  
     </a>
 </div>
-
-<script>
-
-    $(document).ready(() =>{
-      setInterval(function() {
-        ensurePrintWatermarkExists();
-      }, 5000);
-
-        window.onbeforeprint = function(){
-            ensurePrintWatermarkExists();
-            console.log('printing');
-        };
-
-    });
-
-    function ensurePrintWatermarkExists(){
-        var logoHtml = `<div id="printer-logo">
-            <img src="{% static 'builder/images/created-with-vertical.svg' %}">
-        </div>`;
-
-        if (!$('#printer-logo').length > 0){
-            $('.center-column').prepend(logoHtml);
-        }
-    }
-
-</script>
 
 {% endblock %}
 
