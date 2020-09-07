@@ -6,15 +6,6 @@ body{
     overflow: hidden;
 }
 
-.center-column{
-    margin-top: .75rem;
-    margin: 0 auto;
-    max-width: 900px;
-    margin-bottom: 5rem;
-    padding: 0px 20px;
-    word-wrap: break-word;
-}
-
 .task-list-item { list-style-type: none; } 
 .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
 footer {
