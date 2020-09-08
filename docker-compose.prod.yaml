@@ -25,3 +25,5 @@ services:
       - ACTIVATE_GOOGLE_ANALYTICS=True
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1
+      - FEEDBACK_FORM_URL=https://forms.gle/vLvLk1zKH855HNdJ6
+      - SUPPORT_FORM_URL=https://forms.gle/RHXq9tHKJZwTY6CS8

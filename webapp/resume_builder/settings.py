@@ -103,7 +103,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'resume_builder.context_processors.get_production_setting'
+                'resume_builder.context_processors.get_production_setting',
+                'resume_builder.context_processors.add_url_setting'
             ],
         },
     },
@@ -199,3 +200,5 @@ if IS_PRODUCTION == True:
     SECURE_REFERRER_POLICY='origin'
 
 HONEYPOT_FIELD_NAME = 'address1'
+FEEDBACK_FORM_URL = os.environ.get("FEEDBACK_FORM_URL", "")
+SUPPORT_FORM_URL = os.environ.get("SUPPORT_FORM_URL", "")

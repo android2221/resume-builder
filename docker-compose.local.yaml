@@ -35,6 +35,8 @@ services:
       - ACTIVATE_GOOGLE_ANALYTICS=False
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1
+      - FEEDBACK_FORM_URL=https://forms.gle/vLvLk1zKH855HNdJ6
+      - SUPPORT_FORM_URL=https://forms.gle/RHXq9tHKJZwTY6CS8
     depends_on:
       - db
   # webapp-tests:
