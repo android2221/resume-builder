@@ -1,7 +1,6 @@
 from builder import views
 from django.urls import path, reverse_lazy
-from django.views.generic import FormView
-from django.views.generic import TemplateView
+from django.views.generic import FormView, TemplateView
 
 urlpatterns = [
     path('', views.index, name='index'),

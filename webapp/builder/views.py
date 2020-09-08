@@ -1,12 +1,13 @@
 from accounts import constants
+from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.urls import reverse
-from django.conf import settings
+
 from .services.resume_service import ResumeService
-from django.contrib import messages
-from django.core.exceptions import ObjectDoesNotExist
 
 
 def handler404(request, exception):

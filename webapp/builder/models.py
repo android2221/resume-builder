@@ -1,6 +1,6 @@
+from accounts import constants
 from django.contrib.auth.models import AbstractUser, User
 from django.db import models
-from accounts import constants
 
 
 class Resume(models.Model):
@@ -35,4 +35,3 @@ class ResumeEducation(models.Model):
     education_description=models.TextField(null=True, blank=True)
     is_current=models.BooleanField(default=False)
     resume_position=models.IntegerField(null=True, blank=True)
-
