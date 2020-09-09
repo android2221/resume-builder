@@ -178,5 +178,5 @@ class ResumeService():
                 resume.is_live = form.cleaned_data["profile_active"]
                 resume.save()
                 return True
-            except Exception as e:
+            except Exception:
                 return False

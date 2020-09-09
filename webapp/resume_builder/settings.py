@@ -103,7 +103,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'resume_builder.context_processors.get_production_setting'
+                'resume_builder.context_processors.get_production_setting',
+                'resume_builder.context_processors.add_url_setting'
             ],
         },
     },
@@ -181,8 +182,8 @@ else:
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "")
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 SENDGRID_ECHO_TO_STDOUT=True
-DEFAULT_FROM_EMAIL  = 'webmaster@seemyresume.io'
-SERVER_EMAIL  = 'webmaster@seemyresume.io'
+DEFAULT_FROM_EMAIL  = 'do-not-reply@seemyresume.io'
+SERVER_EMAIL  = 'do-not-reply@seemyresume.io'
 
 EMAIL_FILE_PATH = os.environ.get("DJANGO_EMAIL_FILE_PATH", "")
 
@@ -199,3 +200,5 @@ if IS_PRODUCTION == True:
     SECURE_REFERRER_POLICY='origin'
 
 HONEYPOT_FIELD_NAME = 'address1'
+FEEDBACK_FORM_URL = os.environ.get("FEEDBACK_FORM_URL", "")
+SUPPORT_FORM_URL = os.environ.get("SUPPORT_FORM_URL", "")

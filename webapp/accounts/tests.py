@@ -8,6 +8,7 @@ from . import constants
 from .forms import UserRegistrationForm
 from .models import Account
 
+
 class RegistrationViewTests(TestCase):
     form_data = {
             "email": "foo@bar.com", 
@@ -118,4 +119,3 @@ class RegistrationFormTests(TestCase):
 # TODO: Password flow tests: login/ logout redirects etc
 # TODO: make sure normal password requirement failures are working (mismatched passwords, length off etc)
 # TODO: Email sending tests
-

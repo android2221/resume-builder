@@ -5,6 +5,8 @@ ERROR_PARSING_PROFILE_URL = "Could not use that profile URL, try another one"
 ERROR_SAVING_RESUME = "Resume Save Failed! Please try again and contact support if issue persists."
 FORM_ERROR_RESUME = "There are errors in your resume, please correct them before continuing."
 ERROR_LOGIN = "Username or password is incorrect."
+RESUME_PUBLISHED_ERROR = "Resume published failed! Please try again and contact support if issue persists."
+
 
 # FORM HELP TEXTS
 FORM_PROFILE_URL_REQUIREMENTS = "Your resume URL may only contain letters, numbers, dashes, and hyphens"

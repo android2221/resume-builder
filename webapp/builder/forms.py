@@ -1,8 +1,10 @@
 from accounts import constants
 from django import forms
-from django.forms import modelformset_factory
 from django.contrib.auth.models import User
-from .models import ResumeJob, Resume, ResumeEducation
+from django.forms import modelformset_factory
+
+from .models import Resume, ResumeEducation, ResumeJob
+
 
 class ActivateResumeForm (forms.Form):
     profile_active = forms.BooleanField(required=False, label="", widget=forms.HiddenInput())

@@ -1,8 +1,11 @@
-from django.urls import path, reverse_lazy
 from django.contrib.auth import views as auth_views
+from django.urls import path, reverse_lazy
 
-from .views import register_user, CustomLoginView, CustomForgotPasswordView, CustomSetPasswordView, CustomPasswordChangeView
-from .forms import UserLoginForm, ResetForm, ResetConfirmForm, CustomPasswordChangeForm
+from .forms import (CustomPasswordChangeForm, ResetConfirmForm, ResetForm,
+                    UserLoginForm)
+from .views import (CustomForgotPasswordView, CustomLoginView,
+                    CustomPasswordChangeView, CustomSetPasswordView,
+                    register_user)
 
 urlpatterns = [
     path('register/', register_user, name="register"),

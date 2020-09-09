@@ -1,12 +1,13 @@
 from accounts import constants
+from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.urls import reverse
-from django.conf import settings
+
 from .services.resume_service import ResumeService
-from django.contrib import messages
-from django.core.exceptions import ObjectDoesNotExist
 
 
 def handler404(request, exception):
@@ -70,11 +71,15 @@ def preview_resume(request):
 @login_required
 def publish_resume(request):
     service = ResumeService()
-    if request.POST:
-        # TODO: Handle Failure
-        service.publish_resume_for_user(request.user)
-        messages.success(request, constants.RESUME_PUBLISHED_SUCCESS)
-        return HttpResponseRedirect(reverse('builder_page'))
+    try:
+        if request.POST:
+            service.publish_resume_for_user(request.user)
+            messages.success(request, constants.RESUME_PUBLISHED_SUCCESS)
+            return HttpResponseRedirect(reverse('builder_page'))
+    except Exception:
+            messages.error(request, constants.RESUME_PUBLISHED_SUCCESS)
+            return HttpResponseRedirect(reverse('builder_page'))
+
 
 @login_required
 def toggle_resume_active(request):

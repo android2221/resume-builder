@@ -1,11 +1,14 @@
+from unittest.mock import MagicMock
+
 import requests
+
 from accounts.models import Account
 from django.contrib.auth.models import User
 from django.test import Client, TestCase
 from django.urls import reverse
-from unittest.mock import MagicMock
 
 from .models import Resume
+
 
 class FakeResponse(object):
     name = ""

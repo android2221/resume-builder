@@ -1,11 +1,13 @@
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import views as auth_views
 from django.shortcuts import HttpResponseRedirect, render
 from django.urls import reverse
-from .services.account_service import AccountService
-from django.contrib.auth import views as auth_views
-from django.contrib.auth import update_session_auth_hash
-from django.contrib import messages
 from honeypot.decorators import check_honeypot
+
 from . import constants
+from .services.account_service import AccountService
+
 
 @check_honeypot(field_name='address1')
 def register_user(request):
