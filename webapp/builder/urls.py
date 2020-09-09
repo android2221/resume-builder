@@ -1,12 +1,13 @@
-from builder.views import index as index_view
-from django.urls import path
-from django.views.generic import FormView
-
-from . import views
-from .forms import ResumeEditorForm
+from builder import views
+from django.urls import path, reverse_lazy
+from django.views.generic import FormView, TemplateView
 
 urlpatterns = [
-    path('', index_view, name='index'),
-    path('builder/', views.builder, name='builder'),
-    path('activate-resume/', views.toggle_resume_active, name='activate-resume'),
+    path('', views.index, name='index'),
+    path('terms/', TemplateView.as_view(template_name="builder/terms.html"), name="terms"),
+    path('privacy/', TemplateView.as_view(template_name="builder/privacy.html"), name="privacy"),
+    path('builder/', views.builder_page, name='builder_page'),
+    path('builder/preview/', views.preview_resume, name='preview_resume'),
+    path('builder/publish/', views.publish_resume, name='publish_resume'),
+    path('activate-resume/', views.toggle_resume_active, name='activate_resume'),
 ]

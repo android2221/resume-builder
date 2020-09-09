@@ -1,7 +1,124 @@
-{% extends 'builder/jquery-base.html' %}
+{% extends 'builder/app-base.html' %}
+{% load static %}
 
-{% block content %}
-This is the index page with some dynamic content {{ some_sample_text }}
-    <a href="{% url 'builder' %}">go to builder</a></li>
-    <a href="{% url 'register' %}">register</a></li>
+{% block template_head_inserts %}
+
+<!-- Custom fonts for this template -->
+<link rel="stylesheet" href="{% static 'builder/vendor/ui/vendors/simple-line-icons/css/simple-line-icons.css' %}">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+<!-- Plugin CSS -->
+<link rel="stylesheet" href="{% static 'builder/vendor/ui/vendors/css/device-mockups/device-mockups.min.css' %}">
+
+<!-- Custom styles for this template -->
+<link href="{% static 'builder/vendor/ui/css/main/new-age.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'builder/styles/index.css' %}">
+<!-- Plugin JavaScript -->
+<script src="{% static 'builder/vendor/ui/vendors/jquery-easing/jquery.easing.min.js' %}"></script>
+
+<!-- Custom scripts for this template -->
+
 {% endblock %}
+
+{% block app_content %}
+
+  <header class="masthead">
+    <div class="container h-100">
+      <div class="row h-100">
+        <div class="col-lg-6 my-auto">
+          <div class="header-content mx-auto">
+            <h1>Build and share a beautiful resumé.</h1>
+            <h4>SeeMyResume has the tools to craft your resumé and publish it on the web with a personalized url.</h4>
+            <div class="cta-button-container">
+              <a href="{% url 'register' %}">
+                <button class="btn btn-success">Get Started!</button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 my-auto">
+          <div id="hero-image">
+            <img src="{% static 'builder/images/hero-image.svg' %}">
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="features" id="features">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 my-auto">
+          <div id="features-image">
+            <img src="{% static 'builder/images/features-image.svg' %}">
+          </div>
+        </div>
+        <div class="col-lg-8 my-auto">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-6 col-sm-6">
+                <div class="feature-item">
+                  <i class="icon-pencil text-primary"></i>
+                  <h3 class="font-weight-bold">Simple Editor</h3>
+                  <p>Create and edit within a simple WYSIWYG editor - no downloads or cumbersome software to use.</p>
+                </div>
+              </div>
+              <div class="col-lg-6 col-sm-6">
+                <div class="feature-item">
+                  <i class="icon-globe text-primary"></i>
+                  <h3 class="font-weight-bold">Custom URL</h3>
+                  <p>Publish your resumé on the web behind a personalized URL that makes it easy to share anywhere.</p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-sm-6">
+                <div class="feature-item">
+                  <i class="icon-printer text-primary"></i>
+                  <h3 class="font-weight-bold">Printer Friendly</h3>
+                  <p>Print with clean formatting so a hard copy looks as great as it does on the web.</p>
+                </div>
+              </div>
+              <div class="col-lg-6 col-sm-6">
+                <div class="feature-item">
+                  <i class="icon-briefcase text-primary"></i>
+                  <h3 class="font-weight-bold">Dedicated Platform</h3>
+                  <p>Always have a place for the most important document of your career.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="join-beta" id="join-beta">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+          <div class="text-container">
+            <div class="section-heading">
+              <h2>Join The Beta!</h2>
+              <hr>
+            </div>
+            <div class="beta-text">
+              Everything is <b>free</b> for now while we work on adding more features. You'll be able to create a resumé and publish it immediately, and you will be the first to know about new features and exclusive offers.
+            </div>
+            <div class="cta-button-container join-now">
+              <a href="{% url 'register' %}">
+                <button class="btn btn-info">Join Now</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% endblock %}
+
+  {% block bottom_inserts %}
+  {% endblock %}

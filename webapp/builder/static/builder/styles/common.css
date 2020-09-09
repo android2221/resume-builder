@@ -1,0 +1,96 @@
+.content{
+    width: 100%;
+    min-height: 80vh;
+}
+
+#info-bar{
+    padding: 10px 0px;
+    width: 100%;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.navbar.fixed-top + .page-wrapper{
+    padding-top: 63px;
+}
+
+.alert-success {
+    color: #0d704d;
+    background-color: #d1f7ea;
+    border-color: #bff4e1;
+}
+
+.alert {
+    position: relative;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+
+.navbar-toggler{
+    display: none !important;
+}
+
+.navbar.default-layout .navbar-brand-wrapper {
+    width: 270px;
+}
+.navbar.default-layout .navbar-menu-wrapper {
+    width: calc(100% - 270px);
+}
+.navbar.default-layout .navbar-brand-wrapper .brand-logo {
+    display: block;
+}
+
+.navbar-brand-wrapper{
+    padding: 0px 20px;
+}
+  
+.navbar.default-layout .navbar-brand-wrapper .navbar-brand img{
+    width: 100%;
+}
+
+.navbar.default-layout .navbar-menu-wrapper .navbar-nav .nav-item .nav-link {
+    font-size: 16px;
+}
+
+.center-column{
+    margin-top: .75rem;
+    margin: 0 auto;
+    max-width: 900px;
+    margin-bottom: 5rem;
+    padding: 0px 20px;
+    word-wrap: break-word;
+}  
+
+.center-column.single-page{
+    margin-top: 40px;
+}
+
+@media (max-width: 500px){
+    .navbar.default-layout .navbar-brand-wrapper {
+        width: 180px;
+    }
+    .navbar.default-layout .navbar-menu-wrapper {
+        width: calc(100% - 180px);
+    }
+    .navbar.default-layout .navbar-brand-wrapper .brand-logo {
+        display: block;
+    }
+    .navbar-brand-wrapper{
+        padding: 0px 10px;
+    }
+    .navbar.default-layout .navbar-menu-wrapper .navbar-nav .nav-item .nav-link {
+        font-size: 14px;
+    }
+    .navbar.default-layout .navbar-menu-wrapper .navbar-nav .nav-item .nav-link{
+        margin-left: 0.2rem;
+        margin-right: 0.2rem;
+    }
+    .navbar.default-layout .navbar-menu-wrapper .navbar-nav .nav-item{
+        margin-left: 0px;
+    }
+}
+

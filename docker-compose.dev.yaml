@@ -1,0 +1,37 @@
+# Docker-compose file for local development
+version: "3.7"
+services:
+  db:
+    image: postgres
+    environment: 
+      - POSTGRES_PASSWORD=myhardpassword
+
+  webapp:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    entrypoint: sh /build/docker-entrypoint.dev.sh
+    restart: always
+    ports:
+      - "80:8001"
+    env_file: 
+      - ./env-vars.env
+    environment: 
+      - USE_SENDGRID=False
+      - SENDGRID_API_KEY=""
+      - DJANGO_IS_PRODUCTION=False
+      - DJANGO_DEBUG=False
+      - DJANGO_SITE_URL=dev.seemyresume.io
+      - DJANGO_EMAIL_FILE_PATH=/sent_emails/
+      - DB_DBNAME=postgres
+      - DB_PASSWORD=myhardpassword
+      - DB_USERNAME=postgres
+      - DB_FQDN=db
+      - DB_PORT=5432
+      - ACTIVATE_GOOGLE_ANALYTICS=False
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+      - FEEDBACK_FORM_URL=https://forms.gle/vLvLk1zKH855HNdJ6
+      - SUPPORT_FORM_URL=https://forms.gle/RHXq9tHKJZwTY6CS8
+    depends_on:
+      - db

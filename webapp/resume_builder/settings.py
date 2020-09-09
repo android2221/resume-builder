@@ -12,12 +12,30 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+# Big Production flag, we use production settings where we need to based on the 
+# boolean value of this field
+IS_PRODUCTION=False
+PRODUCTION_SETTING=os.environ.get("DJANGO_IS_PRODUCTION", False)
+
+if PRODUCTION_SETTING == 'True':
+    IS_PRODUCTION=True
+else:
+    IS_PRODUCTION=False
+
+# Activate Google Analytics
+ACTIVATE_GOOGLE_ANALYTICS=os.environ.get("ACTIVATE_GOOGLE_ANALYTICS", False)
+if ACTIVATE_GOOGLE_ANALYTICS == 'True':
+    ACTIVATE_GOOGLE_ANALYTICS=True
+else:
+    ACTIVATE_GOOGLE_ANALYTICS=False
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # RESUME BUILDER APP CONFIGS
-SITE_URL = "localhost:8001"
-MARKDOWN_RENDER_URL = "http://markdown-renderer/"
+ROOT_URL = os.environ.get("DJANGO_SITE_URL", "")
+
+SITE_URL = ROOT_URL
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -25,56 +43,37 @@ MARKDOWN_RENDER_URL = "http://markdown-renderer/"
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'o-9=#fc$is3jt$sv#1$28dd!d@#!nh5dshcqc7ql1ko07a-b=y'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG
+DJANGO_DEBUG=os.environ.get("DJANGO_DEBUG", False)
+if DJANGO_DEBUG == 'True':
+    DEBUG=True
+else:
+    DEBUG=False
 
-ALLOWED_HOSTS = []
+if IS_PRODUCTION == False:
+    ALLOWED_HOSTS=['localhost', ROOT_URL]
+else:
+    ALLOWED_HOSTS = [ROOT_URL, f'www.{ROOT_URL}']
 
 LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "/builder"
+LOGOUT_REDIRECT_URL = "/"
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 # Application definition
 
 INSTALLED_APPS = [
     'builder.apps.BuilderConfig',
     'accounts.apps.AccountsConfig',
-    'mdeditor',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles'
+    'django.contrib.staticfiles',
+    'honeypot'
 ]
-
-MDEDITOR_CONFIGS = {
-    'default':{
-        'language': 'en',
-        'width': '90% ',  # Custom edit box width
-        'heigth': 500,  # Custom edit box height
-        'toolbar': ["undo", "redo", "|",
-                    "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
-                    "h1", "h2", "h3", "h5", "h6", "|",
-                    "list-ul", "list-ol", "hr", "|",
-                    "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime"
-                    "emoji", "html-entities", "pagebreak", "goto-line", "|",
-                    "||", "preview", "watch", "fullscreen"],  # custom edit box toolbar 
-        'upload_image_formats': ["jpg", "jpeg", "gif", "png", "bmp", "webp"],  # image upload format type
-        'image_folder': 'editor',  # image save the folder name
-        'theme': 'default',  # edit box theme, dark / default
-        'preview_theme': 'default',  # Preview area theme, dark / default
-        'editor_theme': 'default',  # edit area theme, pastel-on-dark / default
-        'toolbar_autofixed': True,  # Whether the toolbar capitals
-        'search_replace': True,  # Whether to open the search for replacement
-        'emoji': True,  # whether to open the expression function
-        'tex': False,  # whether to open the tex chart function
-        'flow_chart': False,  # whether to open the flow chart function
-        'sequence': False, # Whether to open the sequence diagram function
-        'watch': True,  # Live preview
-        'lineWrapping': True,  # lineWrapping
-        'lineNumbers': False  # lineNumbers
-    }
-    
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -104,6 +103,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'resume_builder.context_processors.get_production_setting',
+                'resume_builder.context_processors.add_url_setting'
             ],
         },
     },
@@ -118,10 +119,11 @@ WSGI_APPLICATION = 'resume_builder.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'HOST': 'db',
-        'PORT': 5432,
+        'NAME': os.environ.get("DB_DBNAME", ""),
+        'USER': os.environ.get("DB_USERNAME", ""),
+        'HOST': os.environ.get("DB_FQDN", ""),
+        'PASSWORD': os.environ.get("DB_PASSWORD", ""),
+        'PORT': os.environ.get("DB_PORT", ""),
     }
 }
 
@@ -164,3 +166,39 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = '/django-static-root/'
+
+# Email Settings
+USE_SENDGRID=os.environ.get("USE_SENDGRID", True)
+if (USE_SENDGRID == 'False'):
+    SHOULD_USE_SENDGRID=False
+else:
+    SHOULD_USE_SENDGRID=True
+
+if SHOULD_USE_SENDGRID == True:
+    EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+
+SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "")
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+SENDGRID_ECHO_TO_STDOUT=True
+DEFAULT_FROM_EMAIL  = 'do-not-reply@seemyresume.io'
+SERVER_EMAIL  = 'do-not-reply@seemyresume.io'
+
+EMAIL_FILE_PATH = os.environ.get("DJANGO_EMAIL_FILE_PATH", "")
+
+if EMAIL_FILE_PATH is None:
+    EMAIL_FILE_PATH = "/sent_emails/"
+
+# My Settings
+
+if IS_PRODUCTION == True:
+    SECURE_SSL_REDIRECT=True
+    SESSION_COOKIE_SECURE=True
+    CSRF_COOKIE_SECURE=True
+    X_FRAME_OPTIONS='DENY'
+    SECURE_REFERRER_POLICY='origin'
+
+HONEYPOT_FIELD_NAME = 'address1'
+FEEDBACK_FORM_URL = os.environ.get("FEEDBACK_FORM_URL", "")
+SUPPORT_FORM_URL = os.environ.get("SUPPORT_FORM_URL", "")

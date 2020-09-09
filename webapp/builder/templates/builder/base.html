@@ -1,20 +1,45 @@
 {% load static %}
-<! DOCTYPE html>
 
-<html lang = "en">
-    <head>
-        <meta http-equiv = "Content-Type" content = "text / html; charset = utf-8" />
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    </head>
-    <body>
-        Welcome {{ request.user }}
-        <div class="content">
-            {% block content %}
-            {% endblock %}
-        </div>
-        {% block jquery_import %}
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    {% if ACTIVATE_GOOGLE_ANALYTICS %}
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-164320146-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-164320146-1');
+      </script>
+    {% endif %}
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>{% if site_title %}{{ site_title }}{% else %}The best place to create and share your resume - SeeMyResume.io{% endif %}</title>
+    <link rel="shortcut icon" href="{% static 'builder/images/favicon.ico' %}" />
+    <script src="{% static 'builder/vendor/ui/vendors/js/vendor.bundle.base.js' %}"></script>	
+    <script src="{% static 'builder/vendor/ui/vendors/js/vendor.bundle.addons.js' %}"></script>
+    {% block head_inserts %}      
+    {% endblock %}
+  </head>
+  <body id="page-top">
+    <div class="container-scroller">
+      {% block navbar %}
+      {% endblock %}
+      <div class="page-wrapper">
+        {% block info_message %}
         {% endblock %}
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    </body>
+        <div class="content">
+          {% block content %}
+          {% endblock %}
+        </div>
+      </div>  
+      {% block footer %}
+      {% endblock %}
+    </div>
+    {% block bottom_inserts %}
+    {% endblock %}
+  </body>
 </html>

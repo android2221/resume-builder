@@ -1,30 +1,149 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
-<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
-<style>
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu', 'Droid Sans', sans-serif;
-        font-size: 14px;
-        line-height: 1.6;
-        position: relative;
-    }
-    .center-column{
-        margin: 0 auto;
-        max-width: 1000px;
-        padding: 3px;
-    }
-    .task-list-item { list-style-type: none; } 
-    .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
-    #build-badge{
-        float: right;
-        position: relative;
-        top: 10px;
-    }
-</style>
+{% extends './base.html' %}
 
-{% autoescape off %}
-    <div class="center-column">
-        {{ resume_content }}
+{% load static %}
+
+{% block head_inserts %}
+<link rel="stylesheet" href="{% static 'builder/styles/resume.css' %}">
+<link rel="stylesheet" href="{% static 'builder/styles/common.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block info_message %}
+    {% if resume.is_draft %}
+    <div id="info-bar" class="alert alert-success">  
+        {{ constants.RESUME_PREVIEW_MESSAGE }}
     </div>
-{% endautoescape %}
+    {% endif %}
+{% endblock %}
+{% block content %}
+<div id="resume-wrapper">
+    <div class="center-column">
+        <!-- Basic template -->
+        {% if resume.resume_title %}
+        <div id="resume-title">
+            <h1>{{ resume.resume_title }}</h1>
+        </div>
+        {% endif %}
+
+        {% if resume.contact_information %}
+            <div id="contact-info spaced">
+                {% if resume.contact_information_section_title %}
+                <h2>{{ resume.contact_information_section_title }}</h2>
+                {% endif %}
+                {{ resume.contact_information|safe }}
+            </div> 
+        {% endif %}
+        
+        {% if resume.personal_statement %}
+            <div id="personal-statement spaced">
+                {% if resume.personal_statement_section_title %}
+                <h2>{{ resume.personal_statement_section_title }}</h2>
+                {% endif %}
+                {{ resume.personal_statement|safe }}
+            </div>
+        {% endif %}
+
+        {% if resume.current_skills %}
+            <div id="skills-list spaced">
+                {% if resume.current_skills_section_title %}
+                <h2>{{ resume.current_skills_section_title }}</h2>
+                {% endif %}
+                {{ resume.current_skills|safe }}
+            </div>
+        {% endif %}
+
+        {% if resume_jobs %}
+            <div id="experience-list">
+                {% if resume.resume_jobs_section_title %}
+                <h2>{{ resume.resume_jobs_section_title }}</h2>
+                {% endif %}
+                {% for job in resume_jobs %}
+                <div class="position spaced">
+                    <div class="position-info">
+                        <div class="position-title">
+                            {{ job.position_title }}
+                        </div>
+                        <div class="company-name">
+                            {{ job.company_name }}
+                        </div>
+
+                        {% if job.start_date or job.end_date  or job.is_current %}
+                        <span class="separator">|</span>
+                        {% endif %}
+
+                        {% if job.start_date %}
+                        <div class="position-start-date">
+                            {{ job.start_date|date:"M Y" }}
+                        </div>
+                        {% endif %}
+
+                        {% if job.end_date and not job.is_current %}
+                        <div class="position-end-date">
+                            - {{ job.end_date|date:"M Y" }}
+                        </div>
+                        
+                        {% elif job.is_current %}
+                        <div class="position-end-date">- Current</div>
+                        {% endif %}
+                        
+                    </div>
+                    <div class="job-description spaced">
+                        {{ job.position_description|safe }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>        
+        {% endif %}
+
+        {% if resume_education %}
+        <div id="education-list">
+            {% if resume.resume_education_section_title %}
+            <h2>{{ resume.resume_education_section_title }}</h2>
+            {% endif %}
+            {% for education in resume_education %}
+            <div class="education spaced">
+                <div class="education-info">
+                    <div class="education-title">
+                        {{ education.education_title }}
+                    </div>
+                    <div class="institution-name">
+                        {{ education.institution_name }}
+                    </div>
+
+                    {% if education.is_current or education.completed_date %}
+                    <span class="separator">|</span>
+                    {% endif %}
+
+                    {% if education.completed_date and not education.is_current %}
+                    <div class="position-end-date">
+                        {{ education.completed_date|date:"M Y" }}
+                    </div>
+                    
+                    {% elif education.is_current %}
+                    <div class="position-end-date">In Progress</div>
+                    {% endif %}
+
+                </div>
+                <div class="education-description spaced">
+                    {{ education.education_description|safe }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- End Basic template -->
+    </div>
+    <a href="{% url 'index' %}">
+        <footer class="fixed-bottom">
+                <div class="footer-container col-lg-12">
+                    <div class="image-container">
+                        <div alt="seemyresume.io" id="footer-logo" style="background-image: url({% static 'builder/images/created-with-horizontal.svg' %})"></div>
+                    </div>
+                </div>
+        </footer>  
+    </a>
+</div>
+
+{% endblock %}
+

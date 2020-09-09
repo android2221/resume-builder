@@ -1,25 +1,85 @@
 from accounts import constants
+from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.urls import reverse
-from .services.resume import ResumeService
+
+from .services.resume_service import ResumeService
+
+
+def handler404(request, exception):
+    response = render(request, "builder/404.html", {})
+    response.status_code = 404
+    return response
 
 
 def index(request):
-    context = {'some_sample_text': 'some sample thing i typed'}
-    return render(request, 'builder/index.html', context)
+    return render(request, 'builder/index.html', {})
+
 
 @login_required
-def builder(request):
+def builder_page(request):
+    # Loading and saving resume page
     service = ResumeService()
+    resume = service.get_resume_for_user(request.user.id)
     if request.POST:
-        save_success = service.save_resume(request.user.resume, request.POST)
-        context = {"success": save_success}
-        return HttpResponseRedirect(reverse("builder"), context)
+        try:
+            forms = service.save_resume(resume=resume, post_payload=request.POST)
+        except:
+            messages.error(request, constants.ERROR_SAVING_RESUME)
+        has_errors = False
+        for form in forms.values():
+            if form.errors:
+                has_errors = True
+                break
+        if not has_errors:
+            messages.success(request, constants.RESUME_SAVE_SUCCESS)
+            return HttpResponseRedirect(reverse('builder_page'))
+        else:
+            messages.error(request, constants.FORM_ERROR_RESUME)
     else:
-        context = service.build_resume_form(request.user.resume)
+        forms = service.init_builder_forms(user_id=request.user.id)
+    context = {
+        'forms': forms,
+        'resume_is_active': resume.is_live,
+        'site_url': settings.SITE_URL,
+        'constants': constants
+    }
     return render(request, 'builder/builder.html', context)
+
+@login_required
+def preview_resume(request):
+    service = ResumeService()
+    preview_resume = service.get_resume_for_user(request.user.id, True)
+    if (preview_resume is None):
+        raise Http404(constants.PAGE_NOT_FOUND)
+    resume_jobs = service.get_resume_jobs_by_id(preview_resume.pk)
+    resume_education = service.get_resume_education_by_id(preview_resume.pk)
+    if preview_resume is not None:
+        return render(request, 'builder/resume.html', {
+            'resume': preview_resume,
+            'resume_jobs': resume_jobs,
+            'resume_education': resume_education,
+            'constants': constants,
+            'site_title': preview_resume.resume_title
+        })
+    raise Http404(constants.PAGE_NOT_FOUND)
+
+@login_required
+def publish_resume(request):
+    service = ResumeService()
+    try:
+        if request.POST:
+            service.publish_resume_for_user(request.user)
+            messages.success(request, constants.RESUME_PUBLISHED_SUCCESS)
+            return HttpResponseRedirect(reverse('builder_page'))
+    except Exception:
+            messages.error(request, constants.RESUME_PUBLISHED_SUCCESS)
+            return HttpResponseRedirect(reverse('builder_page'))
+
 
 @login_required
 def toggle_resume_active(request):
@@ -31,7 +91,17 @@ def toggle_resume_active(request):
 
 def view_resume(request, request_profile_url):
     service = ResumeService()
-    rendered_resume = service.get_rendered_resume_content(request_profile_url)
-    if rendered_resume is not None:
-        return render(request, 'builder/resume.html', {"resume_content": rendered_resume})
+    resume = service.get_resume_by_profile_url(request_profile_url, False)
+    if (resume is None):
+        raise Http404(constants.PAGE_NOT_FOUND)
+    resume_jobs = service.get_resume_jobs_by_id(resume.pk)
+    resume_education = service.get_resume_education_by_id(resume.pk)
+    if resume is not None:
+        return render(request, 'builder/resume.html', {
+            'resume': resume,
+            'resume_jobs': resume_jobs,
+            'resume_education': resume_education,
+            'constants': constants,
+            'site_title': resume.resume_title
+        })
     raise Http404(constants.PAGE_NOT_FOUND)

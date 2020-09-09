@@ -1,121 +1,626 @@
-{% extends 'builder/base.html' %}
+{% extends 'builder/app-base.html' %}
 {% load static %}
 
-{% block content %}
-<style>
-    /* The profile-toggle-switch - the box around the slider */
-    .profile-toggle-switch {
-        position: relative;
-        display: inline-block;
-        width: 60px;
-        height: 34px;
-    }
+{% block template_head_inserts %}
+<script src="{% static 'builder/vendor/tinymce/js/tinymce/tinymce.min.js' %}"></script>
+<script src="{% static 'builder/vendor/jqueryUI/jquery-ui.min.js' %}"></script>
+<script src="{% static 'builder/vendor/touch-punch/touch-punch.min.js' %}"></script>
 
-    /* Hide default HTML checkbox */
-    .profile-toggle-switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
+<link rel="stylesheet" href="{% static 'builder/styles/builder.css' %}">
+<link rel="stylesheet" href="{% static 'builder/vendor/jqueryUI/jquery-ui.min.css' %}">
 
-    /* The slider */
-    .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #ccc;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
-
-    .slider:before {
-        position: absolute;
-        content: "";
-        height: 26px;
-        width: 26px;
-        left: 4px;
-        bottom: 4px;
-        background-color: white;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
-
-    input:checked + .slider {
-        background-color: #2196F3;
-    }
-
-    input:focus + .slider {
-        box-shadow: 0 0 1px #2196F3;
-    }
-
-    input:checked + .slider:before {
-        -webkit-transform: translateX(26px);
-        -ms-transform: translateX(26px);
-        transform: translateX(26px);
-    }
-
-    /* Rounded sliders */
-    .slider.round {
-        border-radius: 34px;
-    }
-
-    .slider.round:before {
-        border-radius: 50%;
-    }           
-</style>
-
-<div id ="profile-url">
-    Your public profile URL is <a target="_blank" href="http://{{site_url}}/{{ request.user.account.profile_url}}/">http://{{site_url}}/{{ request.user.account.profile_url}}/</a>
-</div>
-
-<div id="activate-profile-container">
-    <form id="activate-profile" action="{% url 'activate-resume' %}">
-        {% csrf_token%}
-        <label class="profile-toggle-switch">
-            {{activate_profile_form}}
-            <span class="slider round"></span>
-        </label>
-    </form>
-</div>
-
-<a href="{% url 'logout' %}">logout</a></li>
-
-<form method = "post" action="{% url 'builder' %}">
-    {% csrf_token%}
-    {{editor_form.media}}
-    {{editor_form.as_p}}
-    <p> <input type = "submit" value = "Save"> </p>
-</form>
 <script>
-    var slider = $(".profile-toggle-switch .slider");
+    tinymce.init({
+        selector: '.tinymce-editor',
+        height: '45vh',
+        width: '100%',
+        paste_as_text: true,
+        plugins: "lists, paste, link",
+        menubar: false,
+        toolbar: "numlist | bullist | link | bold | italic | h1 | h2 | h3 | removeformat",
+        branding: false,
+        forced_root_block:"",
+        setup: function (ed) {
+                    ed.on('init', function (e) {
+                      ed.execCommand("fontName", false, "Arial");
+                    });
+                }   
+    });
+
+</script>
+{% endblock %}
+
+{% block info_message %}
+  {% for message in messages %}
+    {% ifequal message.tags "error" %}
+    <div id="save-error" class="hide-me-after-5 alert alert-danger {% if message.tags %}{{ message.tags }}{% endif %}">
+        {{ message }}
+    </div>
+    {% endifequal %}
+    {% ifequal message.tags "success" %}
+    <div id="info-bar" class="hide-me-after-5 alert alert-success {% if message.tags %}{{ message.tags }}{% endif %}">
+        {{ message }}
+    </div>
+    {% endifequal %}
+  {% endfor %}
+{% endblock %}
+
+{% block app_content %}
+<div id="builder-container">
+  <div class="row">
+
+    <div class="col-lg-9">
+      <div class="row">
+          <div class="col-lg-12 grid-margin">
+              <div class="card editor-container">
+                  <div class="card-body" id="editor-container-body">
+                      <div class="editor-title">
+                        <h3>{{ constants.EDIT_MY_RESUME }}</h3>
+                        <div class=font-weight-bold id="profile-url">
+                          My resume url  is: <a target="_blank" href="http://{{site_url}}/{{ request.user.account.profile_url}}/">http://{{site_url}}/{{ request.user.account.profile_url}}/</a>
+                        </div>
+                      </div>
+                      <form method = "post" id="builder-form">
+                          {% csrf_token %}
+                          <!-- resume details accordion start -->
+                          <div id="accordion">
+                            <!-- resume details-->
+                            <div class="card {% if forms.resume_details_form.errors %}section-has-errors{% endif %}">
+                              <div class="card-header section-header" id="heading-1" data-toggle="collapse" data-target="#collapse-1" aria-expanded="false" aria-controls="collapse-1">
+                                <h4>
+                                  Details Section
+                                </h4>
+                                <i class="fa fa-chevron-down chevron"></i>
+                              </div>
+                            
+                              <div id="collapse-1" class="collapse {% if forms.resume_details_form.errors %}show{% endif %}" aria-labelledby="heading-1" data-parent="#accordion">
+                                <div class="card-body section-body">
+                                  {% for field in forms.resume_details_form.visible_fields %}
+                                  <div class="form-group{% if field.errors %} has-errors{% endif %}">
+                                    <div class="input-group">
+                                      <div class="field-label{% if field.field.required %} required{% endif %}">
+                                        {{ field.label }}
+                                      </div>
+                                      {{ field }}
+                                      <div class="errors">{{ field.errors.as_text }}</div>
+                                    </div>
+                                  </div>
+                                  {% endfor %}
+                                </div>
+                              </div>
+                            </div>
+                            <!-- end resume details -->
+                            
+                            <!-- resume experience section -->
+                            <div class="card  {% if forms.resume_jobs_formset.errors or forms.resume_jobs_section_title_form.errors %}section-has-errors{% endif %}">
+                              <div class="card-header section-header" 
+                                  id="heading-2" 
+                                  data-toggle="collapse" 
+                                  data-target="#collapse-2" 
+                                  aria-expanded="false" 
+                                  aria-controls="collapse-2">
+                                <h4>
+                                  Experience Section
+                                </h4>
+                                <i class="fa fa-chevron-down chevron"></i>
+                              </div>
+                              <div id="collapse-2" 
+                                class="collapse {% if forms.resume_jobs_formset.errors or forms.resume_jobs_section_title_form.errors %}show{% endif %}" 
+                                aria-labelledby="heading-2" 
+                                data-parent="#accordion">
+
+                                <div class="card-body section-body">
+                                    <!-- Ordering modal button -->
+                                    {% if forms.resume_jobs_formset.total_form_count >= 3 %}
+                                    <div class="reorder-button">
+                                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#job-order-modal">
+                                        {{ constants.REORDER_EXPERIENCE_BUTTON }}
+                                      </button>
+                                    </div>
+                                    {% endif %}
+                                  {% for field in forms.resume_jobs_section_title_form %}
+                                  <div class="form-group{% if field.errors %} has-errors{% endif %}">
+                                    <div class="input-group">
+                                      <div class="field-label{% if field.field.required %} required{% endif %}">
+                                        {{ field.label }}
+                                      </div>
+                                      {{ field }}
+                                      <div class="errors">{{ field.errors.as_text }}</div>
+                                    </div>
+                                  </div>
+                                  {% endfor %}
+
+                                  {{ forms.resume_jobs_formset.management_form }}
+
+                                  <div id="accordion-resume-jobs">
+                                    {% for form in forms.resume_jobs_formset %}
+                                    {% if form.instance.id %}
+                                    <!-- individual job -->
+                                    <div id="{{ form.prefix }}-card" class="card {% if form.errors %}section-has-errors{% endif %}">
+                                      <div class="card-header" 
+                                        id="{{ form.prefix }}-header" 
+                                        data-toggle="collapse" 
+                                        data-target="#dropdown-{{ form.prefix }}" 
+                                        aria-expanded="false" 
+                                        aria-controls="dropdown-{{ form.prefix }}">
+                                        <div class="deleted-overlay header">
+                                          <div class="deleted-message">
+                                            <strong>This item will be deleted on save</strong>
+                                          </div>
+                                          <button type="button" class="btn btn-primary restore-button" data-id="{{ form.prefix }}">Restore Item <i class="fa fa-trash-o"></i></button>
+                                        </div>
+                                        <h5>
+                                          <strong>Position:</strong> {{ form.instance.position_title }} {% if form.instance.company_name %} | {{ form.instance.company_name}} {% endif %} 
+                                        </h5>
+                                        <i class="fa fa-chevron-down chevron"></i>
+                                      </div>
+                                      <div id="dropdown-{{ form.prefix }}" class="collapse {% if form.errors %}show{% endif %}" 
+                                      aria-labelledby="{{ form.prefix }}-header" 
+                                      data-parent="#accordion-resume-jobs">
+                                        <div class="card-body">
+                                          <div class="deleted-overlay item-body">
+                                            <button type="button" class="btn btn-primary restore-button body" data-id="{{ form.prefix }}">Restore Item <i class="fa fa-trash-o"></i></button>
+                                          </div>
+                                          {{ form.id }}
+                                          {% for field in form.visible_fields %}
+                                            <div class="form-group{% if field.errors %} has-errors{% endif %} field-{{ field.name }}">
+                                              <div class="input-group">
+                                                <div class="field-label{% if field.field.required %} required{% endif %}">
+                                                  {{ field.label }}
+                                                </div>
+                                                {{ field }}
+                                                <div class="errors">{{ field.errors.as_text }}</div>
+                                              </div>
+                                            </div>
+                                          {% endfor %}
+                                          <div class="delete-button-container">
+                                            <button class="btn btn-lg btn-danger delete-button" data-id="{{ form.prefix }}" type="button">{{ constants.DELETE_JOB_BUTTON }}<i class="fa fa-trash"></i></button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    {% else %}
+                                    <div class="new-item-button" data-toggle="collapse" data-target="#dropdown-{{ form.prefix }}" aria-expanded="false" aria-controls="jobs-dropdown-{{ form.prefix }}">
+                                      <i class="fa fa-plus-circle icon-sm"></i>
+                                      <div class="new-item-text">Add Experience</div>
+                                    </div>
+
+                                    <div id="dropdown-{{ form.prefix }}" class="collapse blue-outline new-item {% if form.errors %}show section-has-errors{% endif %}" 
+                                    aria-labelledby="{{ form.prefix }}-header" 
+                                    data-parent="#accordion-resume-jobs">
+                                      {{ form.id }}
+                                      <div class="new-item-header">New Experience</div>
+                                      {% for field in form.visible_fields %}
+                                        <div class="form-group{% if field.errors %} has-errors{% endif %} field-{{ field.name }}">
+                                          <div class="input-group">
+                                            <div class="field-label{% if field.field.required %} required{% endif %}">
+                                              {{ field.label }}
+                                            </div>
+                                            {{ field }}
+                                            <div class="errors">{{ field.errors.as_text }}</div>
+                                          </div>
+                                        </div>
+                                      {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                    <!-- end individual job -->
+
+                                  {% endfor %}                                    
+                                  </div>                       
+                                  
+                                </div>
+                              </div>
+                            </div>
+                            <!-- end resume experience section -->
+                            <!-- start resume education section -->
+
+                            <div class="card {% if forms.resume_education_section_title_form.errors or forms.resume_education_formset.errors %}section-has-errors{% endif %}">
+                              <div class="card-header section-header" 
+                                id="heading-3" 
+                                data-toggle="collapse" 
+                                data-target="#collapse-3" 
+                                aria-expanded="false" 
+                                aria-controls="collapse-3">
+                                <h4>
+                                  Education Section
+                                </h4>
+                                <i class="fa fa-chevron-down chevron"></i>
+                              </div>
+                              <div id="collapse-3" class="collapse {% if forms.resume_education_section_title_form.errors or forms.resume_education_formset.errors %}show{% endif %}" aria-labelledby="heading-3" data-parent="#accordion">
+                                <div class="card-body section-body">
+                                  <!-- Ordering modal button -->
+                                  {% if forms.resume_education_formset.total_form_count >= 3 %}
+                                  <div class="reorder-button">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#education-order-modal">
+                                      {{ constants.REORDER_EDUCATION_BUTTON }}
+                                    </button>
+                                  </div>
+                                  {% endif %}
+                                  {% for field in forms.resume_education_section_title_form  %}
+                                    <div class="form-group{% if field.errors %} has-errors{% endif %}">
+                                      <div class="input-group">
+                                        <div class="field-label{% if field.field.required %} required{% endif %}">
+                                          {{ field.label }}
+                                        </div>
+                                        {{ field }}
+                                        <div class="errors">{{ field.errors.as_text }}</div>
+                                      </div>
+                                    </div>
+                                  {% endfor %}
+
+                                  {{ forms.resume_education_formset.management_form }}
+
+                                  <div id="accordion-resume-education">
+                                    {% for form in forms.resume_education_formset %}
+                                    <!-- individual education -->
+                                    {% if form.instance.id %}
+                                    <div class="card {% if form.errors %}section-has-errors{% endif %}" id="{{ form.prefix }}-card">
+                                      <div class="card-header" 
+                                        id="{{ form.prefix }}-header" 
+                                        data-toggle="collapse" 
+                                        data-target="#dropdown-{{ form.prefix }}" 
+                                        aria-expanded="false" 
+                                        aria-controls="dropdown-{{ form.prefix }}">
+                                        <div class="deleted-overlay header">
+                                          <div class="deleted-message">
+                                            <strong>This item will be deleted on save</strong>
+                                          </div>
+                                          <button type="button" class="btn btn-primary restore-button" data-id="{{ form.prefix }}">Restore Item <i class="fa fa-trash-o"></i></button>
+                                        </div>
+                                        <h5>
+                                          <strong>Education:</strong> {{ form.instance.institution_name }} {% if form.instance.education_title %} | {{ form.instance.education_title }} {% endif %} 
+                                        </h5>
+                                        <i class="fa fa-chevron-down chevron"></i>
+                                      </div>
+                                      <div id="dropdown-{{ form.prefix }}" class="collapse {% if form.errors %}show{% endif %}" 
+                                      aria-labelledby="{{ form.prefix }}-header" 
+                                      data-parent="#accordion-resume-jobs">
+                                        <div class="card-body">
+                                          <div class="deleted-overlay item-body">
+                                            <button type="button" class="btn btn-primary restore-button body" data-id="{{ form.prefix }}">Restore Item <i class="fa fa-trash-o"></i></button>
+                                          </div>
+                                          {{ form.id }}
+                                          {% for field in form.visible_fields %}
+                                            <div class="form-group{% if field.errors %} has-errors{% endif %} field-{{ field.name }}">
+                                              <div class="input-group">
+                                                <div class="field-label{% if field.field.required %} required{% endif %}">
+                                                  {{ field.label }}
+                                                </div>
+                                                {{ field }}
+                                                <div class="errors">{{ field.errors.as_text }}</div>
+                                              </div>
+                                            </div>   
+                                          {% endfor %}
+                                          <div class="delete-button-container">
+                                            <button class="btn btn-lg btn-danger delete-button" data-id="{{ form.prefix }}" type="button">{{ constants.DELETE_EDUCATION_BUTTON }}<i class="fa fa-trash"></i></button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    {% else %}
+
+                                    <div class="new-item-button" 
+                                      data-toggle="collapse" 
+                                      data-target="#dropdown-{{ form.prefix }}" 
+                                      aria-expanded="false" 
+                                      aria-controls="dropdown-{{ form.prefix }}">
+                                      <i class="fa fa-plus-circle icon-sm"></i>
+                                      <div class="new-item-text">Add Educational Milestone</div>
+                                    </div>
+
+                                    <div id="dropdown-{{ form.prefix }}" class="collapse blue-outline {% if form.errors %}show section-has-errors{% endif %} new-item" 
+                                    aria-labelledby="{{ form.prefix }}-header" data-parent="#accordion-resume-education">
+                                      {{ form.id }}
+                                      <div class="new-item-header">New Educational Milestone</div>
+                                      {% for field in form.visible_fields %}
+                                        <div class="form-group{% if field.errors %} has-errors{% endif %} field-{{ field.name }}">
+                                          <div class="input-group">
+                                            <div class="field-label{% if field.field.required %} required{% endif %}">
+                                              {{ field.label }}
+                                            </div>
+                                            {{ field }}
+                                            <div class="errors">{{ field.errors.as_text }}</div>
+                                          </div> 
+                                        </div>  
+                                      {% endfor %}
+                                    </div>
+
+                                    {% endif %}
+                                    <!-- end individual education -->
+
+                                  {% endfor %}                                    
+                                  </div>                       
+                                  
+                                </div>
+                              </div>
+                            </div>
+                            <!-- end resume education section -->
+                          </div> 
+                          <!-- end accordion --> 
+                          <div class="resume-form-actions">
+                            <input class="btn btn-lg btn-outline-primary btn-fw" id="save-button" type="submit" value="{{ constants.RESUME_SAVE_BUTTON }}" formaction="{% url 'builder_page' %}">
+                            <a href="{% url 'preview_resume' %}" target="_blank">
+                              <input class="btn btn-lg btn-outline-primary" id="preview-button" type="button" value="{{ constants.RESUME_PREVIEW_BUTTON }}">
+                            </a>
+                            <input class="btn btn-lg btn-success btn-fw" id="publish-button" type="submit" value="{{ constants.RESUME_PUBLISH_BUTTON }}" formaction="{% url 'publish_resume' %}">
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3">
+      <div class="card activate-profile-container">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="d-flex align-items-center pb-2">
+              </div>
+              <h3>{{ constants.ACTIVATE_RESUME_HEADER }}</h3>
+              <div id="activate-profile-form-container">
+                <form id="activate-profile" action="{% url 'activate_resume' %}">
+                    {% csrf_token%}
+                    {{ forms.activate_profile_form }}
+                    <label class="profile-toggle-switch">
+                        <span id="activate-profile-slider" class="slider round"></span>
+                    </label>
+                </form>
+              </div>
+              <div class="live-indicator" id="not-live">
+                <div class="dot-indicator bg-danger mr-2"></div>
+                <span class='h4'>{{ constants.NOT_LIVE_TEXT }}</span>
+                <div class="col-lg-12 live-status-text">
+                  {{ constants.RESUME_NOT_PUBLISHED }}
+                </div>
+              </div>
+              <div class="live-indicator" id="live">
+                <div class="dot-indicator bg-success mr-2"></div>
+                <span class='h4'>{{ constants.LIVE_TEXT }}</span>
+                <div class="col-lg-12 live-status-text">
+                  {{ constants.RESUME_IS_PUBLISHED }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+ 
+  <!-- MODALS -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="job-order-modal" tabindex="-1" role="dialog" aria-labelledby="job-order-modal-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="job-order-modal-label">{{ constants.RESUME_JOB_ORDER_TITLE}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="reorder-items resume-items sortable" data-sortable-id="resume-jobs-sortable">
+            {% for form in forms.resume_jobs_formset %}
+            {% if form.instance.position_title %}
+              <div id="{{ form.prefix }}-sortable-item" 
+                class="resume-reorder-item card" 
+                data-form-target="{{ form.prefix }}-ORDER">
+                  {{ form.instance.position_title }} {% if form.instance.company_name %} | {{ form.instance.company_name}} {% endif %}
+              </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button 
+            type="button" 
+            class="btn btn-primary" 
+            data-button-type="save-resume"
+            data-sortable-target="resume-jobs-sortable">
+              {{ constants.RESUME_SAVE_BUTTON }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="education-order-modal" tabindex="-1" role="dialog" aria-labelledby="education-order-modal-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="education-order-modal-label">{{ constants.RESUME_JOB_ORDER_TITLE}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="reorder-items resume-items sortable" data-sortable-id="resume-education-sortable">
+            {% for form in forms.resume_education_formset %}
+            {% if form.instance.education_title %}
+              <div id="{{ form.prefix }}-sortable-item" 
+                class="resume-reorder-item card" 
+                data-form-target="{{ form.prefix }}-ORDER">
+                  {{ form.instance.institution_name }} {% if form.instance.education_title %} | {{ form.instance.education_title }} {% endif %}
+              </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button 
+            type="button" 
+            class="btn btn-primary" 
+            data-button-type="save-resume"
+            data-sortable-target="resume-education-sortable">
+              {{ constants.RESUME_SAVE_BUTTON }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Modals -->
+
+</div>
+
+
+<script>
+    var slider = $('#activate-profile-slider');
+    var checkbox = $('#activate-profile-checkbox');
+    var liveIndicator = $('.live-indicator#live');
+    var notLiveIndicator = $('.live-indicator#not-live');
+
+    $(document).ready(function(){
+      // init datepickers
+      $(".datepicker").datepicker({
+        'changeYear' : true,
+        'changeMonth': true,
+        'yearRange': "-65:+0",
+      });
+
+      // Init slider
+      if(checkbox.val() == 'True'){
+        slider.addClass('active');
+        liveIndicator.addClass('show');
+      } else{
+        notLiveIndicator.addClass('show');
+      }
+
+      // init sortables
+      $('.sortable').sortable({});
+
+      // load last used section
+      var last_open_section = sessionStorage.getItem("last_open_section");
+      
+      if(last_open_section){
+        var parsedInfo = JSON.parse(last_open_section);
+        if (parsedInfo.last_open_section.is_expanded){
+          var section_id = '#' + parsedInfo.last_open_section.section_name;
+          var accordion_target = $(section_id).attr('data-target');
+          $(accordion_target).addClass('show');
+          $(accordion_target).attr('aria-expanded', true);
+          $(section_id).attr('aria-expanded', true);
+        }
+      }
+
+    });
+
+    // save last used section
+    $('.section-header').click(function(){
+      var lastItemId = $(this).attr("id");
+      var opened_status = !($(this).attr('aria-expanded') === 'true');
+      var last_section_info = {
+        "last_open_section" : {
+          "section_name": lastItemId,
+          "is_expanded" : opened_status
+        }
+      };
+
+      sessionStorage.setItem("last_open_section", JSON.stringify(last_section_info));
+    });
+
     slider.click(function(){
         var form = $('#activate-profile');
-        var checkbox = $('#activate-profile-checkbox');
-        var checkedStatus = checkbox.is(":checked");
-        var formData = form.serializeArray();
-        if (checkedStatus == true){
-            formData[1] = {name: "profile_active", value: "False"}
+        var checkedStatus = checkbox.val()
+
+        if (checkedStatus == 'True'){
+            checkbox.val('False');
         } else{
-            formData[1] = {name: "profile_active", value: "True"}
+            checkbox.val('True')
         }
-        console.log(formData);
+
         $.ajax({
             type: "POST", 
             url: form.attr('action'),
-            data: formData,
-            success: function(){
-                // do nothing
-                console.log("POST WORKED");
+            data: form.serializeArray(),
+            success: function(res){
+              if (checkedStatus == 'True'){
+                slider.removeClass('active');
+                notLiveIndicator.addClass('show');
+                liveIndicator.removeClass('show');
+              } else{
+                slider.addClass('active');
+                notLiveIndicator.removeClass('show');
+                liveIndicator.addClass('show');
+              }
             },
             error: function() {
-                // roll slider on error
-                // build or grab some simple error banner
-                console.log("JS Error");
+              if (checkedStatus == 'True'){
+            checkbox.val('False');
+            } else{
+                checkbox.val('True')
             }
+          }
         });
+        
     });
+
+    // Hide save success / failure banner after 5s
+    setTimeout(
+      function(){
+        $('.hide-me-after-5').remove();
+      }, 5000);
+
+    // Delete Item Checkbox and add styles
+    $('.delete-button').click(function(){
+      var clickedId = $(this).attr('data-id');
+      var deleteId = '#id_' + clickedId + '-DELETE';
+      var deleteCb = $(deleteId);
+      var cardId = '#' + clickedId + '-card';
+      var dropdown = '#dropdown-' + clickedId;
+      var itemCard = $(cardId);
+      
+      if (deleteCb.prop('checked') == true){
+        deleteCb.prop('checked', false);
+        $(cardId).removeClass("deleted");
+      } else{
+        deleteCb.prop('checked', true);
+        $(cardId).addClass("deleted");
+        $(dropdown).collapse('hide');
+      }
+    });
+
+    // Restore button remove styles
+    $('.restore-button').click(function(event){
+      var clickedId = $(this).attr('data-id');
+      var deleteId = '#id_' + clickedId + '-DELETE';
+      var deleteCb = $(deleteId);
+      var cardId = '#' + clickedId + '-card';
+      var itemCard = $(cardId);
+      
+      if (deleteCb.prop('checked') == true){
+        deleteCb.prop('checked', false);
+        $(cardId).removeClass("deleted");
+      } else{
+        deleteCb.prop('checked', true);
+        $(cardId).addClass("deleted");
+      }
+      event.stopPropagation();
+    });
+
+    // Handle save on re-order modals
+    $('[data-button-type]').click(function(){
+      var target = $(this).attr('data-sortable-target');
+      var selector = `[data-sortable-id="${target}"]`;
+      var itemOrder = $(selector).sortable('toArray');
+
+      // Set values on form
+        itemOrder.forEach(function(element, i){
+          var orderItem = $('#' + element);
+          var formTargetItem = orderItem.attr('data-form-target');
+          $('#id_' + formTargetItem).attr('value', i + 1);
+        });
+
+      // Trigger resume save
+      $('#builder-form').submit()
+    });
+
+    
 </script>
 {% endblock %}

@@ -1,11 +1,14 @@
+from unittest.mock import MagicMock
+
 import requests
+
 from accounts.models import Account
 from django.contrib.auth.models import User
 from django.test import Client, TestCase
 from django.urls import reverse
-from unittest.mock import MagicMock
 
 from .models import Resume
+
 
 class FakeResponse(object):
     name = ""
@@ -25,11 +28,11 @@ class ResumeBuilderViewTests(TestCase):
         self.authedClient.force_login(self.user)
 
     def test_login_required_redirect_works(self):
-        response = self.client.get(reverse("builder"))
+        response = self.client.get(reverse("builder_page"))
         self.assertRedirects(response, "/account/login/?next=/builder/")
     
-    def test_can_load_builder_after_login(self):
-        response = self.authedClient.get(reverse("builder"))
+    def test_can_builder_page_after_login(self):
+        response = self.authedClient.get(reverse("builder_page"))
         self.assertEqual(response.status_code, 200)
         self.assertIn(self.resume_content, str(response.content))
 
@@ -38,17 +41,15 @@ class ResumeBuilderViewTests(TestCase):
         response_object.text = "<h1>rendered thing</h1>"
         requests.post = MagicMock(return_value=response_object)
         form_data = {"content": "# My test thing"}
-        response = self.authedClient.post(reverse("builder"), form_data)
-        self.assertRedirects(response, reverse("builder"))
+        response = self.authedClient.post(reverse("save_builder"), form_data)
+        self.assertRedirects(response, reverse("builder_page"))
 
 class ResumeViewTests(TestCase):
     def setUp(self):
         self.user = User.objects.create_user("foo@bar.com", "foo@bar.com", "paas09df2@")
         self.resume_content = "initial content"
-        self.rendered_content = "<h1>rendered content</h1>"
         resume = Resume(user=self.user)
         resume.content = self.resume_content
-        resume.rendered_html_resume = self.rendered_content
         resume.is_live = True
         resume.save()
         account = Account(user=self.user)
@@ -60,7 +61,7 @@ class ResumeViewTests(TestCase):
     def test_active_resume_displays(self):
         response = self.client.get(reverse("view_resume", args=[self.user.account.profile_url]))
         self.assertEqual(response.status_code, 200)
-        self.assertIn(self.rendered_content, str(response.content))
+        self.assertIn(self.resume_content, str(response.content))
     
     def test_nonexistant_resume_returns_404(self):
         response = self.client.get(reverse("view_resume", args=["fakeurlthatdoesntexist"]))
@@ -94,14 +95,14 @@ class ResumeViewTests(TestCase):
         form_data = {
             "profile_active": True
         }
-        response = authedClient.post(reverse("activate-resume"), form_data)
+        response = authedClient.post(reverse("activate_resume"), form_data)
         self.assertEqual(response.status_code, 200)
         resumeResult = Resume.objects.get(user=user)
         self.assertEqual(resumeResult.is_live, True)
         form_data = {
             "profile_active": False
         }
-        response = authedClient.post(reverse("activate-resume"), form_data)
+        response = authedClient.post(reverse("activate_resume"), form_data)
         resumeResult = Resume.objects.get(user=user)
         self.assertEqual(resumeResult.is_live, False)
 
@@ -115,12 +116,15 @@ class ResumeViewTests(TestCase):
         account.save()
         authedClient = Client()
         authedClient.force_login(user)
-        response = authedClient.post(reverse("activate-resume"), form_data)
+        response = authedClient.post(reverse("activate_resume"), form_data)
         self.assertEqual(response.status_code, 500)
 
     def test_unauthenticated_resume_active_toggle_redirects(self):
         form_data = {
             "profile_active": "True"
         }
-        response = self.client.post(reverse("activate-resume"), form_data)
+        response = self.client.post(reverse("activate_resume"), form_data)
         self.assertEqual(response.status_code, 302)
+
+# TODO: Markdown renderer returns error, do something (Currently fails explosively)
+# TODO: Markdown renderer not available, do something

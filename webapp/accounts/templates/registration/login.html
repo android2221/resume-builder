@@ -1,0 +1,51 @@
+{% extends 'builder/app-base.html' %}
+
+{% load static %}
+
+{% block template_head_inserts %}
+<link rel="stylesheet" href="{% static 'accounts/styles/forms.css' %}">
+
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+{% endblock %}
+
+{% block app_content %}
+<div class="content-wrapper align-items-center auth theme-one">
+    <div class="row">
+    <div class="col-xl-4 col-lg-6 col-md-8 login-form-container mx-auto">
+        <h2 class="text-center mb-4">{{ constants.LOGIN_OPTION }}</h2>
+        <div class="auto-form-wrapper">
+            {% if form.errors %}
+            <div class="errors">{{ constants.ERROR_LOGIN }}</div>
+            {% endif %}
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token%}
+                {% for field in form %}
+                <div class="form-group{% if field.errors %} has-errors{% endif %}">
+                    <div class="input-group">
+                        {{ field }}
+                        <div class="input-group-append">
+                            <span class="input-group-text{% if field.help_text %} has-info{% endif %}">
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="form-group">
+                    <input type="submit" value="{{ constants.LOGIN_OPTION }}" class="btn btn-primary submit-btn btn-block">
+                </div>
+                <div class="text-block text-center my-3">
+                    <span class="font-weight-semibold">{{ constants.NO_ACCOUNT_MESSAGE }}</span>
+                    <a href="{% url 'register' %}">{{ constants.REGISTER_OPTION }}</a>
+                    <br>
+                    <span class="font-weight-semibold">{{ constants.FORGOT_PASSWORD_MESSAGE }}</span>
+                    <a href="{% url 'reset_password'%}">{{ constants.RESET_TEXT }}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

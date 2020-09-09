@@ -1,5 +1,4 @@
 from builder.models import Resume
-from builder.views import builder as builderView
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.test import TestCase
@@ -29,7 +28,6 @@ class RegistrationViewTests(TestCase):
         user = User.objects.get(username=self.form_data["email"])
         self.assertIsInstance(user.account, Account)
         self.assertIsInstance(user.resume, Resume)
-        self.assertEqual(user.resume.content, constants.MARKDOWN_WELCOME)
         self.assertEqual(user.resume.rendered_html_resume, constants.HTML_WELCOME)
 
     def test_registration_post_creates_account_information(self):
@@ -42,7 +40,7 @@ class RegistrationViewTests(TestCase):
 
     def test_registration_redirects_to_builder(self):
         response = self.client.post(reverse("register"), self.form_data)
-        self.assertRedirects(response, reverse("builder"))
+        self.assertRedirects(response, reverse("builder_page"))
 
     # Test rendering of our form errors
     def test_duplicate_username_should_return_error(self):
@@ -118,6 +116,6 @@ class RegistrationFormTests(TestCase):
         self.assertEqual(form.cleaned_data["profile_url"].lower(), form_data["profile_url"].lower())
     
 
-## TODO: Password flow tests: login/ logout redirects etc
+# TODO: Password flow tests: login/ logout redirects etc
 # TODO: make sure normal password requirement failures are working (mismatched passwords, length off etc)
-
+# TODO: Email sending tests

@@ -1,0 +1,363 @@
+   /* The profile-toggle-switch - the box around the slider */
+.profile-toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.profile-toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+#activate-profile .slider.active {
+    background-color: #2196F3;
+}
+
+#activate-profile .slider.active {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+#activate-profile .slider.active:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+} 
+
+/* Alert Box */
+#save-error{
+    text-align: center;
+}
+
+/* The Editor */
+label[for=id_content]{
+    display: none;
+}
+
+.editor-container .editor-title{
+  margin-bottom: 15px;
+}
+
+.activate-profile-container{
+  text-align: center;
+}
+
+.live-indicator{
+  margin-top: 20px;
+  display: none;
+}
+
+.live-indicator.show{
+  display: block;
+}
+
+.live-indicator .dot-indicator{
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  top: 3px;
+}
+
+.live-status-text{
+  margin-top: 20px;
+}
+#builder-container{
+  max-width: 1500px;
+  margin: 0 auto;
+  min-height: calc(100vh - 108px);
+  padding: 30px;
+}
+
+#preview-button:focus{
+  border-color: initial;
+}
+#builder-form input,
+#builder-form textarea{
+  display: block;
+  font-size: 1rem;
+}
+
+.card{
+  margin-bottom: 30px;
+}
+
+.card-header{
+  cursor: pointer;
+  position: relative;
+}
+
+i.chevron{
+  position: absolute;
+  top: 32px;
+  right: 30px;
+  transition: .25s ease-in-out;
+  z-index: 5;
+}
+
+.card-header[aria-expanded=true] i.chevron{
+  transform: rotate(180deg);
+}
+
+#builder-form .resume-form-actions .btn{
+  display: inline-block;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+
+#builder-form .resume-form-actions #publish-button{
+  margin-right: 0px;
+}
+
+#builder-form .resume-form-actions a:hover{
+  cursor: pointer;
+  text-decoration: none;
+}
+
+#builder-form .form-group:last-child{
+  margin-bottom: initial;
+}
+
+#builder-form .form-group{
+  margin-bottom: 30px;
+}
+
+#builder-form .field-label{
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+#builder-form .new-item-button{
+  cursor: pointer;
+  position: relative;
+  height: 50px;
+}
+
+#builder-form .new-item-button i{
+  color: #2196F3;
+  font-size: 2.5rem;
+  top: 0px;
+  position: absolute;
+}
+
+#builder-form .new-item-button .new-item-text{
+  display: inline;
+  position: absolute;
+  top: .5rem;
+  left: 50px;
+  font-weight: bold;
+}
+
+#builder-form .blue-outline{
+  border: 1px solid rgba(33, 149, 243, 0.52);
+  border-radius: 5px;
+}
+
+#builder-form .new-item{
+  padding: 20px;
+}
+
+#builder-form .new-item-header{
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+#builder-container .section-has-errors,
+#builder-conatiner .has-errors,
+.has-errors input,
+.card.deleted .item-body,
+.card.deleted .card-header{
+  border: 1px solid rgba(255, 0, 0, 0.5);
+}
+
+.card.deleted .item-body{
+  border-top: none;
+}
+
+#builder-form .deleted-overlay{
+  display: none;
+  background-color: #ffffffce;
+  width: 100%;
+  text-align: center;
+  color: red;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0; 
+  position: absolute;
+  text-align: center;
+}
+
+#builder-form .card-header .deleted-overlay{
+  background-color: #ffffff;
+}
+
+#builder-form .deleted .deleted-overlay{
+  display: block;
+  z-index: 2;
+}
+
+#builder-form .deleted-overlay .deleted-message{
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  left: 30px;
+}
+
+#builder-form .card-body .deleted-overlay{
+  text-align: center;
+}
+
+#builder-form .card-body{
+  position: relative;
+}
+
+#builder-form .restore-button{
+  font-size: 1rem;
+}
+
+#builder-form .card-header .restore-button{
+  float: right;
+  margin-right: 60px;
+  margin-top: 25px;
+  position: relative;
+  z-index: 5;
+}
+
+#builder-form .restore-button.body{
+  margin-top: 50px;
+}
+
+#builder-form .delete-button i,
+#builder-form .restore-button i{
+  margin-left: 10px;
+  font-size: 1rem;
+}
+
+#builder-form .form-group.field-ORDER,
+#builder-form .form-group.field-DELETE{
+  display: none;
+}
+
+.reorder-items div{
+  padding: 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+#builder-form .reorder-button{
+  float: right;
+  margin-bottom: 20px;
+}
+
+.modal-content .close{
+  padding: 1.6rem 2.2rem;
+}
+
+#builder-form .resume-date{
+  width: 50%;
+  float: left;
+}
+
+#builder-form .resume-date:last-child{
+  float: right;
+}
+
+#builder-form .field-start_date,
+#builder-form .field-end_date{
+  width: 45%;
+  margin-right: 10%;
+  float: left;
+}
+
+#builder-form .field-end_date{
+  margin-right: initial;
+}
+
+#builder-form .errors{
+  display: block;
+  width: 100%;
+  color: red;
+}
+
+#builder-form .field-label.required::after{
+  content: " *";
+}
+
+#builder-form .field-completed_date{
+  width: 50%;
+}
+
+@media screen and (max-width: 550px) {
+  #builder-container{
+    padding: 5px;
+  }
+
+  #editor-container-body{
+    padding: 1.88rem 10px;
+  }
+
+  #builder-form .field-completed_date{
+    width: initial;
+  }
+
+  #builder-form .section-header{
+    padding: 1.25rem;
+  }
+
+  #builder-form .section-header i.chevron{
+    top: 23px;
+  }
+  
+  #builder-form .section-header[aria-expanded=true] i.chevron{
+    top: 25px;
+  }
+
+  #builder-form .section-body{
+    padding: 1.25rem;
+  }
+
+}

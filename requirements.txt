@@ -1,4 +1,0 @@
-Django==3.0.1
-psycopg2
-django-mdeditor==0.1.17
-requests==2.22.0

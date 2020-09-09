@@ -1,0 +1,96 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block head_inserts %}
+<link rel="stylesheet" href="{% static 'builder/vendor/ui/vendors/iconfonts/mdi/css/materialdesignicons.min.css' %}">
+<link rel="stylesheet" href="{% static 'builder/vendor/ui/vendors/iconfonts/ionicons/css/ionicons.css' %}">
+<link rel="stylesheet" href="{% static 'builder/vendor/ui/vendors/iconfonts/typicons/src/font/typicons.css' %}">
+<link rel="stylesheet" href="{% static 'builder/vendor/ui/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css' %}">
+<link rel="stylesheet" href="{% static 'builder/vendor/ui/vendors/css/vendor.bundle.base.css' %}">
+<link rel="stylesheet" href="{% static 'builder/vendor/ui/vendors/css/vendor.bundle.addons.css' %}">
+<link rel="stylesheet" href="{% static 'builder/vendor/ui/vendors/iconfonts/font-awesome/css/font-awesome.min.css' %}">
+<link rel="stylesheet" href="{% static 'builder/vendor/ui/css/main/style.css' %}">
+<link rel="stylesheet" href="{% static 'builder/styles/app-base.css' %}">
+<link rel="stylesheet" href="{% static 'builder/styles/common.css' %}">
+<link rel="stylesheet" href="{% static 'builder/vendor/ui/css/shared/style.css' %}">
+
+    {% block template_head_inserts %}
+    {% endblock %}
+{% endblock %}
+
+{% block content %}
+    {% block app_content %}
+    {% endblock %}
+{% endblock %}
+
+{% block navbar %}
+<nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+    <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+        <div class="navbar-brand brand-logo">
+            <a class="" href="{% url 'index' %}">
+                <img src="{% static 'builder/images/seemyresumelogo-beta.svg' %}" alt="logo" /> 
+            </a>
+        </div>
+    </div>
+    <div class="navbar-menu-wrapper d-flex align-items-center">
+        <ul class="navbar-nav ml-auto">
+            {% if request.user.is_authenticated %}
+                <li class="nav-item dropdown d-xl-inline-block user-dropdown">
+                    <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-user-circle-o"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+                    <div class="dropdown-header text-center">
+                        <i class="fa fa-user-circle-o profile-dropdown-icon"></i>
+                        <p class="mb-1 mt-3 font-weight-semibold">{{ request.user.first_name }} {{ request.user.last_name }}</p>
+                        <p class="font-weight-light text-muted mb-0">{{ request.user.email }}</p>
+                    </div>
+                    <a class="dropdown-item" href="{% url 'builder_page' %}">Resume Builder</a>
+                    <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+                    <a class="dropdown-item" href="{% url 'change_password' %}">Change Password</a>
+                    </div>
+                </li>
+            {% else %}
+                <li class="nav-item font-weight-semibold">
+                    <a class="nav-link" id="log-in-button" href="{% url 'login' %}">Log In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary font-weight-semibold" id="sign-up-button" href="{% url 'register' %}">Sign up</a>
+                </li>
+            {% endif %}
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+        <span class="mdi mdi-menu"></span>
+        </button>
+    </div>
+</nav>
+{% endblock %}
+
+{% block footer %}
+<footer class="footer">
+    <div class="container">
+        <div id="footer-items-container">
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <a href="{% url 'privacy' %}">Privacy</a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="{% url 'terms' %}">Terms</a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="{{ SUPPORT_FORM_URL }}" target="_blank">Support</a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="{{ FEEDBACK_FORM_URL }}" target="_blank">Feedback</a>
+                </li>
+            </ul>
+        </div>
+        <div id="logo-container">        
+            <a href="{% url 'index' %}">
+                <div id="logo" style="background-image: url({% static 'builder/images/seemyresumelogo.svg' %})"></div>
+                <div id="logo-small" style="background-image: url({% static 'builder/images/simple-logo.svg' %})"></div>
+            </a>
+        </div>
+    </div>
+</footer>
+{% endblock %}

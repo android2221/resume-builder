@@ -1,0 +1,40 @@
+.login-form-container input, .registration-form-container input{
+    font-size: 1rem !important;
+}
+
+.login-form-container .has-errors input.form-control,
+.login-form-container .has-errors span.input-group-text
+{
+    border-color: red !important;
+}
+
+.footer{
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+}
+
+.errors{
+    font-size: 1rem;
+    color: red;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.input-group-text.has-info{
+    padding: 0.56rem 1.375rem;
+}
+
+.input-group-text{
+    padding: 5px 5px;
+}
+
+.login-form-container, .registration-form-container{
+    margin-top: 20px;
+    max-width: 500px !important;
+}
+
+.login-form-container .input-group-text{
+    padding: 0 2px;
+}
+
