@@ -12,8 +12,6 @@ services:
     volumes:
       - "/etc/letsencrypt/live/seemyresume.io/cert.pem:/certs/cert.pem"
       - "/etc/letsencrypt/live/seemyresume.io/privkey.pem:/certs/privkey.pem"
-    env_file:
-      - ./env-vars.env
     restart: always
     environment: 
       - DB_DBNAME=postgres
