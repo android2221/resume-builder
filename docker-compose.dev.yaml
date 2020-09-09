@@ -17,7 +17,8 @@ services:
     env_file: 
       - ./env-vars.env
     environment: 
-      - USE_SENDGRID=True
+      - USE_SENDGRID=False
+      - SENDGRID_API_KEY=""
       - DJANGO_IS_PRODUCTION=False
       - DJANGO_DEBUG=False
       - DJANGO_SITE_URL=dev.seemyresume.io

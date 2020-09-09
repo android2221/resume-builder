@@ -182,8 +182,8 @@ else:
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "")
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 SENDGRID_ECHO_TO_STDOUT=True
-DEFAULT_FROM_EMAIL  = 'webmaster@seemyresume.io'
-SERVER_EMAIL  = 'webmaster@seemyresume.io'
+DEFAULT_FROM_EMAIL  = 'do-not-reply@seemyresume.io'
+SERVER_EMAIL  = 'do-not-reply@seemyresume.io'
 
 EMAIL_FILE_PATH = os.environ.get("DJANGO_EMAIL_FILE_PATH", "")
 

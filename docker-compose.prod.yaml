@@ -16,7 +16,13 @@ services:
       - ./env-vars.env
     restart: always
     environment: 
-      - USE_SENDGRID=False
+      - DB_DBNAME=postgres
+      - DB_PASSWORD=myhardpassword
+      - DB_USERNAME=postgres
+      - DB_FQDN=db
+      - DB_PORT=5432
+      - USE_SENDGRID=True
+      - SENDGRID_API_KEY=""
       - DJANGO_IS_PRODUCTION=True 
       - DJANGO_DEBUG=False
       - SECURE_SSL_REDIRECT=True

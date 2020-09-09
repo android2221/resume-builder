@@ -71,11 +71,15 @@ def preview_resume(request):
 @login_required
 def publish_resume(request):
     service = ResumeService()
-    if request.POST:
-        # TODO: Handle Failure
-        service.publish_resume_for_user(request.user)
-        messages.success(request, constants.RESUME_PUBLISHED_SUCCESS)
-        return HttpResponseRedirect(reverse('builder_page'))
+    try:
+        if request.POST:
+            service.publish_resume_for_user(request.user)
+            messages.success(request, constants.RESUME_PUBLISHED_SUCCESS)
+            return HttpResponseRedirect(reverse('builder_page'))
+    except Exception:
+            messages.error(request, constants.RESUME_PUBLISHED_SUCCESS)
+            return HttpResponseRedirect(reverse('builder_page'))
+
 
 @login_required
 def toggle_resume_active(request):
