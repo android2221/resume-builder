@@ -16,6 +16,7 @@ services:
       - /env/production.env
     restart: always
     environment: 
+      - DB_SSL_ENABLED=True
       - DJANGO_SITE_URL=seemyresume.io
       - DJANGO_IS_PRODUCTION=True 
       - DJANGO_DEBUG=False
