@@ -12,15 +12,11 @@ services:
     volumes:
       - "/etc/letsencrypt/live/seemyresume.io/cert.pem:/certs/cert.pem"
       - "/etc/letsencrypt/live/seemyresume.io/privkey.pem:/certs/privkey.pem"
+    env_file:
+      - /env/production.env
     restart: always
     environment: 
-      - DB_DBNAME=postgres
-      - DB_PASSWORD=myhardpassword
-      - DB_USERNAME=postgres
-      - DB_FQDN=db
-      - DB_PORT=5432
-      - USE_SENDGRID=True
-      - SENDGRID_API_KEY=""
+      - DB_SSL_ENABLED=True
       - DJANGO_SITE_URL=seemyresume.io
       - DJANGO_IS_PRODUCTION=True 
       - DJANGO_DEBUG=False

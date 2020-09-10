@@ -41,7 +41,8 @@ SITE_URL = ROOT_URL
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'o-9=#fc$is3jt$sv#1$28dd!d@#!nh5dshcqc7ql1ko07a-b=y'
+DEFAULT_SECRET_KEY = 'o-9=#fc$is3jt$sv#1$28dd!d@#!nh5dshcqc7ql1ko07a-b=y'
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", DEFAULT_SECRET_KEY) 
 
 # DEBUG
 DJANGO_DEBUG=os.environ.get("DJANGO_DEBUG", False)
@@ -116,6 +117,13 @@ WSGI_APPLICATION = 'resume_builder.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+DB_OPTIONS = ""
+
+DB_SSL_ENABLED = os.environ.get("DB_SSL_ENABLED", False)
+
+if DB_SSL_ENABLED:
+    DB_OPTIONS = {'sslmode': 'require'}
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -124,6 +132,7 @@ DATABASES = {
         'HOST': os.environ.get("DB_FQDN", ""),
         'PASSWORD': os.environ.get("DB_PASSWORD", ""),
         'PORT': os.environ.get("DB_PORT", ""),
+        'DB_OPTIONS': DB_OPTIONS
     }
 }
 
