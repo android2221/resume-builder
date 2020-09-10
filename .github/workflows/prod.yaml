@@ -1,8 +1,8 @@
-name: deploy-dev
+name: deploy-prod
 on: 
   push:
     branches:
-      - develop
+      - master
 jobs:
   build:
     name: Build
@@ -13,9 +13,10 @@ jobs:
         with:
           host: dev.seemyresume.io
           username: root
-          key: ${{ secrets.DEV_WEBSERVER_SSH_PRIVATE_KEY }}
+          key: ${{ secrets.PROD_WEBSERVER_SSH_PRIVATE_KEY }}
           script: "cd /app/resume-builder/ \
+          && git checkout master \
           && git fetch --all \
-          && git reset --hard origin/develop \
-          && docker-compose -f ./docker-compose.dev.yaml build \
-          && docker-compose -f ./docker-compose.dev.yaml up -d"
+          && git reset --hard origin/master \
+          && docker-compose -f ./docker-compose.prod.yaml build \
+          && docker-compose -f ./docker-compose.prod.yaml up -d"
