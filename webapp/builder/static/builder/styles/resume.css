@@ -110,8 +110,8 @@ body{
   margin-block-end: 2em;
 }
 
-.education-description .spaced,
-.position-description .spaced{
+.education-description.spaced,
+.position-description.spaced{
     margin-block-start: .5em;
 }
 
