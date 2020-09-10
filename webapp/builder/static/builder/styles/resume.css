@@ -110,6 +110,11 @@ body{
   margin-block-end: 2em;
 }
 
+.education-description .spaced,
+.position-description .spaced{
+    margin-block-start: .5em;
+}
+
 h2 {
     display: block;
     font-size: 1.5em;
