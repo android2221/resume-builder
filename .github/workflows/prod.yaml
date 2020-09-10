@@ -11,7 +11,7 @@ jobs:
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master
         with:
-          host: dev.seemyresume.io
+          host: seemyresume.io
           username: root
           key: ${{ secrets.PROD_WEBSERVER_SSH_PRIVATE_KEY }}
           script: "cd /app/resume-builder/ \
