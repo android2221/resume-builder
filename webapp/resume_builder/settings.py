@@ -117,6 +117,13 @@ WSGI_APPLICATION = 'resume_builder.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+DB_OPTIONS = ""
+
+DB_SSL_ENABLED = os.environ.get("DB_SSL_ENABLED", False)
+
+if DB_SSL_ENABLED:
+    DB_OPTIONS = {'sslmode': 'require'}
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -125,6 +132,7 @@ DATABASES = {
         'HOST': os.environ.get("DB_FQDN", ""),
         'PASSWORD': os.environ.get("DB_PASSWORD", ""),
         'PORT': os.environ.get("DB_PORT", ""),
+        'DB_OPTIONS': DB_OPTIONS
     }
 }
 
