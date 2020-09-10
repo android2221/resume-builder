@@ -111,8 +111,8 @@ body{
 }
 
 .education-description.spaced,
-.position-description.spaced{
-    margin-block-start: .5em;
+.job-description.spaced{
+    margin-block-start: .6em;
 }
 
 h2 {
