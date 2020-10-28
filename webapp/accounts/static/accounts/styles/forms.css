@@ -50,17 +50,21 @@
 }
 
 .registration-form-container .profile-field-wrapper{
-    margin-bottom: 2.2rem;
+    margin-bottom: 2.5rem;
 }
 
 @media only screen and (max-width: 450px) {
     .registration-form-container .profile-url-prefix{
       width: 100%;
-      top: inherit;
+      top: initial;
     }
 
     .registration-form-container .profile-field-wrapper{
         display: inline-block;
+    }
+
+    .registration-form-container .profile-tip{
+        margin-bottom: 2px;
     }
   }
 
