@@ -7,6 +7,7 @@ from honeypot.decorators import check_honeypot
 
 from . import constants
 from .services.account_service import AccountService
+import copy
 
 
 @check_honeypot(field_name='address1')
@@ -15,6 +16,7 @@ def register_user(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('builder_page'))
     if request.POST:
+        log_post_request(request)
         result = service.register_user(request)
         if result is True:
             # save worked, go to the builder
@@ -29,6 +31,18 @@ def register_user(request):
         form = service.build_registration_form()
         context = {'form': form, "constants": constants}
         return render(request, 'registration/register.html', context)
+
+def log_post_request(request):
+    print("logging request from register")
+    try:
+        log_dict = copy.copy(request.POST)
+        log_dict['password1'] = "XXXXXXX"
+        log_dict['password2'] = "XXXXXXX"
+        log_dict.pop('csrfmiddlewaretoken')
+        log_dict.pop('address1')
+    except:
+        return
+    print(log_dict)
 
 class CustomLoginView(auth_views.LoginView):
     template_name = 'registration/login.html'

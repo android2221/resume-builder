@@ -38,3 +38,29 @@
     padding: 0 2px;
 }
 
+.registration-form-container .profile-tip{
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.registration-form-container .profile-url-prefix{
+    position: relative;
+    top: 12px;
+    margin-right: 4px; 
+}
+
+.registration-form-container .profile-field-wrapper{
+    margin-bottom: 2.2rem;
+}
+
+@media only screen and (max-width: 450px) {
+    .registration-form-container .profile-url-prefix{
+      width: 100%;
+      top: inherit;
+    }
+
+    .registration-form-container .profile-field-wrapper{
+        display: inline-block;
+    }
+  }
+

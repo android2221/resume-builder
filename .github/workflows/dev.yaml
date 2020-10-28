@@ -1,21 +1,21 @@
-name: deploy-dev
-on: 
-  push:
-    branches:
-      - develop
-jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - name: executing remote ssh commands using ssh key
-        uses: appleboy/ssh-action@master
-        with:
-          host: dev.seemyresume.io
-          username: root
-          key: ${{ secrets.DEV_WEBSERVER_SSH_PRIVATE_KEY }}
-          script: "cd /app/resume-builder/ \
-          && git fetch --all \
-          && git reset --hard origin/develop \
-          && docker-compose -f ./docker-compose.dev.yaml build \
-          && docker-compose -f ./docker-compose.dev.yaml up -d"
+# name: deploy-dev
+# on: 
+#   push:
+#     branches:
+#       - develop
+# jobs:
+#   build:
+#     name: Build
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: executing remote ssh commands using ssh key
+#         uses: appleboy/ssh-action@master
+#         with:
+#           host: dev.seemyresume.io
+#           username: root
+#           key: ${{ secrets.DEV_WEBSERVER_SSH_PRIVATE_KEY }}
+#           script: "cd /app/resume-builder/ \
+#           && git fetch --all \
+#           && git reset --hard origin/develop \
+#           && docker-compose -f ./docker-compose.dev.yaml build \
+#           && docker-compose -f ./docker-compose.dev.yaml up -d"

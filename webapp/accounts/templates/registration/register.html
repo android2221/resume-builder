@@ -23,6 +23,32 @@
             {% csrf_token%}
             {% for field in form %}
             <div class="form-group{% if field.errors %} has-errors{% endif %}">
+
+                {% if field.name == "profile_url" %}
+
+                <div class="profile-field-wrapper">
+                    <div class="profile-tip">Create a new resume address</div>
+                    <div class="input-group">
+                        <span class="profile-url-prefix">seemyresume.io/</span>
+                        {{ field }}
+                        <div class="input-group-append">
+                            <span class="input-group-text{% if field.help_text %} has-info{% endif %}">
+                                {% if field.help_text %}
+                                <i data-toggle="tooltip" 
+                                    data-placement="top" 
+                                    data-html="true" 
+                                    data-container="body"
+                                    title="{{ field.help_text }}"
+                                    class="fa fa-info-circle icon-sm text-info">
+                                </i>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                {% else %}
+
                 <div class="input-group">
                     {{ field }}
                     <div class="input-group-append">
@@ -39,6 +65,7 @@
                     </span>
                     </div>
                 </div>
+                {% endif %}
             </div>
             <div class="errors">{{ field.errors.as_text }}</div>
             {% endfor %}
@@ -48,7 +75,7 @@
             </div>
             <div class="text-block text-center my-3">
                 <span class="font-weight-semibold">{{ constants.HAVE_ACCOUNT_MESSAGE }}</span>
-                <a href="{% url 'login' %}">{{ constants.LOGIN_OPTION }}</a>
+                <a class="nowrap" href="{% url 'login' %}">{{ constants.LOGIN_OPTION }}</a>
             </div>
         </form>
         </div>
