@@ -10,7 +10,6 @@ from .services.account_service import AccountService
 import copy
 
 
-@check_honeypot(field_name='address1')
 def register_user(request):
     service = AccountService()
     if request.user.is_authenticated:
