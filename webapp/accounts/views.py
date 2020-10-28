@@ -33,6 +33,7 @@ def register_user(request):
         return render(request, 'registration/register.html', context)
 
 def log_post_request(request):
+    print("logging request from register")
     try:
         log_dict = copy.copy(request.POST)
         log_dict['password1'] = "XXXXXXX"
