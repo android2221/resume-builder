@@ -94,3 +94,6 @@
     }
 }
 
+.nowrap {
+    white-space: nowrap;
+}

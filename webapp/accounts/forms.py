@@ -50,7 +50,7 @@ class UserRegistrationForm(auth_forms.UserCreationForm):
         if is_profile_url_duplicate:
             self.add_error("profile_url", constants.ERROR_DUPLICATE_PROFILE_URL)
 
-    field_order = ['email', 'first_name', 'last_name', 'profile_url', 'password1', 'password2']
+    field_order = ['profile_url', 'email', 'first_name', 'last_name', 'password1', 'password2']
 
 def check_duplicate_username(email):
     try:
