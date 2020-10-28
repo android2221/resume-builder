@@ -209,3 +209,29 @@ if IS_PRODUCTION == True:
 
 FEEDBACK_FORM_URL = os.environ.get("FEEDBACK_FORM_URL", "")
 SUPPORT_FORM_URL = os.environ.get("SUPPORT_FORM_URL", "")
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['console'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
