@@ -40,7 +40,7 @@
 
 .registration-form-container .profile-tip{
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 7px;
 }
 
 .registration-form-container .profile-url-prefix{
@@ -50,21 +50,19 @@
 }
 
 .registration-form-container .profile-field-wrapper{
-    margin-bottom: 2.5rem;
+    margin-bottom: 1rem;
+    display: inline-block;
 }
 
-@media only screen and (max-width: 450px) {
-    .registration-form-container .profile-url-prefix{
-      width: 100%;
-      top: initial;
+@media only screen and (max-width: 425px) {
+
+    #registration.auth.theme-one .auto-form-wrapper{
+        padding: 15px 15px 10px;
     }
 
-    .registration-form-container .profile-field-wrapper{
-        display: inline-block;
+    #registration.auth.theme-one.content-wrapper{
+        padding: .9rem 1rem;
     }
 
-    .registration-form-container .profile-tip{
-        margin-bottom: 2px;
-    }
   }
 
