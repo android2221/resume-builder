@@ -16,6 +16,9 @@ class Resume(models.Model):
     current_skills_section_title=models.CharField(max_length=500, null=True, blank=True, default='Current Skills')
     resume_jobs_section_title=models.CharField(max_length=500, null=True, blank=True, default='Experience')
     resume_education_section_title=models.CharField(max_length=500, null=True, blank=True, default='Education')
+    
+    def __str__(self):
+        return self.user.username
 
 class ResumeJob(models.Model):
     resume=models.ForeignKey(Resume, on_delete=models.CASCADE)
