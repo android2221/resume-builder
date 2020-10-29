@@ -3,7 +3,6 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import views as auth_views
 from django.shortcuts import HttpResponseRedirect, render
 from django.urls import reverse
-from honeypot.decorators import check_honeypot
 
 from . import constants
 from .services.account_service import AccountService
@@ -38,7 +37,6 @@ def log_post_request(request):
         log_dict['password1'] = "XXXXXXX"
         log_dict['password2'] = "XXXXXXX"
         log_dict.pop('csrfmiddlewaretoken')
-        log_dict.pop('address1')
     except:
         return
     print(log_dict)

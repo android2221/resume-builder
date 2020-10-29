@@ -73,7 +73,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'honeypot'
 ]
 
 MIDDLEWARE = [
@@ -208,6 +207,31 @@ if IS_PRODUCTION == True:
     X_FRAME_OPTIONS='DENY'
     SECURE_REFERRER_POLICY='origin'
 
-HONEYPOT_FIELD_NAME = 'address1'
 FEEDBACK_FORM_URL = os.environ.get("FEEDBACK_FORM_URL", "")
 SUPPORT_FORM_URL = os.environ.get("SUPPORT_FORM_URL", "")
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['console'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
