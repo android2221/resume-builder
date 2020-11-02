@@ -2,4 +2,10 @@ from django.contrib import admin
 from builder.models import Resume
 
 # Register your models here.
-admin.site.register(Resume)
+
+class ResumeAdmin(admin.ModelAdmin):
+    list_display = ('user',)
+    search_fields = ['user__username',]
+
+
+admin.site.register(Resume, ResumeAdmin)
