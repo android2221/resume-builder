@@ -23,7 +23,7 @@ handler404 = views.handler404
 
 urlpatterns = [
     path('', include('builder.urls')),
-    path('admin/', admin.site.urls),
+    path('admin-dash/', admin.site.urls),
     path('account/', include('accounts.urls')),
     path('account/', include('django.contrib.auth.urls')),
     path('<str:request_profile_url>/', views.view_resume, name='view_resume'),
