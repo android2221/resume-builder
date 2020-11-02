@@ -22,6 +22,8 @@ if PRODUCTION_SETTING == 'True':
 else:
     IS_PRODUCTION=False
 
+ADMINS = ['contact@seemyresume.io']
+
 # Activate Google Analytics
 ACTIVATE_GOOGLE_ANALYTICS=os.environ.get("ACTIVATE_GOOGLE_ANALYTICS", False)
 if ACTIVATE_GOOGLE_ANALYTICS == 'True':
