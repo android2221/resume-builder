@@ -40,25 +40,26 @@ services:
       - SUPPORT_FORM_URL=https://forms.gle/RHXq9tHKJZwTY6CS8
     depends_on:
       - db
-  # webapp-tests:
-  #   build:
-  #     context: ./
-  #     dockerfile: Dockerfile
-  #   volumes:
-  #     - "./webapp:/app/"
-  #     - "./build/docker-test-entrypoint.sh:/docker-entrypoint/docker-test-entrypoint.sh"
-  #     - "./build/wait-for-it.sh:/wait-for-it.sh"
-  #   entrypoint: sh /docker-entrypoint/docker-test-entrypoint.sh
-  #   environment: 
-  #     - DJANGO_IS_PRODUCTION=False
-  #     - DJANGO_SITE_URL=localhost:8001
-  #     - DJANGO_EMAIL_FILE_PATH=/sent_emails/
-  #     - DB_DBNAME=postgres
-  #     - DB_PASSWORD=myhardpassword
-  #     - DB_USERNAME=postgres
-  #     - DB_FQDN=db
-  #     - DB_PORT=5432
-  #     - PYTHONDONTWRITEBYTECODE=1
-  #     - PYTHONUNBUFFERED=1
-  #   depends_on:
-  #     - db
+  webapp-tests:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - "./webapp:/local-code/"
+      - "./build/docker-test-entrypoint.sh:/docker-entrypoint/docker-test-entrypoint.sh"
+      - "./build/wait-for-it.sh:/wait-for-it.sh"
+    entrypoint: sh /docker-entrypoint/docker-test-entrypoint.sh
+    working_dir: /local-code/
+    environment: 
+      - DJANGO_IS_PRODUCTION=False
+      - DJANGO_SITE_URL=localhost:8001
+      - DJANGO_EMAIL_FILE_PATH=/sent_emails/
+      - DB_DBNAME=postgres
+      - DB_PASSWORD=myhardpassword
+      - DB_USERNAME=postgres
+      - DB_FQDN=db
+      - DB_PORT=5432
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - db

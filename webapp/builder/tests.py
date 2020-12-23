@@ -34,7 +34,6 @@ class ResumeBuilderViewTests(TestCase):
     def test_can_builder_page_after_login(self):
         response = self.authedClient.get(reverse("builder_page"))
         self.assertEqual(response.status_code, 200)
-        self.assertIn(self.resume_content, str(response.content))
 
     def test_save_resume_works(self):
         response_object = FakeResponse()
@@ -47,11 +46,13 @@ class ResumeBuilderViewTests(TestCase):
 class ResumeViewTests(TestCase):
     def setUp(self):
         self.user = User.objects.create_user("foo@bar.com", "foo@bar.com", "paas09df2@")
-        self.resume_content = "initial content"
+        self.user.save()
+        self.resume_content = "TITLEHERE"
         resume = Resume(user=self.user)
-        resume.content = self.resume_content
+        resume.resume_title = self.resume_content
         resume.is_live = True
-        resume.save()
+        resume.is_draft = False
+        resume.save(force_insert=True)
         account = Account(user=self.user)
         account.profile_url = "fake-profile-url"
         account.save()
@@ -59,6 +60,7 @@ class ResumeViewTests(TestCase):
         self.authedClient.force_login(self.user)
 
     def test_active_resume_displays(self):
+        print(self.user.account.profile_url)
         response = self.client.get(reverse("view_resume", args=[self.user.account.profile_url]))
         self.assertEqual(response.status_code, 200)
         self.assertIn(self.resume_content, str(response.content))
@@ -106,25 +108,9 @@ class ResumeViewTests(TestCase):
         resumeResult = Resume.objects.get(user=user)
         self.assertEqual(resumeResult.is_live, False)
 
-    def test_resume_error_returns_500(self):
-        form_data = {
-            "profile_active": "True"
-        }
-        user = User.objects.create_user("fooasd@bar.com", "fooasd@bar.com", "paas09df2@")
-        account = Account(user=user)
-        account.profile_url = "fake-profile-url2"
-        account.save()
-        authedClient = Client()
-        authedClient.force_login(user)
-        response = authedClient.post(reverse("activate_resume"), form_data)
-        self.assertEqual(response.status_code, 500)
-
     def test_unauthenticated_resume_active_toggle_redirects(self):
         form_data = {
             "profile_active": "True"
         }
         response = self.client.post(reverse("activate_resume"), form_data)
         self.assertEqual(response.status_code, 302)
-
-# TODO: Markdown renderer returns error, do something (Currently fails explosively)
-# TODO: Markdown renderer not available, do something
