@@ -27,8 +27,8 @@ class RegistrationViewTests(TestCase):
         self.client.post(reverse("register"), self.form_data)
         user = User.objects.get(username=self.form_data["email"])
         self.assertIsInstance(user.account, Account)
-        self.assertIsInstance(user.resume, Resume)
-        self.assertEqual(user.resume.rendered_html_resume, constants.HTML_WELCOME)
+        self.assertIsInstance(user.resume_set.all()[0], Resume)
+        self.assertIsInstance(user.resume_set.all()[1], Resume)
 
     def test_registration_post_creates_account_information(self):
         self.client.post(reverse("register"), self.form_data)

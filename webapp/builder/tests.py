@@ -39,8 +39,17 @@ class ResumeBuilderViewTests(TestCase):
         response_object = FakeResponse()
         response_object.text = "<h1>rendered thing</h1>"
         requests.post = MagicMock(return_value=response_object)
-        form_data = {"content": "# My test thing"}
-        response = self.authedClient.post(reverse("save_builder"), form_data)
+        form_data = {'resume_title': 'my test title', 
+            'resume_job-TOTAL_FORMS': 1,
+            'resume_job-INITIAL_FORMS': 0,
+            'resume_job-MIN_NUM_FORMS': 0,
+            'resume_job-MAX_NUM_FORMS': 1000,
+            'resume_education-TOTAL_FORMS': 1,
+            'resume_education-INITIAL_FORMS': 0,
+            'resume_education-MIN_NUM_FORMS': 0,
+            'resume_education-MAX_NUM_FORMS': 1000,
+        } 
+        response = self.authedClient.post(reverse("builder_page"), form_data)
         self.assertRedirects(response, reverse("builder_page"))
 
 class ResumeViewTests(TestCase):
