@@ -1,6 +1,10 @@
 # Docker-compose file for local development
 version: "3.7"
 services:
+  db:
+    image: postgres
+    volumes:
+      - /storage/database:/var/lib/postgresql/data
   webapp:
     build:
       context: ./
@@ -28,3 +32,4 @@ services:
       - PYTHONUNBUFFERED=1
       - FEEDBACK_FORM_URL=https://forms.gle/vLvLk1zKH855HNdJ6
       - SUPPORT_FORM_URL=https://forms.gle/RHXq9tHKJZwTY6CS8
+    depends_on: db
