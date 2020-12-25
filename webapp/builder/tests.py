@@ -69,7 +69,11 @@ class ResumeViewTests(TestCase):
         self.authedClient.force_login(self.user)
 
     def test_active_resume_displays(self):
-        print(self.user.account.profile_url)
+        resume = Resume(user=self.user)
+        resume.resume_title = self.resume_content
+        resume.is_live = True
+        resume.is_draft = True
+        resume.save(force_insert=True)
         response = self.client.get(reverse("view_resume", args=[self.user.account.profile_url]))
         self.assertEqual(response.status_code, 200)
         self.assertIn(self.resume_content, str(response.content))

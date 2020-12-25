@@ -10,7 +10,7 @@ class ResumeService():
     def get_resume_by_profile_url(self, request_profile_url, is_draft):
         try:
             account = Account.objects.get(profile_url=request_profile_url)
-            resume = self.get_resume_for_user(account.user.id, is_draft)
+            resume = self.get_resume_for_user(account.user.id, False)
             draft_resume = self.get_resume_for_user(account.user.id, True)
             if draft_resume.is_live is True:
                 return resume
