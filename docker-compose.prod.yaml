@@ -32,4 +32,5 @@ services:
       - PYTHONUNBUFFERED=1
       - FEEDBACK_FORM_URL=https://forms.gle/vLvLk1zKH855HNdJ6
       - SUPPORT_FORM_URL=https://forms.gle/RHXq9tHKJZwTY6CS8
-    depends_on: db
+    depends_on: 
+      - db
